@@ -1,0 +1,31 @@
+/* #region body */
+body{
+    margin: 0;
+    border: 0;
+    background-color: #502940;
+}
+
+/* #endregion */
+
+/* #region navbar */
+.nav{
+    display: flex;
+    flex-direction: row;
+}
+
+.nav a{
+    color: #fff;
+}
+
+.nav ul{
+    display: flex;
+}
+/* #endregion */
+
+/* #region main */
+
+/* #endregion */
+
+/* #region footer */
+
+/* #endregion */
