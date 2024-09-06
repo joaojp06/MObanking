@@ -38,9 +38,19 @@ try:
 
                 mycursor = mydb.cursor()
 
-                if(percent_cpu > 60.0 or percent_memory > 70.0 or percent_disk.percent > 75.0):
-                    if(percent_cpu > 60.0):
-                        sql_query = "INSERT INTO Alerta VALUES (%s)"
+                if(percent_cpu > 70.0 or percent_memory > 70.0 or percent_disk.percent > 75.0):
+                    
+                    sql_query = "INSERT INTO Dado VALUES (default, %s, %s, %s)"
+                    val = [percent_cpu, percent_memory, percent_disk.percent]
+                    mycursor.execute(sql_query, val)
+                    mydb.commit()
+
+                    #select pra pegar idDado
+
+
+
+                    if(percent_cpu > 70.0):
+                        sql_query = "INSERT INTO Alerta VALUES (1, %s)"
                         val = [percent_cpu]
                         mycursor.execute(sql_query, val)
                         mydb.commit()
@@ -57,14 +67,10 @@ try:
                         mycursor.execute(sql_query, val)
                         mydb.commit()
 
-                    sql_query = "INSERT INTO dado VALUES (%s)"
-                    val = [percent_cpu, percent_memory, percent_disk.percent]
-                    mycursor.execute(sql_query, val)
-                    mydb.commit()
 
                 else:
-                    sql_query = "INSERT INTO dado VALUES (%s)"
-                    val = []
+                    sql_query = "INSERT INTO Dado VALUES (default, %s, %s, %s)"
+                    val = [percent_cpu, percent_memory, percent_disk.percent]
                     mycursor.execute(sql_query, val)
                     mydb.commit()
                     print(mycursor.rowcount, "registro inserido")
