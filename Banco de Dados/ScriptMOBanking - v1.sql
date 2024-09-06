@@ -26,7 +26,7 @@ constraint chkCargo CHECK (cargo IN('suporte','gerente'))
  
  desc Usuario;
  
- create table servidor (
+ create table Servidor (
  idServidor int, 
  fkEmpresa int, 
  primary key (idServidor, fkEmpresa),
@@ -36,14 +36,14 @@ Nome varchar(45)
 
 desc Servidor;
 
-create table Dados (
+create table Dado (
 idDados int primary key,
 porcCPU float, 
 porcMemoria float, 
 porcDisco float
 ); 
 
-create table Alertas(
+create table Alerta(
 fkServidor int, 
 fkDados int, 
  primary key (fkServidor, fkDados),
