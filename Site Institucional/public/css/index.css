@@ -7,13 +7,378 @@
 body{
     background-color: #000000;
 }
+
+.background {
+    position: relative;
+    background-image: url('../imagens/imagem_secao1.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 710px;
+}
+.background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 710px;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+header{
+    width: 100%;
+    height: 70px;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.div_logo{
+    z-index: 1;
+    width: 10%;
+    display: flex;
+    justify-content: end;
+}
+.link_logo{
+    display: flex;
+    align-items: center;
+}
+.logo{
+    height: 70px;
+}
+.links{
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+    width: 30%;
+    margin: 2%;
+}
+.links a{
+    color: #ffffff;
+    text-decoration: none;
+}
+.dados_decisoes{
+    width: 50%;
+    height: 250px;
+    z-index: 1;
+    position: absolute;
+    display: flex;
+    align-items: end;
+    margin: 120px;
+}
+.dados_decisoes h1{
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 70px;
+}
+.secao2{
+    height: 700px;
+}
+.iluminacao{
+    height: 50px;
+    width: 100%;
+    position: relative;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 84, 107, 0.17) 50%, rgba(51, 255, 0, 0) 100%);
+    top: -25px;
+    display: flex;
+    justify-content: center;
+}
+.linha{
+    position: relative;
+    top: -70px;
+    height: 200px;
+    z-index: 1;
+}
+.nomefundo{
+    display: flex;
+    align-items: center;
+}
+.sobre{
+    background-color: #000000;
+    width: 100%;
+    height: 130px;
+    position: relative;
+    z-index: 0;
+    display: flex;
+    justify-content: space-between;
+    top: -20px;
+}
+.sobre h2{
+    font-size: 60px;
+    color: #ffffff;
+    font-weight: 400;
+    width: 25%;
+    display: flex;
+    justify-content: end;
+}
+.nos{
+    background-color: #000000;
+    width: 60%;
+    height: 150px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: end;
+}
+.nos p{
+    color: #ffffff;
+    font-size: 30px;
+    width: 80%;
+}
+.pontos{
+    height: 50px;
+    margin: 10px;
+}
+.mofundo{
+    background-color: #000000;
+    width: 40%;
+    height: 470px;
+    z-index: -1;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+}
+.mofundo p{
+    font-size: 350px;
+    color: #ffffff;
+    opacity: 0.1;
+}
+.bankingfundo{
+    background-color: #000000;
+    width: 60%;
+    height: 400px;
+    display: flex;
+    justify-content: start;
+    align-items: end;
+    z-index: -1;
+}
+.bankingfundo p{
+    font-size: 250px;
+    color: #00546b;
+    opacity: 0.1;
+}
+.secao3{
+    height: 710px;
+    width: 100%;
+    margin-top: 40px;
+}
+.background2 {
+    position: relative;
+    background-image: url('../imagens/parqueservidores.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 710px;
+}
+.background2::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 710px;
+}
+.destaques{
+    width: 95%;
+    height: 700px;
+    background-color: #00000000;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    flex-direction: column;
+}
+.destaques h2{
+    font-size: 60px;
+    color: #ffffff;
+    font-weight: 400;
+}
+.diferenciais{
+    margin: 20px;
+    z-index: 1;
+    width: 60%;
+}
+.diferenciais p{
+    color: #ffffff;
+    font-size: 30px;
+    text-align: end;
+}
+.secao4{
+    width: 100%;
+    height: 650px;
+}
+.faq{
+    position: relative;
+    z-index: 1;
+}
+.faq h2{
+    color: #ffffff;
+    font-weight: 400;
+    width: 42%;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    font-size: 60px;
+    height: 100px;
+    margin: 30px;
+}
+.textofaq{
+    width: 70%;
+    display: flex;
+    justify-content: start;
+    align-items: end;
+    height: 400px;
+    flex-direction: column;
+}
+.faq p{
+    color: #ffffff;
+    font-size: 30px;
+    position: relative;
+    display: flex;
+    justify-content: end;
+    width: 80%;
+    z-index: 1;
+}
+.div_botaofaq{
+    display: flex;
+    width: 78%;
+    height: 40px;
+    margin: 20px;
+}
+.faqbot{
+    background-color: #00546b;
+    color: #ffffff;
+    width: 40%;
+    padding: 10px;
+    border: #ffffff solid 1px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.faqbot:hover{
+    background-color: #004558;
+}
+.fundotexto{
+    z-index: -1;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    height: 150px;
+}
+.fundotexto h1{
+    color: #ffffff13;
+    font-size: 200px;
+    display: flex;
+    text-align: end;
+}
+footer{
+    width: 100%;
+    height: 240px;
+    background-color: #00546b;
+}
+.infofooter{
+    width: 100%;
+    height: 210px;
+    display: flex;
+    justify-content: space-between;
+}
+.esquerdo{
+    width: 40%;
+    height: 140px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.esquerdo h2{
+    color: #ffffff;
+    font-weight: 400;
+}
+.tecnologia{
+    flex-direction: column;
+    display: flex;
+    gap: 5px;
+}
+.esquerdo p{
+    color: #ffffff;
+}
+.tecnologia button{
+    background-color: #000000;
+    color: #ffffff;
+    width: 40%;
+    padding: 10px;
+    border: #ffffff solid 1px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.tecnologia button:hover{
+    background-color: #0d0d0d;
+}
+.direito{
+    width: 40%;
+    height: 100%;
+}
+.linkscima{
+    width: 95%;
+    height: 60px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.linkscima a{
+    text-decoration: none;
+    color: #ffffff;
+}
+.linksabaixo{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.linksabaixo a{
+    text-decoration: none;
+    color: #ffffff;
+}
+.linkgit{
+    width: 100%;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.linkgit a{
+    display: flex;
+    width: 10%;
+    justify-content: center;
+    align-items: center;
+}
+.git{
+    width: 100%;
+}
+.final{
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.final h3{
+    font-weight: 300;
+    color: #ffffff;
+}
+
 @media only screen and (min-width: 600px){
+}
+@media only screen and (min-width: 768px){
+}
+@media only screen and (min-width: 992px){
+}
+@media only screen and (min-width: 1200px){
     .background {
         position: relative;
         background-image: url('../imagens/imagem_secao1.svg');
         background-size: cover;
         background-repeat: no-repeat;
-        width: 100%;
+        width: 105%;
         height: 710px;
     }
     .background::before {
@@ -21,7 +386,7 @@ body{
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%;
+        width: 105%;
         height: 710px;
         background-color: rgba(0, 0, 0, 0.7);
     }
@@ -69,10 +434,11 @@ body{
     .dados_decisoes h1{
         color: #ffffff;
         font-weight: 500;
-        font-size: 70px;
+        font-size: 65px;
     }
     .secao2{
-        height: 700px;
+        height: 600px;
+        width: 105%;
     }
     .iluminacao{
         height: 50px;
@@ -86,7 +452,7 @@ body{
     .linha{
         position: relative;
         top: -70px;
-        height: 200px;
+        height: 180px;
         z-index: 1;
     }
     .nomefundo{
@@ -95,8 +461,8 @@ body{
     }
     .sobre{
         background-color: #000000;
-        width: 100%;
-        height: 130px;
+        width: 95%;
+        height: 100px;
         position: relative;
         z-index: 0;
         display: flex;
@@ -104,7 +470,7 @@ body{
         top: -20px;
     }
     .sobre h2{
-        font-size: 60px;
+        font-size: 55px;
         color: #ffffff;
         font-weight: 400;
         width: 25%;
@@ -113,8 +479,8 @@ body{
     }
     .nos{
         background-color: #000000;
-        width: 60%;
-        height: 150px;
+        width: 65%;
+        height: 80px;
         position: relative;
         z-index: 1;
         display: flex;
@@ -122,30 +488,30 @@ body{
     }
     .nos p{
         color: #ffffff;
-        font-size: 30px;
+        font-size: 27px;
         width: 80%;
     }
     .pontos{
-        height: 50px;
+        height: 45px;
         margin: 10px;
     }
     .mofundo{
         background-color: #000000;
-        width: 40%;
-        height: 470px;
+        width: 35%;
+        height: 430px;
         z-index: -1;
         display: flex;
         justify-content: end;
         align-items: end;
     }
     .mofundo p{
-        font-size: 350px;
+        font-size: 240px;
         color: #ffffff;
         opacity: 0.1;
     }
     .bankingfundo{
         background-color: #000000;
-        width: 60%;
+        width: 50%;
         height: 400px;
         display: flex;
         justify-content: start;
@@ -153,13 +519,13 @@ body{
         z-index: -1;
     }
     .bankingfundo p{
-        font-size: 250px;
+        font-size: 210px;
         color: #00546b;
         opacity: 0.1;
     }
     .secao3{
-        height: 710px;
-        width: 100%;
+        height: 610px;
+        width: 105%;
         margin-top: 40px;
     }
     .background2 {
@@ -168,7 +534,7 @@ body{
         background-size: cover;
         background-repeat: no-repeat;
         width: 100%;
-        height: 710px;
+        height: 610px;
     }
     .background2::before {
         content: '';
@@ -176,24 +542,35 @@ body{
         top: 0;
         left: 0;
         width: 100%;
-        height: 710px;
+        height: 610px;
     }
     .destaques{
         width: 95%;
-        height: 120px;
+        height: 600px;
         background-color: #00000000;
         display: flex;
         justify-content: end;
         align-items: end;
+        flex-direction: column;
     }
     .destaques h2{
-        font-size: 60px;
+        font-size: 55px;
         color: #ffffff;
         font-weight: 400;
     }
+    .diferenciais{
+        margin: 20px;
+        z-index: 1;
+        width: 60%;
+    }
+    .diferenciais p{
+        color: #ffffff;
+        font-size: 25px;
+        text-align: end;
+    }
     .secao4{
-        width: 100%;
-        height: 650px;
+        width: 105%;
+        height: 550px;
     }
     .faq{
         position: relative;
@@ -206,31 +583,51 @@ body{
         display: flex;
         justify-content: end;
         align-items: end;
-        font-size: 60px;
-        height: 100px;
+        font-size: 50px;
+        height: 50px;
+        margin: 30px;
     }
     .textofaq{
-        width: 60%;
+        width: 65%;
         display: flex;
-        justify-content: end;
+        justify-content: start;
         align-items: end;
-        height: 450px;
+        height: 400px;
+        flex-direction: column;
     }
     .faq p{
         color: #ffffff;
-        font-size: 30px;
+        font-size: 25px;
         position: relative;
         display: flex;
         justify-content: end;
         width: 80%;
         z-index: 1;
     }
+    .div_botaofaq{
+        display: flex;
+        width: 78%;
+        height: 40px;
+        margin: 20px;
+    }
+    .faqbot{
+        background-color: #00546b;
+        color: #ffffff;
+        width: 40%;
+        padding: 10px;
+        border: #ffffff solid 1px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    .faqbot:hover{
+        background-color: #004558;
+    }
     .fundotexto{
         z-index: -1;
         display: flex;
         justify-content: end;
         align-items: end;
-        height: 150px;
+        height: 130px;
     }
     .fundotexto h1{
         color: #ffffff13;
@@ -239,7 +636,7 @@ body{
         text-align: end;
     }
     footer{
-        width: 100%;
+        width: 105%;
         height: 240px;
         background-color: #00546b;
     }
@@ -286,7 +683,7 @@ body{
         height: 100%;
     }
     .linkscima{
-        width: 100%;
+        width: 95%;
         height: 60px;
         display: flex;
         justify-content: space-around;
@@ -316,11 +713,12 @@ body{
     }
     .linkgit a{
         display: flex;
+        width: 10%;
         justify-content: center;
         align-items: center;
     }
     .git{
-        width: 10%;
+        width: 100%;
     }
     .final{
         width: 100%;
@@ -333,13 +731,4 @@ body{
         font-weight: 300;
         color: #ffffff;
     }
-}
-@media only screen and (min-width: 768px){
-    
-}
-@media only screen and (min-width: 992px){
-    
-}
-@media only screen and (min-width: 1200px){
-    
 }
