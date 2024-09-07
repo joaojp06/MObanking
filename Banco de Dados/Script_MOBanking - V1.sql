@@ -32,22 +32,22 @@ insert into Usuario values
 (121, 1820, "Jailson", "12345678902", "jailson@gmail.com", "1234567891", "suporte", 120);
  
  
- create table servidor (
+ create table Servidor (
  idServidor int, 
  fkEmpresa int, 
  primary key (idServidor, fkEmpresa),
 constraint fkServidorEmpresa foreign key (fkEmpresa) references Empresa (idEmpresa), 
 Nome varchar(45), 
-ipv4 char(12), 
-ipv6 char(32), 
-disco float
+ipv4 varchar(12), 
+ipv6 varchar(32), 
+Disco float
 );
 
 insert into Servidor values
 (1, 1820, "Aplicação", 101836158, 'fe80::4163:9071:431f:5e18%10', 256.0);
 
 create table Dado (
-idDado int primary key,
+idDado int primary key auto_increment,
 porcCPU float, 
 porcMemoria float, 
 porcDisco float
