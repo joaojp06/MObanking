@@ -46,12 +46,14 @@ fun main() {
     var continuar = true
 
     while (continuar) {
+        println()
         println("------- ${mobaking.servidor} --------\n" +
                 "1 - Verificar o estado do Servidor.\n" +
                 "2 - Ver a lista dos últimos alertas.\n" +
                 "3 - Abrir um chamado ao Suporte.\n" +
                 "4 - Ver a lista dos chamados abertos.\n" +
-                "5 - Sair.\n")
+                "5 - Gerar Relatório do Servidor\n" +
+                "6 - Sair.\n")
         print("Digite aqui: ")
         val escolha = readln().toInt()
 
@@ -73,6 +75,9 @@ fun main() {
                 println()
             }
             5 -> {
+                mobaking.gerarRelatorio()
+            }
+            6 -> {
                 println("Logout")
                 cadastro.sair()
                 println("Você foi desconectado.")

@@ -2,6 +2,10 @@ import kotlin.random.Random
 
 class MObanking(
     var servidor: String = "",
+    var limiteCpu: Int = 70,
+    var limiteRam: Int = 70,
+    var limiteArmazenamento: Int = 70,
+    var limiteRede: Int = 70
 ) {
 
     val alertas = mutableListOf<String>()
@@ -19,22 +23,22 @@ class MObanking(
         val armazenamento = Random.nextInt(1, 101)
         val rede = Random.nextInt(1, 101)
 
-        if (cpu > 70) {
+        if (cpu > limiteCpu) {
             adicionarAlerta("Alerta: O uso da CPU está em: ${cpu}%!")
         } else {
             println("Está tudo bem com o servidor o uso da CPU está em: ${cpu}%!")
         }
-        if (ram > 70) {
+        if (ram > limiteRam) {
             adicionarAlerta("Alerta: O uso da RAM está em: ${ram}%!")
         } else {
             println("Está tudo bem com o servidor o uso da RAM está em: ${ram}%!")
         }
-        if (armazenamento > 70) {
+        if (armazenamento > limiteArmazenamento) {
             adicionarAlerta("Alerta: O espaço do Armazenamento está em ${armazenamento}%!")
         } else {
             println("Está tudo bem com o servidor o uso do Armazenamento está em: ${armazenamento}%!")
         }
-        if (rede > 70) {
+        if (rede > limiteRede) {
             adicionarAlerta("Alerta: O uso da Rede está em ${rede}%!")
         } else {
             println("O uso da Rede está em: ${rede}%!")
@@ -62,15 +66,16 @@ class MObanking(
 
     fun suporte() {
 
-            println("Descreva o problema:")
-            val problema = readln()
-            mensagemSuporte.add(problema)
-            println("Chamado ao suporte registrado com a seguinte mensagem: '$problema'")
-        }
+        println("Descreva o problema:")
+        val problema = readln()
+        mensagemSuporte.add(problema)
+        println("Chamado ao suporte registrado com a seguinte mensagem: '$problema'")
+    }
 
 
     fun listarSuporte() {
 
+        println()
         println("Lista de Mensagens de Suporte:")
         println()
         if (mensagemSuporte.isEmpty()) {
@@ -80,6 +85,16 @@ class MObanking(
                 println(mensagem)
             }
         }
+    }
+    fun gerarRelatorio() {
+        println()
+        println("Relatório do Servidor:")
+        println("Servidor: $servidor")
+        println("Total de Alertas: ${alertas.size}")
+        println("Total de Mensagens de Suporte: ${mensagemSuporte.size}")
+        println()
+        listarAlertas()
+        listarSuporte()
     }
 }
 
