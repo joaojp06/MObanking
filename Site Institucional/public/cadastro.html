@@ -1,44 +1,67 @@
 <!DOCTYPE html>
 <html lang="ptbr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MobileBank - Cadastro de Usuário</title>
-
+    <title>Cadastro - Marca</title>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/cadastro.css">
-
 </head>
-
 <body>
-   
-
-    <div class="container">
-        
-        <form method="POST">
-
-            <div class="CNPJ"> CNPJ:</div>
-            <input type="password" id="CNPJ" name="CNPJ" placeholder="Insira o CNPJ">
-
-            <div class="nome">Nome da Empresa:</div>
-            <input type="text" id="nome" name="nome" placeholder="Insira o nome da Empresa">
-
-            <div class="email">Email da Empresa:</div>
-            <input type="email" id="email" name="email" placeholder="Insira o email da Empresa">
-
-            <div class="senha">Senha:</div>
-            <input type="password" id="senha" name="senha" placeholder="Informe a senha">
-
-
-            <button>Cadastrar</button>
-        </form>
-    </div>
-
+    <div class="section">
+		<div class="container">
+			<div class="form">
+				<div class="py-5">
+					<div class="pt-sm-2 text-center">
+						<h5 class="mb-0 pb-3"><span>Login</span><span>Cadastro</span></h5>
+			          	<input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
+			          	<label for="reg-log"></label>
+						<div class="card-3d-wrap mx-auto">
+							<div class="card-3d-wrapper">
+								<div class="card-front">
+									<div class="center-wrap">
+										<div class="section text-center">
+											<h4 class="mb-4 pb-3">Login</h4>
+											<div class="form-group">
+												<input type="email" id="email_input" class="form-style" placeholder="Email">
+											</div>
+											<div class="form-group mt-2">
+												<input type="password" id="senhalog_input" class="form-style" placeholder="Senha">
+											</div>
+											<button onclick="entrar()" class="btn mt-4">Login</button>
+				      					</div>
+			      					</div>
+			      				</div>
+								<div class="card-back">
+									<div class="center-wrap">
+										<div class="section text-center">
+											<h4 class="mb-3 pb-3">Cadastro</h4>
+											<div class="form-group">
+												<input type="text" id="nomeCad_input" class="form-style" placeholder="Nome da Marca">
+											</div>	
+											<div class="form-group mt-2">
+												<input type="tel" id="telefoneCad_input" class="form-style" placeholder="Telefone/Celular">
+											</div>	
+                                            <div class="form-group mt-2">
+												<input type="email" id="emailCad_input" class="form-style" placeholder="Email da marca">
+											</div>
+											<div class="form-group mt-2">
+												<input type="password" id="senha_input" class="form-style" placeholder="Senha">
+											</div>
+											<button onclick="cadastrar()" class="btn mt-4">Cadastrar</button>
+				      					</div>
+			      					</div>
+			      				</div>
+			      			</div>
+			      		</div>
+			      	</div>
+		      	</div>
+	      	</div>
+	    </div>
+	</div>
 </body>
-
 </html>
-
 <script>
-
 
 </script>
