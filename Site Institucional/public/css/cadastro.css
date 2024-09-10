@@ -178,14 +178,15 @@ display: none;
   letter-spacing: 1px;
   display: inline-flex;
   align-items: center;
-  background-color: #ffffff;
-  color: #000000;
+  background-color: #00546b;
+  color: #ffffff;
   margin: 0;
   cursor: pointer;
+  border: #ffffff solid 1px;
 }
 .botao:hover{  
-  background-color: #c1c1c1;
-  color: #000000;
+  background-color: #003e4f;
+  color: #ffffff;
 }
 
 @media only screen and (min-width: 1920px){
@@ -360,14 +361,15 @@ display: none;
     letter-spacing: 1px;
     display: inline-flex;
     align-items: center;
-    background-color: #ffffff;
-    color: #000000;
+    background-color: #00546b;
+    color: #ffffff;
     margin: 0;
     cursor: pointer;
+    border: #ffffff solid 1px;
   }
   .botao:hover{  
-    background-color: #c1c1c1;
-    color: #000000;
+    background-color: #003e4f;
+    color: #ffffff;
   }
 }
 @media only screen and (max-width: 1200px){
@@ -542,14 +544,15 @@ display: none;
     letter-spacing: 1px;
     display: inline-flex;
     align-items: center;
-    background-color: #ffffff;
-    color: #000000;
+    background-color: #00546b;
+    color: #ffffff;
     margin: 0;
     cursor: pointer;
+    border: #ffffff solid 1px;
   }
   .botao:hover{  
-    background-color: #c1c1c1;
-    color: #000000;
+    background-color: #003e4f;
+    color: #ffffff;
   }
 }
 @media only screen and (max-width: 992px){
@@ -724,14 +727,15 @@ display: none;
     letter-spacing: 1px;
     display: inline-flex;
     align-items: center;
-    background-color: #ffffff;
-    color: #000000;
+    background-color: #00546b;
+    color: #ffffff;
     margin: 0;
     cursor: pointer;
+    border: #ffffff solid 1px;
   }
   .botao:hover{  
-    background-color: #c1c1c1;
-    color: #000000;
+    background-color: #003e4f;
+    color: #ffffff;
   }
 }
 @media only screen and (max-width: 768px){
@@ -906,14 +910,15 @@ display: none;
     letter-spacing: 1px;
     display: inline-flex;
     align-items: center;
-    background-color: #ffffff;
-    color: #000000;
+    background-color: #00546b;
+    color: #ffffff;
     margin: 0;
     cursor: pointer;
+    border: #ffffff solid 1px;
   }
   .botao:hover{  
-    background-color: #c1c1c1;
-    color: #000000;
+    background-color: #003e4f;
+    color: #ffffff;
   }
 }
 @media only screen and (max-width: 600px){
@@ -1088,13 +1093,14 @@ display: none;
     letter-spacing: 1px;
     display: inline-flex;
     align-items: center;
-    background-color: #ffffff;
-    color: #000000;
+    background-color: #00546b;
+    color: #ffffff;
     margin: 0;
     cursor: pointer;
+    border: #ffffff solid 1px;
   }
   .botao:hover{  
-    background-color: #c1c1c1;
-    color: #000000;
+    background-color: #003e4f;
+    color: #ffffff;
   }
 }
