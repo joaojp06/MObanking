@@ -50,16 +50,18 @@ create table Dado (
 idDado int primary key auto_increment,
 porcCPU float, 
 porcMemoria float, 
-porcDisco float
+porcDisco float,
+dataHora datetime default current_timestamp
 ); 
 
 
 create table Alerta(
+idAlerta int,
 fkServidor int, 
 fkDado int, 
- primary key (fkServidor, fkDado),
+ primary key (idAlerta,fkServidor,fkDado),
 constraint fkAlertaServidor foreign key (fkServidor) references Servidor (idServidor), 
 constraint fkAlertaDado foreign key (fkDado) references Dado (idDado), 
-descricao varchar(45), 
-dataHora datetime
+descricao varchar(250), 
+dataHora datetime default current_timestamp
 );
