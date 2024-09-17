@@ -64,16 +64,16 @@ while i < 10:
 
                 if(percent_cpu > 0.1 or percent_memory > 0.1 or percent_disk > 0.1):
                     
-                    sql_query = "INSERT INTO Dado VALUES (default, %s, %s, %s, current_timestamp())"
+                    sql_query = "INSERT INTO Captura VALUES (default, %s, %s, %s, current_timestamp())"
                     val = [percent_cpu, percent_memory, percent_disk]
                     mycursor.execute(sql_query, val)
                     mydb.commit()
 
                     #select pra pegar idDado
-                    result = mycursor.execute("SELECT idDado FROM Dado ORDER BY idDado DESC LIMIT 1;")
-                    idDado = mycursor.fetchall()
-                    idDado = idDado[0][0]
-                    print(idDado)
+                    result = mycursor.execute("SELECT idCaptura FROM Captura ORDER BY idCaptura DESC LIMIT 1;")
+                    idCaptura = mycursor.fetchall()
+                    idCaptura = idCaptura[0][0]
+                    print(idCaptura)
                     
                     if(percent_cpu > 0.1, percent_memory > 0.1, percent_disk > 0.1):
                         descricao = f"Todos os componentes estão em risco! CPU: {percent_cpu}; RAM: {percent_memory}; DISK: {percent_disk}."
@@ -91,14 +91,14 @@ while i < 10:
                         descricao = f"Porcentual de uso de disco está em risco! disk: {percent_disk}"
                         
 
-                    sql_query = "INSERT INTO Alerta VALUES (1, 1, %s, %s, current_timestamp());"
-                    val = [idDado, descricao]
+                    sql_query = "INSERT INTO Alerta VALUES (default, 1, %s, %s, current_timestamp());"
+                    val = [idCaptura, descricao]
                     mycursor.execute(sql_query, val)
                     mydb.commit()
 
 
                 else:
-                    sql_query = "INSERT INTO Dado VALUES (default, %s, %s, %s, current_timestamp())"
+                    sql_query = "INSERT INTO Captura VALUES (default, %s, %s, %s, current_timestamp())"
                     val = [percent_cpu, percent_memory, percent_disk]
                     mycursor.execute(sql_query, val)
                     mydb.commit()
