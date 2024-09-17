@@ -21,7 +21,7 @@ class MObanking(
         val cpu = Random.nextInt(1, 101)
         val ram = Random.nextInt(1, 101)
         val armazenamento = Random.nextInt(1, 101)
-        val rede = Random.nextInt(1, 101)
+        val rede = Random.nextInt(10, 1010)
 
         if (cpu > limiteCpu) {
             adicionarAlerta("Alerta: O uso da CPU está em: ${cpu}%!")
@@ -39,9 +39,9 @@ class MObanking(
             println("Está tudo bem com o servidor o uso do Armazenamento está em: ${armazenamento}%!")
         }
         if (rede > limiteRede) {
-            adicionarAlerta("Alerta: O uso da Rede está em ${rede}%!")
+            adicionarAlerta("Alerta: O uso da Rede está em ${rede}MB/s!")
         } else {
-            println("O uso da Rede está em: ${rede}%!")
+            println("O uso da Rede está em: ${rede}MB/s!")
         }
     }
 
