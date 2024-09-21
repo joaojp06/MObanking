@@ -1,0 +1,13 @@
+@keyframes menu{
+    0%{
+        margin-left: 37%;
+    }
+
+    90%{
+        margin-left: 10%;
+    }
+
+    100%{
+        margin-left: 0%;
+    }
+}

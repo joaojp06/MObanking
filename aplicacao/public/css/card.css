@@ -4,6 +4,18 @@ body{
     font-family: "Allerta", sans-serif;
 }
 
+
+/* 
+
+----------- CSS PADRÃO ---------- 
+
+Copie a seção abaixo em todas as página da dash, user, config user, etc
+
+*/
+
+
+/* ----------- MENU ---------- */
+
 .titulo-menu{
     align-self: flex-start;
     font-size: 15px;
@@ -20,18 +32,24 @@ body{
     margin: 2% 1%;
     border-radius: 35px;
     display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-direction: column;
     transition: all 0.8s;
+    flex-direction: column;
 }
 
 .menu-lateral ul li{
     padding: 3%;
     transition: all 0.5s;
+    width: 10%;
 }
 
-.menu-lateral ul li:hover{
+.menu-lateral ul{
+    position: absolute;
+    top: 15%;
+    left: 3%;
+}
+
+
+.menu-lateral:hover li:hover{
     background-image: linear-gradient(158deg, black, #1f1f1f00);
     border: 1px solid white;
     border-radius: 15px;
@@ -39,24 +57,35 @@ body{
 }
 
 .titulo-link-menu{
-    transition: all 0.5s;
+    transition: all 0.3s ease-in-out;
 }
 .name-menu{
-    transition: all 0.5s;
+    transition: all 0.3s ease-in-out;
 }
-.menu-lateral .titulo-link-menu,
-.menu-lateral .name-menu,
+.menu-lateral .titulo-link-menu{
+    opacity: 0;
+}
 .titulo-menu{
     opacity: 0;
-    display: none;
 }
-.menu-lateral:hover .titulo-link-menu,
-.menu-lateral:hover .titulo-menu{
+.menu-lateral .name-menu{
+    transition: all 0.1s;
+    position: absolute;
+    height: auto;
+    bottom: -27%;
+    left: 4%;
+    opacity: 0;
+}
+.menu-lateral:hover .titulo-link-menu{
     display: block;
     opacity: 1;
 }
+.menu-lateral:hover .titulo-menu{
+    opacity: 1;
+}
+
 .menu-lateral:hover .name-menu{
-    display: flex;
+    opacity: 1;
 }
 
 .menu-lateral:hover{
@@ -67,16 +96,14 @@ body{
     display: flex;
     align-items: center;
     gap: 25px;
+    color: white;
+    text-decoration: none;
 }
 
 .menu-lateral li{
     margin-bottom: 20px;
 }
 
-.menu-lateral ul{
-    padding: 10%;
-    margin-top: 20%;
-}
 
 .icon-menu i{
     font-size: 35px;        
@@ -98,3 +125,21 @@ body{
 .name-menu h2{
     color: white;
 }
+
+
+/* ---------- Configuração conteudo ---------- */
+
+.conteudo{
+    width: 85vw;
+    height: 92vh;
+    margin: 2% 0%;
+}
+
+.conteudo h1{
+
+}
+
+/* ----------- FIM CSS PADRÃO FIM ----------  */
+
+
+

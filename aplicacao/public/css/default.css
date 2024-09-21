@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Allerta&display=swap');
+
+body{
+    font-family: "Allerta", sans-serif;
+}
+
+
+/* 
+
+----------- CSS PADRÃO ---------- 
+
+Copie a seção abaixo em todas as página da dash, user, config user, etc
+
+*/
+
+body {
+    scrollbar-width: thin; /* Define a largura do scrollbar */
+    scrollbar-color: #2c2c2c transparent; /* Cor do thumb e do track */
+}
+
+/* Estilo para o Chrome, Edge e Safari */
+body::-webkit-scrollbar {
+    width: 10px; /* Largura do scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+    background: transparent; /* Cor do track */
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #2c2c2c; /* Cor do thumb */
+    border-radius: 10px; /* Cantos arredondados */
+    border: 2px solid transparent; /* Espaço ao redor do thumb */
+}
+
+
+/* ----------- MENU ---------- */
+
+.titulo-menu{
+    align-self: flex-start;
+    font-size: 15px;
+    font-weight: 100;
+    padding: 5% 13%;
+    margin-top: 12%;
+    color: white;
+}
+
+.menu-lateral{
+    width: 7vw;
+    background-image: linear-gradient(to bottom, #16151A, #34333B);
+    height: 92vh;
+    margin: 2% 1%;
+    border-radius: 35px;
+    display: flex;
+    transition: all 0.8s;
+    flex-direction: column;
+}
+
+.menu-lateral ul li{
+    padding: 3%;
+    transition: all 0.5s;
+    width: 10%;
+}
+
+.menu-lateral ul{
+    position: absolute;
+    top: 15%;
+    left: 3%;
+}
+
+
+.menu-lateral:hover li:hover{
+    background-image: linear-gradient(158deg, black, #1f1f1f00);
+    border: 1px solid white;
+    border-radius: 15px;
+    width: 100%;
+}
+
+.titulo-link-menu{
+    transition: all 1s ease-in-out;
+}
+.name-menu{
+    transition: all 1s ease-in-out;
+}
+.menu-lateral .titulo-link-menu{
+    opacity: 0;
+}
+.titulo-menu{
+    opacity: 0;
+}
+.menu-lateral .name-menu{
+    transition: all 0.1s;
+    position: absolute;
+    height: auto;
+    bottom: -27%;
+    left: 4%;
+    opacity: 0;
+}
+.menu-lateral:hover .titulo-link-menu{
+    display: block;
+    opacity: 1;
+}
+.menu-lateral:hover .titulo-menu{
+    opacity: 1;
+}
+
+.menu-lateral:hover .name-menu{
+    opacity: 1;
+}
+
+.menu-lateral:hover{
+    width: 15vw;
+}
+
+.menu-lateral li a{
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    color: white;
+    text-decoration: none;
+}
+
+.menu-lateral li{
+    margin-bottom: 20px;
+}
+
+
+.icon-menu i{
+    font-size: 35px;        
+    color: white;
+}
+
+.titulo-link-menu{
+    font-size: 18px;
+    color: white;
+}
+
+.name-menu{
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 20%;
+}
+
+.name-menu h2{
+    color: white;
+}
+
+
+/* ---------- Configuração conteudo ---------- */
+
+.conteudo{
+    width: 85vw;
+}
+
+
+/* ----------- FIM CSS PADRÃO FIM ----------  */
+
+
+
