@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Allerta&display=swap');
 
-body{
+body {
     font-family: "Allerta", sans-serif;
 }
 
@@ -16,7 +16,7 @@ Copie a seção abaixo em todas as página da dash, user, config user, etc
 
 /* ----------- MENU ---------- */
 
-.titulo-menu{
+.titulo-menu {
     align-self: flex-start;
     font-size: 15px;
     font-weight: 100;
@@ -25,7 +25,7 @@ Copie a seção abaixo em todas as página da dash, user, config user, etc
     color: white;
 }
 
-.menu-lateral{
+.menu-lateral {
     width: 7vw;
     background-image: linear-gradient(to bottom, #16151A, #34333B);
     height: 92vh;
@@ -36,63 +36,66 @@ Copie a seção abaixo em todas as página da dash, user, config user, etc
     flex-direction: column;
 }
 
-.menu-lateral ul li{
+.menu-lateral ul li {
     padding: 3%;
     transition: all 0.5s;
     width: 10%;
 }
 
-.menu-lateral ul{
+.menu-lateral ul {
     position: absolute;
     top: 15%;
     left: 3%;
 }
 
 
-.menu-lateral:hover li:hover{
+.menu-lateral:hover li:hover {
     background-image: linear-gradient(158deg, black, #1f1f1f00);
     border: 1px solid white;
     border-radius: 15px;
     width: 100%;
 }
 
-.titulo-link-menu{
+.titulo-link-menu {
     transition: all 0.3s ease-in-out;
 }
-.name-menu{
+
+.name-menu {
     transition: all 0.3s ease-in-out;
 }
-.menu-lateral .titulo-link-menu{
+
+.menu-lateral .titulo-link-menu {
     opacity: 0;
 }
-.titulo-menu{
+
+.titulo-menu {
     opacity: 0;
 }
-.menu-lateral .name-menu{
+
+.menu-lateral .name-menu {
     transition: all 0.1s;
-    position: absolute;
-    height: auto;
-    bottom: -27%;
-    left: 4%;
+    justify-content: center;
     opacity: 0;
 }
-.menu-lateral:hover .titulo-link-menu{
+
+.menu-lateral:hover .titulo-link-menu {
     display: block;
     opacity: 1;
 }
-.menu-lateral:hover .titulo-menu{
+
+.menu-lateral:hover .titulo-menu {
     opacity: 1;
 }
 
-.menu-lateral:hover .name-menu{
+.menu-lateral:hover .name-menu {
     opacity: 1;
 }
 
-.menu-lateral:hover{
-    width: 15vw;
+.menu-lateral:hover {
+    width: 20vw;
 }
 
-.menu-lateral li a{
+.menu-lateral li a {
     display: flex;
     align-items: center;
     gap: 25px;
@@ -100,46 +103,222 @@ Copie a seção abaixo em todas as página da dash, user, config user, etc
     text-decoration: none;
 }
 
-.menu-lateral li{
+.menu-lateral li {
     margin-bottom: 20px;
 }
 
 
-.icon-menu i{
-    font-size: 35px;        
+.icon-menu i {
+    font-size: 35px;
     color: white;
 }
 
-.titulo-link-menu{
+.titulo-link-menu {
     font-size: 18px;
     color: white;
 }
 
-.name-menu{
+.name-menu {
     height: 100%;
     display: flex;
     align-items: flex-end;
     margin-bottom: 20%;
 }
 
-.name-menu h2{
+.name-menu h2 {
     color: white;
 }
 
 
 /* ---------- Configuração conteudo ---------- */
 
-.conteudo{
+.conteudo {
     width: 85vw;
     height: 92vh;
-    margin: 2% 0%;
-}
-
-.conteudo h1{
-
+    margin: 2% 2%;
 }
 
 /* ----------- FIM CSS PADRÃO FIM ----------  */
 
 
 
+
+/* ----------- CARDS SEÇÃO ----------  */
+
+.conteudo h1 {
+    font-size: 45px;
+    padding-bottom: 3%;
+}
+.back-image-card{
+    width: 67%;
+    height: 100%;
+    background-image: url(../imagens/backCard.png);
+    background-size: cover;
+    border-radius: 15px;
+    position: absolute;
+    top: 0;
+    right: 0;
+
+}
+.card {
+    width: 38vw;
+    height: 32vh;
+    background: linear-gradient(155deg, black, #414141);
+    border-radius: 15px;
+    color: white;
+    padding: 5% 0%;
+    cursor: pointer;
+    position: relative;
+
+    & h2 {
+        font-size: 20px;
+        margin-left: 5%;
+        margin-bottom: 2%;
+    }
+
+    & .indicador-titulo {
+        display: flex;
+        flex-direction: column;
+        gap: 2px 0px;
+    }
+
+    & .indicador-pai {
+        display: flex;
+        align-items: center;
+        padding-bottom: 1%;
+        justify-content: space-between;
+
+        & span {
+            font-size: 11px;
+            padding-bottom: 3px;
+        }
+
+        & img {
+            width: 25%;
+        }
+    }
+
+    & .indicadores-box {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        margin-left: 4%;
+        border-radius: 1px;
+    }
+}
+
+
+
+.card-grid-pai {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* Três colunas de igual largura */
+    gap: 20px;
+    /* Espaçamento entre os cards, ajuste conforme necessário */
+}
+
+
+
+/* ---------- MODAL ---------- */
+
+.modal {
+    width: 50vw;
+    height: 50vh;
+    background-color: #d9d9d9;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-height: 50vh;
+    overflow: auto;
+    border-radius: 12px;
+    padding: 2%;
+
+    & i {
+        position: fixed;
+        right: 2%;
+        top: 3%;
+        font-size: 30px;
+        color: rgb(0, 0, 0);
+        cursor: pointer;
+
+    }
+
+    & h1 {
+        padding: 3% 5%;
+        font-size: 35px;
+    }
+
+    & h2 {
+        font-size: 20px;
+        text-align: center;
+    }
+
+}
+
+.modal::-webkit-scrollbar {
+    width: 16px;
+    /* Largura da barra de rolagem */
+    height: 16px;
+    /* Altura da barra de rolagem horizontal */
+}
+
+.modal::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    /* Cor do trilho da barra de rolagem */
+    border-radius: 10px;
+    /* Borda arredondada do trilho */
+}
+
+.modal::-webkit-scrollbar-thumb {
+    background-color: #2c2c2c;
+    /* Cor do polegar da barra de rolagem */
+    border-radius: 10px;
+    /* Borda arredondada do polegar */
+}
+
+.modal::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+    /* Cor do polegar ao passar o mouse */
+}
+
+.simulacao {
+    width: 30vw;
+    height: 25vh;
+    background-color: #16151A;
+    color: white;
+    text-align: center;
+    border-radius: 30px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.simulacao2 {
+    width: 15vw;
+    height: 20vh;
+    background-color: #16151A;
+    color: white;
+    text-align: center;
+    border-radius: 30px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.grafico-box {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 5%;
+}
+
+.blur-grid {
+    filter: blur(5px);
+    /* Aplica o desfoque */
+    transition: filter 0.3s ease-in-out;
+    /* Transição suave do desfoque */
+}
