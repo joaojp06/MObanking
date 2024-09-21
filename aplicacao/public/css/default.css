@@ -90,11 +90,8 @@ body::-webkit-scrollbar-thumb {
 }
 .menu-lateral .name-menu{
     transition: all 0.1s;
-    position: absolute;
-    height: auto;
-    bottom: -27%;
-    left: 4%;
     opacity: 0;
+    justify-content: center;
 }
 .menu-lateral:hover .titulo-link-menu{
     display: block;
@@ -109,7 +106,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .menu-lateral:hover{
-    width: 15vw;
+    width: 20vw;
 }
 
 .menu-lateral li a{
@@ -150,9 +147,10 @@ body::-webkit-scrollbar-thumb {
 /* ---------- Configuração conteudo ---------- */
 
 .conteudo{
+    height: 92vh;
     width: 85vw;
+    margin: 2% 2%;
 }
-
 
 /* ----------- FIM CSS PADRÃO FIM ----------  */
 
