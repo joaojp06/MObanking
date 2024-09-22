@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ptbr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOBANKING</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="shortcut icon" href="../imagens/logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/usuarioConfig.css">
+</head>
+
+<body>
+    <div id="frame" class="frame-aplicacao" style="display: flex;">
+        <nav class="menu-lateral">
+            <h2 class="titulo-menu">Menu</h2>
+            <ul>
+                <li>
+                    <a href="">
+                        <span class="icon-menu"><i class="fa-solid fa-server"></i></span>
+                        <span class="titulo-link-menu">Máquinas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <span class="icon-menu"><i class="fa-solid fa-chart-simple"></i></span>
+                        <span class="titulo-link-menu">Gráficos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
+                        <span class="titulo-link-menu">Funcionários</span>
+                    </a>
+                </li>
+
+            </ul>
+
+
+            <div class="name-menu">
+                <h2>Maikon Douglas</h2>
+            </div>
+        </nav>
+        <div class="conteudo">
+
+            <h1>Usuário</h1>
+
+            <span class="title-dados-user">Dados do usuário</span>
+            <span class="linha-title-dados"></span>
+
+            <div class="form-box">
+                <form action="">
+                    <label for="email">
+                        E-mail 
+                        <input id="email" value="maikon@gmail.com" type="email">
+                    </label>
+                    <label for="nome">
+                        Nome 
+                        <input id="nome" value="Maikon Douglas Da Silva" type="text">
+                    </label>
+                    <label for="telefone">
+                        telefone 
+                        <input id="telefone" value="(11) 98733-3627" type="text">
+                    </label>
+                    <label for="telefone">
+                        Senha 
+                        <input id="telefone" value="3244223" type="password">
+                    </label>
+                    <label for="telefone">
+                        Confirmar senha 
+                        <input id="telefone" value="3244223" type="password">
+                    </label>
+
+                    
+                </form>
+                <button onclick="confirmar()">Editar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="confirmarModal" id="confirmarModal">
+        <h2>Deseja realmente editar seus dados ?</h2>
+        <div>
+            <button onclick="fechar()" class="simButon">Sim</button>
+            <button onclick="fechar()" class="naoButon">Não</button>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+
+    function confirmar(){
+
+        confirmarModal.style.top = '0'
+        const frame = document.getElementById('frame');
+        frame.classList.add('blur-grid')
+
+    }
+
+    function fechar(){
+
+        const frame = document.getElementById('frame');
+        frame.classList.remove('blur-grid')
+        confirmarModal.style.top = '-20%'
+    }
+
+</script>
