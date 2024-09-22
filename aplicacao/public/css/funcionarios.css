@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Allerta&display=swap');
 
-
 body {
     font-family: "Allerta", sans-serif;
 }
@@ -160,73 +159,139 @@ body::-webkit-scrollbar-thumb {
 
 /* ---------- Configuração conteudo ---------- */
 
-/* espaço com vw e vh
-   tamanho de fonte: px 
-   tamanho de div: vw e vh*/
-
 .conteudo {
     height: 92vh;
     width: 85vw;
     margin: 2% 2%;
+}
+
+/* ----------- FIM CSS PADRÃO FIM ----------  */
 
 
+.conteudo {
     & h1 {
         font-size: 45px;
-        padding-bottom: 3%;
+        padding-bottom: 2%;
         font-family: "Allerta", sans-serif;
         font-weight: 400;
         font-style: normal;
     }
+}
 
-    & b {
-        font-family: "Allerta", sans-serif;
-        font-size: 25px;
+.botao-adicionar {
+
+    & img {
+        width: 20%;
     }
 
-}
-
-.input1 {
-    margin-left: 10px;
-    margin-right: 5px;
-    padding-left: 4%;
-    width: 10vw;
-    height: 5vh;
-    border-radius: 17px;
-    color: white;
-    background: radial-gradient(circle, #3D3C46, #16151A);
-    font-family: "Allerta", sans-serif;
-
-}
-
-.input2 {
-    margin-left: 5px;
-    padding-left: 4%;
-    width: 10vw;
-    height: 5vh;
-    border-radius: 17px;
-    background: radial-gradient(circle, #3D3C46, #16151A);
-    color: white;
-    font-family: "Allerta", sans-serif;
-    
-}
-
-/* .custom-date::-webkit-calendar-picker-indicator {
-    opacity: 0;
-
-  } */
-
-.grafico {
-    background-color: #1A191E;
-    width: 75vw;
-    height: 40vh;
-    border-radius: 30px;
-    margin-top: 1%;
-    margin-bottom: 3%;
+    cursor: pointer;
+    font-size: medium;
+    gap: 8%;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10vw;
+    height: 7vh;
+    border-radius: 15px;
+    font-family: "Allerta",
+    sans-serif;
+    background: linear-gradient(to left, #3D3C46, #16151A);
     color: white;
+    margin-top: 0%;
+    margin-bottom: 1%;
+    border: 1px solid white;
+
+}
+
+.botao-adicionar:hover {
+    background-image: linear-gradient( 158deg, black, #1f1f1f6d);
+    border: 1px solid white;
+    border-radius: 15px;
+    /* width: 100%; */
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6%;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    background: linear-gradient(to left, #38383c, #16151A);
+    color: white;
+    margin-bottom: 1%;
+}
+
+
+.centro {
+    font-size: x-small;
+    display: flex;
+    /* Flexbox para os elementos centrais */
+    gap: 60%;
+    /* Espaço entre os elementos centrais */
+}
+
+.opcoes {
+    display: flex;
+    gap: 10%;
+    margin-right: 1%;
+}
+
+.editar {
+    & img {
+        width: 70%;
+    }
+    display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+    padding-top: 4%;
+}
+
+.editar:hover {
+    background-image: linear-gradient(  black, #1f1f1f00);
+    /* border: 1px solid white; */
+    border-radius: 15px;
+    /* width: 100%; */
+}
+
+.excluir {
+    & img {
+        width: 70%;
+    }
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding-left: 5%;
+    padding-right: 5%;
+    /* padding-top: 4%; */
+
+}
+
+.excluir:hover {
+    background-image: linear-gradient(  black, #1f1f1f00);
+    /* border: 1px solid white; */
+    border-radius: 15px;
+    /* width: 100%; */
 }
 
 
-/* ----------- FIM CSS PADRÃO FIM ----------  */
+
+.lista {
+    width: 96%;
+    height: 73%;
+    overflow-y: auto;
+    border: 1px solid #000000;
+    border-radius: 20px;
+    padding: 2%;
+    /* Espaçamento interno */
+}
+
+.lista::-webkit-scrollbar {
+    width: 16px;
+    /* Largura da barra de rolagem */
+    height: 16px;
+    /* Altura da barra de rolagem horizontal */
+}
