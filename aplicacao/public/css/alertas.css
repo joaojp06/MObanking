@@ -1,0 +1,312 @@
+@import url('https://fonts.googleapis.com/css2?family=Allerta&display=swap');
+
+body {
+    font-family: "Allerta", sans-serif;
+}
+
+
+/* 
+
+----------- CSS PADRÃO ---------- 
+
+Copie a seção abaixo em todas as página da dash, user, config user, etc
+
+*/
+
+body {
+    scrollbar-width: thin;
+    /* Define a largura do scrollbar */
+    scrollbar-color: #2c2c2c transparent;
+    /* Cor do thumb e do track */
+}
+
+/* Estilo para o Chrome, Edge e Safari */
+body::-webkit-scrollbar {
+    width: 10px;
+    /* Largura do scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+    background: transparent;
+    /* Cor do track */
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #2c2c2c;
+    /* Cor do thumb */
+    border-radius: 10px;
+    /* Cantos arredondados */
+    border: 2px solid transparent;
+    /* Espaço ao redor do thumb */
+}
+
+
+/* ----------- MENU ---------- */
+
+.titulo-menu {
+    align-self: flex-start;
+    font-size: 15px;
+    font-weight: 100;
+    padding: 5% 13%;
+    margin-top: 12%;
+    color: white;
+}
+
+.menu-lateral {
+    width: 7vw;
+    background-image: linear-gradient(to bottom, #16151A, #34333B);
+    height: 92vh;
+    margin: 2% 1%;
+    border-radius: 35px;
+    display: flex;
+    transition: all 0.8s;
+    flex-direction: column;
+}
+
+.menu-lateral ul li {
+    padding: 3%;
+    transition: all 0.5s;
+    width: 10%;
+}
+
+.menu-lateral ul {
+    position: absolute;
+    top: 15%;
+    left: 3%;
+}
+
+
+.menu-lateral:hover li:hover {
+    background-image: linear-gradient(158deg, black, #1f1f1f00);
+    border: 1px solid white;
+    border-radius: 15px;
+    width: 100%;
+}
+
+.titulo-link-menu {
+    transition: all 1s ease-in-out;
+}
+
+.name-menu {
+    transition: all 1s ease-in-out;
+}
+
+.menu-lateral .titulo-link-menu {
+    opacity: 0;
+}
+
+.titulo-menu {
+    opacity: 0;
+}
+
+.menu-lateral .name-menu {
+    transition: all 0.1s;
+    opacity: 0;
+    justify-content: center;
+}
+
+.menu-lateral:hover .titulo-link-menu {
+    display: block;
+    opacity: 1;
+}
+
+.menu-lateral:hover .titulo-menu {
+    opacity: 1;
+}
+
+.menu-lateral:hover .name-menu {
+    opacity: 1;
+}
+
+.menu-lateral:hover {
+    width: 20vw;
+}
+
+.menu-lateral li a {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    color: white;
+    text-decoration: none;
+}
+
+.menu-lateral li {
+    margin-bottom: 20px;
+}
+
+
+.icon-menu i {
+    font-size: 35px;
+    color: white;
+}
+
+.titulo-link-menu {
+    font-size: 18px;
+    color: white;
+}
+
+.name-menu {
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 20%;
+}
+
+.name-menu h2 {
+    color: white;
+}
+
+
+/* ---------- Configuração conteudo ---------- */
+
+.conteudo {
+    height: 92vh;
+    width: 85vw;
+    margin: 2% 2%;
+}
+
+/* ----------- FIM CSS PADRÃO FIM ----------  */
+
+
+.botao-filtro {
+
+    cursor: pointer;
+    font-size: medium;
+    gap: 8%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10vw;
+    height: 7vh;
+    border-radius: 15px;
+    font-family: "Allerta",
+        sans-serif;
+    background: linear-gradient(to left, #3D3C46, #16151A);
+    color: white;
+    margin-top: 0%;
+    margin-bottom: 1%;
+    border: 1px solid white;
+
+}
+
+.botao-filtro:hover {
+    background-image: linear-gradient(158deg, black, #1f1f1f6d);
+    border: 1px solid white;
+    border-radius: 15px;
+}
+
+.conteudo {
+
+    & h1 {
+        font-size: 45px;
+        padding-bottom: 3%;
+    }
+
+    & span {
+        color: rgba(0, 0, 0, 0.703);
+        font-size: 85%;
+    }
+
+}
+
+.linha-title-atividades {
+    width: 45vw;
+    height: 1px;
+    display: block;
+    background: #2c2c2c;
+    margin-bottom: 3%;
+}
+
+.titulo-data {
+    width: 12.9vw;
+}
+
+.titulo-identificador {
+    width: 17vw;
+}
+
+.titulo-status{
+    width: 13.5vw;
+}
+
+.colunas {
+
+    & p {
+        font-size: 85%;
+        color: rgba(0, 0, 0, 0.703);
+    }
+
+    display: flex;
+    margin-left: 2%;
+    margin-bottom: 0.5%;
+}
+
+.linha-colunas {
+    width: auto;
+    height: 1px;
+    display: block;
+    background: #2c2c2c;
+    margin-top: 1.2%;
+    margin-bottom: 1%;
+}
+
+.lista {
+    width: 96%;
+    height: 73%;
+    overflow-y: auto;
+    border: 1px solid #000000;
+    border-radius: 20px;
+    padding: 2%;
+    padding-top: 1.5%;
+    /* Espaçamento interno */
+}
+
+
+.lista::-webkit-scrollbar {
+    width: 16px;
+    /* Largura da barra de rolagem */
+    height: 16px;
+    /* Altura da barra de rolagem horizontal */
+}
+
+.lista::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    /* Cor do trilho da barra de rolagem */
+    border-radius: 10px;
+    /* Borda arredondada do trilho */
+}
+
+.lista::-webkit-scrollbar-thumb {
+    background-color: #2c2c2c;
+    /* Cor do polegar da barra de rolagem */
+    border-radius: 10px;
+    /* Borda arredondada do polegar */
+}
+
+.lista::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+    /* Cor do polegar ao passar o mouse */
+}
+
+
+.container {
+    & p {
+        font-size: 80%;
+        color: rgb(0, 0, 0);
+    }
+
+    display: flex;
+
+}
+
+.data {
+    width: 12.9vw;
+}
+
+.identificador {
+    width: 17vw;
+}
+
+.status{
+    width: 13.5vw;
+}
