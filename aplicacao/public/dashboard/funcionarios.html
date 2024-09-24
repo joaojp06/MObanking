@@ -11,41 +11,52 @@
     <link rel="shortcut icon" href="../imagens/logo.ico" type="image/x-icon">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/funcionarios.css">
+    <link rel="stylesheet" href="../css/default.css">
 </head>
 
 <body>
-    <div class="frame-aplicacao" style="display: flex;">
+
+
+    <div id="frame" class="frame-aplicacao" style="display: flex;">
         <nav class="menu-lateral">
             <h2 class="titulo-menu">Menu</h2>
             <ul>
                 <li>
-                    <a href="">
+                    <a href="card.html">
                         <span class="icon-menu"><i class="fa-solid fa-server"></i></span>
                         <span class="titulo-link-menu">Máquinas</span>
                     </a>
                 </li>
                 <li>
-                    <a href="">
+                    <a href="dashboard.html">
                         <span class="icon-menu"><i class="fa-solid fa-chart-simple"></i></span>
                         <span class="titulo-link-menu">Gráficos</span>
                     </a>
                 </li>
                 <li>
-                    <a href="">
+                    <a href="funcionarios.html">
                         <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
                         <span class="titulo-link-menu">Funcionários</span>
                     </a>
                 </li>
-
+                <li>
+                    <a href="alertas.html">
+                        <span class="icon-menu"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                        <span class="titulo-link-menu">Alertas</span>
+                    </a>
+                </li>
             </ul>
-
             <div class="name-menu">
-                <h2>Maikon Douglas</h2>
+                <a href="usuarioInfo.html">
+                    <h2>Maikon Douglas</h2>
+                </a>
             </div>
         </nav>
         <div class="conteudo">
             <h1>Funcionários</h1>
-            <button class="botao-adicionar"> <img src="../imagens/Plus.svg" alt=""><p>Adicionar</p></button>
+            <button onclick="modalAddUser()" class="botao-adicionar"> <img src="../imagens/Plus.svg" alt="">
+                <p>Adicionar</p>
+            </button>
 
             <div class="lista">
 
@@ -111,6 +122,67 @@
             </div>
 
         </div>
+    </div>
+    <div class="modalAddUser" id="modalAddUser">
+        <div class="title-box">
+            <h2>Adicionar usuário</h2>
+            <i onclick="fecharModalAddUser()" id="closeModal" class="fa-solid fa-x"></i>
+        </div>
+        <div class="form-box-pai">
+
+            <div class="form">
+                
+                <form action="">
+                    <label for="nome">
+                        Nome:
+                        <input type="text" placeholder="Digite o nome">
+                    </label>
+                    <label for="telefone">
+                        Telefone:
+                        <input type="text" placeholder="Digite o telefone">
+                    </label>
+                    <label for="telefone">
+                        Email:
+                        <input type="text" placeholder="Digite o email">
+                    </label>
+                    <label for="telefone">
+                        Nivel
+                        <select name="" id="">
+                            <option value="">Administrador</option>
+                            <option value="">Comum</option>
+                        </select>
+                    </label>
+                </form>
+                
+            </div>
+            <div>
+                <button>Adicionar</button>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
+
+<script>
+
+    function modalAddUser() {
+
+        const modal = document.getElementById('modalAddUser')
+
+        modal.style.display = 'block'
+        const frame = document.getElementById('frame');
+        frame.classList.add('blur-grid')
+
+    }
+
+    function fecharModalAddUser() {
+
+        const modal = document.getElementById('modalAddUser')
+
+        modal.style.display = 'none'
+        const frame = document.getElementById('frame');
+        frame.classList.remove('blur-grid')
+    }
+
+</script>

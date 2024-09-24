@@ -1,0 +1,55 @@
+.conteudo {
+    height: 92vh;
+    width: 85vw;
+    margin: 2% 2%;
+}
+
+.conteudo h1 {
+    font-size: 45px;
+    padding-bottom: 2%;
+    font-family: "Allerta", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+
+.linha-title-dados {
+    width: 25vw;
+    display: block;
+    height: 1px;
+    background: #2c2c2c;
+}
+
+.box-info {
+    display: flex;
+    margin-top: 3%;
+    gap: 10%;
+    align-items: center;
+}
+
+.box-info-desc {
+    display: flex;
+    flex-direction: column;
+}
+
+.title-info {
+    font-size: 30px;
+}
+
+.box-info-desc {
+    margin-bottom: 10%;
+}
+
+.box-button {
+    width: 44vw;
+}
+.box-button a{
+    float: right;
+    text-decoration: none;
+    color: #ffffff;
+    background: #2c2c2c;
+    padding: 2% 5%;
+    border-radius: 10px;
+    cursor: pointer;
+}
