@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ptbr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEV - MOBANKING</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" href="../imagens/logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/default.css">
+    <link rel="stylesheet" href="../css/devIndex.css">
+</head>
+
+<body>
+
+
+    <div id="frame" class="frame-aplicacao" style="display: flex;">
+    
+        <div class="conteudo">
+            <h1>Empresas</h1>
+            <div class="button-box">
+            <button onclick="modalAddUser()" class="botao-adicionar"> <img src="../imagens/Plus.svg" alt="">
+                <p>Adicionar</p>
+            </button>
+
+            <button  class="botao-adicionar"> 
+                <p>Sair</p>
+            </button>
+        </div>
+            <div class="lista">
+
+
+                <div class="container">
+
+                    <div class="nome">
+                        <p>ID: 932 - Itau unibanco</p>
+                    </div>
+                    <div class="centro">
+                        <div class="centralizado">
+                            <p>CNPJ - 27535375252</p>
+                        </div>
+                        <div class="centralizado">
+                            <p>Endereço tal e tusta  </p>
+                        </div>
+                    </div>
+                    <div class="opcoes">
+                        <i class="fa-solid fa-pen"></i>
+                        <i class="fa-solid fa-trash"></i>
+                    </div>
+
+                </div>
+
+                <div class="container">
+
+                    <div class="nome">
+                        <p>ID: 912 - Safra Group ltda. </p>
+                    </div>
+                    <div class="centro">
+                        <div class="centralizado">
+                            <p>CNPJ - 27535375252</p>
+                        </div>
+                        <div class="centralizado">
+                            <p>Endereço tal e tusta  </p>
+                        </div>
+                    </div>
+                    <div class="opcoes">
+                        <i class="fa-solid fa-pen"></i>
+                        
+                        <i class="fa-solid fa-trash"></i>
+                    </div>
+
+                </div>
+                <div class="container">
+
+                    <div class="nome">
+                        <p>ID: 909 - Nubank servicos ltda</p>
+                    </div>
+                    <div class="centro">
+                        <div class="centralizado">
+                            <p>CNPJ - 27535375252</p>
+                        </div>
+                        <div class="centralizado">
+                            <p>Endereço tal e tusta  </p>
+                        </div>
+                    </div>
+                    <div class="opcoes">
+                        <i class="fa-solid fa-pen"></i>
+                        <i class="fa-solid fa-trash"></i>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="modalAddUser" id="modalAddUser">
+        <div class="title-box">
+            <h2>Adicionar empresa</h2>
+            <i onclick="fecharModalAddUser()" id="closeModal" class="fa-solid fa-x"></i>
+        </div>
+        <div class="form-box-pai">
+
+            <div class="form">
+                
+                <form action="">
+                    <label for="">
+                        Razão Social:
+                        <input type="text" placeholder="Digite a razão social">
+                    </label>
+                    <label for="">
+                        CNPJ:
+                        <input type="text" placeholder="Digite o cnpj">
+                    </label>
+                    <label for="">
+                        Nome logradouro:
+                        <input type="text" placeholder="Digite o email">
+                    </label>
+                    <label for="">
+                        Tipo logradouro
+                        <select name="" id="">
+                            <option value="">Tipo do banco</option>
+                            <option value="">Tipo do banco</option>
+                        </select>
+                    </label>
+                    <label for=""></label>
+                        Número:
+                        <input type="text" placeholder="Digite o email">
+                    </label>
+                    <label for=""></label>
+                        Cep:
+                        <input type="text" placeholder="Digite o email">
+                    </label>
+                    <label for=""></label>
+                        Complemento:
+                        <input type="text" placeholder="Digite o email">
+                    </label>
+                </form>
+                
+            </div>
+            <div>
+                <button>Adicionar</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+
+    function modalAddUser() {
+
+        const modal = document.getElementById('modalAddUser')
+
+        modal.style.display = 'block'
+        const frame = document.getElementById('frame');
+        frame.classList.add('blur-grid')
+
+    }
+
+    function fecharModalAddUser() {
+
+        const modal = document.getElementById('modalAddUser')
+
+        modal.style.display = 'none'
+        const frame = document.getElementById('frame');
+        frame.classList.remove('blur-grid')
+    }
+
+</script>

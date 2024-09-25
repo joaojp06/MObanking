@@ -1,0 +1,278 @@
+.conteudo{
+    margin: 3% auto !important;
+}
+
+.centro {
+    display: flex;
+    width: 100%;
+gap: 10%;
+}
+
+.nome{
+    width: 75%;
+}
+
+
+
+
+/* ---------- Configuração conteudo ---------- */
+
+.conteudo {
+    height: 92vh;
+    width: 85vw;
+    margin: 2% 2%;
+}
+
+/* ----------- FIM CSS PADRÃO FIM ----------  */
+
+
+.conteudo {
+    & h1 {
+        font-size: 45px;
+        padding-bottom: 2%;
+        font-family: "Allerta", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+}
+
+.botao-adicionar {
+
+    & img {
+        width: 20%;
+    }
+
+    cursor: pointer;
+    font-size: medium;
+    gap: 8%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10vw;
+    height: 7vh;
+    border-radius: 15px;
+    font-family: "Allerta",
+    sans-serif;
+    background: linear-gradient(to left, #3D3C46, #16151A);
+    color: white;
+    margin-top: 0%;
+    margin-bottom: 1%;
+    border: 1px solid white;
+
+}
+
+.botao-adicionar:hover {
+    background-image: linear-gradient( 158deg, black, #1f1f1f6d);
+    border: 1px solid white;
+    border-radius: 15px;
+    /* width: 100%; */
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6%;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    background: linear-gradient(to left, #38383c, #16151A);
+    color: white;
+    margin-bottom: 1%;
+}
+
+
+
+
+.opcoes {
+    display: flex;
+    gap: 30%;
+    margin-right: 2%;
+
+    & i{
+        cursor: pointer;
+
+    }
+}
+
+.editar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding-top: 4%;
+    & img {
+        width: 100%;
+    }
+   
+}
+
+.button-box{
+    display: flex;
+    justify-content: space-between;
+}
+
+.editar:hover {
+    background-image: linear-gradient(  black, #1f1f1f00);
+    /* border: 1px solid white; */
+    border-radius: 15px;
+    /* width: 100%; */
+}
+
+.excluir {
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding-left: 5%;
+    padding-right: 5%;
+    & img {
+        width: 100%;
+    }
+    
+    /* padding-top: 4%; */
+
+}
+
+.excluir:hover {
+    background-image: linear-gradient(  black, #1f1f1f00);
+    /* border: 1px solid white; */
+    border-radius: 15px;
+    /* width: 100%; */
+}
+
+
+
+.lista {
+    width: 96%;
+    height: 73%;
+    overflow-y: auto;
+    border: 1px solid #000000;
+    border-radius: 20px;
+    padding: 2%;
+    /* Espaçamento interno */
+}
+
+.lista::-webkit-scrollbar {
+    width: 16px;
+    /* Largura da barra de rolagem */
+    height: 16px;
+    /* Altura da barra de rolagem horizontal */
+}
+
+.modalAddUser{
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: #2c2c2c;
+    color: white;
+    width: 57vw;
+    height: 75vh;
+
+    border-radius: 20px;
+
+    & i{
+
+        font-size: 35px;
+        cursor: pointer;
+    }
+
+    & .title-box{
+        display: flex;
+        align-items: center;
+        padding: 4%;
+        gap: 59%;
+        justify-content: center;
+    }
+
+    & .form{
+        display: flex;
+        justify-content: center;
+    }
+
+    .form-box-pai{
+        display: flex;
+        flex-direction: column;
+        width: 45vw;
+        margin: 0 auto;
+        max-height: 55vh;
+        overflow: auto;
+    }
+
+    .card-grid-pai::-webkit-scrollbar {
+        width: 16px;
+        /* Largura da barra de rolagem */
+        height: 16px;
+        /* Altura da barra de rolagem horizontal */
+    }
+    
+    .card-grid-pai::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        /* Cor do trilho da barra de rolagem */
+        border-radius: 10px;
+        /* Borda arredondada do trilho */
+    }
+    
+    .card-grid-pai::-webkit-scrollbar-thumb {
+        background-color: #2c2c2c;
+        /* Cor do polegar da barra de rolagem */
+        border-radius: 10px;
+        /* Borda arredondada do polegar */
+    }
+    
+    .card-grid-pai::-webkit-scrollbar-thumb:hover {
+        background-color: #555;
+        /* Cor do polegar ao passar o mouse */
+    }
+    
+
+    & form{
+        display: flex;
+        flex-direction: column;
+        width: 35vw;
+        gap: 25px;
+
+        & input{
+            padding: 2% 2%;
+            border-radius: 10px;
+            font-size: 18px;
+        }
+
+        & select{
+            padding: 2% 2%;
+            border-radius: 10px;
+            font-size: 18px;
+        }
+
+        & label{
+            display: flex;
+            flex-direction: column;
+            font-size: 24px;
+        }
+    }
+
+    & button{
+        padding: 2% 4%;
+    border-radius: 13px;
+    float: right;
+    margin-top: 15px;
+    font-size: 18px;
+    background: white;
+    cursor: pointer;
+    }
+   
+
+    & h2{
+        
+        font-size: 33px;
+    }
+}
+
+.blur-grid {
+    filter: blur(5px);
+    /* Aplica o desfoque */
+    transition: filter 0.3s ease-in-out;
+    /* Transição suave do desfoque */
+}
