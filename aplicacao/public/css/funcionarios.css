@@ -57,7 +57,7 @@
 
 .container {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
     padding: 0.6%;
     border-radius: 15px;
@@ -67,14 +67,23 @@
     margin-bottom: 1%;
 }
 
+.nome {
+    width: 35vw;
+}
 
 .centro {
     font-size: x-small;
     display: flex;
     /* Flexbox para os elementos centrais */
-    gap: 60%;
+    /* gap: 5%; */
     /* Espaço entre os elementos centrais */
+    width: 40vw;
 }
+
+.status {
+    width: 3vw;
+}
+
 
 .opcoes {
     display: flex;

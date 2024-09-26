@@ -58,8 +58,7 @@
                 <p>Adicionar</p>
             </button>
 
-            <div id="listagemFuncionario" class="lista">
-            </div>
+
 
         </div>
     </div>
@@ -71,7 +70,7 @@
         <div class="form-box-pai">
 
             <div class="form">
-                
+
                 <form action="">
                     <label for="nome">
                         Nome:
@@ -93,7 +92,7 @@
                         </select>
                     </label>
                 </form>
-                
+
             </div>
             <div>
                 <button>Adicionar</button>
@@ -128,39 +127,41 @@
     var idEmpresa = 1
     function listarFuncionarios() {
         fetch(`/usuarios/listarFuncionarios/${idEmpresa}`, {
-      method: "GET",
-    })
-      .then(function (resposta) {
-        resposta.json().then((funcionarios) => {
-          funcionarios.forEach((registro) => {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json().then((funcionarios) => {
+                    funcionarios.forEach((registro) => {
 
-            listagemFuncionario.innerHTML += `
-            <div class="container">
+                        listagemFuncionario.innerHTML += `
+                        <div id="listagemFuncionario" class="lista">
+                <div class="container">
 
-<div class="nome">
-    <p>${registro.nome}</p>
-</div>
-<div class="centro">
-    <div class="centralizado">
-        <p>Ativo</p>
-    </div>
-    <div class="centralizado">
-        <p>RA:945613</p>
-    </div>
-</div>
-<div class="opcoes">
-    <div class="editar"><img src="../imagens/Pencil.svg" alt=""></div>
-    <div class="excluir"><img src="../imagens/Trash Can.svg" alt=""></div>
-</div>
+                    <div class="nome">
+                        <p>${registro.nome}</p>
+                    </div>
+                    <div class="centro">
+                        <div class="status">
+                            <p>Ativo</p>
+                        </div>
+                        <div class="ra">
+                            <p>RA:945613</p>
+                        </div>
+                    </div>
+                    <div class="opcoes">
+                        <div class="editar"><img src="../imagens/Pencil.svg" alt=""></div>
+                        <div class="excluir"><img src="../imagens/Trash Can.svg" alt=""></div>
+                    </div>
 
-</div>
+                </div>
+            </div>
             `;
-          });
-        });
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
+                    });
+                });
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
     }
 
 </script>
