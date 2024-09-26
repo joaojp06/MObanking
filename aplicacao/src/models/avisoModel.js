@@ -1,3 +1,4 @@
+
 var database = require("../database/config");
 
 function listar() {
@@ -89,11 +90,29 @@ function deletar(idAviso) {
     return database.executar(instrucaoSql);
 }
 
+function listarAlertas(idEmpresa) {
+    console.log("ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()");
+    var instrucaoSql = `
+        select 
+    a.data,
+    a.id,
+    s.nome componente
+from alerta a
+join limiteServicoMonitorado lsm on a.fkLimiteServicoMonitorado = lsm.id
+join servicoMonitorado sm on lsm.fkServicoMonitorado = sm.id
+join servico s on sm.fkServico = s.id
+where a.fkEmpresa = ${idEmpresa};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     listar,
     listarPorUsuario,
     pesquisarDescricao,
     publicar,
     editar,
-    deletar
+    deletar,
+    listarAlertas
 }

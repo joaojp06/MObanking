@@ -27,4 +27,8 @@ router.delete("/deletar/:idAviso", function (req, res) {
     avisoController.deletar(req, res);
 });
 
+router.get(`/listarAlertas/:idEmpresa`, function (req, res) {
+    avisoController.listarAlertas(req, res);
+});
+
 module.exports = router;

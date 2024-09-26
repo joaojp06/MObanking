@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../css/default.css">
 </head>
 
-<body>
+<body onload="listarAlertas()">
     <div class="frame-aplicacao" style="display: flex;">
         <nav class="menu-lateral">
             <h2 class="titulo-menu">Menu</h2>
@@ -69,277 +69,55 @@
                 <div class="titulo-status"><p>Status</p></div>
                 <div class="titulo-componentes"><p>Componente(s)</p></div>
             </div>
-            <div class="lista">
+            <div id="listagemAlertas" class="lista">
 
-                <!-- <div class="linha-colunas"></div> -->
-
-                <div class="container">
-
-                    <div class="data">
-                        <b>09/24 09:00</b>
-                    </div>
-
-                    <div class="identificador">
-                        <b>4311251</b>
-                    </div>
-
-                    <div class="status">
-                        <b>Concluído</b>
-                    </div>
-                    <div class="componente">
-                        <b>Disco</b>
-                    </div>
-                </div>
-
-                <div class="linha-colunas"></div>
-
-                <div class="container">
-
-                    <div class="data">
-                        <b>09/24 08:00</b>
-                    </div>
-
-                    <div class="identificador">
-                        <b>4311252</b>
-                    </div>
-
-                    <div class="status">
-                        <b>Concluído</b>
-                    </div>
-                    <div class="componente">
-                        <b>Memória</b>
-                    </div>
-                </div>
-
-                <div class="linha-colunas"></div>
-
-                <div class="container">
-
-                    <div class="data">
-                        <b>09/24 07:00</b>
-                    </div>
-
-                    <div class="identificador">
-                        <b>4311253</b>
-                    </div>
-
-                    <div class="status">
-                        <b>Concluído</b>
-                    </div>
-                    <div class="componente">
-                        <b>CPU</b>
-                    </div>
-                </div>
-
-                <div class="linha-colunas"></div>
-
-                <div class="container">
-
-                    <div class="data">
-                        <b>09/24 09:00</b>
-                    </div>
-
-                    <div class="identificador">
-                        <b>4311251</b>
-                    </div>
-
-                    <div class="status">
-                        <b>Concluído</b>
-                    </div>
-                    <div class="componente">
-                        <b>Disco</b>
-                    </div>
-                </div>
-
-                <div class="linha-colunas"></div>
-
-                <div class="container">
-
-                    <div class="data">
-                        <b>09/24 09:00</b>
-                    </div>
-
-                    <div class="identificador">
-                        <b>4311251</b>
-                    </div>
-
-                    <div class="status">
-                        <b>Concluído</b>
-                    </div>
-                    <div class="componente">
-                        <b>Disco</b>
-                    </div>
-                </div>
-
-                <div class="linha-colunas"></div>
-
-                <div class="container">
-
-                    <div class="data">
-                        <b>09/24 09:00</b>
-                    </div>
-
-                    <div class="identificador">
-                        <b>4311251</b>
-                    </div>
-
-                    <div class="status">
-                        <b>Concluído</b>
-                    </div>
-                    <div class="componente">
-                        <b>Disco</b>
-                    </div>
-                </div>
-
-                <div class="linha-colunas"></div>
-
-                <div class="container">
-
-                    <div class="data">
-                        <b>09/24 09:00</b>
-                    </div>
-
-                    <div class="identificador">
-                        <b>4311251</b>
-                    </div>
-
-                    <div class="status">
-                        <b>Concluído</b>
-                    </div>
-                    <div class="componente">
-                        <b>Disco</b>
-                    </div>
-                </div>
-
-                <div class="linha-colunas"></div>
-
-                <div class="container">
-
-                    <div class="data">
-                        <b>09/24 09:00</b>
-                    </div>
-
-                    <div class="identificador">
-                        <b>4311251</b>
-                    </div>
-
-                    <div class="status">
-                        <b>Concluído</b>
-                    </div>
-                    <div class="componente">
-                        <b>Disco</b>
-                    </div>
-                </div>
-
-                <div class="linha-colunas"></div>
-
-                <div class="container">
-
-                    <div class="data">
-                        <b>09/24 09:00</b>
-                    </div>
-
-                    <div class="identificador">
-                        <b>4311251</b>
-                    </div>
-
-                    <div class="status">
-                        <b>Concluído</b>
-                    </div>
-                    <div class="componente">
-                        <b>Disco</b>
-                    </div>
-                </div>
-
-                <div class="linha-colunas"></div>
-
-                <div class="container">
-
-                    <div class="data">
-                        <b>09/24 09:00</b>
-                    </div>
-
-                    <div class="identificador">
-                        <b>4311251</b>
-                    </div>
-
-                    <div class="status">
-                        <b>Concluído</b>
-                    </div>
-                    <div class="componente">
-                        <b>Disco</b>
-                    </div>
-                </div>
-
-                <div class="linha-colunas"></div>
-
-                <div class="container">
-
-                    <div class="data">
-                        <b>09/24 09:00</b>
-                    </div>
-
-                    <div class="identificador">
-                        <b>4311251</b>
-                    </div>
-
-                    <div class="status">
-                        <b>Concluído</b>
-                    </div>
-                    <div class="componente">
-                        <b>Disco</b>
-                    </div>
-                </div>
-
-                <div class="linha-colunas"></div>
-
-                <div class="container">
-
-                    <div class="data">
-                        <b>09/24 09:00</b>
-                    </div>
-
-                    <div class="identificador">
-                        <b>4311251</b>
-                    </div>
-
-                    <div class="status">
-                        <b>Concluído</b>
-                    </div>
-                    <div class="componente">
-                        <b>Disco</b>
-                    </div>
-                </div>
-
-                <div class="linha-colunas"></div>
-
-                <div class="container">
-
-                    <div class="data">
-                        <b>09/24 09:00</b>
-                    </div>
-
-                    <div class="identificador">
-                        <b>4311251</b>
-                    </div>
-
-                    <div class="status">
-                        <b>Concluído</b>
-                    </div>
-                    <div class="componente">
-                        <b>Disco</b>
-                    </div>
-                </div>
-
-                
+                <!-- Lugar onde acontecerá a listagem dos alertas :) -->
 
             </div>
 
         </div>
 
-
-
     </div>
 </body>
 
 </html>
+
+<script>
+    var idEmpresa = 1
+    function listarAlertas() {
+        fetch(`/avisos/listarAlertas/${idEmpresa}`, {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        resposta.json().then((alertas) => {
+          alertas.forEach((registro) => {
+
+            listagemAlertas.innerHTML += `
+            <div class="container">
+
+                    <div class="data">
+                        <b>${registro.data}</b>
+                    </div>
+
+                    <div class="identificador">
+                        <b>${registro.id}</b>
+                    </div>
+
+                    <div class="status">
+                        <b>Concluído</b>
+                    </div>
+                    <div class="componente">
+                        <b>${registro.componente}</b>
+                    </div>
+                </div>
+
+                <div class="linha-colunas"></div>
+            `;
+          });
+        });
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+    }
+</script>
