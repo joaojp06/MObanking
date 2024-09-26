@@ -10,6 +10,10 @@ router.post("/cadastrar", function (req, res) {
 
 router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
+})
+
+router.get("/listarFuncionarios/:idEmpresa", function (req, res) {
+    usuarioController.listarFuncionarios(req, res);
 });
 
 module.exports = router;

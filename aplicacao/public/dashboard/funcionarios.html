@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../css/default.css">
 </head>
 
-<body>
+<body onload="listarFuncionarios()">
 
 
     <div id="frame" class="frame-aplicacao" style="display: flex;">
@@ -58,67 +58,7 @@
                 <p>Adicionar</p>
             </button>
 
-            <div class="lista">
-
-
-                <div class="container">
-
-                    <div class="nome">
-                        <p>Adilson Ferreira Neto</p>
-                    </div>
-                    <div class="centro">
-                        <div class="centralizado">
-                            <p>Ativo</p>
-                        </div>
-                        <div class="centralizado">
-                            <p>RA:945613</p>
-                        </div>
-                    </div>
-                    <div class="opcoes">
-                        <div class="editar"><img src="../imagens/Pencil.svg" alt=""></div>
-                        <div class="excluir"><img src="../imagens/Trash Can.svg" alt=""></div>
-                    </div>
-
-                </div>
-
-                <div class="container">
-                    <div class="nome">
-                        <p>Leandro Cunha Passos</p>
-                    </div>
-                    <div class="centro">
-                        <div class="centralizado">
-                            <p>Inativo</p>
-                        </div>
-                        <div class="centralizado">
-                            <p>RA:456184</p>
-                        </div>
-                    </div>
-                    <div class="opcoes">
-                        <div class="editar"><img src="../imagens/Pencil.svg" alt=""></div>
-                        <div class="excluir"><img src="../imagens/Trash Can.svg" alt=""></div>
-                    </div>
-
-                </div>
-
-                <div class="container">
-                    <div class="nome">
-                        <p>Felipe de Souza Lima</p>
-                    </div>
-                    <div class="centro">
-                        <div class="centralizado">
-                            <p>Ativo</p>
-                        </div>
-                        <div class="centralizado">
-                            <p>RA:238992</p>
-                        </div>
-                    </div>
-                    <div class="opcoes">
-                        <div class="editar"><img src="../imagens/Pencil.svg" alt=""></div>
-                        <div class="excluir"><img src="../imagens/Trash Can.svg" alt=""></div>
-                    </div>
-
-                </div>
-
+            <div id="listagemFuncionario" class="lista">
             </div>
 
         </div>
@@ -183,6 +123,44 @@
         modal.style.display = 'none'
         const frame = document.getElementById('frame');
         frame.classList.remove('blur-grid')
+    }
+
+    var idEmpresa = 1
+    function listarFuncionarios() {
+        fetch(`/usuarios/listarFuncionarios/${idEmpresa}`, {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        resposta.json().then((funcionarios) => {
+          funcionarios.forEach((registro) => {
+
+            listagemFuncionario.innerHTML += `
+            <div class="container">
+
+<div class="nome">
+    <p>${registro.nome}</p>
+</div>
+<div class="centro">
+    <div class="centralizado">
+        <p>Ativo</p>
+    </div>
+    <div class="centralizado">
+        <p>RA:945613</p>
+    </div>
+</div>
+<div class="opcoes">
+    <div class="editar"><img src="../imagens/Pencil.svg" alt=""></div>
+    <div class="excluir"><img src="../imagens/Trash Can.svg" alt=""></div>
+</div>
+
+</div>
+            `;
+          });
+        });
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
     }
 
 </script>
