@@ -18,18 +18,18 @@
 
 
     <div id="frame" class="frame-aplicacao" style="display: flex;">
-    
+
         <div class="conteudo">
             <h1>Empresas</h1>
             <div class="button-box">
-            <button onclick="modalAddUser()" class="botao-adicionar"> <img src="../imagens/Plus.svg" alt="">
-                <p>Adicionar</p>
-            </button>
+                <button onclick="modalAddUser()" class="botao-adicionar"> <img src="../imagens/Plus.svg" alt="">
+                    <p>Adicionar</p>
+                </button>
 
-            <button  class="botao-adicionar"> 
-                <p>Sair</p>
-            </button>
-        </div>
+                <button class="botao-adicionar">
+                    <p>Sair</p>
+                </button>
+            </div>
             <div class="lista">
 
 
@@ -43,7 +43,7 @@
                             <p>CNPJ - 27535375252</p>
                         </div>
                         <div class="centralizado">
-                            <p>Endereço tal e tusta  </p>
+                            <p>Endereço tal e tusta </p>
                         </div>
                     </div>
                     <div class="opcoes">
@@ -63,12 +63,12 @@
                             <p>CNPJ - 27535375252</p>
                         </div>
                         <div class="centralizado">
-                            <p>Endereço tal e tusta  </p>
+                            <p>Endereço tal e tusta </p>
                         </div>
                     </div>
                     <div class="opcoes">
                         <i class="fa-solid fa-pen"></i>
-                        
+
                         <i class="fa-solid fa-trash"></i>
                     </div>
 
@@ -83,7 +83,7 @@
                             <p>CNPJ - 27535375252</p>
                         </div>
                         <div class="centralizado">
-                            <p>Endereço tal e tusta  </p>
+                            <p>Endereço tal e tusta </p>
                         </div>
                     </div>
                     <div class="opcoes">
@@ -104,44 +104,45 @@
         <div class="form-box-pai">
 
             <div class="form">
-                
+
                 <form action="">
                     <label for="">
                         Razão Social:
-                        <input type="text" placeholder="Digite a razão social">
+                        <input type="text" id="razao_social_input" placeholder="Digite a razão social">
                     </label>
                     <label for="">
                         CNPJ:
-                        <input type="text" placeholder="Digite o cnpj">
+                        <input type="text" id="cnpj_input" placeholder="Digite o cnpj">
                     </label>
                     <label for="">
                         Nome logradouro:
-                        <input type="text" placeholder="Digite o email">
+                        <input type="text" id="nome_logradouro_input" placeholder="Digite o email">
                     </label>
                     <label for="">
                         Tipo logradouro
-                        <select name="" id="">
-                            <option value="">Tipo do banco</option>
-                            <option value="">Tipo do banco</option>
+                        <select name="" id="tipo_logradouro_select">
+                            <option value="#"></option>
+                            <option value="rua">Rua</option>
+                            <option value="avenida">Avenida</option>
                         </select>
                     </label>
                     <label for=""></label>
-                        Número:
-                        <input type="text" placeholder="Digite o email">
+                    Número:
+                    <input type="text" id="numero_logradouro_input" placeholder="Digite o email">
                     </label>
                     <label for=""></label>
-                        Cep:
-                        <input type="text" placeholder="Digite o email">
+                    Cep:
+                    <input type="text" id="cep_logradouro_input" placeholder="Digite o email">
                     </label>
                     <label for=""></label>
-                        Complemento:
-                        <input type="text" placeholder="Digite o email">
+                    Complemento:
+                    <input type="text" id="complemento_logradouro_input" placeholder="Digite o email">
                     </label>
                 </form>
-                
+
             </div>
             <div>
-                <button>Adicionar</button>
+                <button onclick="adicionarEmpresa()">Adicionar</button>
             </div>
         </div>
     </div>
@@ -168,6 +169,95 @@
         modal.style.display = 'none'
         const frame = document.getElementById('frame');
         frame.classList.remove('blur-grid')
+    }
+
+
+    function adicionarEmpresa() {
+
+        var razaoSocialVar = razao_social_input.value
+        var cnpjVar = cnpj_input.value
+        var nomeLogradouroVar = nome_logradouro_input.value
+        var tipoLogradouroVar = tipo_logradouro_select.value
+        var numeroVar = numero_logradouro_input.value
+        var cepVar = cep_logradouro_input.value
+        var complementoVar = complemento_logradouro_input.value
+
+        if (razaoSocialVar == "" ||
+            cnpjVar == "" ||
+            nomeLogradouroVar == "" ||
+            tipoLogradouroVar == "#" ||
+            numeroVar == "" ||
+            cepVar == "" ||
+            complementoVar == ""
+        ) {
+
+            alert("Preencha todos os campos corretamente!");
+
+            return false;
+        } else {
+            if (tipoLogradouroVar == "rua") {
+                tipoLogradouroVar = 1;
+            } else {
+                tipoLogradouroVar = 2;
+            }
+        }
+
+        fetch("/empresas/cadastrarEndereco", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nomeLogradouroServer: nomeLogradouroVar,
+                tipoLogradouroServer: tipoLogradouroVar,
+                numeroServer: numeroVar,
+                cepServer: cepVar,
+                complementoServer: complementoVar
+            }),
+        }).then(function (resposta) {
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+
+                resposta.json()
+                    .then(json => {
+                        console.log("\n\n\n\n\nALEATÓRIO PARA VER A RESPOSTA");
+                        console.log(json);
+                        var idInserido = json.insertId;
+                        console.log(idInserido);
+
+                        sessionStorage.ID_ENDERECO = idInserido;
+
+                        fetch("/empresas/cadastrar", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                idEnderecoServer: idInserido,
+                                razaoSocialServer: razaoSocialVar,
+                                cnpjServer: cnpjVar
+                            }),
+                        }).then().catch()
+
+                    });
+
+                alert("Cadastro Realizado com Sucesso!")
+
+                setTimeout(() => {
+                    fecharModalAddUser();
+                }, "1000");
+
+
+            } else {
+                console.log(resposta);
+                throw "Houve um erro ao tentar realizar o cadastro!";
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            return false;
+        });
+
     }
 
 </script>
