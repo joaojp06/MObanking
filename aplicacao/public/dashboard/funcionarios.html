@@ -74,28 +74,29 @@
                 <form action="">
                     <label for="nome">
                         Nome:
-                        <input type="text" placeholder="Digite o nome">
+                        <input type="text" id="nome_input" placeholder="Digite o nome">
                     </label>
                     <label for="telefone">
                         Telefone:
-                        <input type="text" placeholder="Digite o telefone">
+                        <input type="text" id="telefone_input" placeholder="Digite o telefone">
                     </label>
                     <label for="telefone">
                         Email:
-                        <input type="text" placeholder="Digite o email">
+                        <input type="text" id="email_input" placeholder="Digite o email">
                     </label>
                     <label for="telefone">
                         Nivel
-                        <select name="" id="">
-                            <option value="">Administrador</option>
-                            <option value="">Comum</option>
+                        <select name="" id="select_nivel">
+                            <option value="#"></option>
+                            <option value="administrador">Administrador</option>
+                            <option value="comum">Comum</option>
                         </select>
                     </label>
                 </form>
 
             </div>
             <div>
-                <button>Adicionar</button>
+                <button onclick="adicionarUsuario()">Adicionar</button>
             </div>
         </div>
     </div>
@@ -162,6 +163,76 @@
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
             });
+    }
+
+
+    function adicionarUsuario() {
+        var nomeVar = nome_input.value;
+        var emailVar = email_input.value;
+        var telefoneVar = telefone_input.value;
+        var nivelVar = select_nivel.value;
+
+        if (nomeVar == "" ||
+            emailVar == "" ||
+            telefoneVar == "" ||
+            nivelVar == "#"
+        ) {
+
+            alert("Preencha todos os campos corretamente!");
+
+            return false;
+        } else {
+            if (nivelVar == "administrador"){
+                nivelVar = 1;
+            } else {
+                nivelVar = 2;
+            }
+        }
+        
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nomeServer: nomeVar,
+                emailServer: emailVar,
+                telefoneServer: telefoneVar,
+                nivelServer: nivelVar,
+                fkEmpresa: idEmpresa
+            }),
+        }).then(function (resposta) {
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+
+                resposta.json()
+                    .then(json => {
+                        console.log("\n\n\n\n\nALEATÓRIO PARA VER A RESPOSTA");
+                        console.log(json);
+                        var idInserido = json.insertId;
+                        console.log(idInserido);
+
+                        sessionStorage.ID_USUARIO = idInserido;
+
+                    });
+
+                alert("Cadastro Realizado com Sucesso!")
+
+                setTimeout(() => {
+                   fecharModalAddUser();
+                }, "1000");
+
+
+            } else {
+                console.log(resposta);
+                throw "Houve um erro ao tentar realizar o cadastro!";
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            return false;
+        });
+
     }
 
 </script>
