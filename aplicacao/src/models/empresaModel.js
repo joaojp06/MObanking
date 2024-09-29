@@ -6,8 +6,8 @@ function buscarPorId(id) {
   return database.executar(instrucaoSql);
 }
 
-function listar() {
-  var instrucaoSql = `SELECT id, razao_social, cnpj, codigo_ativacao FROM empresa`;
+function listarEmpresas() {
+  var instrucaoSql = `SELECT * FROM empresa_endereco;`;
 
   return database.executar(instrucaoSql);
 }
@@ -36,5 +36,5 @@ module.exports = {
   buscarPorCnpj, 
   buscarPorId, 
   cadastrar, 
-  listar, 
+  listarEmpresas, 
   cadastrarEndereco };

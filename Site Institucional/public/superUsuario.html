@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil da Empresa</title>
+    <link rel="stylesheet" href="css/superUsuario.css">
+</head>
+
+<body>
+    <div class="content">
+        <button class="hamburger" onclick="Navbar()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </button>
+        <nav id="navMenu" class="nav-menu">
+            <button class="close-btn" onclick="Navbar()">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </button>
+            <img src="imagens/V3 1.svg" alt="Logo" class="logo">
+            <div class="logo-divisao"></div>
+            <div class="nav-links">
+                <a href="../public/index.html">Home/Página Principal</a>
+                <a href="#">Perfil</a>
+                <a href="#">Dashboard</a>
+                <a href="#">Suporte</a>
+                <div class="sair">
+                    <a href="../public/index.html">Sair</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="top-blue"></div>
+        <div class="bottom-white"></div>
+
+        <div class="card">
+            <div class="info-section">
+                <h2>Informações Gerais:</h2>
+                <form>
+                    <div class="input-grupo">
+                        <label for="empresa">Empresa:</label>
+                        <input type="text" id="empresa" name="empresa" value="Itaú Unibanco">
+                    </div>
+
+                    <div class="input-grupo">
+                        <label for="email">Email da Empresa:</label>
+                        <input type="email" id="email" name="email" value="itau@itau.com">
+                    </div>
+
+                    <div class="input-grupo">
+                        <label for="cnpj">CNPJ:</label>
+                        <input type="text" id="cnpj" name="cnpj" value="xx.xxx.xxx/xxxx-xx">
+                    </div>
+
+                    <div class="input-grupo">
+                        <label for="telefone">Telefone:</label>
+                        <input type="tel" id="telefone" name="telefone">
+                    </div>
+
+                    <div class="input-grupo">
+                        <label for="endereco">Endereço:</label>
+                        <input type="text" id="endereco" name="endereco">
+                    </div>
+
+                    <div class="input-grupo">
+                        <label for="numero">Número:</label>
+                        <input type="text" id="numero" name="numero">
+                    </div>
+
+                    <div class="input-grupo">
+                        <label for="complemento">Complemento:</label>
+                        <input type="text" id="complemento" name="complemento">
+                    </div>
+
+                    <button type="submit" class="save-btn">Salvar</button>
+                </form>
+            </div>
+            <div class="admin-section">
+                <h2>Administradores/Gerentes de Infraestrutura:</h2>
+                <div class="admin-card">
+                    <div class="admin-info">
+                        <img src="imagens/icone.svg" alt="Usuário" class="user-icon">
+                        <div>
+                            <p class="admin-name">Thiago da Silva</p>
+                            <p class="admin-role">Cargo: Gerente de Infraestrutura - Escritório Faria Lima</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-info">
+                        <img src="imagens/icone.svg" alt="Usuário" class="user-icon">
+                        <div>
+                            <p class="admin-name">Larissa Souza</p>
+                            <p class="admin-role">Cargo: Gerente de Infraestrutura - Escritório Alto da Mooca</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="add-btn">Adicionar Mais Gerentes +</button>
+                <p class="note">Clique no botão acima para dar acesso a privilégios de administração de infraestrutura de TI para profissionais: Gerentes dessa tecnologia em sua empresa.</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    function Navbar() {
+        const navMenu = document.getElementById('navMenu');
+        const hamburger = document.querySelector('.hamburger');
+        const closeBtn = document.querySelector('.close-btn');
+
+        if (navMenu.classList.contains('show')) {
+            navMenu.classList.remove('show');
+            setTimeout(() => {
+                hamburger.style.display = 'block';
+                closeBtn.style.display = 'none';
+            }, 300); 
+        } else {
+            hamburger.style.display = 'none';
+            closeBtn.style.display = 'block';
+            navMenu.classList.add('show');
+        }
+    }
+</script>
+</html>

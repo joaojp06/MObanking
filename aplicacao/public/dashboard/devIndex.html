@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../css/devIndex.css">
 </head>
 
-<body>
+<body onload="listarEmpresas()">
 
 
     <div id="frame" class="frame-aplicacao" style="display: flex;">
@@ -30,68 +30,11 @@
                     <p>Sair</p>
                 </button>
             </div>
-            <div class="lista">
+            <div id="listagemEmpresas" class="lista">
 
 
-                <div class="container">
 
-                    <div class="nome">
-                        <p>ID: 932 - Itau unibanco</p>
-                    </div>
-                    <div class="centro">
-                        <div class="centralizado">
-                            <p>CNPJ - 27535375252</p>
-                        </div>
-                        <div class="centralizado">
-                            <p>Endereço tal e tusta </p>
-                        </div>
-                    </div>
-                    <div class="opcoes">
-                        <i class="fa-solid fa-pen"></i>
-                        <i class="fa-solid fa-trash"></i>
-                    </div>
 
-                </div>
-
-                <div class="container">
-
-                    <div class="nome">
-                        <p>ID: 912 - Safra Group ltda. </p>
-                    </div>
-                    <div class="centro">
-                        <div class="centralizado">
-                            <p>CNPJ - 27535375252</p>
-                        </div>
-                        <div class="centralizado">
-                            <p>Endereço tal e tusta </p>
-                        </div>
-                    </div>
-                    <div class="opcoes">
-                        <i class="fa-solid fa-pen"></i>
-
-                        <i class="fa-solid fa-trash"></i>
-                    </div>
-
-                </div>
-                <div class="container">
-
-                    <div class="nome">
-                        <p>ID: 909 - Nubank servicos ltda</p>
-                    </div>
-                    <div class="centro">
-                        <div class="centralizado">
-                            <p>CNPJ - 27535375252</p>
-                        </div>
-                        <div class="centralizado">
-                            <p>Endereço tal e tusta </p>
-                        </div>
-                    </div>
-                    <div class="opcoes">
-                        <i class="fa-solid fa-pen"></i>
-                        <i class="fa-solid fa-trash"></i>
-                    </div>
-
-                </div>
             </div>
 
         </div>
@@ -258,6 +201,45 @@
             return false;
         });
 
+    }
+
+
+    function listarEmpresas() {
+        fetch(`/empresas/listarEmpresas`, {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json().then((empresas) => {
+                    empresas.forEach((registro) => {
+
+                        listagemEmpresas.innerHTML +=
+                            `
+                            <div class="container">
+
+<div class="nome">
+    <p>ID: 932 - ${registro.razaoSocial}</p>
+</div>
+<div class="centro">
+    <div class="centralizado">
+        <p>CNPJ - ${registro.cnpj}</p>
+    </div>
+    <div class="centralizado">
+        <p>${registro.tipo_logradouro}${registro.nomeLogradouro}</p>
+    </div>
+</div>
+<div class="opcoes">
+    <i class="fa-solid fa-pen"></i>
+    <i class="fa-solid fa-trash"></i>
+</div>
+
+</div>
+            `;
+                    });
+                });
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
     }
 
 </script>

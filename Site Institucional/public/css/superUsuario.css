@@ -1,0 +1,272 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+body {
+    margin: 0;
+    font-family: "Nunito Sans", sans-serif;
+    background-color: #fff;
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-blue {
+    background-color: #00546B;
+    height: 35%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
+
+.bottom-white {
+    background-color: #fff;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+.card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    height: 75%;
+    background-color: #000;
+    z-index: 2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.hamburger {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 3;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: #fff;
+    margin: 5px 0;
+    transition: 0.3s;
+}
+
+.nav-menu {
+    position: absolute;
+    top: 0;
+    left: -250px;
+    height: 100%;
+    width: 250px;
+    background: #000;
+    padding-top: 10px;
+    box-sizing: border-box;
+    transition: left 0.3s ease;
+    z-index: 4;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    text-align: center;
+}
+.sair{
+    height: 337px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.nav-menu a {
+    display: block;
+    color: #fff;
+    padding: 15px;
+    text-decoration: none;
+    transition: background 0.3s, color 0.3s;
+    font-size: 18px;
+}
+
+.nav-menu a:hover {
+    background: #003e4f;
+    color: #f0f0f0;
+}
+
+.nav-menu.show {
+    left: 0;
+}
+
+.close-btn {
+    background: #00546B;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 5px;
+    position: absolute;
+    top: 10px;
+    right: -50px;
+    z-index: 5;
+    transition: right 0.3s ease;
+}
+
+.close-btn .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: #fff;
+    margin: 5px 0;
+    transition: 0.3s;
+}
+
+/* Logo */
+.logo {
+    display: block;
+    width: 108px;
+    height: 108px;
+    box-sizing: border-box; /* Inclui padding e borda na largura e altura */
+    margin: 0 auto; /* Centraliza horizontalmente */
+}
+
+
+.logo-divisao {
+    border-top: 1px solid #fff;
+}
+
+.info-section {
+    width: 55%;
+    padding: 20px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.info-section h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.info-section .input-grupo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.info-section label {
+    margin-right: 15px;
+    font-weight: bold;
+    min-width: 120px;
+    font-size: 16px;
+}
+
+.info-section input {
+    padding: 8px;
+    width: 70%;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.save-btn {
+    padding: 5px 10px;
+    background-color: #00546B;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+    margin-left: 135px;
+    margin-top: 20px;
+}
+
+.save-btn:hover {
+    background-color: #004158;
+}
+
+.admin-section {
+    width: 50%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 85px;
+}
+
+.admin-section h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.admin-card {
+    background-color: #fff;
+    padding: 8px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 60%;
+    height: 40px;
+}
+
+.admin-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 8px;
+}
+
+.admin-name {
+    font-weight: bold;
+    font-size: 14px;
+    color: #000;
+}
+
+.admin-role {
+    font-size: 10px;
+    color: #000;
+    margin-top: -8px; /* Ajusta a distância entre nome e cargo */
+}
+
+.add-btn {
+    background-color: #00546B;
+    color: #fff;
+    padding: 6px 5px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 50px;
+    transition: background-color 0.3s;
+    font-size: 16px;
+}
+
+.add-btn:hover {
+    background-color: #004158;
+}
+
+.note {
+    margin-top: 15px;
+    font-size: 9px;
+    color: #aaa;
+    line-height: 1.5;
+    text-align: justify;
+    max-width: 215px;
+}

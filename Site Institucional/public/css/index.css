@@ -1,0 +1,2184 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+*{
+    box-sizing: border-box;
+    margin: 0;
+    font-family: "Nunito Sans", sans-serif;
+    scroll-behavior: smooth;
+}
+body{
+    background-color: #000000;
+}
+
+.background {
+    position: relative;
+    background-image: url('../imagens/imagem_secao1.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 710px;
+}
+.background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 710px;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+header{
+    width: 100%;
+    height: 70px;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.div_logo{
+    z-index: 1;
+    width: 10%;
+    display: flex;
+    justify-content: end;
+}
+.link_logo{
+    display: flex;
+    align-items: center;
+}
+.logo{
+    height: 70px;
+}
+.links{
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+    width: 30%;
+    margin: 2%;
+}
+.links a{
+    color: #ffffff;
+    text-decoration: none;
+}
+.dados_decisoes{
+    width: 50%;
+    height: 250px;
+    z-index: 1;
+    position: absolute;
+    display: flex;
+    align-items: end;
+    margin: 120px;
+}
+.dados_decisoes h1{
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 70px;
+}
+.secao2{
+    height: 700px;
+}
+.iluminacao{
+    height: 50px;
+    width: 100%;
+    position: relative;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 84, 107, 0.17) 50%, rgba(51, 255, 0, 0) 100%);
+    top: -25px;
+    display: flex;
+    justify-content: center;
+}
+.linha{
+    position: relative;
+    top: -70px;
+    height: 200px;
+    z-index: 1;
+}
+.nomefundo{
+    display: flex;
+    align-items: center;
+}
+.sobre{
+    background-color: #000000;
+    width: 100%;
+    height: 130px;
+    position: relative;
+    z-index: 0;
+    display: flex;
+    justify-content: space-between;
+    top: -20px;
+}
+.sobre h2{
+    font-size: 60px;
+    color: #ffffff;
+    font-weight: 400;
+    width: 25%;
+    display: flex;
+    justify-content: end;
+}
+.nos{
+    background-color: #000000;
+    width: 60%;
+    height: 150px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: end;
+}
+.nos p{
+    color: #ffffff;
+    font-size: 30px;
+    width: 80%;
+}
+.pontos{
+    height: 50px;
+    margin: 10px;
+}
+.mofundo{
+    background-color: #000000;
+    width: 40%;
+    height: 470px;
+    z-index: -1;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+}
+.mofundo p{
+    font-size: 350px;
+    color: #ffffff;
+    opacity: 0.1;
+}
+.bankingfundo{
+    background-color: #000000;
+    width: 60%;
+    height: 400px;
+    display: flex;
+    justify-content: start;
+    align-items: end;
+    z-index: -1;
+}
+.bankingfundo p{
+    font-size: 250px;
+    color: #00546b;
+    opacity: 0.1;
+}
+.secao3{
+    height: 710px;
+    width: 100%;
+    margin-top: 40px;
+}
+.background2 {
+    position: relative;
+    background-image: url('../imagens/parqueservidores.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 710px;
+}
+.background2::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 710px;
+}
+.destaques{
+    width: 95%;
+    height: 700px;
+    background-color: #00000000;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    flex-direction: column;
+}
+.destaques h2{
+    font-size: 60px;
+    color: #ffffff;
+    font-weight: 400;
+}
+.diferenciais{
+    margin: 20px;
+    z-index: 1;
+    width: 60%;
+}
+.diferenciais p{
+    color: #ffffff;
+    font-size: 30px;
+    text-align: end;
+}
+.secao4{
+    width: 100%;
+    height: 650px;
+}
+.faq{
+    position: relative;
+    z-index: 1;
+}
+.faq h2{
+    color: #ffffff;
+    font-weight: 400;
+    width: 42%;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    font-size: 60px;
+    height: 100px;
+    margin: 30px;
+}
+.textofaq{
+    width: 70%;
+    display: flex;
+    justify-content: start;
+    align-items: end;
+    height: 400px;
+    flex-direction: column;
+}
+.faq p{
+    color: #ffffff;
+    font-size: 30px;
+    position: relative;
+    display: flex;
+    justify-content: end;
+    width: 80%;
+    z-index: 1;
+}
+.div_botaofaq{
+    display: flex;
+    width: 78%;
+    height: 40px;
+    margin: 20px;
+}
+.faqbot{
+    background-color: #00546b;
+    color: #ffffff;
+    width: 40%;
+    padding: 10px;
+    border: #ffffff solid 1px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.faqbot:hover{
+    background-color: #004558;
+}
+.fundotexto{
+    z-index: -1;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    height: 150px;
+}
+.fundotexto h1{
+    color: #ffffff13;
+    font-size: 200px;
+    display: flex;
+    text-align: end;
+}
+footer{
+    width: 100%;
+    height: 240px;
+    background-color: #00546b;
+}
+.infofooter{
+    width: 100%;
+    height: 210px;
+    display: flex;
+    justify-content: space-between;
+}
+.esquerdo{
+    width: 40%;
+    height: 140px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.esquerdo h2{
+    color: #ffffff;
+    font-weight: 400;
+}
+.tecnologia{
+    flex-direction: column;
+    display: flex;
+    gap: 5px;
+}
+.esquerdo p{
+    color: #ffffff;
+}
+.tecnologia button{
+    background-color: #000000;
+    color: #ffffff;
+    width: 40%;
+    padding: 10px;
+    border: #ffffff solid 1px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.tecnologia button:hover{
+    background-color: #0d0d0d;
+}
+.direito{
+    width: 40%;
+    height: 100%;
+}
+.linkscima{
+    width: 95%;
+    height: 60px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.linkscima a{
+    text-decoration: none;
+    color: #ffffff;
+}
+.linksabaixo{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.linksabaixo a{
+    text-decoration: none;
+    color: #ffffff;
+}
+.linkgit{
+    width: 100%;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.linkgit a{
+    display: flex;
+    width: 10%;
+    justify-content: center;
+    align-items: center;
+}
+.git{
+    width: 100%;
+}
+.final{
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.final h3{
+    font-weight: 300;
+    color: #ffffff;
+}
+
+@media only screen and (min-width: 1920px){
+    .background {
+        position: relative;
+        background-image: url('../imagens/imagem_secao1.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 1000px;
+    }
+    .background::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 1000px;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+    header{
+        width: 100%;
+        height: 90px;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .div_logo{
+        z-index: 1;
+        width: 10%;
+        display: flex;
+        justify-content: end;
+    }
+    .link_logo{
+        display: flex;
+        align-items: center;
+    }
+    .logo{
+        height: 90px;
+    }
+    .links{
+        display: flex;
+        justify-content: space-between;
+        z-index: 1;
+        width: 35%;
+        margin: 2%;
+    }
+    .links a{
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 25px;
+    }
+    .dados_decisoes{
+        width: 45%;
+        height: 400px;
+        z-index: 1;
+        position: absolute;
+        display: flex;
+        align-items: end;
+        margin: 120px;
+    }
+    .dados_decisoes h1{
+        color: #ffffff;
+        font-weight: 500;
+        font-size: 90px;
+    }
+    .secao2{
+        height: 900px;
+    }
+    .iluminacao{
+        height: 50px;
+        width: 100%;
+        position: relative;
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 84, 107, 0.17) 50%, rgba(51, 255, 0, 0) 100%);
+        top: -25px;
+        display: flex;
+        justify-content: center;
+    }
+    .linha{
+        position: relative;
+        top: -100px;
+        height: 250px;
+        z-index: 1;
+    }
+    .nomefundo{
+        display: flex;
+        align-items: center;
+    }
+    .sobre{
+        background-color: #000000;
+        width: 97%;
+        height: 130px;
+        position: relative;
+        z-index: 0;
+        display: flex;
+        justify-content: space-between;
+        top: -20px;
+    }
+    .sobre h2{
+        font-size: 80px;
+        color: #ffffff;
+        font-weight: 400;
+        width: 25%;
+        display: flex;
+        justify-content: end;
+    }
+    .nos{
+        background-color: #000000;
+        width: 60%;
+        height: 150px;
+        position: relative;
+        z-index: 1;
+        display: flex;
+        justify-content: end;
+    }
+    .nos p{
+        color: #ffffff;
+        font-size: 45px;
+        width: 80%;
+    }
+    .pontos{
+        height: 60px;
+        margin: 10px;
+    }
+    .mofundo{
+        background-color: #000000;
+        width: 40%;
+        height: 690px;
+        z-index: -1;
+        display: flex;
+        justify-content: end;
+        align-items: end;
+    }
+    .mofundo p{
+        font-size: 450px;
+        color: #ffffff;
+        opacity: 0.1;
+    }
+    .bankingfundo{
+        background-color: #000000;
+        width: 60%;
+        height: 600px;
+        display: flex;
+        justify-content: start;
+        align-items: end;
+        z-index: -1;
+    }
+    .bankingfundo p{
+        font-size: 320px;
+        color: #00546b;
+        opacity: 0.1;
+    }
+    .secao3{
+        height: 900px;
+        width: 100%;
+        margin-top: 40px;
+    }
+    .background2 {
+        position: relative;
+        background-image: url('../imagens/parqueservidores.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 900px;
+    }
+    .background2::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 710px;
+    }
+    .destaques{
+        width: 95%;
+        height: 900px;
+        background-color: #00000000;
+        display: flex;
+        justify-content: end;
+        align-items: end;
+        flex-direction: column;
+    }
+    .destaques h2{
+        font-size: 90px;
+        color: #ffffff;
+        font-weight: 400;
+    }
+    .diferenciais{
+        margin: 20px;
+        z-index: 1;
+        width: 60%;
+    }
+    .diferenciais p{
+        color: #ffffff;
+        font-size: 40px;
+        text-align: end;
+    }
+    .secao4{
+        width: 100%;
+        height: 900px;
+    }
+    .faq{
+        position: relative;
+        z-index: 1;
+    }
+    .faq h2{
+        color: #ffffff;
+        font-weight: 400;
+        width: 42%;
+        display: flex;
+        justify-content: end;
+        align-items: end;
+        font-size: 80px;
+        height: 100px;
+        margin: 30px;
+    }
+    .textofaq{
+        width: 70%;
+        display: flex;
+        justify-content: start;
+        align-items: end;
+        height: 400px;
+        flex-direction: column;
+    }
+    .faq p{
+        color: #ffffff;
+        font-size: 40px;
+        position: relative;
+        display: flex;
+        justify-content: end;
+        width: 80%;
+        z-index: 1;
+    }
+    .div_botaofaq{
+        display: flex;
+        width: 78%;
+        height: 40px;
+        margin: 20px;
+    }
+    .faqbot{
+        background-color: #00546b;
+        color: #ffffff;
+        width: 40%;
+        padding: 10px;
+        height: 50px;
+        border: #ffffff solid 1px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 20px;
+    }
+    .faqbot:hover{
+        background-color: #004558;
+    }
+    .fundotexto{
+        z-index: -1;
+        display: flex;
+        justify-content: end;
+        align-items: end;
+        height: 450px;
+    }
+    .fundotexto h1{
+        color: #ffffff13;
+        font-size: 300px;
+        display: flex;
+        text-align: end;
+    }
+    footer{
+        width: 100%;
+        height: 300px;
+        background-color: #00546b;
+    }
+    .infofooter{
+        width: 100%;
+        height: 210px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .esquerdo{
+        width: 40%;
+        height: 140px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .esquerdo h2{
+        color: #ffffff;
+        font-weight: 400;
+        font-size: 30px;
+    }
+    .tecnologia{
+        flex-direction: column;
+        display: flex;
+        gap: 5px;
+    }
+    .esquerdo p{
+        color: #ffffff;
+        font-size: 20px;
+    }
+    .tecnologia button{
+        background-color: #000000;
+        color: #ffffff;
+        width: 40%;
+        padding: 10px;
+        border: #ffffff solid 1px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 20px;
+    }
+    .tecnologia button:hover{
+        background-color: #0d0d0d;
+    }
+    .direito{
+        width: 40%;
+        height: 100%;
+    }
+    .linkscima{
+        width: 95%;
+        height: 60px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .linkscima a{
+        text-decoration: none;
+        color: #ffffff;
+        font-size: 25px;
+    }
+    .linksabaixo{
+        width: 100%;
+        height: 60px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .linksabaixo a{
+        text-decoration: none;
+        color: #ffffff;
+        font-size: 25px;
+    }
+    .linkgit{
+        width: 100%;
+        height: 90px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .linkgit a{
+        display: flex;
+        width: 10%;
+        justify-content: center;
+        align-items: center;
+    }
+    .git{
+        width: 100%;
+    }
+    .final{
+        width: 100%;
+        height: 92px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .final h3{
+        font-weight: 300;
+        color: #ffffff;
+        font-size: 25px;
+    }
+}
+@media only screen and (max-width: 1200px){
+    .background {
+        position: relative;
+        background-image: url('../imagens/imagem_secao1.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 101%;
+        height: 610px;
+    }
+    .background::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 610px;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+    header{
+        width: 100%;
+        height: 70px;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .div_logo{
+        z-index: 1;
+        width: 10%;
+        display: flex;
+        justify-content: end;
+    }
+    .link_logo{
+        display: flex;
+        align-items: center;
+    }
+    .logo{
+        height: 60px;
+    }
+    .links{
+        display: flex;
+        justify-content: space-between;
+        z-index: 1;
+        width: 30%;
+        margin: 2%;
+    }
+    .links a{
+        color: #ffffff;
+        text-decoration: none;
+    }
+    .dados_decisoes{
+        width: 50%;
+        height: 210px;
+        z-index: 1;
+        position: absolute;
+        display: flex;
+        align-items: end;
+        margin: 120px;
+    }
+    .dados_decisoes h1{
+        color: #ffffff;
+        font-weight: 500;
+        font-size: 65px;
+    }
+    .secao2{
+        height: 600px;
+        width: 101%;
+    }
+    .iluminacao{
+        height: 50px;
+        width: 100%;
+        position: relative;
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 84, 107, 0.17) 50%, rgba(51, 255, 0, 0) 100%);
+        top: -25px;
+        display: flex;
+        justify-content: center;
+    }
+    .linha{
+        position: relative;
+        top: -70px;
+        height: 180px;
+        z-index: 1;
+    }
+    .nomefundo{
+        display: flex;
+        align-items: center;
+    }
+    .sobre{
+        background-color: #000000;
+        width: 95%;
+        height: 100px;
+        position: relative;
+        z-index: 0;
+        display: flex;
+        justify-content: space-between;
+        top: -20px;
+    }
+    .sobre h2{
+        font-size: 55px;
+        color: #ffffff;
+        font-weight: 400;
+        width: 25%;
+        display: flex;
+        justify-content: end;
+    }
+    .nos{
+        background-color: #000000;
+        width: 65%;
+        height: 80px;
+        position: relative;
+        z-index: 1;
+        display: flex;
+        justify-content: end;
+    }
+    .nos p{
+        color: #ffffff;
+        font-size: 27px;
+        width: 80%;
+    }
+    .pontos{
+        height: 45px;
+        margin: 10px;
+    }
+    .mofundo{
+        background-color: #000000;
+        width: 35%;
+        height: 430px;
+        z-index: -1;
+        display: flex;
+        justify-content: end;
+        align-items: end;
+    }
+    .mofundo p{
+        font-size: 240px;
+        color: #ffffff;
+        opacity: 0.1;
+    }
+    .bankingfundo{
+        background-color: #000000;
+        width: 50%;
+        height: 400px;
+        display: flex;
+        justify-content: start;
+        align-items: end;
+        z-index: -1;
+    }
+    .bankingfundo p{
+        font-size: 210px;
+        color: #00546b;
+        opacity: 0.1;
+    }
+    .secao3{
+        height: 610px;
+        width: 101%;
+        margin-top: 40px;
+    }
+    .background2 {
+        position: relative;
+        background-image: url('../imagens/parqueservidores.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 610px;
+    }
+    .background2::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 610px;
+    }
+    .destaques{
+        width: 95%;
+        height: 600px;
+        background-color: #00000000;
+        display: flex;
+        justify-content: end;
+        align-items: end;
+        flex-direction: column;
+    }
+    .destaques h2{
+        font-size: 55px;
+        color: #ffffff;
+        font-weight: 400;
+    }
+    .diferenciais{
+        margin: 20px;
+        z-index: 1;
+        width: 60%;
+    }
+    .diferenciais p{
+        color: #ffffff;
+        font-size: 25px;
+        text-align: end;
+    }
+    .secao4{
+        width: 101%;
+        height: 550px;
+    }
+    .faq{
+        position: relative;
+        z-index: 1;
+    }
+    .faq h2{
+        color: #ffffff;
+        font-weight: 400;
+        width: 42%;
+        display: flex;
+        justify-content: end;
+        align-items: end;
+        font-size: 50px;
+        height: 50px;
+        margin: 30px;
+    }
+    .textofaq{
+        width: 65%;
+        display: flex;
+        justify-content: start;
+        align-items: end;
+        height: 400px;
+        flex-direction: column;
+    }
+    .faq p{
+        color: #ffffff;
+        font-size: 25px;
+        position: relative;
+        display: flex;
+        justify-content: end;
+        width: 80%;
+        z-index: 1;
+    }
+    .div_botaofaq{
+        display: flex;
+        width: 78%;
+        height: 40px;
+        margin: 20px;
+    }
+    .faqbot{
+        background-color: #00546b;
+        color: #ffffff;
+        width: 40%;
+        padding: 10px;
+        border: #ffffff solid 1px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    .faqbot:hover{
+        background-color: #004558;
+    }
+    .fundotexto{
+        z-index: -1;
+        display: flex;
+        justify-content: end;
+        align-items: end;
+        height: 130px;
+    }
+    .fundotexto h1{
+        color: #ffffff13;
+        font-size: 200px;
+        display: flex;
+        text-align: end;
+    }
+    footer{
+        width: 101%;
+        height: 240px;
+        background-color: #00546b;
+    }
+    .infofooter{
+        width: 100%;
+        height: 210px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .esquerdo{
+        width: 40%;
+        height: 140px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .esquerdo h2{
+        color: #ffffff;
+        font-weight: 400;
+    }
+    .tecnologia{
+        flex-direction: column;
+        display: flex;
+        gap: 5px;
+    }
+    .esquerdo p{
+        color: #ffffff;
+    }
+    .tecnologia button{
+        background-color: #000000;
+        color: #ffffff;
+        width: 40%;
+        padding: 10px;
+        border: #ffffff solid 1px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    .tecnologia button:hover{
+        background-color: #0d0d0d;
+    }
+    .direito{
+        width: 40%;
+        height: 100%;
+    }
+    .linkscima{
+        width: 95%;
+        height: 60px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .linkscima a{
+        text-decoration: none;
+        color: #ffffff;
+    }
+    .linksabaixo{
+        width: 100%;
+        height: 60px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .linksabaixo a{
+        text-decoration: none;
+        color: #ffffff;
+    }
+    .linkgit{
+        width: 100%;
+        height: 90px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .linkgit a{
+        display: flex;
+        width: 10%;
+        justify-content: center;
+        align-items: center;
+    }
+    .git{
+        width: 100%;
+    }
+    .final{
+        width: 100%;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .final h3{
+        font-weight: 300;
+        color: #ffffff;
+    }
+}
+@media only screen and (max-width: 992px){
+    .background {
+        position: relative;
+        background-image: url('../imagens/imagem_secao1.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 130.3%;
+        height: 710px;
+    }
+    .background::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 710px;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+    header{
+        width: 100%;
+        height: 70px;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .div_logo{
+        z-index: 1;
+        width: 10%;
+        display: flex;
+        justify-content: end;
+    }
+    .link_logo{
+        display: flex;
+        align-items: center;
+    }
+    .logo{
+        height: 70px;
+    }
+    .links{
+        display: flex;
+        justify-content: space-between;
+        z-index: 1;
+        width: 30%;
+        margin: 2%;
+    }
+    .links a{
+        color: #ffffff;
+        text-decoration: none;
+    }
+    .dados_decisoes{
+        width: 50%;
+        height: 250px;
+        z-index: 1;
+        position: absolute;
+        display: flex;
+        align-items: end;
+        margin: 120px;
+    }
+    .dados_decisoes h1{
+        color: #ffffff;
+        font-weight: 500;
+        font-size: 70px;
+    }
+    .secao2{
+        height: 670px;
+    }
+    .iluminacao{
+        height: 50px;
+        width: 129%;
+        position: relative;
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 84, 107, 0.17) 50%, rgba(51, 255, 0, 0) 100%);
+        top: -25px;
+        display: flex;
+        justify-content: center;
+    }
+    .linha{
+        position: relative;
+        top: -70px;
+        height: 200px;
+        z-index: 1;
+    }
+    .nomefundo{
+        display: flex;
+        align-items: center;
+    }
+    .sobre{
+        background-color: #000000;
+        width: 125%;
+        height: 130px;
+        position: relative;
+        z-index: 0;
+        display: flex;
+        justify-content: space-between;
+        top: -20px;
+    }
+    .sobre h2{
+        font-size: 60px;
+        color: #ffffff;
+        font-weight: 400;
+        width: 25%;
+        display: flex;
+        justify-content: end;
+    }
+    .nos{
+        background-color: #000000;
+        width: 75%;
+        height: 150px;
+        position: relative;
+        z-index: 1;
+        display: flex;
+        justify-content: end;
+    }
+    .nos p{
+        color: #ffffff;
+        font-size: 30px;
+        width: 80%;
+    }
+    .pontos{
+        height: 50px;
+        margin: 10px;
+    }
+    .mofundo{
+        background-color: #000000;
+        width: 50%;
+        height: 430px;
+        z-index: -1;
+        display: flex;
+        justify-content: end;
+        align-items: end;
+    }
+    .mofundo p{
+        font-size: 280px;
+        color: #ffffff;
+        opacity: 0.1;
+    }
+    .bankingfundo{
+        background-color: #000000;
+        width: 60%;
+        height: 370px;
+        display: flex;
+        justify-content: start;
+        align-items: end;
+        z-index: -1;
+    }
+    .bankingfundo p{
+        font-size: 190px;
+        color: #00546b;
+        opacity: 0.1;
+    }
+    .secao3{
+        height: 710px;
+        width: 120%;
+        margin-top: 40px;
+    }
+    .background2 {
+        position: relative;
+        background-image: url('../imagens/parqueservidores.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 710px;
+    }
+    .background2::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 710px;
+    }
+    .destaques{
+        width: 105%;
+        height: 700px;
+        background-color: #00000000;
+        display: flex;
+        justify-content: end;
+        align-items: end;
+        flex-direction: column;
+    }
+    .destaques h2{
+        font-size: 60px;
+        color: #ffffff;
+        font-weight: 400;
+    }
+    .diferenciais{
+        margin: 20px;
+        z-index: 1;
+        width: 60%;
+    }
+    .diferenciais p{
+        color: #ffffff;
+        font-size: 30px;
+        text-align: end;
+    }
+    .secao4{
+        width: 130%;
+        height: 650px;
+    }
+    .faq{
+        position: relative;
+        z-index: 1;
+    }
+    .faq h2{
+        color: #ffffff;
+        font-weight: 400;
+        width: 48%;
+        display: flex;
+        justify-content: end;
+        align-items: end;
+        font-size: 60px;
+        height: 70px;
+        margin: 30px;
+    }
+    .textofaq{
+        width: 70%;
+        display: flex;
+        justify-content: start;
+        align-items: end;
+        height: 400px;
+        flex-direction: column;
+    }
+    .faq p{
+        color: #ffffff;
+        font-size: 30px;
+        position: relative;
+        display: flex;
+        justify-content: end;
+        width: 80%;
+        z-index: 1;
+    }
+    .div_botaofaq{
+        display: flex;
+        width: 78%;
+        height: 40px;
+        margin: 20px;
+    }
+    .faqbot{
+        background-color: #00546b;
+        color: #ffffff;
+        width: 40%;
+        padding: 10px;
+        border: #ffffff solid 1px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    .faqbot:hover{
+        background-color: #004558;
+    }
+    .fundotexto{
+        z-index: -1;
+        display: flex;
+        justify-content: end;
+        align-items: end;
+        height: 200px;
+    }
+    .fundotexto h1{
+        color: #ffffff13;
+        font-size: 200px;
+        display: flex;
+        text-align: end;
+    }
+    footer{
+        width: 130.3%;
+        height: 240px;
+        background-color: #00546b;
+    }
+    .infofooter{
+        width: 100%;
+        height: 210px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .esquerdo{
+        width: 40%;
+        height: 140px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .esquerdo h2{
+        color: #ffffff;
+        font-weight: 400;
+    }
+    .tecnologia{
+        flex-direction: column;
+        display: flex;
+        gap: 5px;
+    }
+    .esquerdo p{
+        color: #ffffff;
+    }
+    .tecnologia button{
+        background-color: #000000;
+        color: #ffffff;
+        width: 40%;
+        padding: 10px;
+        border: #ffffff solid 1px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    .tecnologia button:hover{
+        background-color: #0d0d0d;
+    }
+    .direito{
+        width: 40%;
+        height: 100%;
+    }
+    .linkscima{
+        width: 95%;
+        height: 60px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .linkscima a{
+        text-decoration: none;
+        color: #ffffff;
+    }
+    .linksabaixo{
+        width: 100%;
+        height: 60px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .linksabaixo a{
+        text-decoration: none;
+        color: #ffffff;
+    }
+    .linkgit{
+        width: 100%;
+        height: 90px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .linkgit a{
+        display: flex;
+        width: 10%;
+        justify-content: center;
+        align-items: center;
+    }
+    .git{
+        width: 100%;
+    }
+    .final{
+        width: 100%;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .final h3{
+        font-weight: 300;
+        color: #ffffff;
+    }
+}
+@media only screen and (max-width: 768px){
+    .background {
+        position: relative;
+        background-image: url('../imagens/imagem_secao1.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 156.6%;
+        height: 710px;
+    }
+    .background::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 710px;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+    header{
+        width: 100%;
+        height: 75px;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .div_logo{
+        z-index: 1;
+        width: 10%;
+        display: flex;
+        justify-content: end;
+    }
+    .link_logo{
+        display: flex;
+        align-items: center;
+    }
+    .logo{
+        height: 80px;
+    }
+    .links{
+        display: flex;
+        justify-content: space-between;
+        z-index: 1;
+        width: 40%;
+        margin: 2%;
+    }
+    .links a{
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 20px;
+    }
+    .dados_decisoes{
+        width: 55%;
+        height: 250px;
+        z-index: 1;
+        position: absolute;
+        display: flex;
+        align-items: end;
+        margin: 120px;
+    }
+    .dados_decisoes h1{
+        color: #ffffff;
+        font-weight: 500;
+        font-size: 70px;
+    }
+    .secao2{
+        height: 700px;
+    }
+    .iluminacao{
+        height: 50px;
+        width: 155%;
+        position: relative;
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 84, 107, 0.17) 50%, rgba(51, 255, 0, 0) 100%);
+        top: -25px;
+        display: flex;
+        justify-content: center;
+    }
+    .linha{
+        position: relative;
+        top: -70px;
+        height: 200px;
+        z-index: 1;
+    }
+    .nomefundo{
+        display: flex;
+        align-items: center;
+    }
+    .sobre{
+        background-color: #000000;
+        width: 150%;
+        height: 130px;
+        position: relative;
+        z-index: 0;
+        display: flex;
+        justify-content: space-between;
+        top: -20px;
+    }
+    .sobre h2{
+        font-size: 60px;
+        color: #ffffff;
+        font-weight: 400;
+        width: 30%;
+        display: flex;
+        justify-content: end;
+    }
+    .nos{
+        background-color: #000000;
+        width: 100%;
+        height: 150px;
+        position: relative;
+        z-index: 1;
+        display: flex;
+        justify-content: end;
+    }
+    .nos p{
+        color: #ffffff;
+        font-size: 30px;
+        width: 80%;
+    }
+    .pontos{
+        height: 50px;
+        margin: 10px;
+    }
+    .mofundo{
+        background-color: #000000;
+        width: 70%;
+        height: 470px;
+        z-index: -1;
+        display: flex;
+        justify-content: end;
+        align-items: end;
+    }
+    .mofundo p{
+        font-size: 300px;
+        color: #ffffff;
+        opacity: 0.1;
+    }
+    .bankingfundo{
+        background-color: #000000;
+        width: 60%;
+        height: 400px;
+        display: flex;
+        justify-content: start;
+        align-items: end;
+        z-index: -1;
+    }
+    .bankingfundo p{
+        font-size: 200px;
+        color: #00546b;
+        opacity: 0.1;
+    }
+    .secao3{
+        height: 710px;
+        width: 150%;
+        margin-top: 40px;
+    }
+    .background2 {
+        position: relative;
+        background-image: url('../imagens/parqueservidores.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 710px;
+    }
+    .background2::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 710px;
+    }
+    .destaques{
+        width: 102%;
+        height: 710px;
+        background-color: #00000000;
+        display: flex;
+        justify-content: end;
+        align-items: end;
+        flex-direction: column;
+    }
+    .destaques h2{
+        font-size: 60px;
+        color: #ffffff;
+        font-weight: 400;
+    }
+    .diferenciais{
+        margin: 20px;
+        z-index: 1;
+        width: 60%;
+    }
+    .diferenciais p{
+        color: #ffffff;
+        font-size: 30px;
+        text-align: end;
+    }
+    .secao4{
+        width: 155%;
+        height: 650px;
+    }
+    .faq{
+        position: relative;
+        z-index: 1;
+    }
+    .faq h2{
+        color: #ffffff;
+        font-weight: 400;
+        width: 50%;
+        display: flex;
+        justify-content: end;
+        align-items: end;
+        font-size: 60px;
+        height: 70px;
+        margin: 30px;
+    }
+    .textofaq{
+        width: 70%;
+        display: flex;
+        justify-content: start;
+        align-items: end;
+        height: 400px;
+        flex-direction: column;
+    }
+    .faq p{
+        color: #ffffff;
+        font-size: 25px;
+        position: relative;
+        display: flex;
+        justify-content: end;
+        width: 80%;
+        z-index: 1;
+    }
+    .div_botaofaq{
+        display: flex;
+        width: 78%;
+        height: 40px;
+        margin: 20px;
+    }
+    .faqbot{
+        background-color: #00546b;
+        color: #ffffff;
+        width: 40%;
+        padding: 10px;
+        border: #ffffff solid 1px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    .faqbot:hover{
+        background-color: #004558;
+    }
+    .fundotexto{
+        z-index: -1;
+        display: flex;
+        justify-content: end;
+        align-items: end;
+        height: 190px;
+    }
+    .fundotexto h1{
+        color: #ffffff13;
+        font-size: 200px;
+        display: flex;
+        text-align: end;
+    }
+    footer{
+        width: 156.6%;
+        height: 240px;
+        background-color: #00546b;
+    }
+    .infofooter{
+        width: 100%;
+        height: 210px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .esquerdo{
+        width: 40%;
+        height: 140px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .esquerdo h2{
+        color: #ffffff;
+        font-weight: 400;
+    }
+    .tecnologia{
+        flex-direction: column;
+        display: flex;
+        gap: 5px;
+    }
+    .esquerdo p{
+        color: #ffffff;
+    }
+    .tecnologia button{
+        background-color: #000000;
+        color: #ffffff;
+        width: 40%;
+        padding: 10px;
+        border: #ffffff solid 1px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    .tecnologia button:hover{
+        background-color: #0d0d0d;
+    }
+    .direito{
+        width: 40%;
+        height: 100%;
+    }
+    .linkscima{
+        width: 95%;
+        height: 60px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .linkscima a{
+        text-decoration: none;
+        color: #ffffff;
+    }
+    .linksabaixo{
+        width: 100%;
+        height: 60px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .linksabaixo a{
+        text-decoration: none;
+        color: #ffffff;
+    }
+    .linkgit{
+        width: 100%;
+        height: 90px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .linkgit a{
+        display: flex;
+        width: 10%;
+        justify-content: center;
+        align-items: center;
+    }
+    .git{
+        width: 100%;
+    }
+    .final{
+        width: 100%;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .final h3{
+        font-weight: 300;
+        color: #ffffff;
+    }
+}
+@media only screen and (max-width: 600px){
+    .background {
+        position: relative;
+        background-image: url('../imagens/imagem_secao1.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 400%;
+        height: 1500px;
+    }
+    .background::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 400%;
+        height: 1500px;
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+    header{
+        width: 100%;
+        height: 200px;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .div_logo{
+        z-index: 1;
+        width: 10%;
+        display: flex;
+        justify-content: end;
+    }
+    .link_logo{
+        display: flex;
+        align-items: center;
+    }
+    .logo{
+        height: 200px;
+    }
+    .links{
+        display: flex;
+        justify-content: space-between;
+        z-index: 1;
+        width: 50%;
+        margin: 2%;
+    }
+    .links a{
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 50px;
+    }
+    .dados_decisoes{
+        width: 50%;
+        height: 450px;
+        z-index: 1;
+        position: absolute;
+        display: flex;
+        align-items: end;
+        margin: 300px;
+    }
+    .dados_decisoes h1{
+        color: #ffffff;
+        font-weight: 500;
+        font-size: 120px;
+    }
+    .secao2{
+        height: 1400px;
+    }
+    .iluminacao{
+        height: 50px;
+        width: 396%;
+        position: relative;
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 84, 107, 0.17) 50%, rgba(51, 255, 0, 0) 100%);
+        top: -25px;
+        display: flex;
+        justify-content: center;
+    }
+    .linha{
+        position: relative;
+        top: -130px;
+        height: 300px;
+        z-index: 1;
+    }
+    .nomefundo{
+        display: flex;
+        align-items: center;
+    }
+    .sobre{
+        background-color: #000000;
+        width: 350%;
+        height: 100px;
+        position: relative;
+        z-index: 0;
+        display: flex;
+        justify-content: space-between;
+        top: 20px;
+    }
+    .sobre h2{
+        font-size: 100px;
+        color: #ffffff;
+        font-weight: 400;
+        width: 30%;
+        display: flex;
+        justify-content: end;
+    }
+    .nos{
+        background-color: #00000000;
+        width: 250%;
+        height: 850px;
+        position: relative;
+        z-index: 1;
+        display: flex;
+        justify-content: end;
+        align-items: end;
+    }
+    .nos p{
+        color: #ffffff;
+        font-size: 60px;
+        width: 80%;
+    }
+    .pontos{
+        height: 90px;
+        margin: 10px;
+    }
+    .mofundo{
+        background-color: #000000;
+        width: 200%;
+        height: 550px;
+        z-index: -1;
+        display: flex;
+        justify-content: end;
+        align-items: end;
+    }
+    .mofundo p{
+        font-size: 600px;
+        color: #ffffff;
+        opacity: 0.1;
+    }
+    .bankingfundo{
+        background-color: #000000;
+        width: 60%;
+        height: 400px;
+        display: flex;
+        justify-content: start;
+        align-items: end;
+        z-index: -1;
+    }
+    .bankingfundo p{
+        font-size: 400px;
+        color: #00546b;
+        opacity: 0.1;
+    }
+    .secao3{
+        height: 1400px;
+        width: 380%;
+        margin-top: 40px;
+    }
+    .background2 {
+        position: relative;
+        background-image: url('../imagens/parqueservidores.svg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 1400px;
+    }
+    .background2::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 1400px;
+    }
+    .destaques{
+        width: 102%;
+        height: 1350px;
+        background-color: #00000000;
+        display: flex;
+        justify-content: end;
+        align-items: end;
+        flex-direction: column;
+    }
+    .destaques h2{
+        font-size: 100px;
+        color: #ffffff;
+        font-weight: 400;
+    }
+    .diferenciais{
+        margin: 20px;
+        z-index: 1;
+        width: 60%;
+    }
+    .diferenciais p{
+        color: #ffffff;
+        font-size: 60px;
+        text-align: end;
+    }
+    .secao4{
+        width: 395%;
+        height: 1400px;
+    }
+    .faq{
+        position: relative;
+        z-index: 1;
+    }
+    .faq h2{
+        color: #ffffff;
+        font-weight: 400;
+        width: 45%;
+        display: flex;
+        justify-content: end;
+        align-items: end;
+        font-size: 100px;
+        height: 150px;
+        margin: 30px;
+    }
+    .textofaq{
+        margin: 80px;
+        width: 70%;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        height: 550px;
+        flex-direction: column;
+    }
+    .faq p{
+        color: #ffffff;
+        font-size: 55px;
+        position: relative;
+        display: flex;
+        justify-content: end;
+        width: 80%;
+        z-index: 1;
+    }
+    .div_botaofaq{
+        display: flex;
+        width: 78%;
+        height: 100px;
+        margin: 20px;
+    }
+    .faqbot{
+        background-color: #00546b;
+        color: #ffffff;
+        width: 50%;
+        padding: 15px 20px;
+        border: #ffffff solid 1px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 35px;
+    }
+    .faqbot:hover{
+        background-color: #004558;
+    }
+    .fundotexto{
+        display: flex;
+        justify-content: end;
+        align-items: end;
+        height: 600px;
+    }
+    .fundotexto h1{
+        color: #ffffff13;
+        font-size: 300px;
+        display: flex;
+        text-align: end;
+    }
+    footer{
+        width: 400%;
+        height: 400px;
+        background-color: #00546b;
+    }
+    .infofooter{
+        width: 100%;
+        height: 360px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .esquerdo{
+        width: 50%;
+        height: 140px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .esquerdo h2{
+        color: #ffffff;
+        font-weight: 400;
+        font-size: 50px;
+    }
+    .tecnologia{
+        flex-direction: column;
+        display: flex;
+        gap: 10px;
+    }
+    .esquerdo p{
+        color: #ffffff;
+        font-size: 35px;
+    }
+    .tecnologia button{
+        background-color: #000000;
+        color: #ffffff;
+        width: 40%;
+        padding: 10px;
+        border: #ffffff solid 1px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 30px;
+    }
+    .tecnologia button:hover{
+        background-color: #0d0d0d;
+    }
+    .direito{
+        width: 40%;
+        height: 100%;
+    }
+    .linkscima{
+        width: 95%;
+        height: 80px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .linkscima a{
+        text-decoration: none;
+        color: #ffffff;
+        font-size: 35px;
+    }
+    .linksabaixo{
+        width: 100%;
+        height: 80px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .linksabaixo a{
+        text-decoration: none;
+        color: #ffffff;
+        font-size: 35px;
+    }
+    .linkgit{
+        width: 100%;
+        height: 90px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .linkgit a{
+        display: flex;
+        width: 10%;
+        justify-content: center;
+        align-items: center;
+    }
+    .git{
+        width: 100%;
+    }
+    .final{
+        width: 100%;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .final h3{
+        font-weight: 300;
+        color: #ffffff;
+        font-size: 30px;
+    }
+}
