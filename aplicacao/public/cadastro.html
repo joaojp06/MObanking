@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 <html lang="ptbr">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro - Marca</title>
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="css/cadastro.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Cadastro - Marca</title>
+	<link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+	<link rel="stylesheet" href="css/cadastro.css">
 </head>
+
 <body>
 	<div class="voltar">
 		<div class="seta">
 			<a href="../public/index.html"><span class="material-symbols-outlined">
-				arrow_back
-			</span></a>
+					arrow_back
+				</span></a>
 		</div>
 	</div>
-    <div class="secao">
+	<div class="secao">
 		<div class="formulario">
 			<div class="centro">
 				<div class="text-center">
 					<h5 class="escolha"><span>Login</span><span>Cadastro</span></h5>
-					  <input class="checkbox" type="checkbox" id="caixa_escolha"/>
-					  <label for="caixa_escolha"></label>
+					<input class="checkbox" type="checkbox" id="caixa_escolha" />
+					<label for="caixa_escolha"></label>
 					<div class="cartao3d">
 						<div class="cartao">
 							<div class="card">
@@ -30,43 +33,159 @@
 									<div class="secao">
 										<h4 class="titulo">Login</h4>
 										<div class="formugrupo">
-											<input type="email" id="email_input" class="estilo_input" placeholder="Email">
+											<input type="email" id="email_input" class="estilo_input"
+												placeholder="Email">
 										</div>
 										<div class="formugrupo">
-											<input type="password" id="senhalog_input" class="estilo_input" placeholder="Senha">
+											<input type="password" id="senhaLog_input" class="estilo_input"
+												placeholder="Senha">
 										</div>
-										<button onclick="window.location.href='../public/superUsuario.html'" class="botao">Login</button>
-									  </div>
-								  </div>
-							  </div>
+										<button onclick="entrar()"
+											class="botao">Login</button>
+									</div>
+								</div>
+							</div>
 							<div class="card-back">
 								<div class="centralizacao">
 									<div class="secao">
 										<h4 class="titulo">Cadastro</h4>
 										<div class="formugrupo">
-											<input type="text" id="nomeBanco_input" class="estilo_input" placeholder="Nome do Banco">
-										</div>	
-										<div class="formugrupo">
-											<input type="tel" id="emailCad_input" class="estilo_input" placeholder="Email do Banco">
-										</div>	
-										<div class="formugrupo">
-											<input type="email" id="cnpjCad_input" class="estilo_input" placeholder="CNPJ">
+											<input type="text" id="nomeBanco_input" class="estilo_input"
+												placeholder="Nome do Banco">
 										</div>
 										<div class="formugrupo">
-											<input type="password" id="senha_input" class="estilo_input" placeholder="Senha">
+											<input type="tel" id="emailCad_input" class="estilo_input"
+												placeholder="Email do Banco">
 										</div>
-										<button onclick="window.location.href='../public/superUsuario.html'" class="botao">Cadastrar</button>
-									  </div>
-								  </div>
-							  </div>
-						  </div>
-					  </div>
-				  </div>
-			  </div>
-		  </div>
+										<div class="formugrupo">
+											<input type="email" id="cnpjCad_input" class="estilo_input"
+												placeholder="CNPJ">
+										</div>
+										<div class="formugrupo">
+											<input type="password" id="senha_input" class="estilo_input"
+												placeholder="Senha">
+										</div>
+										<button onclick="cadastrar()"
+											class="botao">Cadastrar</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
+
 </html>
 <script>
+	function cadastrar() {
 
+		var nomeVar = nomeBanco_input.value;
+		var emailVar = emailCad_input.value;
+		var senhaVar = senhaCad_input.value;
+		var cnpjVar = cnpjCad_input;
+		if (
+			nomeVar == "" ||
+			emailVar == "" ||
+			senhaVar == "" ||
+			cnpjVar == ""
+		) {
+			alert(`Insira todos os campos para prosseguir com o cadastro!`);
+		} else {
+
+		}
+
+		// Enviando o valor da nova input
+		fetch("/usuarios/cadastrar", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				// crie um atributo que recebe o valor recuperado aqui
+				// Agora vá para o arquivo routes/usuario.js
+				nomeServer: nomeVar,
+				emailServer: emailVar,
+				senhaServer: senhaVar,
+				cnpjServer: cnpjVar
+			}),
+		})
+			.then(function (resposta) {
+				console.log("resposta: ", resposta);
+
+				if (resposta.ok) {
+					alert(`Cadastro realizado com sucesso! Redirecionando para tela de Login...`);
+
+					setTimeout(() => {
+						window.location = "cadastro.html";
+					}, "2000");
+				} else {
+					alert(`Houve um erro ao tentar realizar o cadastro!`);
+				}
+			})
+			.catch(function (resposta) {
+				console.log(`#ERRO: ${resposta}`);
+			});
+
+		return false;
+	}
+
+	function entrar() {
+
+		var emailVar = email_input.value;
+		var senhaVar = senhaLog_input.value;
+
+		if (emailVar == "" || senhaVar == "") {
+			alert(`Preencha todos os campos para efetuar o login!`);
+			return false;
+		}
+
+		console.log("FORM LOGIN: ", emailVar);
+		console.log("FORM SENHA: ", senhaVar);
+
+		fetch("/usuarios/autenticar", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				emailServer: emailVar,
+				senhaServer: senhaVar
+			})
+		}).then(function (resposta) {
+			console.log("ESTOU NO THEN DO entrar()!")
+
+			if (resposta.ok) {
+				console.log(resposta);
+
+				resposta.json().then(json => {
+					console.log(json);
+					console.log(JSON.stringify(json));
+					sessionStorage.EMAIL_USUARIO = json[0].email;
+					sessionStorage.NOME_USUARIO = json[0].nome;
+					sessionStorage.ID_USUARIO = json[0].idUsuario;
+
+					setTimeout(function () {
+						window.location = "./dashboard/dashboard";
+					}, 1000); // apenas para exibir o loading
+
+				});
+
+			} else {
+
+				console.log("Houve um erro ao tentar realizar o login!");
+
+				resposta.text().then(texto => {
+					console.error(texto);
+				});
+			}
+
+		}).catch(function (erro) {
+			console.log(erro);
+		})
+
+		return false;
+	}
 </script>
