@@ -11,4 +11,8 @@ router.post("/cadastrar", function (req, res) {
   aquarioController.cadastrar(req, res);
 })
 
+router.get("/listarServidores/:idEmpresa", function (req, res) {
+  aquarioController.listarServidores(req, res);
+})
+
 module.exports = router;

@@ -1,275 +1,216 @@
 <!DOCTYPE html>
 <html lang="ptbr">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MOBANKING</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="shortcut icon" href="../imagens/logo.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/card.css">
-    <link rel="stylesheet" href="../css/default.css">
-</head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="shortcut icon" href="../imagens/logo.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/card.css" />
+    <link rel="stylesheet" href="../css/default.css" />
+  </head>
 
-<body>
-    <div id="frame" class="frame-aplicacao" style="display: flex;">
-        <nav class="menu-lateral">
-            <h2 class="titulo-menu">Menu</h2>
+  <body onload="listarServidores()">
+    <div id="frame" class="frame-aplicacao" style="display: flex">
+      <nav class="menu-lateral">
+        <h2 class="titulo-menu">Menu</h2>
 
-            <ul>
-                <li>
-                    <a href="card.html">
-                        <span class="icon-menu"><i class="fa-solid fa-server"></i></span>
-                        <span class="titulo-link-menu">Máquinas</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="dashboard.html">
-                        <span class="icon-menu"><i class="fa-solid fa-chart-simple"></i></span>
-                        <span class="titulo-link-menu">Gráficos</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="funcionarios.html">
-                        <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
-                        <span class="titulo-link-menu">Funcionários</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="alertas.html">
-                        <span class="icon-menu"><i class="fa-solid fa-triangle-exclamation"></i></span>
-                        <span class="titulo-link-menu">Alertas</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="devIndex.html">Adicionar Empresa</a>
-                </li>
-            </ul>
+        <ul>
+          <li>
+            <a href="card.html">
+              <span class="icon-menu"><i class="fa-solid fa-server"></i></span>
+              <span class="titulo-link-menu">Máquinas</span>
+            </a>
+          </li>
+          <li>
+            <a href="dashboard.html">
+              <span class="icon-menu"
+                ><i class="fa-solid fa-chart-simple"></i
+              ></span>
+              <span class="titulo-link-menu">Gráficos</span>
+            </a>
+          </li>
+          <li>
+            <a href="funcionarios.html">
+              <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
+              <span class="titulo-link-menu">Funcionários</span>
+            </a>
+          </li>
+          <li>
+            <a href="alertas.html">
+              <span class="icon-menu"
+                ><i class="fa-solid fa-triangle-exclamation"></i
+              ></span>
+              <span class="titulo-link-menu">Alertas</span>
+            </a>
+          </li>
+          <li>
+            <a href="devIndex.html">Adicionar Empresa</a>
+          </li>
+        </ul>
 
-
-            <div class="name-menu">
-                <a href="usuarioInfo.html">
-                    <h2>Maikon Douglas</h2>
-                </a>
-            </div>
-
-        </nav>
-        <div class="conteudo">
-            <h1>Máquinas</h1>
-            <div id="card-grid-pai" class="card-grid-pai">
-
-                
-
-                <div onclick="abrirModal()" class="card">
-                    <h2>#27632</h2>
-                    <div class="back-image-card"></div>
-                    <div class="indicadores-box">
-                        <div class="indicador-pai">
-                            <img src="../imagens/icon-rede.png" alt="">
-                            <div class="indicador-titulo">
-                                <span>Rede - latência</span>
-                                <p>160Ms</p>
-                            </div>
-                        </div>
-                        <div class="indicador-pai">
-                            <img class="ax-mg-left" src="../imagens/icon-cpu.png" alt="">
-                            <div class="indicador-titulo">
-                                <span>CPU - Uso</span>
-                                <p>5.2% de 2.3Ghz</p>
-                            </div>
-                        </div>
-                    
-                    
-                        <div class="indicador-pai">
-                            <img src="../imagens/icon-ram.png" alt="">
-                            <div class="indicador-titulo">
-                                <span>RAM - Uso</span>
-                                <p>27% de 8Gb</p>
-                            </div>
-                        </div>
-                        <div class="indicador-pai">
-                            <img class="ax-mg-left" src="../imagens/icon-disco.png" alt="">
-                            <div class="indicador-titulo">
-                                <span>Disco - Uso</span>
-                                <p>32% de 128Gb</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div onclick="abrirModal()" class="card">
-                    <h2>#27632</h2>
-                    <div class="back-image-card"></div>
-                    <div class="indicadores-box">
-                        <div class="indicador-pai">
-                            <img src="../imagens/icon-rede.png" alt="">
-                            <div class="indicador-titulo">
-                                <span>Rede - latência</span>
-                                <p>160Ms</p>
-                            </div>
-                        </div>
-                        <div class="indicador-pai">
-                            <img class="ax-mg-left" src="../imagens/icon-cpu.png" alt="">
-                            <div class="indicador-titulo">
-                                <span>CPU - Uso</span>
-                                <p>5.2% de 2.3Ghz</p>
-                            </div>
-                        </div>
-                    
-                    
-                        <div class="indicador-pai">
-                            <img src="../imagens/icon-ram.png" alt="">
-                            <div class="indicador-titulo">
-                                <span>RAM - Uso</span>
-                                <p>27% de 8Gb</p>
-                            </div>
-                        </div>
-                        <div class="indicador-pai">
-                            <img class="ax-mg-left" src="../imagens/icon-disco.png" alt="">
-                            <div class="indicador-titulo">
-                                <span>Disco - Uso</span>
-                                <p>32% de 128Gb</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div onclick="abrirModal()" class="card">
-                    <h2>#27632</h2>
-                    <div class="back-image-card"></div>
-                    <div class="indicadores-box">
-                        <div class="indicador-pai">
-                            <img src="../imagens/icon-rede.png" alt="">
-                            <div class="indicador-titulo">
-                                <span>Rede - latência</span>
-                                <p>160Ms</p>
-                            </div>
-                        </div>
-                        <div class="indicador-pai">
-                            <img class="ax-mg-left" src="../imagens/icon-cpu.png" alt="">
-                            <div class="indicador-titulo">
-                                <span>CPU - Uso</span>
-                                <p>5.2% de 2.3Ghz</p>
-                            </div>
-                        </div>
-                    
-                    
-                        <div class="indicador-pai">
-                            <img src="../imagens/icon-ram.png" alt="">
-                            <div class="indicador-titulo">
-                                <span>RAM - Uso</span>
-                                <p>27% de 8Gb</p>
-                            </div>
-                        </div>
-                        <div class="indicador-pai">
-                            <img class="ax-mg-left" src="../imagens/icon-disco.png" alt="">
-                            <div class="indicador-titulo">
-                                <span>Disco - Uso</span>
-                                <p>32% de 128Gb</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div onclick="abrirModal()" class="card">
-                    <h2>#27632</h2>
-                    <div class="back-image-card"></div>
-                    <div class="indicadores-box">
-                        <div class="indicador-pai">
-                            <img src="../imagens/icon-rede.png" alt="">
-                            <div class="indicador-titulo">
-                                <span>Rede - latência</span>
-                                <p>160Ms</p>
-                            </div>
-                        </div>
-                        <div class="indicador-pai">
-                            <img class="ax-mg-left" src="../imagens/icon-cpu.png" alt="">
-                            <div class="indicador-titulo">
-                                <span>CPU - Uso</span>
-                                <p>5.2% de 2.3Ghz</p>
-                            </div>
-                        </div>
-                    
-                    
-                        <div class="indicador-pai">
-                            <img src="../imagens/icon-ram.png" alt="">
-                            <div class="indicador-titulo">
-                                <span>RAM - Uso</span>
-                                <p>27% de 8Gb</p>
-                            </div>
-                        </div>
-                        <div class="indicador-pai">
-                            <img class="ax-mg-left" src="../imagens/icon-disco.png" alt="">
-                            <div class="indicador-titulo">
-                                <span>Disco - Uso</span>
-                                <p>32% de 128Gb</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
+        <div class="name-menu">
+          <a href="usuarioInfo.html">
+            <h2>Maikon Douglas</h2>
+          </a>
         </div>
+      </nav>
+      <div class="conteudo">
+        <h1>Máquinas</h1>
+        <div id="listagemServidores" class="card-grid-pai">
+          <div onclick="abrirModal()" class="card">
+            <h2>#27632</h2>
+            <div class="back-image-card"></div>
+            <div class="indicadores-box">
+              <div class="indicador-pai">
+                <img src="../imagens/icon-rede.png" alt="" />
+                <div class="indicador-titulo">
+                  <span>Rede - latência</span>
+                  <p>160Ms</p>
+                </div>
+              </div>
+              <div class="indicador-pai">
+                <img class="ax-mg-left" src="../imagens/icon-cpu.png" alt="" />
+                <div class="indicador-titulo">
+                  <span>CPU - Uso</span>
+                  <p>5.2% de 2.3Ghz</p>
+                </div>
+              </div>
+
+              <div class="indicador-pai">
+                <img src="../imagens/icon-ram.png" alt="" />
+                <div class="indicador-titulo">
+                  <span>RAM - Uso</span>
+                  <p>27% de 8Gb</p>
+                </div>
+              </div>
+              <div class="indicador-pai">
+                <img
+                  class="ax-mg-left"
+                  src="../imagens/icon-disco.png"
+                  alt=""
+                />
+                <div class="indicador-titulo">
+                  <span>Disco - Uso</span>
+                  <p>32% de 128Gb</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- MODAL -->
 
-
-    <div style="display: none;" class="modal" id="modal">
-        <i onclick="fecharModal()" id="closeModal" class="fa-solid fa-x"></i>
-        <h1>Utilização</h1>
-        <div class="grafico-box">
-            <div>
-                <h2>Uso CPU </h2>
-                <div class="simulacao2">Simalção gráfico uso</div>
-            </div>
-
-            <div class="simulacao">
-                simulação gráfico
-            </div>
+    <div style="display: none" class="modal" id="modal">
+      <i onclick="fecharModal()" id="closeModal" class="fa-solid fa-x"></i>
+      <h1>Utilização</h1>
+      <div class="grafico-box">
+        <div>
+          <h2>Uso CPU</h2>
+          <div class="simulacao2">Simalção gráfico uso</div>
         </div>
-        <div class="grafico-box">
-            <div>
-                <h2>Uso CPU </h2>
-                <div class="simulacao2">Simalção gráfico uso</div>
-            </div>
 
-            <div class="simulacao">
-                simulação gráfico
-            </div>
+        <div class="simulacao">simulação gráfico</div>
+      </div>
+      <div class="grafico-box">
+        <div>
+          <h2>Uso CPU</h2>
+          <div class="simulacao2">Simalção gráfico uso</div>
         </div>
-        <div class="grafico-box">
-            <div>
-                <h2>Uso CPU </h2>
-                <div class="simulacao2">Simalção gráfico uso</div>
-            </div>
 
-            <div class="simulacao">
-                simulação gráfico
-            </div>
+        <div class="simulacao">simulação gráfico</div>
+      </div>
+      <div class="grafico-box">
+        <div>
+          <h2>Uso CPU</h2>
+          <div class="simulacao2">Simalção gráfico uso</div>
         </div>
+
+        <div class="simulacao">simulação gráfico</div>
+      </div>
     </div>
-
-</body>
-
+  </body>
 </html>
+
 <script>
-    function abrirModal(){
-        // modal.display = "block"
-        modal.style.display = 'block';
-        const frame = document.getElementById('frame');
-        frame.classList.add('blur-grid')
-    }
-    function fecharModal(){
-        modal.style.display = 'none'
-        const frame = document.getElementById('frame');
-        frame.classList.remove('blur-grid')  
-    }
+  function abrirModal() {
+    // modal.display = "block"
+    modal.style.display = "block";
+    const frame = document.getElementById("frame");
+    frame.classList.add("blur-grid");
+  }
+
+  function fecharModal() {
+    modal.style.display = "none";
+    const frame = document.getElementById("frame");
+    frame.classList.remove("blur-grid");
+  }
+  
+  var idEmpresa = 1
+  function listarServidores() {
+    fetch(`/aquarios/listarServidores/${idEmpresa}`, {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json().then((servidores) => {
+                    servidores.forEach((registro) => {
+
+                        listagemServidores.innerHTML += `
+                        <div onclick="abrirModal()" class="card">
+            <h2>#${registro.id}</h2>
+            <div class="back-image-card"></div>
+            <div class="indicadores-box">
+              <div class="indicador-pai"> 
+                <img src="../imagens/icon-rede.png" alt="" />
+                <div class="indicador-titulo">
+                  <span>${registro.servicoMonitorado}</span>
+                  <p>${registro.valorRegistro}</p>
+                </div>
+              </div>
+              <div class="indicador-pai">
+                <img class="ax-mg-left" src="../imagens/icon-cpu.png" alt="" />
+                <div class="indicador-titulo">
+                  <span>CPU - Uso</span>
+                  <p>5.2% de 2.3Ghz</p>
+                </div>
+              </div>
+
+              <div class="indicador-pai">
+                <img src="../imagens/icon-ram.png" alt="" />
+                <div class="indicador-titulo">
+                  <span>RAM - Uso</span>
+                  <p>27% de 8Gb</p>
+                </div>
+              </div>
+              <div class="indicador-pai">
+                <img
+                  class="ax-mg-left"
+                  src="../imagens/icon-disco.png"
+                  alt=""
+                />
+                <div class="indicador-titulo">
+                  <span>Disco - Uso</span>
+                  <p>32% de 128Gb</p>
+                </div>
+              </div>
+            </div>
+          </div>
+                        `;
+                    });
+                });
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+  }
+
 </script>
