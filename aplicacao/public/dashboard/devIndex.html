@@ -50,37 +50,69 @@
 
                 <form action="">
                     <label for="">
-                        Razão Social:
-                        <input type="text" id="razao_social_input" placeholder="Digite a razão social">
+                        Nome da Empresa:
+                        <input type="text" id="razao_social_input" placeholder="Razão Social...">
                     </label>
+
                     <label for="">
                         CNPJ:
-                        <input type="text" id="cnpj_input" placeholder="Digite o cnpj">
+                        <input type="number" id="cnpj_input" placeholder="XX. XXX. XXX/0001-XX">
                     </label>
+
                     <label for="">
                         Nome logradouro:
-                        <input type="text" id="nome_logradouro_input" placeholder="Digite o email">
+                        <input type="text" id="nome_logradouro_input" placeholder="Logradouro...">
                     </label>
+
                     <label for="">
                         Tipo logradouro
                         <select name="" id="tipo_logradouro_select">
-                            <option value="#"></option>
+                            <option selected hidden value="#">Escolha</option>
                             <option value="rua">Rua</option>
                             <option value="avenida">Avenida</option>
                         </select>
                     </label>
-                    <label for=""></label>
+                    
+                    <label for="">
+                        Bairro:
+                        <input type="text" id="bairro_input" placeholder="Bairro...">
+                    </label>
+
+                    <label for="">
+                        Cidade:
+                        <input type="text" id="cidade_input" placeholder="Cidade...">
+                    </label>
+
+                    <label for="">
+                        Estado:
+                        <input type="text" id="estado_input" placeholder="Estado...">
+                    </label>
+
+                    <label for="">
                     Número:
-                    <input type="text" id="numero_logradouro_input" placeholder="Digite o email">
+                    <input type="text" id="numero_logradouro_input" placeholder="Número...">
                     </label>
-                    <label for=""></label>
+
+                    <label for="">
                     Cep:
-                    <input type="text" id="cep_logradouro_input" placeholder="Digite o email">
+                    <input type="number" id="cep_logradouro_input" placeholder="XXXXX-XXX">
                     </label>
-                    <label for=""></label>
+
+                    <label for="">
                     Complemento:
-                    <input type="text" id="complemento_logradouro_input" placeholder="Digite o email">
+                    <input type="text" id="complemento_logradouro_input" placeholder="Complemento...">
                     </label>
+
+                    <label for="">
+                        Planos
+                        <select name="" id="tipo_planos_select">
+                            <option selected hidden value="#">Escolha de Planos</option>
+                            <option value="basico">Básico</option>
+                            <option value="intermediario">Intermediário</option>
+                            <option value="profissional">Profissional</option>
+                        </select>
+                    </label>
+
                 </form>
 
             </div>

@@ -76,25 +76,39 @@
 
                 <form action="">
                     <label for="nome">
-                        Nome:
-                        <input type="text" id="nome_input" placeholder="Digite o nome">
+                        Nome do Funcionário:
+                        <input type="text" id="nome_input" placeholder="Nome...">
                     </label>
+
                     <label for="telefone">
                         Telefone:
-                        <input type="text" id="telefone_input" placeholder="Digite o telefone">
+                        <input type="text" id="telefone_input" placeholder="(XX)XXXXX-XXXX">
                     </label>
+
                     <label for="telefone">
                         Email:
-                        <input type="text" id="email_input" placeholder="Digite o email">
+                        <input type="text" id="email_input" placeholder="exemplo@gmail.com">
                     </label>
+
+                    <label for="senha">
+                        Senha:
+                        <input type="number" id="senha_input" placeholder="••••••••••">
+                    </label>
+
+                    <label for="cpf">
+                        CPF:
+                        <input type="number" id="cpf_input" placeholder="XXX.XXX.XXX-XX">
+                    </label>
+
                     <label for="telefone">
-                        Nivel
+                        Perfil
                         <select name="" id="select_nivel">
-                            <option value="#"></option>
-                            <option value="administrador">Administrador</option>
-                            <option value="comum">Comum</option>
+                            <option selected hidden value="#">Escolha</option>
+                            <option value="administrador">Administrador (Supervisor - Coordenador) </option>
+                            <option value="comum">Comum (Usuário - Colaborador)</option>
                         </select>
                     </label>
+
                 </form>
 
             </div>
