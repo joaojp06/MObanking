@@ -122,7 +122,7 @@
         </div>
     </div>
 
-    <div class="modalAddUser" id="modalEditarEmpresa"></div>
+    <div style="display: none !important;" class="modalAddUser" id="modalEditarEmpresa">
         <div class="title-box">
             <h2>Editar Empresa</h2>
             <i onclick="fecharModalAddUser()" id="closeModal" class="fa-solid fa-x"></i>
@@ -211,8 +211,8 @@
 
 <script>
 
-let idEmpresa; // Declare fora das funções
-let fkEndereco;
+    let idEmpresa; // Declare fora das funções
+    let fkEndereco;
 
     function modalEditarEmpresa() {
 
@@ -229,16 +229,19 @@ let fkEndereco;
         idEmpresa = id
         fkEndereco = fkEnd
 
+
+        console.log(`ESTOU NA FUNÇÃO - IDENDEREÇO -> ${fkEndereco}`)
+
         // var fkEndereco = fkEndereco
         // var idEmpresa = idEmpresa
 
-        var razaoSocialVar = razao_social_input.value
-        var cnpjVar = cnpj_input.value
-        var nomeLogradouroVar = nome_logradouro_input.value
-        var tipoLogradouroVar = tipo_logradouro_select.value
-        var numeroVar = numero_logradouro_input.value
-        var cepVar = cep_logradouro_input.value
-        var complementoVar = complemento_logradouro_input.value
+        var razaoSocialVar = razao_social_input_editar.value
+        var cnpjVar = cnpj_input_editar.value
+        var nomeLogradouroVar = nome_logradouro_input_editar.value
+        var tipoLogradouroVar = tipo_logradouro_select_editar.value
+        var numeroVar = numero_logradouro_input_editar.value
+        var cepVar = cep_logradouro_input_editar.value
+        var complementoVar = complemento_logradouro_input_editar.value
 
         // if (razaoSocialVar == "" ||
         //     cnpjVar == "" ||
@@ -321,8 +324,11 @@ let fkEndereco;
     function fecharModalAddUser() {
 
         const modal = document.getElementById('modalAddUser')
+        const modalEdit = document.getElementById('modalEditarEmpresa')
+
 
         modal.style.display = 'none'
+        modalEdit.style.display = 'none'
         const frame = document.getElementById('frame');
         frame.classList.remove('blur-grid')
     }
@@ -458,40 +464,40 @@ let fkEndereco;
     function listarEmpresasPorId(id, fkEnd) {
         idEmpresa = id
         fkEndereco = fkEnd
-    modalEditarEmpresa();
+        modalEditarEmpresa();
 
-    fetch(`/empresas/listarEmpresasPorId/${idEmpresa}`, {
-        method: "GET",
-    })
-    .then(function (resposta) {
-        return resposta.json(); // Retorne o JSON diretamente
-    })
-    .then((empresas) => {
-        console.log(empresas);
-        
-        // Se empresas for um array, use forEach
-        empresas.forEach((empresa) => {
-            var idEmpresa = empresa.empresa_id;
-            var fkEndereco = empresa.endereco_id;
-            razao_social_input_editar.value = empresa.razaoSocial;
-            cnpj_input_editar.value = empresa.cnpj;
-            nome_logradouro_input_editar.value = empresa.nomeLogradouro;
-            bairro_input_editar.value = empresa.bairro;
-            cep_logradouro_input_editar.value = empresa.cep;
-            numero_logradouro_input_editar.value = empresa.numLogradouro;
-            complemento_logradouro_input_editar.value = empresa.complemento;
-            var ax = empresa.tipo_logradouro
-            tipo_logradouro_select_editar.value = empresa.tipo_logradouro;
-        });
+        fetch(`/empresas/listarEmpresasPorId/${idEmpresa}`, {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                return resposta.json(); // Retorne o JSON diretamente
+            })
+            .then((empresas) => {
+                console.log(empresas);
 
-        // Passar os parâmetros corretamente
-        console.log(ax)
-        document.getElementById('editar_button').onclick = function() {
-            editarEmpresa(fkEndereco, idEmpresa);
-        };
-    })
-    .catch(function (erro) {
-        console.log(`#ERRO: ${erro}`);
-    });
-}
+                // Se empresas for um array, use forEach
+                empresas.forEach((empresa) => {
+                    var idEmpresa = empresa.empresa_id;
+                    var fkEndereco = empresa.endereco_id;
+                    razao_social_input_editar.value = empresa.razaoSocial;
+                    cnpj_input_editar.value = empresa.cnpj;
+                    nome_logradouro_input_editar.value = empresa.nomeLogradouro;
+                    bairro_input_editar.value = empresa.bairro;
+                    cep_logradouro_input_editar.value = empresa.cep;
+                    numero_logradouro_input_editar.value = empresa.numLogradouro;
+                    complemento_logradouro_input_editar.value = empresa.complemento;
+                    var ax = empresa.tipo_logradouro
+                    tipo_logradouro_select_editar.value = empresa.tipo_logradouro;
+                });
+
+                // Passar os parâmetros corretamente
+                console.log(ax)
+                document.getElementById('editar_button').onclick = function () {
+                    editarEmpresa(fkEndereco, idEmpresa);
+                };
+            })
+            .catch(function (erro) {
+                console.log(`#ERRO: ${erro}`);
+            });
+    }
 </script>

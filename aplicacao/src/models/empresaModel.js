@@ -44,9 +44,9 @@ function editarEndereco(idEndereco, nomeLogradouro, tipoLogradouro, numero, cep,
   console.log(`idEndereco: ${idEndereco}`); // Adicione esta linha para depuração
   var instrucaoSql = `
   UPDATE endereco
-  SET fkLogradouro = ${tipoLogradouro},
+  SET fkLogradouro = 1,
       nomeLogradouro = '${nomeLogradouro}',
-      numLogradouro = ${numero ? numero : 'NULL'},
+      numLogradouro = ${numero},
       bairro = 'Centro Atualizado',
       cep = '${cep}',
       complemento = '${complemento}'

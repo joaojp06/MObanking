@@ -80,20 +80,36 @@ function editarEndereco(req, res) {
   var cep = req.body.cepServer;
   var complemento = req.body.complementoServer;
 
+  console.log(`------  ${idEndereco}  -------`)
+  if (idEndereco == undefined) {
+    res.status(400).send("idEndereco indefindido");
+  } else if (nomeLogradouro == undefined) {
+    res.status(400).send("A nomeLogradouro está indefinido!");
+  } else if (tipoLogradouro == undefined) {
+    res.status(400).send("A tipoLogradouro está indefinido!");
+  }else if (numero == undefined) {
+    res.status(400).send("A numero está indefinido!");
+  }else if (cep == undefined) {
+    res.status(400).send("A cep está indefinido!");
+  }else if (complemento == undefined) {
+    res.status(400).send("A complemento está indefinido!");
+  } else {
 
-  empresaModel.editarEndereco(idEndereco, nomeLogradouro, tipoLogradouro, numero, cep, complemento)
-    .then((resultado) => {
-      res.status(201).json(resultado);
-    }).catch(
-      function (erro) {
-        console.log(erro);
-        console.log(
-          "\nHouve um erro ao realizar o cadastro! Erro: ",
-          erro.sqlMessage
-        );
-        res.status(500).json(erro.sqlMessage);
-      }
-    );
+    empresaModel.editarEndereco(idEndereco, nomeLogradouro, tipoLogradouro, numero, cep, complemento)
+      .then((resultado) => {
+        res.status(201).json(resultado);
+      }).catch(
+        function (erro) {
+          console.log(erro);
+          console.log(
+            "\nHouve um erro ao realizar o cadastro! Erro: ",
+            erro.sqlMessage
+          );
+          res.status(500).json(erro.sqlMessage);
+        }
+      );
+
+  }
 }
 
 function editar(req, res) {
@@ -102,9 +118,9 @@ function editar(req, res) {
   var cnpj = req.body.cnpjServer;
 
   empresaModel.editar(cnpj).then((resultado) => {
-      empresaModel.cadastrar(idEmpresa, fkEndereco, razaoSocial, cnpj).then((resultado) => {
-        res.status(201).json(resultado);
-      });
+    empresaModel.cadastrar(idEmpresa, fkEndereco, razaoSocial, cnpj).then((resultado) => {
+      res.status(201).json(resultado);
+    });
   });
 }
 

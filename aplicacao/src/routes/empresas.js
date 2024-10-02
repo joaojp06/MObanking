@@ -31,7 +31,7 @@ router.put("/editar/:idEmpresa", function (req, res) {
   empresaController.editar(req, res);
 });
 
-router.put("/editarEndereco/:idEndereco", function (req, res) {
+router.put("/editarEndereco/:fkEndereco", function (req, res) {
   empresaController.editarEndereco(req, res);
 });
 
