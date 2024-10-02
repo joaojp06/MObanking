@@ -14,6 +14,13 @@ function listarEmpresas(req, res) {
   });
 }
 
+function listarEmpresasPorId(req, res) {
+  var idEmpresa = req.params.idEmpresa
+  empresaModel.listarEmpresasPorId(idEmpresa).then((resultado) => {
+    res.status(200).json(resultado);
+  });
+}
+
 function buscarPorId(req, res) {
   var id = req.params.id;
 
@@ -65,10 +72,49 @@ function cadastrar(req, res) {
   });
 }
 
+function editarEndereco(req, res) {
+  var idEndereco = req.params.fkEndereco
+  var nomeLogradouro = req.body.nomeLogradouroServer;
+  var tipoLogradouro = req.body.tipoLogradouroServer;
+  var numero = req.body.numeroServer;
+  var cep = req.body.cepServer;
+  var complemento = req.body.complementoServer;
+
+
+  empresaModel.editarEndereco(idEndereco, nomeLogradouro, tipoLogradouro, numero, cep, complemento)
+    .then((resultado) => {
+      res.status(201).json(resultado);
+    }).catch(
+      function (erro) {
+        console.log(erro);
+        console.log(
+          "\nHouve um erro ao realizar o cadastro! Erro: ",
+          erro.sqlMessage
+        );
+        res.status(500).json(erro.sqlMessage);
+      }
+    );
+}
+
+function editar(req, res) {
+  var idEmpresa = req.params.idEmpresa;
+  var razaoSocial = req.body.razaoSocialServer;
+  var cnpj = req.body.cnpjServer;
+
+  empresaModel.editar(cnpj).then((resultado) => {
+      empresaModel.cadastrar(idEmpresa, fkEndereco, razaoSocial, cnpj).then((resultado) => {
+        res.status(201).json(resultado);
+      });
+  });
+}
+
 module.exports = {
   buscarPorCnpj,
   buscarPorId,
   cadastrar,
   listarEmpresas,
-  cadastrarEndereco
+  listarEmpresasPorId,
+  cadastrarEndereco,
+  editarEndereco,
+  editar
 };

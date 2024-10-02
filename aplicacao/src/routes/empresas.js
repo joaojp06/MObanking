@@ -23,4 +23,16 @@ router.get("/listarEmpresas", function (req, res) {
   empresaController.listarEmpresas(req, res);
 });
 
+router.get("/listarEmpresasPorId/:idEmpresa", function (req, res) {
+  empresaController.listarEmpresasPorId(req, res);
+});
+
+router.put("/editar/:idEmpresa", function (req, res) {
+  empresaController.editar(req, res);
+});
+
+router.put("/editarEndereco/:idEndereco", function (req, res) {
+  empresaController.editarEndereco(req, res);
+});
+
 module.exports = router;

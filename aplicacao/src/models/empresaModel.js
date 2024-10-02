@@ -12,6 +12,14 @@ function listarEmpresas() {
   return database.executar(instrucaoSql);
 }
 
+function listarEmpresasPorId(idEmpresa) {
+  var instrucaoSql = `
+  select * from vw_empresa_endereco where empresa_id = ${idEmpresa} ;
+  `;
+
+  return database.executar(instrucaoSql);
+}
+
 function buscarPorCnpj(cnpj) {
   var instrucaoSql = `SELECT * FROM empresa WHERE cnpj = '${cnpj}'`;
 
@@ -32,9 +40,41 @@ function cadastrar(fkEndereco, razaoSocial, cnpj) {
   return database.executar(instrucaoSql);
 }
 
+function editarEndereco(idEndereco, nomeLogradouro, tipoLogradouro, numero, cep, complemento) {
+  console.log(`idEndereco: ${idEndereco}`); // Adicione esta linha para depuração
+  var instrucaoSql = `
+  UPDATE endereco
+  SET fkLogradouro = ${tipoLogradouro},
+      nomeLogradouro = '${nomeLogradouro}',
+      numLogradouro = ${numero ? numero : 'NULL'},
+      bairro = 'Centro Atualizado',
+      cep = '${cep}',
+      complemento = '${complemento}'
+  WHERE id = ${idEndereco};
+  `;
+
+  return database.executar(instrucaoSql);
+}
+
+
+function editar(idEmpresa, razaoSocial, cnpj) {
+  var instrucaoSql = `
+  UPDATE empresa
+SET razaoSocial = '${razaoSocial}',
+    cnpj = '${cnpj}'
+WHERE id = ${idEmpresa};
+  `;
+
+  return database.executar(instrucaoSql);
+}
+
 module.exports = {
   buscarPorCnpj, 
   buscarPorId, 
   cadastrar, 
-  listarEmpresas, 
-  cadastrarEndereco };
+  listarEmpresas,
+  listarEmpresasPorId, 
+  cadastrarEndereco,
+  editarEndereco,
+  editar
+};

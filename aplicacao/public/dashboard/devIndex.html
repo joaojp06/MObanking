@@ -68,11 +68,11 @@
                         Tipo logradouro
                         <select name="" id="tipo_logradouro_select">
                             <option selected hidden value="#">Escolha</option>
-                            <option value="rua">Rua</option>
-                            <option value="avenida">Avenida</option>
+                            <option value="1">Rua</option>
+                            <option value="2">Avenida</option>
                         </select>
                     </label>
-                    
+
                     <label for="">
                         Bairro:
                         <input type="text" id="bairro_input" placeholder="Bairro...">
@@ -89,18 +89,18 @@
                     </label>
 
                     <label for="">
-                    Número:
-                    <input type="text" id="numero_logradouro_input" placeholder="Número...">
+                        Número:
+                        <input type="text" id="numero_logradouro_input" placeholder="Número...">
                     </label>
 
                     <label for="">
-                    Cep:
-                    <input type="number" id="cep_logradouro_input" placeholder="XXXXX-XXX">
+                        Cep:
+                        <input type="number" id="cep_logradouro_input" placeholder="XXXXX-XXX">
                     </label>
 
                     <label for="">
-                    Complemento:
-                    <input type="text" id="complemento_logradouro_input" placeholder="Complemento...">
+                        Complemento:
+                        <input type="text" id="complemento_logradouro_input" placeholder="Complemento...">
                     </label>
 
                     <label for="">
@@ -121,11 +121,192 @@
             </div>
         </div>
     </div>
+
+    <div class="modalAddUser" id="modalEditarEmpresa"></div>
+        <div class="title-box">
+            <h2>Editar Empresa</h2>
+            <i onclick="fecharModalAddUser()" id="closeModal" class="fa-solid fa-x"></i>
+        </div>
+        <div class="form-box-pai">
+
+            <div class="form">
+
+                <form action="">
+                    <label for="">
+                        Nome da Empresa:
+                        <input type="text" id="razao_social_input_editar" placeholder="Razão Social...">
+                    </label>
+
+                    <label for="">
+                        CNPJ:
+                        <input type="number" id="cnpj_input_editar" placeholder="XX. XXX. XXX/0001-XX">
+                    </label>
+
+                    <label for="">
+                        Nome logradouro:
+                        <input type="text" id="nome_logradouro_input_editar" placeholder="Logradouro...">
+                    </label>
+
+                    <label for="">
+                        Tipo logradouro
+                        <select name="" id="tipo_logradouro_select_editar">
+                            <option selected hidden value="#">Escolha</option>
+                            <option value="1">Rua</option>
+                            <option value="2">Avenida</option>
+                        </select>
+                    </label>
+
+                    <label for="">
+                        Bairro:
+                        <input type="text" id="bairro_input_editar" placeholder="Bairro...">
+                    </label>
+
+                    <label for="">
+                        Cidade:
+                        <input type="text" id="cidade_input_editar" placeholder="Cidade...">
+                    </label>
+
+                    <label for="">
+                        Estado:
+                        <input type="text" id="estado_input_editar" placeholder="Estado...">
+                    </label>
+
+                    <label for="">
+                        Número:
+                        <input type="text" id="numero_logradouro_input_editar" placeholder="Número...">
+                    </label>
+
+                    <label for="">
+                        Cep:
+                        <input type="number" id="cep_logradouro_input_editar" placeholder="XXXXX-XXX">
+                    </label>
+
+                    <label for="">
+                        Complemento:
+                        <input type="text" id="complemento_logradouro_input_editar" placeholder="Complemento...">
+                    </label>
+
+                    <label for="">
+                        Planos
+                        <select name="" id="tipo_planos_select_editar">
+                            <option selected hidden value="#">Escolha de Planos</option>
+                            <option value="basico">Básico</option>
+                            <option value="intermediario">Intermediário</option>
+                            <option value="profissional">Profissional</option>
+                        </select>
+                    </label>
+
+                </form>
+
+            </div>
+            <div>
+                <button id="editar_button" onclick="editarEmpresa(idEmpresa, fkEndereco)">Editar</button>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>
 
 <script>
+
+let idEmpresa; // Declare fora das funções
+let fkEndereco;
+
+    function modalEditarEmpresa() {
+
+        const modal = document.getElementById('modalEditarEmpresa')
+
+        modal.style.display = 'block'
+        const frame = document.getElementById('frame');
+        frame.classList.add('blur-grid')
+
+    }
+
+    function editarEmpresa(fkEnd, id) {
+
+        idEmpresa = id
+        fkEndereco = fkEnd
+
+        // var fkEndereco = fkEndereco
+        // var idEmpresa = idEmpresa
+
+        var razaoSocialVar = razao_social_input.value
+        var cnpjVar = cnpj_input.value
+        var nomeLogradouroVar = nome_logradouro_input.value
+        var tipoLogradouroVar = tipo_logradouro_select.value
+        var numeroVar = numero_logradouro_input.value
+        var cepVar = cep_logradouro_input.value
+        var complementoVar = complemento_logradouro_input.value
+
+        // if (razaoSocialVar == "" ||
+        //     cnpjVar == "" ||
+        //     nomeLogradouroVar == "" ||
+        //     tipoLogradouroVar == "#" ||
+        //     numeroVar == "" ||
+        //     cepVar == "" ||
+        //     complementoVar == ""
+        // ) {
+
+        //     alert("Preencha todos os campos corretamente!");
+
+        //     return false;
+        // } 
+
+        fetch(`/empresas/editarEndereco/${fkEndereco}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nomeLogradouroServer: nomeLogradouroVar,
+                tipoLogradouroServer: tipoLogradouroVar,
+                numeroServer: numeroVar,
+                cepServer: cepVar,
+                complementoServer: complementoVar
+            }),
+        }).then(function (resposta) {
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+
+                resposta.json()
+                    .then(json => {
+                        console.log("\n\n\n\n\nALEATÓRIO PARA VER A RESPOSTA");
+                        console.log(json);
+                        console.log(idInserido);
+
+                        fetch(`/empresas/editar/${idEmpresa}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                razaoSocialServer: razaoSocialVar,
+                                cnpjServer: cnpjVar
+                            }),
+                        }).then().catch()
+
+                    });
+
+                alert("Edição Realizada com Sucesso!")
+
+                setTimeout(() => {
+                    fecharModalAddUser();
+                }, "1000");
+
+
+            } else {
+                console.log(resposta);
+                throw "Houve um erro ao tentar realizar a edição!";
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            return false;
+        });
+
+    }
 
     function modalAddUser() {
 
@@ -249,7 +430,7 @@
                             <div class="container">
 
 <div class="nome">
-    <p>ID: ${registro.id_empresa} - ${registro.razaoSocial}</p>
+    <p>ID: ${registro.id} - ${registro.razaoSocial}</p>
 </div>
 <div class="centro">
     <div class="centralizado">
@@ -260,7 +441,7 @@
     </div>
 </div>
 <div class="opcoes">
-    <i class="fa-solid fa-pen"></i>
+        <i onclick="listarEmpresasPorId(${registro.id}, ${registro.fkEndereco})" class="fa-solid fa-pen"></i>
     <i class="fa-solid fa-trash"></i>
 </div>
 
@@ -274,4 +455,43 @@
             });
     }
 
+    function listarEmpresasPorId(id, fkEnd) {
+        idEmpresa = id
+        fkEndereco = fkEnd
+    modalEditarEmpresa();
+
+    fetch(`/empresas/listarEmpresasPorId/${idEmpresa}`, {
+        method: "GET",
+    })
+    .then(function (resposta) {
+        return resposta.json(); // Retorne o JSON diretamente
+    })
+    .then((empresas) => {
+        console.log(empresas);
+        
+        // Se empresas for um array, use forEach
+        empresas.forEach((empresa) => {
+            var idEmpresa = empresa.empresa_id;
+            var fkEndereco = empresa.endereco_id;
+            razao_social_input_editar.value = empresa.razaoSocial;
+            cnpj_input_editar.value = empresa.cnpj;
+            nome_logradouro_input_editar.value = empresa.nomeLogradouro;
+            bairro_input_editar.value = empresa.bairro;
+            cep_logradouro_input_editar.value = empresa.cep;
+            numero_logradouro_input_editar.value = empresa.numLogradouro;
+            complemento_logradouro_input_editar.value = empresa.complemento;
+            var ax = empresa.tipo_logradouro
+            tipo_logradouro_select_editar.value = empresa.tipo_logradouro;
+        });
+
+        // Passar os parâmetros corretamente
+        console.log(ax)
+        document.getElementById('editar_button').onclick = function() {
+            editarEmpresa(fkEndereco, idEmpresa);
+        };
+    })
+    .catch(function (erro) {
+        console.log(`#ERRO: ${erro}`);
+    });
+}
 </script>
