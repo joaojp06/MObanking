@@ -80,10 +80,6 @@
                         <input type="text" id="nome_input" placeholder="Nome...">
                     </label>
 
-                    <label for="telefone">
-                        Telefone:
-                        <input type="text" id="telefone_input" placeholder="(XX)XXXXX-XXXX">
-                    </label>
 
                     <label for="telefone">
                         Email:
@@ -92,20 +88,20 @@
 
                     <label for="senha">
                         Senha:
-                        <input type="number" id="senha_input" placeholder="••••••••••">
+                        <input type="text" id="senha_input" placeholder="••••••••••">
                     </label>
 
-                    <label for="cpf">   
+                    <label for="cpf">
                         CPF:
-                        <input type="number" id="cpf_input" placeholder="XXX.XXX.XXX-XX">
+                        <input type="number" maxlength="11" id="cpf_input" placeholder="XXX.XXX.XXX-XX">
                     </label>
 
                     <label for="telefone">
                         Perfil
                         <select name="" id="select_nivel">
                             <option selected hidden value="#">Escolha</option>
-                            <option value="administrador">Administrador (Supervisor - Coordenador) </option>
-                            <option value="comum">Comum (Usuário - Colaborador)</option>
+                            <option value="1">Administrador (Supervisor - Coordenador) </option>
+                            <option value="2">Comum (Usuário - Colaborador)</option>
                         </select>
                     </label>
 
@@ -149,6 +145,7 @@
         })
             .then(function (resposta) {
                 resposta.json().then((funcionarios) => {
+
                     funcionarios.forEach((registro) => {
 
                         listagemFuncionario.innerHTML += `
@@ -156,14 +153,14 @@
                 <div class="container">
 
                     <div class="nome">
-                        <p>${registro.nome}</p>
+                        <p>${registro.nomeUsuario}</p>
                     </div>
                     <div class="centro">
                         <div class="status">
-                            <p>Ativo</p>
+                            <p>${registro.cpfUsuario}</p>
                         </div>
-                        <div class="ra">
-                            <p>RA:945613</p>
+                        <div class="status">
+                            <p>${registro.emailUsuario}</p>
                         </div>
                     </div>
                     <div class="opcoes">
@@ -186,26 +183,20 @@
     function adicionarUsuario() {
         var nomeVar = nome_input.value;
         var emailVar = email_input.value;
-        var telefoneVar = telefone_input.value;
         var nivelVar = select_nivel.value;
+        var cpfVar = cpf_input.value;
 
         if (nomeVar == "" ||
             emailVar == "" ||
-            telefoneVar == "" ||
+            cpfVar == "" ||
             nivelVar == "#"
         ) {
 
             alert("Preencha todos os campos corretamente!");
 
             return false;
-        } else {
-            if (nivelVar == "administrador"){
-                nivelVar = 1;
-            } else {
-                nivelVar = 2;
-            }
         }
-        
+
         fetch("/usuarios/cadastrar", {
             method: "POST",
             headers: {
@@ -214,7 +205,7 @@
             body: JSON.stringify({
                 nomeServer: nomeVar,
                 emailServer: emailVar,
-                telefoneServer: telefoneVar,
+                cpfServer: cpfVar,
                 nivelServer: nivelVar,
                 fkEmpresa: idEmpresa
             }),
@@ -233,14 +224,15 @@
                 alert("Cadastro Realizado com Sucesso!")
 
                 setTimeout(() => {
-                   fecharModalAddUser();
+                    fecharModalAddUser();
                 }, "1000");
 
 
             } else {
                 console.log(resposta);
-                throw "Houve um erro ao tentar realizar o cadastro!";
+                throw "Houve um erro ao tentar realizar o cadastro! TO NO FUNCIONARIO.HTML";
             }
+
         }).catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
             return false;

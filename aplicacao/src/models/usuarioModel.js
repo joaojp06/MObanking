@@ -10,12 +10,12 @@ function autenticar(email, senha) {
 }
 
 
-function cadastrar(fkEmpresa,nome, email, telefone, nivel) {
+function cadastrar(nome, email, cpf,nivel, fkEmpresa) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente.");
 
     var instrucaoSql = `
-        INSERT INTO usuario (fkEmpresa, fkTipoUsuario, nome, email, telefone)  
-        VALUES ('${fkEmpresa}','${nivel}','${nome}', '${email}', '${telefone}');
+        INSERT INTO usuario (fkEmpresa, fkTipoUsuario, nome, email, cpf)  
+        VALUES ('${fkEmpresa}','${nivel}','${nome}', '${email}', '${cpf}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -27,9 +27,7 @@ function listarFuncionarios(idEmpresa) {
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
-    select u.nome, u.email, emp.razaoSocial 'empresa'
-    from usuario u
-    join empresa emp on u.fkEmpresa = ${idEmpresa}
+    select nomeUsuario, cpfUsuario, emailUsuario from vw_usuario_empresa where idEmpresa = ${idEmpresa};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

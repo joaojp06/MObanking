@@ -112,15 +112,8 @@ function listarAlertas(idEmpresa) {
     "ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()"
   );
   var instrucaoSql = `
-        select
-            a.data,
-            a.id,
-            s.nome componente
-                from alerta a
-                join limiteServicoMonitorado lsm on a.fkLimiteServicoMonitorado = lsm.id
-                join servicoMonitorado sm on lsm.fkServicoMonitorado = sm.id
-                join servico s on sm.fkServico = s.id
-                    where a.fkEmpresa = ${idEmpresa};
+        
+select alerta_id, alerta_descricao, alerta_data, limite_valor, nome_servico, alerta_data, limite_unidade, id_servidor from vw_alertas where id_empresa = ${idEm};
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);

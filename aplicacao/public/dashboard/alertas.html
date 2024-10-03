@@ -61,13 +61,21 @@
             <span class="title-atividade">Atividades</span>
             <span class="linha-title-atividades"></span>
 
-            
+
 
             <div class="colunas">
-                <div class="titulo-data"><p>Data</p></div>
-                <div class="titulo-identificador"><p>Identificador</p></div>
-                <div class="titulo-status"><p>Status</p></div>
-                <div class="titulo-componentes"><p>Componente(s)</p></div>
+                <div class="titulo-data">
+                    <p>Data</p>
+                </div>
+                <div class="titulo-identificador">
+                    <p>Identificador</p>
+                </div>
+                <div class="titulo-status">
+                    <p>Servidor código</p>
+                </div>
+                <div class="titulo-componentes">
+                    <p>Componente(s)</p>
+                </div>
             </div>
             <div id="listagemAlertas" class="lista">
 
@@ -86,38 +94,42 @@
     var idEmpresa = 1
     function listarAlertas() {
         fetch(`/avisos/listarAlertas/${idEmpresa}`, {
-      method: "GET",
-    })
-      .then(function (resposta) {
-        resposta.json().then((alertas) => {
-          alertas.forEach((registro) => {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json().then((alertas) => {
+                    alertas.forEach((registro) => {
 
-            listagemAlertas.innerHTML += `
+                        let data = new Date(registro.alerta_data);
+
+                        // Formatando a data no formato dd/mm/yy
+                        let dataFormatada = `${("0" + data.getDate()).slice(-2)}/${("0" + (data.getMonth() + 1)).slice(-2)}/${data.getFullYear().toString().slice(-2)}`;
+                        listagemAlertas.innerHTML += `
             <div class="container">
 
                     <div class="data">
-                        <b>${registro.data}</b>
+                        <b>${dataFormatada}</b>
                     </div>
 
                     <div class="identificador">
-                        <b>${registro.id}</b>
+                        <b>${registro.alerta_id}</b>
                     </div>
 
                     <div class="status">
-                        <b>Concluído</b>
+                        <b>${registro.id_servidor}</b>
                     </div>
                     <div class="componente">
-                        <b>${registro.componente}</b>
+                        <b>${registro.nome_servico}</b>
                     </div>
                 </div>
 
                 <div class="linha-colunas"></div>
             `;
-          });
-        });
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
+                    });
+                });
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
     }
 </script>

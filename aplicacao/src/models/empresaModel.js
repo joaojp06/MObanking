@@ -7,7 +7,7 @@ function buscarPorId(id) {
 }
 
 function listarEmpresas() {
-  var instrucaoSql = `SELECT * FROM empresa;`;
+  var instrucaoSql = `select id_empresa, razaoSocial, cnpj, status, nomeLogradouro, numLogradouro, cidade, estado, bairro, cep, complemento, tipo_logradouro from vw_empresa_endereco;`;
 
   return database.executar(instrucaoSql);
 }

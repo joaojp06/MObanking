@@ -38,10 +38,10 @@ function autenticar(req, res) {
 }
 
 function cadastrar(req, res) {
-
+    var fkEmpresa = req.body.fkEmpresa
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
-    var cnpj = req.body.cnpjServer;
+    var cpf = req.body.cpfServer;
     var senha = req.body.senhaServer;
 
     // Faça as validações dos valores
@@ -49,13 +49,12 @@ function cadastrar(req, res) {
         res.status(400).send("Seu nome está undefined!");
     } else if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
-    } else if (cnpj == undefined) {
-        res.status(400).send("Seu cnpj está undefined!");
+    } else if (cpf == undefined) {
+        res.status(400).send("Seu cpf está undefined!");
     } else if (senha == undefined) {
-        res.status(400).send("Sua senha está undefined!");
+        res.status(400).send("Sua senha está undefined!");  
     } else {
-
-        usuarioModel.cadastrar(nome, email, cnpj, senha)
+        usuarioModel.cadastrar(nome, email, cpf, senha, fkEmpresa)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -64,7 +63,7 @@ function cadastrar(req, res) {
                 function (erro) {
                     console.log(erro);
                     console.log(
-                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        "\nHouve um erro ao realizar o cadastro! Erro: to NA CONTROLLER ",
                         erro.sqlMessage
                     );
                     res.status(500).json(erro.sqlMessage);
