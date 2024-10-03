@@ -19,6 +19,16 @@ function autenticar(req, res) {
 
                     if (resultadoAutenticar.length == 1) {
                         console.log(resultadoAutenticar);
+
+                        // Armazenando dados na sessão
+                        idUsuario = resultadoAutenticar[0].idUsuario;
+                        emailUsuario = resultadoAutenticar[0].emailUsuario;
+                        nomeUsuario = resultadoAutenticar[0].nomeUsuario;
+                        idUsuario = resultadoAutenticar[0].idUsuario;
+                        idEmpresa = resultadoAutenticar[0].idEmpresa;
+                        idTipoUsuario = resultadoAutenticar[0].idTipoUsuario;
+                        fkPlano = resultadoAutenticar[0].fkPlano;            
+
                         res.status(200).json(resultadoAutenticar);
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
@@ -34,8 +44,8 @@ function autenticar(req, res) {
                 }
             );
     }
-
 }
+
 
 function cadastrar(req, res) {
     var fkEmpresa = req.body.fkEmpresa

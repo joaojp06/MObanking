@@ -115,7 +115,7 @@
     frame.classList.remove("blur-grid");
   }
 
-  var idEmpresa = 1;
+  var idEmpresa = sessionStorage.ID_EMPRESA;
   function listarServidores() {
     fetch(`/aquarios/listarServidores/${idEmpresa}`, {
       method: "GET",

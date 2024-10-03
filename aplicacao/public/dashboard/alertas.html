@@ -91,7 +91,7 @@
 </html>
 
 <script>
-    var idEmpresa = 1
+    var idEmpresa = sessionStorage.ID_EMPRESA
     function listarAlertas() {
         fetch(`/avisos/listarAlertas/${idEmpresa}`, {
             method: "GET",

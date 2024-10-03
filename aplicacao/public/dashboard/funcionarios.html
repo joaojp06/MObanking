@@ -138,7 +138,8 @@
         frame.classList.remove('blur-grid')
     }
 
-    var idEmpresa = 1
+    var idEmpresa = sessionStorage.ID_EMPRESA
+    
     function listarFuncionarios() {
         fetch(`/usuarios/listarFuncionarios/${idEmpresa}`, {
             method: "GET",

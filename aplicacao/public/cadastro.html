@@ -163,12 +163,15 @@
 				resposta.json().then(json => {
 					console.log(json);
 					console.log(JSON.stringify(json));
-					sessionStorage.EMAIL_USUARIO = json[0].email;
-					sessionStorage.NOME_USUARIO = json[0].nome;
+					sessionStorage.EMAIL_USUARIO = json[0].emailUsuario;
+					sessionStorage.NOME_USUARIO = json[0].nomeUsuario;
 					sessionStorage.ID_USUARIO = json[0].idUsuario;
+					sessionStorage.ID_EMPRESA = json[0].idEmpresa;
+					sessionStorage.ID_TIPO_USUARIO = json[0].idTipoUsuario;
+					sessionStorage.ID_PLANO = json[0].fkPlano;
 
 					setTimeout(function () {
-						window.location = "./dashboard/dashboard";
+						window.location = "./dashboard/dashboard.html";
 					}, 1000); // apenas para exibir o loading
 
 				});

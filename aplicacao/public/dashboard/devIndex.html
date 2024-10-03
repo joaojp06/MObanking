@@ -435,23 +435,23 @@
                             `
                             <div class="container">
 
-<div class="nome">
-    <p>ID: ${registro.id_empresa} - ${registro.razaoSocial}</p>
-</div>
-<div class="centro">
-    <div class="centralizado">
-        <p>CNPJ - ${registro.cnpj}</p>
-    </div>
-    <div class="centralizado">
-        <p>${registro.tipo_logradouro}${registro.nomeLogradouro}</p>
-    </div>
-</div>
-<div class="opcoes">
-        <i onclick="listarEmpresasPorId(${registro.id}, ${registro.fkEndereco})" class="fa-solid fa-pen"></i>
-    <i class="fa-solid fa-trash"></i>
-</div>
+                            <div class="nome">
+                                <p>ID: ${registro.id_empresa} - ${registro.razaosocial}</p>
+                            </div>
+                            <div class="centro">
+                                <div class="centralizado">
+                                    <p>CNPJ - ${registro.cnpj}</p>
+                                </div>
+                                <div class="centralizado">
+                                    <p>${registro.tipo_logradouro}${registro.nomeLogradouro}</p>
+                                </div>
+                            </div>
+                            <div class="opcoes">
+                                    <i onclick="listarEmpresasPorId(${registro.id}, ${registro.fkEndereco})" class="fa-solid fa-pen"></i>
+                                <i class="fa-solid fa-trash"></i>
+                            </div>
 
-</div>
+                            </div>
             `;
                     });
                 });
