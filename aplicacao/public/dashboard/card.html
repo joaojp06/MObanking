@@ -64,8 +64,7 @@
       </nav>
       <div class="conteudo">
         <h1>Máquinas</h1>
-        <div id="listagemServidores" class="card-grid-pai">
-        </div>
+        <div id="listagemServidores" class="card-grid-pai"></div>
       </div>
     </div>
 
@@ -115,96 +114,122 @@
     const frame = document.getElementById("frame");
     frame.classList.remove("blur-grid");
   }
-  
-  var idEmpresa = 1
+
+  var idEmpresa = 1;
   function listarServidores() {
     fetch(`/aquarios/listarServidores/${idEmpresa}`, {
-            method: "GET",
-        })
-        .then(function (resposta) {
-    resposta.json().then((servidores) => {
-      console.log(servidores); // Log da resposta da API para ver a estrutura
-
-      let servidoresAgrupados = {}; // Objeto para agrupar servidores
-
-      // Agrupando os servidores com seus respectivos serviços
-      servidores.forEach((registro) => {
-        if (!servidoresAgrupados[registro.id]) {
-          // Se o servidor ainda não foi adicionado, cria um novo objeto para ele
-          servidoresAgrupados[registro.id] = {
-            id: registro.id,
-            servicos: []
-          };
-        }
-        
-        // Verifique aqui quais são os nomes corretos dos campos na resposta da API
-        servidoresAgrupados[registro.id].servicos.push({
-          nome: registro.servicoMonitorado, // Verifique se 'servicoMonitorado' está correto
-          valor: registro.valorRegistro     // Verifique se 'valorRegistro' está correto
-        });
-      });
-
-      // Agora vamos criar os cards, um para cada servidor
-      for (let servidorId in servidoresAgrupados) {
-        let servidor = servidoresAgrupados[servidorId];
-        let servicosHtml = '';
-
-        // Criar o HTML dos serviços monitorados
-        servidor.servicos.forEach(servico => {
-          if (servico.nome == "CPU") {
-            servicosHtml += `
+      method: "GET",
+    })
+      .then(function (resposta) {
+        resposta.json().then((servidores) => {
+          console.log(servidores); // Log da resposta da API com os dados do banco
+          planoEmpresa = 1
+          if (planoEmpresa == 1) {
+            servidores.forEach((registro) => {
+              listagemServidores.innerHTML += 
+              `<div onclick="abrirModal()" class="card">
+              <h2>#${registro.id_servidor}</h2>
+              <div class="back-image-card"></div>
+              <div class="indicadores-box">
               <div class="indicador-pai">
-                <img class="ax-mg-left" src="../imagens/icon-cpu.png" alt="" />
-                <div class="indicador-titulo">
-                  <span>${servico.nome}</span>
-                  <p>${servico.valor}</p>
-                </div>
-              </div>`;
-          } else if (servico.nome == "Memória") {
-            servicosHtml += `
+              <img class="ax-mg-left" src="../imagens/icon-cpu.png" alt="" />
+              <div class="indicador-titulo">
+              <span>CPU - uso</span>
+              <p>${registro.valorCpu}</p>
+              </div>
+              </div>
               <div class="indicador-pai">
-                <img src="../imagens/icon-ram.png" alt="" />
-                <div class="indicador-titulo">
-                  <span>${servico.nome}</span>
-                  <p>${servico.valor}</p>
-                </div>
+              <img src="../imagens/icon-ram.png" alt="" />
+              <div class="indicador-titulo">
+              <span>RAM - Uso</span>
+              <p>${registro.valorRam}</p>
+              </div>
+              </div>
+              </div>
               </div>`;
-          } else if (servico.nome == "Disco") {
-            servicosHtml += `
+            });
+          } else if (planoEmpresa == 2) {
+            servidores.forEach((registro) => {
+              listagemServidores.innerHTML += 
+              `<div onclick="abrirModal()" class="card">
+              <h2>#${registro.id_servidor}</h2>
+              <div class="back-image-card"></div>
+              <div class="indicadores-box">
               <div class="indicador-pai">
-                <img src="../imagens/icon-disco.png" alt="" />
-                <div class="indicador-titulo">
-                  <span>${servico.nome}</span>
-                  <p>${servico.valor}</p>
-                </div>
-              </div>`;
-          } else if (servico.nome == "Rede") {
-            servicosHtml += `
+              <img class="ax-mg-left" src="../imagens/icon-cpu.png" alt="" />
+              <div class="indicador-titulo">
+              <span>CPU - uso</span>
+              <p>${registro.valorCpu}</p>
+              </div>
+              </div>
               <div class="indicador-pai">
-                <img src="../imagens/icon-rede.png" alt="" />
-                <div class="indicador-titulo">
-                  <span>${servico.nome}</span>
-                  <p>${servico.valor}</p>
-                </div>
+              <img src="../imagens/icon-ram.png" alt="" />
+              <div class="indicador-titulo">
+              <span>RAM - Uso</span>
+              <p>${registro.valorRam}</p>
+              </div>
+              </div>
+              <div class="indicador-pai">
+              <img class="ax-mg-left"
+                src="../imagens/icon-disco.png"
+                alt=""
+              />
+              <div class="indicador-titulo">
+              <span>Disco - Uso</span>
+              <p>${registro.valorDisco}</p>
+              </div>
+              </div>
+              </div>
               </div>`;
+            });
+          } else if (planoEmpresa == 3) {
+            servidores.forEach((registro) => {
+              listagemServidores.innerHTML += 
+              `<div onclick="abrirModal()" class="card">
+              <h2>#${registro.id_servidor}</h2>
+              <div class="back-image-card"></div>
+              <div class="indicadores-box">
+              <div class="indicador-pai"> 
+              <img src="../imagens/icon-rede.png" alt="" />
+              <div class="indicador-titulo">
+              <span>Rede - latência</span>
+              <p>${registro.valorRede}</p>
+              </div>
+              </div>
+              <div class="indicador-pai">
+              <img class="ax-mg-left" src="../imagens/icon-cpu.png" alt="" />
+              <div class="indicador-titulo">
+              <span>CPU - uso</span>
+              <p>${registro.valorCpu}</p>
+              </div>
+              </div>
+              <div class="indicador-pai">
+              <img src="../imagens/icon-ram.png" alt="" />
+              <div class="indicador-titulo">
+              <span>RAM - Uso</span>
+              <p>${registro.valorRam}</p>
+              </div>
+              </div>
+              <div class="indicador-pai">
+              <img
+                class="ax-mg-left"
+                src="../imagens/icon-disco.png"
+                alt=""
+              />
+              <div class="indicador-titulo">
+              <span>Disco - Uso</span>
+              <p>${registro.valorDisco}</p>
+              </div>
+              </div>
+              </div>
+              </div>`;
+            });
           }
         });
-
-        // Criar o card do servidor com todos os serviços agregados
-        listagemServidores.innerHTML += `
-          <div onclick="abrirModal()" class="card">
-            <h2>#${servidor.id}</h2>
-            <div class="back-image-card"></div>
-            <div class="indicadores-box">
-              ${servicosHtml}
-            </div>
-          </div>`;
-      }
+      })
+      .catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
     });
-  })
-  .catch(function (resposta) {
-  console.log(`#ERRO: ${resposta}`);
-  });
-  }
+}
 
 </script>
