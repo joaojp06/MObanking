@@ -7,14 +7,14 @@ function buscarPorId(id) {
 }
 
 function listarEmpresas() {
-  var instrucaoSql = `select id_empresa, razaoSocial, cnpj, status, nomeLogradouro, numLogradouro, cidade, estado, bairro, cep, complemento, tipo_logradouro from vw_empresa_endereco;`;
+  var instrucaoSql = `select id_empresa, razaoSocial, cnpj, status, nomeLogradouro, numLogradouro, cidade, estado, bairro, cep, complemento, tipo_logradouro, fkEndereco from vw_empresa_endereco;`;
 
   return database.executar(instrucaoSql);
 }
 
 function listarEmpresasPorId(idEmpresa) {
   var instrucaoSql = `
-  select * from vw_empresa_endereco where empresa_id = ${idEmpresa} ;
+  select * from vw_empresa_endereco where id_empresa = ${idEmpresa} ;
   `;
 
   return database.executar(instrucaoSql);

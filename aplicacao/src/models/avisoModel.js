@@ -113,7 +113,7 @@ function listarAlertas(idEmpresa) {
   );
   var instrucaoSql = `
         
-select alerta_id, alerta_descricao, alerta_data, limite_valor, nome_servico, alerta_data, limite_unidade, id_servidor from vw_alertas where id_empresa = ${idEm};
+select alerta_id, alerta_descricao, alerta_data, limite_valor, nome_servico, alerta_data, limite_unidade, id_servidor from vw_alertas where id_empresa = ${idEmpresa};
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);

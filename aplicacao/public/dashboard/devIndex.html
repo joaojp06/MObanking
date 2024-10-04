@@ -186,16 +186,7 @@
                         <input type="text" id="complemento_logradouro_input_editar" placeholder="Complemento...">
                     </label>
 
-                    <label for="">
-                        Planos
-                        <select name="" id="tipo_planos_select_editar">
-                            <option selected hidden value="#">Escolha de Planos</option>
-                            <option value="basico">Básico</option>
-                            <option value="intermediario">Intermediário</option>
-                            <option value="profissional">Profissional</option>
-                        </select>
-                    </label>
-
+                
                 </form>
 
             </div>
@@ -436,18 +427,18 @@
                             <div class="container">
 
                             <div class="nome">
-                                <p>ID: ${registro.id_empresa} - ${registro.razaosocial}</p>
+                                <p>ID: ${registro.id_empresa} - ${registro.razaoSocial}</p>
                             </div>
                             <div class="centro">
                                 <div class="centralizado">
                                     <p>CNPJ - ${registro.cnpj}</p>
                                 </div>
                                 <div class="centralizado">
-                                    <p>${registro.tipo_logradouro}${registro.nomeLogradouro}</p>
+                                    <p>${registro.tipo_logradouro} ${registro.nomeLogradouro}</p>
                                 </div>
                             </div>
                             <div class="opcoes">
-                                    <i onclick="listarEmpresasPorId(${registro.id}, ${registro.fkEndereco})" class="fa-solid fa-pen"></i>
+                                    <i onclick="listarEmpresasPorId(${registro.id_empresa}, ${registro.fkEndereco})" class="fa-solid fa-pen"></i>
                                 <i class="fa-solid fa-trash"></i>
                             </div>
 
@@ -483,11 +474,13 @@
                     cnpj_input_editar.value = empresa.cnpj;
                     nome_logradouro_input_editar.value = empresa.nomeLogradouro;
                     bairro_input_editar.value = empresa.bairro;
+                    cidade_input_editar.value = empresa.cidade
                     cep_logradouro_input_editar.value = empresa.cep;
                     numero_logradouro_input_editar.value = empresa.numLogradouro;
+                    estado_input_editar.value = empresa.estado
                     complemento_logradouro_input_editar.value = empresa.complemento;
                     var ax = empresa.tipo_logradouro
-                    tipo_logradouro_select_editar.value = empresa.tipo_logradouro;
+                    tipo_logradouro_select_editar.value = 1;
                 });
 
                 // Passar os parâmetros corretamente
