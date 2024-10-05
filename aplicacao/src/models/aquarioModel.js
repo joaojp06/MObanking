@@ -14,11 +14,25 @@ function cadastrar(empresaId, descricao) {
   return database.executar(instrucaoSql);
 }
 
-function listarServidores(idEmpresa) {
+function desativarServidor(idServidor) {
+  var instrucaoSql = `update servidor set status = 'desativado' where id = ${idServidor}`;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+function ativarServidor(idServidor) {
+  var instrucaoSql = `update servidor set status = 'ativo' where id = ${idServidor}`;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+function listarServidores(idEmpresa, status) {
   console.log(
     "ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()"
   );
-  var instrucaoSql = `select * from vw_servidor_card where id_empresa = ${idEmpresa} order by id_servidor;`;
+  var instrucaoSql = `select * from vw_servidor_card where id_empresa = ${idEmpresa} and status = '${status}' order by id_servidor ;`;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
@@ -26,5 +40,7 @@ function listarServidores(idEmpresa) {
 module.exports = {
   buscarAquariosPorEmpresa,
   cadastrar,
-  listarServidores
+  listarServidores,
+  desativarServidor,
+  ativarServidor
 };

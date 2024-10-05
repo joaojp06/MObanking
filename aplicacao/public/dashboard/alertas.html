@@ -18,7 +18,7 @@
     <div class="frame-aplicacao" style="display: flex;">
         <nav class="menu-lateral">
             <h2 class="titulo-menu">Menu</h2>
-            <ul>
+            <ul id="menuLateralBox">
                 <li>
                     <a href="card.html">
                         <span class="icon-menu"><i class="fa-solid fa-server"></i></span>
@@ -31,12 +31,7 @@
                         <span class="titulo-link-menu">Gráficos</span>
                     </a>
                 </li>
-                <li>
-                    <a href="funcionarios.html">
-                        <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
-                        <span class="titulo-link-menu">Funcionários</span>
-                    </a>
-                </li>
+               
                 <li>
                     <a href="alertas.html">
                         <span class="icon-menu"><i class="fa-solid fa-triangle-exclamation"></i></span>
@@ -91,6 +86,19 @@
 </html>
 
 <script>
+
+const menuLaterealHTML = document.getElementById('menuLateralBox')
+  var sessTipoUsuario = sessionStorage.ID_TIPO_USUARIO
+  if(sessTipoUsuario == 1){
+    menuLaterealHTML.innerHTML += `
+     <li>
+          <a href="funcionarios.html">
+            <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
+            <span class="titulo-link-menu">Funcionários</span>
+          </a>
+        </li>
+    `
+  }
 
     nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
 

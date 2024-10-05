@@ -11,7 +11,15 @@ router.post("/cadastrar", function (req, res) {
   aquarioController.cadastrar(req, res);
 })
 
-router.get("/listarServidores/:idEmpresa", function (req, res) {
+router.put("/desativarServidor/:idServidor", function (req, res) {
+  aquarioController.desativarServidor(req, res);
+})
+
+router.put("/ativarServidor/:idServidor", function (req, res) {
+  aquarioController.ativarServidor(req, res);
+})
+
+router.get("/listarServidores/:idEmpresa/:status", function (req, res) {
   aquarioController.listarServidores(req, res);
 })
 

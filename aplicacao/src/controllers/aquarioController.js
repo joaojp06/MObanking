@@ -43,24 +43,83 @@ function cadastrar(req, res) {
   }
 }
 
+function desativarServidor(req, res) {
+  var idServidor = req.params.idServidor;
+
+  if (idServidor == undefined) {
+    res.status(400).send("id SERVIDOR está undefined!");
+  }
+  else {
+
+
+    aquarioModel.desativarServidor(idServidor)
+      .then((resultado) => {
+        res.status(201).json(resultado);
+      }
+      ).catch((erro) => {
+        console.log(erro);
+        console.log(
+          "\nHouve um erro ao realizar o cadastro! Erro: ",
+          erro.sqlMessage
+        );
+        res.status(500).json(erro.sqlMessage);
+      });
+  }
+}
+
+function ativarServidor(req, res) {
+  var idServidor = req.params.idServidor;
+
+  if (idServidor == undefined) {
+    res.status(400).send("id SERVIDOR está undefined!");
+  }
+  else {
+
+
+    aquarioModel.ativarServidor(idServidor)
+      .then((resultado) => {
+        res.status(201).json(resultado);
+      }
+      ).catch((erro) => {
+        console.log(erro);
+        console.log(
+          "\nHouve um erro ao realizar o cadastro! Erro: ",
+          erro.sqlMessage
+        );
+        res.status(500).json(erro.sqlMessage);
+      });
+  }
+}
+
 function listarServidores(req, res) {
   var idEmpresa = req.params.idEmpresa;
+  var status = req.params.status;
 
-  aquarioModel.listarServidores(idEmpresa).then(function (resultado) {
-      if (resultado.length > 0) {
-          res.status(200).json(resultado);
-      } else {
-          res.status(204).send("Nenhum resultado encontrado!")
-      }
+  if(status == 1){
+    status = 'ativo'
+  }else{
+    status = 'desativado'
+  }
+
+  console.log(`ESSE É MEU STATUS: ${status} CONTROLLER`)
+
+  aquarioModel.listarServidores(idEmpresa, status).then(function (resultado) {
+    if (resultado.length > 0) {
+      res.status(200).json(resultado);
+    } else {
+      res.status(204).send("Nenhum resultado encontrado!")
+    }
   }).catch(function (erro) {
-      console.log(erro);
-      console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
-      res.status(500).json(erro.sqlMessage);
+    console.log(erro);
+    console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+    res.status(500).json(erro.sqlMessage);
   });
 }
 
 module.exports = {
   buscarAquariosPorEmpresa,
   cadastrar,
-  listarServidores
+  listarServidores,
+  desativarServidor,
+  ativarServidor
 }

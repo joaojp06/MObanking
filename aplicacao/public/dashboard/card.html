@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="../css/reset.css" />
   <link rel="stylesheet" href="../css/card.css" />
   <link rel="stylesheet" href="../css/default.css" />
+  <!-- scripts do Chart.js - 2022-1 -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body onload="listarServidores()">
@@ -19,7 +21,7 @@
     <nav class="menu-lateral">
       <h2 class="titulo-menu">Menu</h2>
 
-      <ul>
+      <ul id="menuLateralBox">
         <li>
           <a href="card.html">
             <span class="icon-menu"><i class="fa-solid fa-server"></i></span>
@@ -32,12 +34,7 @@
             <span class="titulo-link-menu">Gráficos</span>
           </a>
         </li>
-        <li>
-          <a href="funcionarios.html">
-            <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
-            <span class="titulo-link-menu">Funcionários</span>
-          </a>
-        </li>
+
         <li>
           <a href="alertas.html">
             <span class="icon-menu"><i class="fa-solid fa-triangle-exclamation"></i></span>
@@ -57,6 +54,10 @@
     </nav>
     <div class="conteudo">
       <h1>Máquinas</h1>
+      <select class="selectListarServidores" onchange="listarServidores()" id="selectListServidores">
+        <option value="ativo">Servidores ativos</option>
+        <option value="desativado">Servidores desativados</option>
+      </select>
       <div id="listagemServidores" class="card-grid-pai"></div>
     </div>
   </div>
@@ -65,31 +66,23 @@
 
   <div style="display: none" class="modal" id="modal">
     <i onclick="fecharModal()" id="closeModal" class="fa-solid fa-x"></i>
-    <h1>Utilização</h1>
+    <h1>Gráficos</h1>
     <div class="grafico-box">
-      <div>
-        <h2>Uso CPU</h2>
-        <div class="simulacao2">Simalção gráfico uso</div>
-      </div>
-
-      <div class="simulacao">simulação gráfico</div>
+      <h2>Uso CPU </h2>
+      <canvas id="graficoCPU-box"></canvas>
     </div>
     <div class="grafico-box">
-      <div>
-        <h2>Uso CPU</h2>
-        <div class="simulacao2">Simalção gráfico uso</div>
-      </div>
-
-      <div class="simulacao">simulação gráfico</div>
+      <h2>Uso RAM </h2>
+      <canvas id="graficoRAM-box"></canvas>
     </div>
     <div class="grafico-box">
-      <div>
-        <h2>Uso CPU</h2>
-        <div class="simulacao2">Simalção gráfico uso</div>
-      </div>
-
-      <div class="simulacao">simulação gráfico</div>
+      <h2>Uso DISCO </h2>
+      <canvas id="graficosDISCO-box"></canvas>
     </div>
+    <button class="desativarServidorButton" id="buttonDesativarServidor" onclick="desativarServidor()">Desativar
+      servidor</button>
+    <button class="desativarServidorButton" id="buttonAtivarServidor" onclick="ativarServidor()">Ativar
+      servidor</button>
   </div>
 </body>
 
@@ -97,9 +90,38 @@
 
 <script>
 
+  const menuLaterealHTML = document.getElementById('menuLateralBox')
+  var sessTipoUsuario = sessionStorage.ID_TIPO_USUARIO
+  if (sessTipoUsuario == 1) {
+    menuLaterealHTML.innerHTML += `
+     <li>
+          <a href="funcionarios.html">
+            <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
+            <span class="titulo-link-menu">Funcionários</span>
+          </a>
+        </li>
+    `
+  }
+
+
   nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
 
-  function abrirModal() {
+  let idServidorPar
+
+  function abrirModal(id_servidor, status) {
+    console.log(`ESSE É O ID DO MEU MODAL: ${id_servidor}`)
+    console.log(`ESSE É O STATUS DO MEU MODAL: ${status}`)
+    idServidorPar = id_servidor
+
+    if (status == 1) {
+      buttonAtivarServidor.style.display = 'none'
+      buttonDesativarServidor.style.display = 'block'
+    } else {
+      buttonAtivarServidor.style.display = 'block'
+      buttonDesativarServidor.style.display = 'none'
+    }
+
+
     // modal.display = "block"
     modal.style.display = "block";
     const frame = document.getElementById("frame");
@@ -114,7 +136,16 @@
 
   var idEmpresa = sessionStorage.ID_EMPRESA;
   function listarServidores() {
-    fetch(`/aquarios/listarServidores/${idEmpresa}`, {
+
+    listagemServidores.innerHTML = ``
+    var status = selectListServidores.value
+    if (status == 'ativo') {
+      status = 1 // VERÁ SERVIDORES ATIVOS - MODIFICAÇÃO NA CONTROLLE
+    } else {
+      status = 2
+    }
+
+    fetch(`/aquarios/listarServidores/${idEmpresa}/${status}`, {
       method: "GET",
     })
       .then(function (resposta) {
@@ -123,8 +154,15 @@
           planoEmpresa = sessionStorage.ID_PLANO
           if (planoEmpresa == 1) {
             servidores.forEach((registro) => {
+
+              var status = registro.status
+              if (status == 'ativo') {
+                status = 1
+              } else {
+                status = 2
+              }
               listagemServidores.innerHTML +=
-                `<div onclick="abrirModal()" class="card">
+                `<div onclick="abrirModal(${registro.id_servidor}, ${status})" class="card">
               <h2>#${registro.id_servidor}</h2>
               <div class="back-image-card"></div>
               <div class="indicadores-box">
@@ -228,5 +266,251 @@
         console.log(`#ERRO: ${resposta}`);
       });
   }
+
+
+  function desativarServidor() {
+
+
+    var idServidor = idServidorPar
+    console.log(`Estou na minha função desativarServidor e o idServidor é: ${idServidor}`)
+
+
+    if (idServidor == null) {
+      alert("Algo deu errado")
+    } else {
+      fetch(`/aquarios/desativarServidor/${idServidor}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+
+        }),
+      }).then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+
+          alert("Dasativado com Sucesso!")
+
+        } else {
+          console.log(resposta);
+          throw "Houve um erro ao tentar realizar a desativação!";
+        }
+      }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        return false;
+      });
+    }
+
+  }
+
+  function ativarServidor() {
+
+
+    var idServidor = idServidorPar
+    console.log(`Estou na minha função ativarServidor e o idServidor é: ${idServidor}`)
+
+
+    if (idServidor == null) {
+      alert("Algo deu errado")
+    } else {
+      fetch(`/aquarios/ativarServidor/${idServidor}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+
+        }),
+      }).then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+
+          alert("ativado com Sucesso!")
+
+        } else {
+          console.log(resposta);
+          throw "Houve um erro ao tentar realizar a ativação!";
+        }
+      }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        return false;
+      });
+    }
+
+  }
+
+
+  // gráficos estatico
+
+
+
+  const garficoCPU = document.getElementById('graficoCPU-box');
+  new Chart(garficoCPU, {
+    type: 'line',
+    data: {
+      labels: ['19:02', '19:02', '19:02', '19:02', '19:02', '19:02', '19:02'], // Marcação de tempo
+      datasets: [{
+        label: 'Uso de CPU',
+        data: [5.3, 5.5, 5.9, 5.0, 4.9, 4.8, 3], // Dados de uso da CPU
+        borderColor: 'white',  // Cor da linha
+        backgroundColor: 'rgba(255, 255, 255, 0.5)', // Preenchimento abaixo da linha
+        fill: true,  // Ativa o preenchimento abaixo da linha
+        pointBackgroundColor: 'white',  // Cor dos pontos
+        pointBorderColor: 'white',  // Cor das bordas dos pontos
+        pointRadius: 5,  // Tamanho dos pontos
+        tension: 0.1
+      }]
+    },
+    options: {
+      scales: {
+        x: {
+          grid: {
+            display: false // Remove a grade vertical
+          },
+          ticks: {
+            color: 'white', // Cor dos rótulos do eixo X
+            font: {
+              size: 16 // Tamanho da fonte das labels no eixo X
+            }
+          }
+        },
+        y: {
+          grid: {
+            display: false // Remove a grade horizontal
+          },
+          ticks: {
+            color: 'white', // Cor dos rótulos do eixo Y
+            font: {
+              size: 16 // Tamanho da fonte das labels no eixo X
+            }
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          display: false // Remove a legenda
+        }
+      },
+      elements: {
+        line: {
+          tension: 0.4 // Deixa as linhas mais suaves
+        }
+      }
+    }
+  });
+
+  const graficoRAM = document.getElementById('graficoRAM-box');
+  new Chart(graficoRAM, {
+    type: 'line',
+    data: {
+      labels: ['19:02', '19:02', '19:02', '19:02', '19:02', '19:02', '19:02'], // Marcação de tempo
+      datasets: [{
+        label: 'Uso de RAM',
+        data: [60, 65, 64, 64, 56, 59], // Dados de uso da CPU
+        borderColor: 'white',  // Cor da linha
+        backgroundColor: 'rgba(255, 255, 255, 0.5)', // Preenchimento abaixo da linha
+        fill: true,  // Ativa o preenchimento abaixo da linha
+        pointBackgroundColor: 'white',  // Cor dos pontos
+        pointBorderColor: 'white',  // Cor das bordas dos pontos
+        pointRadius: 5,  // Tamanho dos pontos,  // Tamanho dos pontos
+        tension: 0.1
+      }]
+    },
+    options: {
+      scales: {
+        x: {
+          grid: {
+            display: false // Remove a grade vertical
+          },
+          ticks: {
+            color: 'white', // Cor dos rótulos do eixo X
+            font: {
+              size: 16 // Tamanho da fonte das labels no eixo X
+            }
+          }
+        },
+        y: {
+          grid: {
+            display: false // Remove a grade horizontal
+          },
+          ticks: {
+            color: 'white', // Cor dos rótulos do eixo Y
+            font: {
+              size: 16 // Tamanho da fonte das labels no eixo X
+            }
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          display: false // Remove a legenda
+        }
+      },
+      elements: {
+        line: {
+          tension: 0.4 // Deixa as linhas mais suaves
+        }
+      }
+    }
+  });
+
+  const graficoDISCO = document.getElementById('graficosDISCO-box');
+  new Chart(graficoDISCO, {
+    type: 'line',
+    data: {
+      labels: ['19:02', '19:02', '19:02', '19:02', '19:02', '19:02', '19:02'], // Marcação de tempo
+      datasets: [{
+        label: 'Uso de DISCO',
+        data: [5.3, 5.5, 5.9, 5.0, 4.9, 4.8], // Dados de uso da CPU
+        borderColor: 'white',  // Cor da linha
+        backgroundColor: 'rgba(255, 255, 255, 0.5)', // Preenchimento abaixo da linha
+        fill: true,  // Ativa o preenchimento abaixo da linha
+        pointBackgroundColor: 'white',  // Cor dos pontos
+        pointBorderColor: 'white',  // Cor das bordas dos pontos
+        pointRadius: 5,  // Tamanho dos pontos
+        tension: 0.1
+
+      }]
+    },
+    options: {
+      scales: {
+        x: {
+          grid: {
+            display: false // Remove a grade vertical
+          },
+          ticks: {
+            color: 'white', // Cor dos rótulos do eixo X
+            font: {
+              size: 16 // Tamanho da fonte das labels no eixo X
+            }
+          }
+        },
+        y: {
+          grid: {
+            display: false // Remove a grade horizontal
+          },
+          ticks: {
+            color: 'white', // Cor dos rótulos do eixo Y
+            font: {
+              size: 16 // Tamanho da fonte das labels no eixo X
+            }
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          display: false // Remove a legenda
+        }
+      },
+      elements: {
+        line: {
+          tension: 0.4 // Deixa as linhas mais suaves
+        }
+      }
+    }
+  });
 
 </script>

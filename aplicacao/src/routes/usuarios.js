@@ -20,6 +20,10 @@ router.get("/listarFuncionarios/:idEmpresa", function (req, res) {
     usuarioController.listarFuncionarios(req, res);
 });
 
+router.get("/listarTipoUsuario", function (req, res) {
+    usuarioController.listarTipoUsuario(req, res);
+});
+
 router.put("/editarUsuario/:idUsuario", function (req, res) {
     usuarioController.editarUsuario(req, res);
 });

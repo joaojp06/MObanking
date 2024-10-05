@@ -1,7 +1,3 @@
-
-
-
-
 /* ---------- Configuração conteudo ---------- */
 
 .conteudo {
@@ -49,7 +45,7 @@
 }
 
 .botao-adicionar:hover {
-    background-image: linear-gradient( 158deg, black, #1f1f1f6d);
+    background-image: linear-gradient(158deg, black, #1f1f1f6d);
     border: 1px solid white;
     border-radius: 15px;
     /* width: 100%; */
@@ -68,34 +64,42 @@
 }
 
 .nome {
-    width: 35vw;
+    width: 15vw;
 }
 
 .centro {
-    font-size: x-small;
+    font-size: 12px;
     display: flex;
-    /* Flexbox para os elementos centrais */
-    /* gap: 5%; */
-    /* Espaço entre os elementos centrais */
+    gap: 143px;
     width: 40vw;
+    justify-content: space-between;
 }
 
 .status {
     width: 3vw;
     margin: 1% 4%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 
 .opcoes {
     display: flex;
-    gap: 10%;
-    margin-right: 1%;
+    gap: 17px;
+    margin-left: 14%;
+
+    & i {
+        cursor: pointer;
+    }
+
 }
 
 .editar {
     & img {
-        width: 70%;
+        width: 100%;
     }
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -104,7 +108,7 @@
 }
 
 .editar:hover {
-    background-image: linear-gradient(  black, #1f1f1f00);
+    background-image: linear-gradient(black, #1f1f1f00);
     /* border: 1px solid white; */
     border-radius: 15px;
     /* width: 100%; */
@@ -112,8 +116,9 @@
 
 .excluir {
     & img {
-        width: 70%;
+        width: 100%;
     }
+
     width: 45%;
     display: flex;
     justify-content: center;
@@ -126,7 +131,7 @@
 }
 
 .excluir:hover {
-    background-image: linear-gradient(  black, #1f1f1f00);
+    background-image: linear-gradient(black, #1f1f1f00);
     /* border: 1px solid white; */
     border-radius: 15px;
     /* width: 100%; */
@@ -151,7 +156,7 @@
     /* Altura da barra de rolagem horizontal */
 }
 
-.modalAddUser{
+.modalAddUser {
     display: none;
     position: absolute;
     left: 50%;
@@ -164,13 +169,13 @@
 
     border-radius: 20px;
 
-    & i{
+    & i {
 
         font-size: 35px;
         cursor: pointer;
     }
 
-    & .title-box{
+    & .title-box {
         display: flex;
         align-items: center;
         padding: 4%;
@@ -178,12 +183,12 @@
         justify-content: center;
     }
 
-    & .form{
+    & .form {
         display: flex;
         justify-content: center;
     }
 
-    .form-box-pai{
+    .form-box-pai {
         display: flex;
         flex-direction: column;
         width: 55vw;
@@ -198,45 +203,45 @@
         height: 16px;
         /* Altura da barra de rolagem horizontal */
     }
-    
+
     .form-box-pai::-webkit-scrollbar-track {
         background: #f1f1f1;
         /* Cor do trilho da barra de rolagem */
         border-radius: 10px;
         /* Borda arredondada do trilho */
     }
-    
+
     .form-box-pai::-webkit-scrollbar-thumb {
         background-color: #2c2c2c;
         /* Cor do polegar da barra de rolagem */
         border-radius: 10px;
         /* Borda arredondada do polegar */
     }
-    
+
     .form-box-pai::-webkit-scrollbar-thumb:hover {
         background-color: #555;
         /* Cor do polegar ao passar o mouse */
     }
 
-    & form{
+    & form {
         display: flex;
         flex-direction: column;
         width: 35vw;
         gap: 25px;
 
-        & input{
+        & input {
             padding: 2% 2%;
             border-radius: 10px;
             font-size: 18px;
         }
 
-        & select{
+        & select {
             padding: 2% 2%;
             border-radius: 10px;
             font-size: 18px;
         }
 
-        & label{
+        & label {
             display: flex;
             flex-direction: column;
             font-size: 24px;
@@ -252,21 +257,21 @@
         font-size: 18px;
         background: white;
         cursor: pointer;
-        border: 2px solid #2c2c2c; 
-        color: #3f3f3f; 
-        transition: all 0.3s ease; 
+        border: 2px solid #2c2c2c;
+        color: #3f3f3f;
+        transition: all 0.3s ease;
     }
-    
-    & button:hover {
-        background-color: #A9A9A9; 
-        color: white; 
-        transform: scale(1.05); 
-        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1); 
-    }
-   
 
-    & h2{
-        
+    & button:hover {
+        background-color: #A9A9A9;
+        color: white;
+        transform: scale(1.05);
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    }
+
+
+    & h2 {
+
         font-size: 33px;
     }
 }

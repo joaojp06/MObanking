@@ -12,15 +12,16 @@
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/funcionarios.css">
     <link rel="stylesheet" href="../css/default.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<body onload="listarFuncionarios()">
+<body onload="listarFuncionarios(), listarTiposUsuarios()">
 
 
     <div id="frame" class="frame-aplicacao" style="display: flex;">
         <nav class="menu-lateral">
             <h2 class="titulo-menu">Menu</h2>
-            <ul>
+            <ul id="menuLateralBox">
                 <li>
                     <a href="card.html">
                         <span class="icon-menu"><i class="fa-solid fa-server"></i></span>
@@ -33,12 +34,7 @@
                         <span class="titulo-link-menu">Gráficos</span>
                     </a>
                 </li>
-                <li>
-                    <a href="funcionarios.html">
-                        <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
-                        <span class="titulo-link-menu">Funcionários</span>
-                    </a>
-                </li>
+                
                 <li>
                     <a href="alertas.html">
                         <span class="icon-menu"><i class="fa-solid fa-triangle-exclamation"></i></span>
@@ -99,9 +95,7 @@
                     <label for="telefone">
                         Perfil
                         <select name="" id="select_nivel">
-                            <option selected hidden value="#">Escolha</option>
-                            <option value="1">Administrador (Supervisor - Coordenador) </option>
-                            <option value="2">Comum (Usuário - Colaborador)</option>
+                                
                         </select>
                     </label>
 
@@ -118,6 +112,19 @@
 </html>
 
 <script>
+
+const menuLaterealHTML = document.getElementById('menuLateralBox')
+  var sessTipoUsuario = sessionStorage.ID_TIPO_USUARIO
+  if(sessTipoUsuario == 1){
+    menuLaterealHTML.innerHTML += `
+     <li>
+          <a href="funcionarios.html">
+            <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
+            <span class="titulo-link-menu">Funcionários</span>
+          </a>
+        </li>
+    `
+  }
 
     nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
 
@@ -160,15 +167,21 @@
                     </div>
                     <div class="centro">
                         <div class="status">
+                            <span>CPF:</span>
                             <p>${registro.cpfUsuario}</p>
                         </div>
                         <div class="status">
+                            <span>Email:</span>
                             <p>${registro.emailUsuario}</p>
+                        </div>
+                        <div class="status">
+                            <span>Tipo:</span>
+                            <p>${registro.tipoUsuario}</p>
                         </div>
                     </div>
                     <div class="opcoes">
-                        <div class="editar"><img src="../imagens/Pencil.svg" alt=""></div>
-                        <div class="excluir"><img src="../imagens/Trash Can.svg" alt=""></div>
+                        <i class="fa-solid fa-trash"></i>
+                        <i class="fa-solid fa-pencil"></i>
                     </div>
 
                 </div>
@@ -181,6 +194,30 @@
                 console.log(`#ERRO: ${resposta}`);
             });
     }
+
+
+    function listarTiposUsuarios() {
+        fetch(`/usuarios/listarTipoUsuario`, {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json().then((tipoUsuario) => {
+
+                    tipoUsuario.forEach((registro) => {
+
+                        select_nivel.innerHTML += `
+                        
+                <option value="${registro.id}">${registro.tipo}</option>
+            
+            `;
+                    });
+                });
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
 
 
     function adicionarUsuario() {

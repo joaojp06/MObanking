@@ -115,7 +115,47 @@
 }
 
 
+/* GRÁFCIOS */
+canvas {
+    width: 67vw !important;
+    height: 60vh !important;
+    background-color: #2c2c2c;
+    padding: 4%;
+    border-radius: 20px;
+}
 
+.grafico-box {
+    display: flex;
+    flex-direction: column;
+
+    & h2 {
+        text-align: left;
+        width: 80%;
+        padding: 3% 5%;
+        font-size: 25px;
+    }
+}
+
+.desativarServidorButton{
+    padding: 1% 2%;
+    border-radius: 10px;
+    border: none;
+    background: #2c2c2c;
+    color: white;
+    font-size: 15px;
+    margin: 0 auto;
+    display: block;
+}
+
+.selectListarServidores{
+    padding: 1% 2%;
+    border-radius: 10px;
+    background: #18171d;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 1%;
+}
 /* ---------- MODAL ---------- */
 
 .modal {
