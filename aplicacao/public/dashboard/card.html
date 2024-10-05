@@ -1,107 +1,104 @@
 <!DOCTYPE html>
 <html lang="ptbr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MOBANKING</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link rel="shortcut icon" href="../imagens/logo.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="../css/reset.css" />
-    <link rel="stylesheet" href="../css/card.css" />
-    <link rel="stylesheet" href="../css/default.css" />
-  </head>
 
-  <body onload="listarServidores()">
-    <div id="frame" class="frame-aplicacao" style="display: flex">
-      <nav class="menu-lateral">
-        <h2 class="titulo-menu">Menu</h2>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MOBANKING</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="shortcut icon" href="../imagens/logo.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="../css/reset.css" />
+  <link rel="stylesheet" href="../css/card.css" />
+  <link rel="stylesheet" href="../css/default.css" />
+</head>
 
-        <ul>
-          <li>
-            <a href="card.html">
-              <span class="icon-menu"><i class="fa-solid fa-server"></i></span>
-              <span class="titulo-link-menu">Máquinas</span>
-            </a>
-          </li>
-          <li>
-            <a href="dashboard.html">
-              <span class="icon-menu"
-                ><i class="fa-solid fa-chart-simple"></i
-              ></span>
-              <span class="titulo-link-menu">Gráficos</span>
-            </a>
-          </li>
-          <li>
-            <a href="funcionarios.html">
-              <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
-              <span class="titulo-link-menu">Funcionários</span>
-            </a>
-          </li>
-          <li>
-            <a href="alertas.html">
-              <span class="icon-menu"
-                ><i class="fa-solid fa-triangle-exclamation"></i
-              ></span>
-              <span class="titulo-link-menu">Alertas</span>
-            </a>
-          </li>
-          <li>
-            <a href="devIndex.html">Adicionar Empresa</a>
-          </li>
-        </ul>
+<body onload="listarServidores()">
+  <div id="frame" class="frame-aplicacao" style="display: flex">
+    <nav class="menu-lateral">
+      <h2 class="titulo-menu">Menu</h2>
 
-        <div class="name-menu">
-          <a href="usuarioInfo.html">
-            <h2>Maikon Douglas</h2>
+      <ul>
+        <li>
+          <a href="card.html">
+            <span class="icon-menu"><i class="fa-solid fa-server"></i></span>
+            <span class="titulo-link-menu">Máquinas</span>
           </a>
-        </div>
-      </nav>
-      <div class="conteudo">
-        <h1>Máquinas</h1>
-        <div id="listagemServidores" class="card-grid-pai"></div>
+        </li>
+        <li>
+          <a href="dashboard.html">
+            <span class="icon-menu"><i class="fa-solid fa-chart-simple"></i></span>
+            <span class="titulo-link-menu">Gráficos</span>
+          </a>
+        </li>
+        <li>
+          <a href="funcionarios.html">
+            <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
+            <span class="titulo-link-menu">Funcionários</span>
+          </a>
+        </li>
+        <li>
+          <a href="alertas.html">
+            <span class="icon-menu"><i class="fa-solid fa-triangle-exclamation"></i></span>
+            <span class="titulo-link-menu">Alertas</span>
+          </a>
+        </li>
+        <li>
+          <a href="devIndex.html">Adicionar Empresa</a>
+        </li>
+      </ul>
+
+      <div class="name-menu">
+        <a href="usuarioInfo.html">
+          <h2 id="nome_perfil_menu"></h2>
+        </a>
       </div>
+    </nav>
+    <div class="conteudo">
+      <h1>Máquinas</h1>
+      <div id="listagemServidores" class="card-grid-pai"></div>
     </div>
+  </div>
 
-    <!-- MODAL -->
+  <!-- MODAL -->
 
-    <div style="display: none" class="modal" id="modal">
-      <i onclick="fecharModal()" id="closeModal" class="fa-solid fa-x"></i>
-      <h1>Utilização</h1>
-      <div class="grafico-box">
-        <div>
-          <h2>Uso CPU</h2>
-          <div class="simulacao2">Simalção gráfico uso</div>
-        </div>
-
-        <div class="simulacao">simulação gráfico</div>
+  <div style="display: none" class="modal" id="modal">
+    <i onclick="fecharModal()" id="closeModal" class="fa-solid fa-x"></i>
+    <h1>Utilização</h1>
+    <div class="grafico-box">
+      <div>
+        <h2>Uso CPU</h2>
+        <div class="simulacao2">Simalção gráfico uso</div>
       </div>
-      <div class="grafico-box">
-        <div>
-          <h2>Uso CPU</h2>
-          <div class="simulacao2">Simalção gráfico uso</div>
-        </div>
 
-        <div class="simulacao">simulação gráfico</div>
-      </div>
-      <div class="grafico-box">
-        <div>
-          <h2>Uso CPU</h2>
-          <div class="simulacao2">Simalção gráfico uso</div>
-        </div>
-
-        <div class="simulacao">simulação gráfico</div>
-      </div>
+      <div class="simulacao">simulação gráfico</div>
     </div>
-  </body>
+    <div class="grafico-box">
+      <div>
+        <h2>Uso CPU</h2>
+        <div class="simulacao2">Simalção gráfico uso</div>
+      </div>
+
+      <div class="simulacao">simulação gráfico</div>
+    </div>
+    <div class="grafico-box">
+      <div>
+        <h2>Uso CPU</h2>
+        <div class="simulacao2">Simalção gráfico uso</div>
+      </div>
+
+      <div class="simulacao">simulação gráfico</div>
+    </div>
+  </div>
+</body>
+
 </html>
 
 <script>
+
+  nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
+
   function abrirModal() {
     // modal.display = "block"
     modal.style.display = "block";
@@ -126,8 +123,8 @@
           planoEmpresa = sessionStorage.ID_PLANO
           if (planoEmpresa == 1) {
             servidores.forEach((registro) => {
-              listagemServidores.innerHTML += 
-              `<div onclick="abrirModal()" class="card">
+              listagemServidores.innerHTML +=
+                `<div onclick="abrirModal()" class="card">
               <h2>#${registro.id_servidor}</h2>
               <div class="back-image-card"></div>
               <div class="indicadores-box">
@@ -150,8 +147,8 @@
             });
           } else if (planoEmpresa == 2) {
             servidores.forEach((registro) => {
-              listagemServidores.innerHTML += 
-              `<div onclick="abrirModal()" class="card">
+              listagemServidores.innerHTML +=
+                `<div onclick="abrirModal()" class="card">
               <h2>#${registro.id_servidor}</h2>
               <div class="back-image-card"></div>
               <div class="indicadores-box">
@@ -184,8 +181,8 @@
             });
           } else if (planoEmpresa == 3) {
             servidores.forEach((registro) => {
-              listagemServidores.innerHTML += 
-              `<div onclick="abrirModal()" class="card">
+              listagemServidores.innerHTML +=
+                `<div onclick="abrirModal()" class="card">
               <h2>#${registro.id_servidor}</h2>
               <div class="back-image-card"></div>
               <div class="indicadores-box">
@@ -228,8 +225,8 @@
         });
       })
       .catch(function (resposta) {
-      console.log(`#ERRO: ${resposta}`);
-    });
-}
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
 
 </script>

@@ -27,7 +27,8 @@ function autenticar(req, res) {
                         idUsuario = resultadoAutenticar[0].idUsuario;
                         idEmpresa = resultadoAutenticar[0].idEmpresa;
                         idTipoUsuario = resultadoAutenticar[0].idTipoUsuario;
-                        fkPlano = resultadoAutenticar[0].fkPlano;            
+                        fkPlano = resultadoAutenticar[0].fkPlano;
+                        cpfUsuario = resultadoAutenticar[0].cpfUsuario;            
 
                         res.status(200).json(resultadoAutenticar);
                     } else if (resultadoAutenticar.length == 0) {
@@ -98,8 +99,42 @@ function listarFuncionarios(req, res) {
     });
   }
 
+  function editarUsuario(req, res) {
+    var nome = req.body.nomeServer;
+    var email = req.body.emailServer;
+    var senha = req.body.senhaServer;
+    var idUsuario = req.params.idUsuario
+
+    // Faça as validações dos valores
+    if (nome == undefined) {
+        res.status(400).send("Seu nome está undefined!");
+    } else if (email == undefined) {
+        res.status(400).send("Seu email está undefined!");
+    } else if (senha == undefined) {
+        res.status(400).send("Sua senha está undefined!");  
+    } else {
+        usuarioModel.editarUsuario(nome, email, senha, idUsuario)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar a edição! Erro: to NA CONTROLLER ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {
     autenticar,
     cadastrar,
-    listarFuncionarios
+    listarFuncionarios,
+    editarUsuario
+
 }

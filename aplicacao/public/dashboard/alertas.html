@@ -48,7 +48,7 @@
 
             <div class="name-menu">
                 <a href="usuarioInfo.html">
-                    <h2>Maikon Douglas</h2>
+                    <h2 id="nome_perfil_menu"></h2>
                 </a>
             </div>
         </nav>
@@ -91,6 +91,9 @@
 </html>
 
 <script>
+
+    nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
+
     var idEmpresa = sessionStorage.ID_EMPRESA
     function listarAlertas() {
         fetch(`/avisos/listarAlertas/${idEmpresa}`, {

@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../css/default.css">
 </head>
 
-<body>
+<body onload="exibirDados()" >
     <div id="frame" class="frame-aplicacao" style="display: flex;">
         <nav class="menu-lateral">
             <h2 class="titulo-menu">Menu</h2>
@@ -48,7 +48,7 @@
 
             <div class="name-menu">
                 <a href="usuarioInfo.html">
-                    <h2>Maikon Douglas</h2>
+                    <h2 id="nome_perfil_menu"></h2>
                 </a>
             </div>
         </nav>
@@ -66,11 +66,11 @@
                 <div class="box-info-fliho">
                     <div class="box-info-desc">
                         <span>Nome</span>
-                        <span class="title-info">Maikon Douglas da Silva</span>
+                        <span id="nome" class="title-info"></span>
                     </div>
                     <div class="box-info-desc">
                         <span>Email</span>
-                        <span class="title-info">maikon@gmail.com</span>
+                        <span id="email" class="title-info"></span>
                     </div>
                 </div>
                 <div class="box-info-fliho">
@@ -79,8 +79,8 @@
                         <span class="title-info">********</span>
                     </div>
                     <div class="box-info-desc">
-                        <span>Telefone</span>
-                        <span class="title-info">1198773482</span>
+                        <span>CPF</span>
+                        <span id="cpf" class="title-info"></span>
                     </div>
                 </div>
                 
@@ -122,6 +122,19 @@
         const frame = document.getElementById('frame');
         frame.classList.remove('blur-grid')
         confirmarModal.style.top = '-20%'
+    }
+
+    nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
+
+    function exibirDados() {
+        
+        var nomeUsuario = sessionStorage.NOME_USUARIO
+        var emailUsuario = sessionStorage.EMAIL_USUARIO
+        var cpfUsuario = sessionStorage.CPF_USUARIO
+
+        nome.innerHTML = nomeUsuario
+        email.innerHTML = emailUsuario
+        cpf.innerHTML = cpfUsuario
     }
 
 </script>

@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../css/default.css">
 </head>
 
-<body>
+<body onload="exibirDados()">
     <div id="frame" class="frame-aplicacao" style="display: flex;">
         <nav class="menu-lateral">
             <h2 class="titulo-menu">Menu</h2>
@@ -47,7 +47,7 @@
 
             <div class="name-menu">
                 <a href="usuarioInfo.html">
-                    <h2>Maikon Douglas</h2>
+                    <h2 id="nome_perfil_menu"></h2>
                 </a>
             </div>
         </nav>
@@ -69,16 +69,12 @@
                         <input id="nome" value="Maikon Douglas Da Silva" type="text">
                     </label>
                     <label for="telefone">
-                        telefone
-                        <input id="telefone" value="(11) 98733-3627" type="text">
+                        Nova Senha
+                        <input id="senha" value="" type="password">
                     </label>
-                    <label for="telefone">
-                        Senha
-                        <input id="telefone" value="3244223" type="password">
-                    </label>
-                    <label for="telefone">
+                    <label for="senha">
                         Confirmar senha
-                        <input id="telefone" value="3244223" type="password">
+                        <input id="confirmarSenha" value="" type="password">
                     </label>
 
 
@@ -91,7 +87,7 @@
     <div class="confirmarModal" id="confirmarModal">
         <h2>Deseja realmente editar seus dados ?</h2>
         <div>
-            <button onclick="fechar()" class="simButon">Sim</button>
+            <button onclick="fechar(), editarUsuario()" class="simButon">Sim</button>
             <button onclick="fechar()" class="naoButon">Não</button>
         </div>
     </div>
@@ -100,6 +96,8 @@
 </html>
 
 <script>
+
+    nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
 
     function confirmar() {
 
@@ -114,6 +112,61 @@
         const frame = document.getElementById('frame');
         frame.classList.remove('blur-grid')
         confirmarModal.style.top = '-20%'
+    }
+
+    function editarUsuario() {
+
+
+        var emailVar = email.value
+        var nomeVar = nome.value
+        var senhaVar = senha.value
+
+        var idUsuario = sessionStorage.ID_USUARIO
+
+        if (email.value == "" || nome.value == "" || senha.value == "" || confirmarSenha.value == "") {
+            alert("Preencha todos os campos!")
+        } else if (senha.value != confirmarSenha.value) {
+            alert("Senha Inválida")
+        } else {
+            fetch(`/usuarios/editarUsuario/${idUsuario}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    emailServer: emailVar,
+                    nomeServer: nomeVar,
+                    senhaServer: senhaVar
+                }),
+            }).then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+
+                    alert("Edição Realizada com Sucesso!")
+
+
+
+                } else {
+                    console.log(resposta);
+                    throw "Houve um erro ao tentar realizar a edição!";
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+                return false;
+            });
+        }
+
+    }
+
+    function exibirDados() {
+
+        var nomeUsuario = sessionStorage.NOME_USUARIO
+        var emailUsuario = sessionStorage.EMAIL_USUARIO
+
+        nome.value = nomeUsuario
+        email.value = emailUsuario
     }
 
 </script>
