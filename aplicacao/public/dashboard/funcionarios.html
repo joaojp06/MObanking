@@ -237,7 +237,7 @@
                         </div>
                     </div>
                     <div class="opcoes">
-                        <i class="fa-solid fa-trash"></i>       
+                        <i class="fa-solid fa-trash" id="trash" onclick="removerUsuario(${registro.idUsuario})"></i>       
                         <i class="fa-solid fa-pencil" id="pencil" onclick="abrirModalEditADM(${registro.idUsuario})"></i>
                     </div>
 
@@ -418,6 +418,29 @@
             });
         }
 
+    }
+
+    function removerUsuario(idUser) {
+        idUsuario = idUser
+        console.log(idUsuario);
+        fetch(`/usuarios/removerUsuario/${idUsuario}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            }).then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    alert("Usuário desativado com Sucesso!")
+                } else {
+                    console.log(resposta);
+                    throw "Houve um erro ao tentar realizar a edição!";
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+                return false;
+            });
     }
 
 </script>

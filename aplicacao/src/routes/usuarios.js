@@ -36,4 +36,8 @@ router.put("/editarUsuarioADM/:idUsuario", function (req, res) {
     usuarioController.editarUsuarioADM(req, res);
 });
 
+router.put("/removerUsuario/:idUsuario", function (req, res) {
+    usuarioController.removerUsuario(req, res);
+});
+
 module.exports = router;
