@@ -110,7 +110,50 @@
         </div>
     </div>
     <div class="modalAddUser" id="modalEditUser">
-       
+        <div class="title-box">
+            <h2>Editar Usuário</h2>
+            <i onclick="fecharModalEditUser()" id="closeModal" class="fa-solid fa-x"></i>
+        </div>
+        <div class="form-box-pai">
+
+            <div class="form">
+
+                <form action="">
+                    <label for="nome">
+                        Nome do Funcionário:
+                        <input type="text" id="nomeFuncEdit">
+                    </label>
+
+
+                    <label for="telefone">
+                        Email:
+                        <input type="text" id="emailFuncEdit">
+                    </label>
+
+                    <label for="senha">
+                        Senha:
+                        <input type="text" id="senhaFuncEdit">
+                    </label>
+
+                    <label for="cpf">
+                        CPF:
+                        <input type="number" maxlength="11" id="cpfFuncEdit">
+                    </label>
+
+                    <label for="telefone">
+                        Perfil
+                        <select name="" id="selectNvEdit">
+                            
+                        </select>
+                    </label>
+
+                </form>
+
+            </div>
+            <div>
+                <button onclick="editarUsuario()">Editar</button>
+            </div>
+        </div>
     </div>
 </body>
 
@@ -314,58 +357,14 @@
             .then(function (resposta) {
                 resposta.json().then((usuario) => {
 
-                    usuario.forEach((registro) => {
+                    usuario.forEach((registroEU) => {
 
-                        modalEditUser.innerHTML = `
-                        
-                        <div class="title-box">
-            <h2>Editar Usuário</h2>
-            <i onclick="fecharModalEditUser()" id="closeModal" class="fa-solid fa-x"></i>
-        </div>
-        <div class="form-box-pai">
+                        nomeFuncEdit.value = registroEU.nomeUsuario
+                        emailFuncEdit.value = registroEU.emailUsuario
+                        senhaFuncEdit.value = registroEU.senha
+                        cpfFuncEdit.value = registroEU.cpfUsuario
+                        selectNvEdit.value = registroEU.idTipoUsuario
 
-            <div class="form">
-
-                <form action="">
-                    <label for="nome">
-                        Nome do Funcionário:
-                        <input type="text" id="nomeFuncEdit" value="${registro.nomeUsuario}">
-                    </label>
-
-
-                    <label for="telefone">
-                        Email:
-                        <input type="text" id="emailFuncEdit" value="${registro.emailUsuario}">
-                    </label>
-
-                    <label for="senha">
-                        Senha:
-                        <input type="text" id="senhaFuncEdit" value="${registro.senha}">
-                    </label>
-
-                    <label for="cpf">
-                        CPF:
-                        <input type="number" maxlength="11" id="cpfFuncEdit" value="${registro.cpfUsuario}">
-                    </label>
-
-                    <label for="telefone">
-                        Perfil
-                        <select name="" id="selectNvEdit">
-                            <option value="${registro.idTipoUsuario}">
-                                ${registro.tipoUsuario}
-                            </option>
-                        </select>
-                    </label>
-
-                </form>
-
-            </div>
-            <div>
-                <button onclick="editarUsuario()">Editar</button>
-            </div>
-        </div>
-
-            `;
                     });
                 });
             })
@@ -375,7 +374,7 @@
     }
 
     function editarUsuario() {
-        
+
         var nomeVar = nomeFuncEdit.value;
         var emailVar = emailFuncEdit.value;
         var cpfVar = cpfFuncEdit.value;
