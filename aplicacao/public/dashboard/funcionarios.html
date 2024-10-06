@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/funcionarios.css">
     <link rel="stylesheet" href="../css/default.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body onload="listarFuncionarios(), listarTiposUsuarios()">
@@ -34,7 +36,7 @@
                         <span class="titulo-link-menu">Gráficos</span>
                     </a>
                 </li>
-                
+
                 <li>
                     <a href="alertas.html">
                         <span class="icon-menu"><i class="fa-solid fa-triangle-exclamation"></i></span>
@@ -95,7 +97,7 @@
                     <label for="telefone">
                         Perfil
                         <select name="" id="select_nivel">
-                                
+
                         </select>
                     </label>
 
@@ -107,16 +109,19 @@
             </div>
         </div>
     </div>
+    <div class="modalAddUser" id="modalEditUser">
+       
+    </div>
 </body>
 
 </html>
 
 <script>
 
-const menuLaterealHTML = document.getElementById('menuLateralBox')
-  var sessTipoUsuario = sessionStorage.ID_TIPO_USUARIO
-  if(sessTipoUsuario == 1){
-    menuLaterealHTML.innerHTML += `
+    const menuLaterealHTML = document.getElementById('menuLateralBox')
+    var sessTipoUsuario = sessionStorage.ID_TIPO_USUARIO
+    if (sessTipoUsuario == 1) {
+        menuLaterealHTML.innerHTML += `
      <li>
           <a href="funcionarios.html">
             <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
@@ -124,7 +129,7 @@ const menuLaterealHTML = document.getElementById('menuLateralBox')
           </a>
         </li>
     `
-  }
+    }
 
     nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
 
@@ -141,6 +146,15 @@ const menuLaterealHTML = document.getElementById('menuLateralBox')
     function fecharModalAddUser() {
 
         const modal = document.getElementById('modalAddUser')
+
+        modal.style.display = 'none'
+        const frame = document.getElementById('frame');
+        frame.classList.remove('blur-grid')
+    }
+
+    function fecharModalEditUser() {
+
+        const modal = document.getElementById('modalEditUser')
 
         modal.style.display = 'none'
         const frame = document.getElementById('frame');
@@ -180,8 +194,8 @@ const menuLaterealHTML = document.getElementById('menuLateralBox')
                         </div>
                     </div>
                     <div class="opcoes">
-                        <i class="fa-solid fa-trash"></i>
-                        <i class="fa-solid fa-pencil"></i>
+                        <i class="fa-solid fa-trash"></i>       
+                        <i class="fa-solid fa-pencil" id="pencil" onclick="abrirModalEditADM(${registro.idUsuario})"></i>
                     </div>
 
                 </div>
@@ -210,6 +224,13 @@ const menuLaterealHTML = document.getElementById('menuLateralBox')
                 <option value="${registro.id}">${registro.tipo}</option>
             
             `;
+
+                        selectNvEdit.innerHTML += `
+                        
+                        <option value="${registro.id}">${registro.tipo}</option>
+                    
+            `;
+
                     });
                 });
             })
@@ -277,6 +298,126 @@ const menuLaterealHTML = document.getElementById('menuLateralBox')
             console.log(`#ERRO: ${resposta}`);
             return false;
         });
+
+    }
+
+    let idUsuario;
+
+    function abrirModalEditADM(idUser) {
+        modalEditUser.style.display = 'block';
+        const frame = document.getElementById('frame');
+        frame.classList.add('blur-grid')
+        idUsuario = idUser;
+        fetch(`/usuarios/infoUsuario/${idUsuario}`, {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json().then((usuario) => {
+
+                    usuario.forEach((registro) => {
+
+                        modalEditUser.innerHTML = `
+                        
+                        <div class="title-box">
+            <h2>Editar Usuário</h2>
+            <i onclick="fecharModalEditUser()" id="closeModal" class="fa-solid fa-x"></i>
+        </div>
+        <div class="form-box-pai">
+
+            <div class="form">
+
+                <form action="">
+                    <label for="nome">
+                        Nome do Funcionário:
+                        <input type="text" id="nomeFuncEdit" value="${registro.nomeUsuario}">
+                    </label>
+
+
+                    <label for="telefone">
+                        Email:
+                        <input type="text" id="emailFuncEdit" value="${registro.emailUsuario}">
+                    </label>
+
+                    <label for="senha">
+                        Senha:
+                        <input type="text" id="senhaFuncEdit" value="${registro.senha}">
+                    </label>
+
+                    <label for="cpf">
+                        CPF:
+                        <input type="number" maxlength="11" id="cpfFuncEdit" value="${registro.cpfUsuario}">
+                    </label>
+
+                    <label for="telefone">
+                        Perfil
+                        <select name="" id="selectNvEdit">
+                            <option value="${registro.idTipoUsuario}">
+                                ${registro.tipoUsuario}
+                            </option>
+                        </select>
+                    </label>
+
+                </form>
+
+            </div>
+            <div>
+                <button onclick="editarUsuario()">Editar</button>
+            </div>
+        </div>
+
+            `;
+                    });
+                });
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+    function editarUsuario() {
+        
+        var nomeVar = nomeFuncEdit.value;
+        var emailVar = emailFuncEdit.value;
+        var cpfVar = cpfFuncEdit.value;
+        var senhaVar = senhaFuncEdit.value;
+        var tipoUsuarioVar = selectNvEdit.value;
+
+        console.log(idUsuario);
+
+        if (emailVar.value == "" || nomeVar.value == "" || senhaVar.value == "" || cpfVar.value == "") {
+            alert("Preencha todos os campos!")
+        } else {
+            fetch(`/usuarios/editarUsuarioADM/${idUsuario}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    emailServer: emailVar,
+                    nomeServer: nomeVar,
+                    senhaServer: senhaVar,
+                    cpfServer: cpfVar,
+                    tipoUsuarioServer: tipoUsuarioVar
+                }),
+            }).then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+
+
+                    alert("Edição Realizada com Sucesso!")
+
+
+
+                } else {
+                    console.log(resposta);
+                    throw "Houve um erro ao tentar realizar a edição!";
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+                return false;
+            });
+        }
 
     }
 

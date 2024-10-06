@@ -27,7 +27,7 @@ function listarFuncionarios(idEmpresa) {
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
-    select nomeUsuario, cpfUsuario, emailUsuario, tipoUsuario from vw_usuario_empresa where idEmpresa = ${idEmpresa};
+    select idUsuario, nomeUsuario, cpfUsuario, emailUsuario, tipoUsuario from vw_usuario_empresa where idEmpresa = ${idEmpresa};
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -45,6 +45,18 @@ function listarTipoUsuario(idEmpresa) {
     return database.executar(instrucaoSql);
 }
 
+function infoUsuario(idUsuario) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():");
+
+    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
+    //  e na ordem de inserção dos dados.
+    var instrucaoSql = `
+    select idUsuario, nomeUsuario, cpfUsuario, emailUsuario, senha, tipoUsuario, idTipoUsuario from vw_usuario_empresa where idUsuario = ${idUsuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 function editarUsuario(nome, email, senha, idUsuario) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():");
 
@@ -57,10 +69,24 @@ function editarUsuario(nome, email, senha, idUsuario) {
     return database.executar(instrucaoSql);
 }
 
+function editarUsuarioADM(nome, email, senha, cpf, tipoUsuario, idUsuario) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():");
+
+    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
+    //  e na ordem de inserção dos dados.
+    var instrucaoSql = `
+    update usuario set nome = '${nome}', email = '${email}', senha = '${senha}', cpf = '${cpf}', fkTipoUsuario = '${tipoUsuario}' where id = ${idUsuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     autenticar,
     cadastrar,
     listarFuncionarios,
     editarUsuario,
-    listarTipoUsuario
+    listarTipoUsuario,
+    infoUsuario,
+    editarUsuarioADM
 };

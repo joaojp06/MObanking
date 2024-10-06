@@ -20,12 +20,20 @@ router.get("/listarFuncionarios/:idEmpresa", function (req, res) {
     usuarioController.listarFuncionarios(req, res);
 });
 
+router.get("/infoUsuario/:idUsuario", function (req, res) {
+    usuarioController.infoUsuario(req, res);
+});
+
 router.get("/listarTipoUsuario", function (req, res) {
     usuarioController.listarTipoUsuario(req, res);
 });
 
 router.put("/editarUsuario/:idUsuario", function (req, res) {
     usuarioController.editarUsuario(req, res);
+});
+
+router.put("/editarUsuarioADM/:idUsuario", function (req, res) {
+    usuarioController.editarUsuarioADM(req, res);
 });
 
 module.exports = router;
