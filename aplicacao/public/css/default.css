@@ -63,6 +63,15 @@ Copie a seção abaixo em todas as página da dash, user, config user, etc
 .name-menu {
     transition: all 0.3s ease-in-out;
 }
+.buttonSair-menu{
+    opacity: 0;
+    padding: 13% 0%;
+    align-self: center;
+    color: #ffffffb8;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 100;
+}
 
 .menu-lateral .titulo-link-menu {
     opacity: 0;
@@ -89,7 +98,8 @@ Copie a seção abaixo em todas as página da dash, user, config user, etc
     transition: all 1s;
 }
 
-.menu-lateral:hover .name-menu {
+.menu-lateral:hover .name-menu,
+.menu-lateral:hover .buttonSair-menu {
     opacity: 1;
 }
 
@@ -124,7 +134,6 @@ Copie a seção abaixo em todas as página da dash, user, config user, etc
     height: 100%;
     display: flex;
     align-items: flex-end;
-    margin-bottom: 20%;
 }
 
 .name-menu a{

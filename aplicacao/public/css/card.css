@@ -148,13 +148,13 @@ canvas {
 }
 
 .selectListarServidores{
-    padding: 1% 2%;
+    padding: 0% 2%;
     border-radius: 10px;
     background: #18171d;
     color: white;
     font-size: 16px;
     cursor: pointer;
-    margin-bottom: 1%;
+    margin-bottom: 2%;
 }
 /* ---------- MODAL ---------- */
 
