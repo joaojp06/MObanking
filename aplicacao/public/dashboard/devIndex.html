@@ -186,7 +186,7 @@
                         <input type="text" id="complemento_logradouro_input_editar" placeholder="Complemento...">
                     </label>
 
-                
+
                 </form>
 
             </div>
@@ -438,8 +438,8 @@
                                 </div>
                             </div>
                             <div class="opcoes">
-                                    <i onclick="listarEmpresasPorId(${registro.id_empresa}, ${registro.fkEndereco})" class="fa-solid fa-pen"></i>
-                                <i class="fa-solid fa-trash"></i>
+                                    <i onclick=" listarEmpresasPorId(${registro.id_empresa}, ${registro.fkEndereco})" class="fa-solid fa-pen"></i>
+                                <i class="fa-solid fa-trash" onclick="removerEmpresa(${registro.id_empresa})"></i>
                             </div>
 
                             </div>
@@ -492,5 +492,27 @@
             .catch(function (erro) {
                 console.log(`#ERRO: ${erro}`);
             });
+    }
+
+    function removerEmpresa(idEmpresa) {
+        console.log(idEmpresa);
+        fetch(`/empresas/removerEmpresa/${idEmpresa}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }).then(function (resposta) {
+            console.log("resposta: ", resposta);
+            if (resposta.ok) {
+                listarEmpresas();
+                alert("Empresa desativada com Sucesso!")
+            } else {
+                console.log(resposta);
+                throw "Houve um erro ao tentar desativar a empresa!";
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            return false;
+        });
     }
 </script>

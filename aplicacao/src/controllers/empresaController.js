@@ -124,6 +124,21 @@ function editar(req, res) {
   });
 }
 
+
+function removerEmpresa(req, res) {
+  var idEmpresa = req.params.idEmpresa;
+  empresaModel.removerEmpresa(idEmpresa).then((resultado) => {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(204).json([]);
+      }
+    }).catch(function (erro) {
+      console.log(erro);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
 module.exports = {
   buscarPorCnpj,
   buscarPorId,
@@ -132,5 +147,6 @@ module.exports = {
   listarEmpresasPorId,
   cadastrarEndereco,
   editarEndereco,
-  editar
+  editar,
+  removerEmpresa
 };

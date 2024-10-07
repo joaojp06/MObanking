@@ -35,4 +35,8 @@ router.put("/editarEndereco/:fkEndereco", function (req, res) {
   empresaController.editarEndereco(req, res);
 });
 
+router.put("/removerEmpresa/:idEmpresa", function (req, res) {
+  empresaController.removerEmpresa(req, res);
+});
+
 module.exports = router;

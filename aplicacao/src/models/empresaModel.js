@@ -7,7 +7,7 @@ function buscarPorId(id) {
 }
 
 function listarEmpresas() {
-  var instrucaoSql = `select id_empresa, razaoSocial, cnpj, status, nomeLogradouro, numLogradouro, cidade, estado, bairro, cep, complemento, tipo_logradouro, fkEndereco from vw_empresa_endereco;`;
+  var instrucaoSql = `select id_empresa, razaoSocial, cnpj, status, nomeLogradouro, numLogradouro, cidade, estado, bairro, cep, complemento, tipo_logradouro, fkEndereco from vw_empresa_endereco where status = 'ativa';`;
 
   return database.executar(instrucaoSql);
 }
@@ -68,13 +68,25 @@ WHERE id = ${idEmpresa};
   return database.executar(instrucaoSql);
 }
 
+function removerEmpresa(idEmpresa) {
+  console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():");
+
+  // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
+  //  e na ordem de inserção dos dados.
+  var instrucaoSql = `
+  update empresa set status = 'Desativado' where id = ${idEmpresa};`;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
 module.exports = {
-  buscarPorCnpj, 
-  buscarPorId, 
-  cadastrar, 
+  buscarPorCnpj,
+  buscarPorId,
+  cadastrar,
   listarEmpresas,
-  listarEmpresasPorId, 
+  listarEmpresasPorId,
   cadastrarEndereco,
   editarEndereco,
-  editar
+  editar,
+  removerEmpresa
 };
