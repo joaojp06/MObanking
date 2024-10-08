@@ -15,6 +15,8 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Allerta&display=swap');
     </style>
+    <!-- scripts do Chart.js - 2022-1 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -58,30 +60,42 @@
             <h1>Dashboard</h1>
 
             <!-- Seção da CPU -->
+            <div class="frame-graficos">
+                <span class="tituloGraficos">CPU</span>
 
-            <b>CPU</b>
+                <input id="cpuInput1" type="date" class="input1 custom-date">
 
-            <input type="date" class="input1 custom-date">
+                <span>a</span>
 
-            <b>a<b>
+                <input id="cpuInput2" type="date" class="input2 custom-date">
 
-                    <input type="date" class="input2 custom-date">
+                <button class="pesquisarButton">Pesquisar</button>
 
-                    <div class="grafico"><b>GRÁFICOS</b></div>
-
-
-                    <!-- Seção da Memória -->
-                    <b>Memória</b>
-
-                    <input type="date" class="input1 custom-date">
-
-                    <b>a<b>
-
-                            <input type="date" class="input2 custom-date">
-
-                            <div class="grafico">GRÁFICOS</div>
+                <canvas id="graficoCPU-box"></canvas>
 
 
+                <!-- Seção da Memória -->
+                <span class="tituloGraficos">Memória</span>
+
+                <input type="date" class="input1 custom-date">
+
+                <span>a</span>
+
+                <input type="date" class="input2 custom-date">
+                <button class="pesquisarButton">Pesquisar</button>
+                <canvas id="graficoRAM-box">GRÁFICOS</canvas>
+
+                <!-- Seção da Disco -->
+                <span class="tituloGraficos">Disco</span>
+
+                <input type="date" class="input1 custom-date">
+
+                <span>a</span>
+
+                <input type="date" class="input2 custom-date">
+                <button class="pesquisarButton">Pesquisar</button>
+                <canvas id="graficoDISCO-box">GRÁFICOS
+            </div>
         </div>
     </div>
 </body>
@@ -103,4 +117,113 @@
     `
     }
     nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
+
+
+    const hoje = new Date();
+    var i = 0;
+    const datas = [];
+
+    // Loop para pegar a data de hoje e os últimos 6 dias
+    while (i < 7) {
+        let diaAtual = new Date();
+        diaAtual.setDate(hoje.getDate() - i); // Subtrai 'i' dias a cada iteração
+
+        const dia = String(diaAtual.getDate()).padStart(2, '0');
+        const mes = String(diaAtual.getMonth() + 1).padStart(2, '0'); // Meses começam do zero
+        const ano = String(diaAtual.getFullYear()).slice(-2);
+
+        const dataFormatada = `${dia}/${mes}/${ano}`;
+
+        datas.push(dataFormatada); // Armazena a data formatada no array
+
+        i++;
+    }
+
+    // Atribuindo a cada variável individualmente
+    const hojeFormatado = datas[0];
+    const dia1 = datas[1];
+    const dia2 = datas[2];
+    const dia3 = datas[3];
+    const dia4 = datas[4];
+    const dia5 = datas[5];
+    const dia6 = datas[6];
+
+    console.log(hojeFormatado, dia1, dia2, dia3, dia4, dia5, dia6);
+
+
+
+
+
+    const graficoCpu = document.getElementById('graficoCPU-box');
+    new Chart(graficoCpu, {
+        type: 'line',
+        data: {
+            labels: [dia6, dia5, dia4, dia3, dia2, dia1, hojeFormatado], // Marcação de tempo
+            datasets: [{
+                label: 'Uso da CPU (%)',
+                data: [50, 60, 43, 55, 32, 12, 21], // Dados de uso da CPU
+                borderColor: 'rgb(75, 192, 192)',
+                fill: false,
+                tension: 0.1 // Suavização da linha
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+
+    const graficoRAM = document.getElementById('graficoRAM-box');
+    new Chart(graficoRAM, {
+        type: 'line',
+        data: {
+            labels: [dia6, dia5, dia4, dia3, dia2, dia1, hojeFormatado], // Marcação de tempo
+            datasets: [{
+                label: 'Uso da RAM (%)',
+                data: [80, 86, 67, 73, 54, 34, 46], // Dados de uso da CPU
+                borderColor: 'rgb(75, 192, 192)',
+                fill: false,
+                tension: 0.1 // Suavização da linha
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    const graficoDISCO = document.getElementById('graficoDISCO-box');
+    new Chart(graficoDISCO, {
+        type: 'line',
+        data: {
+            labels: [dia6, dia5, dia4, dia3, dia2, dia1, hojeFormatado], // Marcação de tempo
+            datasets: [{
+                label: 'Uso do disco (GB)',
+                data: [5.3, 5.5, 5.9, 5.0, 4.9, 4.8], // Dados de uso da CPU
+                borderColor: 'rgb(75, 192, 192)',
+                fill: false,
+                tension: 0.1 // Suavização da linha
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+
+
+
+
+
 </script>
