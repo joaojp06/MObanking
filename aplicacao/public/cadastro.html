@@ -40,8 +40,7 @@
 											<input type="password" id="senhaLog_input" class="estilo_input"
 												placeholder="Senha">
 										</div>
-										<button onclick="entrar()"
-											class="botao">Login</button>
+										<button onclick="entrar()" class="botao">Login</button>
 									</div>
 								</div>
 							</div>
@@ -65,8 +64,7 @@
 											<input type="password" id="senha_input" class="estilo_input"
 												placeholder="Senha">
 										</div>
-										<button onclick="cadastrar()"
-											class="botao">Cadastrar</button>
+										<button onclick="cadastrar()" class="botao">Cadastrar</button>
 									</div>
 								</div>
 							</div>
@@ -167,13 +165,23 @@
 					sessionStorage.NOME_USUARIO = json[0].nomeUsuario;
 					sessionStorage.ID_USUARIO = json[0].idUsuario;
 					sessionStorage.ID_EMPRESA = json[0].idEmpresa;
-					sessionStorage.ID_TIPO_USUARIO = json[0].idTipoUsuario;
+					sessionStorage.FK_TIPO_USUARIO = json[0].fkTipoUsuario;
 					sessionStorage.ID_PLANO = json[0].fkPlano;
 					sessionStorage.CPF_USUARIO = json[0].cpfUsuario;
 
-					setTimeout(function () {
+					if (sessionStorage.FK_TIPO_USUARIO == 4) {
+						setTimeout(function () {
+							window.location = "./dashboard/devIndex.html";
+						}, 1000); // apenas para exibir o loading
+					}
+
+					else {
+						setTimeout(function () {
 						window.location = "./dashboard/dashboard.html";
 					}, 1000); // apenas para exibir o loading
+					}
+
+					
 
 				});
 

@@ -26,7 +26,7 @@ function autenticar(req, res) {
                         nomeUsuario = resultadoAutenticar[0].nomeUsuario;
                         idUsuario = resultadoAutenticar[0].idUsuario;
                         idEmpresa = resultadoAutenticar[0].idEmpresa;
-                        idTipoUsuario = resultadoAutenticar[0].idTipoUsuario;
+                        fkTipoUsuario = resultadoAutenticar[0].fkTipoUsuario;
                         fkPlano = resultadoAutenticar[0].fkPlano;
                         cpfUsuario = resultadoAutenticar[0].cpfUsuario;            
 
