@@ -165,17 +165,15 @@
 					sessionStorage.NOME_USUARIO = json[0].nomeUsuario;
 					sessionStorage.ID_USUARIO = json[0].idUsuario;
 					sessionStorage.ID_EMPRESA = json[0].idEmpresa;
-					sessionStorage.FK_TIPO_USUARIO = json[0].fkTipoUsuario;
+					sessionStorage.ID_TIPO_USUARIO = json[0].idTipoUsuario;
 					sessionStorage.ID_PLANO = json[0].fkPlano;
 					sessionStorage.CPF_USUARIO = json[0].cpfUsuario;
 
-					if (sessionStorage.FK_TIPO_USUARIO == 4) {
+					if (sessionStorage.ID_TIPO_USUARIO == 4) {
 						setTimeout(function () {
 							window.location = "./dashboard/devIndex.html";
 						}, 1000); // apenas para exibir o loading
-					}
-
-					else {
+					}else {
 						setTimeout(function () {
 						window.location = "./dashboard/dashboard.html";
 					}, 1000); // apenas para exibir o loading
