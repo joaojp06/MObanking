@@ -85,8 +85,9 @@ function cadastrar(req, res) {
 
 function listarFuncionarios(req, res) {
     var idEmpresa = req.params.idEmpresa;
+    var idUsuarioListFun = req.params.idUsuarioListFun;
   
-    usuarioModel.listarFuncionarios(idEmpresa).then((resultado) => {
+    usuarioModel.listarFuncionarios(idEmpresa, idUsuarioListFun).then((resultado) => {
       if (resultado.length > 0) {
         res.status(200).json(resultado);
       } else {

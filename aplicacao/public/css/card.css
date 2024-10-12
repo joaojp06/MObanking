@@ -138,6 +138,7 @@ canvas {
 
 .desativarServidorButton{
     padding: 1% 2%;
+    cursor: pointer;
     border-radius: 10px;
     border: none;
     background: #2c2c2c;

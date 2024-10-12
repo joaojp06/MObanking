@@ -31,7 +31,7 @@
                         <span class="titulo-link-menu">Gráficos</span>
                     </a>
                 </li>
-               
+
                 <li>
                     <a href="alertas.html">
                         <span class="icon-menu"><i class="fa-solid fa-triangle-exclamation"></i></span>
@@ -46,12 +46,12 @@
                     <h2 id="nome_perfil_menu"></h2>
                 </a>
             </div>
-            
 
-                <a class="buttonSair-menu" href="../index.html">
-                    <h2 id="">Sair</h2>
-                </a>
-            
+
+            <a class="buttonSair-menu" href="../index.html">
+                <h2 id="">Sair</h2>
+            </a>
+
         </nav>
 
         <div class="conteudo">
@@ -93,10 +93,10 @@
 
 <script>
 
-const menuLaterealHTML = document.getElementById('menuLateralBox')
-  var sessTipoUsuario = sessionStorage.ID_TIPO_USUARIO
-  if(sessTipoUsuario == 1){
-    menuLaterealHTML.innerHTML += `
+    const menuLaterealHTML = document.getElementById('menuLateralBox')
+    var sessTipoUsuario = sessionStorage.ID_TIPO_USUARIO
+    if (sessTipoUsuario == 1) {
+        menuLaterealHTML.innerHTML += `
      <li>
           <a href="funcionarios.html">
             <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
@@ -104,7 +104,7 @@ const menuLaterealHTML = document.getElementById('menuLateralBox')
           </a>
         </li>
     `
-  }
+    }
 
     nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
 
@@ -114,6 +114,12 @@ const menuLaterealHTML = document.getElementById('menuLateralBox')
             method: "GET",
         })
             .then(function (resposta) {
+                if (resposta.status == 204) {
+
+                    listagemAlertas.innerHTML = "Nenhum resultado encontrado."
+
+                    throw "Nenhum resultado encontrado!!";
+                }
                 resposta.json().then((alertas) => {
                     alertas.forEach((registro) => {
 

@@ -269,11 +269,20 @@
 
     var idEmpresa = sessionStorage.ID_EMPRESA
 
+
     function listarFuncionarios() {
-        fetch(`/usuarios/listarFuncionarios/${idEmpresa}`, {
+        var idUsuarioListFun = sessionStorage.ID_USUARIO
+        // A var idUsuarioListFun se torna 
+        fetch(`/usuarios/listarFuncionarios/${idEmpresa}/${idUsuarioListFun}`, {
             method: "GET",
         })
             .then(function (resposta) {
+                if (resposta.status == 204) {
+
+                    listagemFuncionario.innerHTML = "Nenhum resultado encontrado."
+
+                    throw "Nenhum resultado encontrado!!";
+                }
                 resposta.json().then((funcionarios) => {
 
                     funcionarios.forEach((registro) => {
@@ -469,7 +478,7 @@
 
 
                     usoCardMensagemSucesso()
-                descCardSucesso.innerHTML = `Edição realizada`
+                    descCardSucesso.innerHTML = `Edição realizada`
 
 
 

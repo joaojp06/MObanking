@@ -16,7 +16,7 @@ router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 })
 
-router.get("/listarFuncionarios/:idEmpresa", function (req, res) {
+router.get("/listarFuncionarios/:idEmpresa/:idUsuarioListFun", function (req, res) {
     usuarioController.listarFuncionarios(req, res);
 });
 
