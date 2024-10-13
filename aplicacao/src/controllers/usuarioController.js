@@ -54,6 +54,7 @@ function cadastrar(req, res) {
     var email = req.body.emailServer;
     var cpf = req.body.cpfServer;
     var senha = req.body.senhaServer;
+    var nivel = req.body.nivelServer;
 
     // Faça as validações dos valores
     if (nome == undefined) {
@@ -65,7 +66,7 @@ function cadastrar(req, res) {
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");  
     } else {
-        usuarioModel.cadastrar(nome, email, cpf, senha, fkEmpresa)
+        usuarioModel.cadastrar(nome, email, cpf, senha, fkEmpresa, nivel)
             .then(
                 function (resultado) {
                     res.json(resultado);
