@@ -26,9 +26,9 @@ function buscarPorCnpj(cnpj) {
   return database.executar(instrucaoSql);
 }
 
-function cadastrarEndereco(nomeLogradouro, tipoLogradouro, numero, cep, complemento) {
-  var instrucaoSql = `INSERT INTO endereco (fkLogradouro, nomeLogradouro, numLogradouro, bairro, cep, complemento) 
-  VALUES ('${tipoLogradouro}','${nomeLogradouro}','${numero}', 'bairro qualquer', '${cep}','${complemento}')`;
+function cadastrarEndereco(nomeLogradouro, tipoLogradouro, numero, cep, complemento, bairro, cidade, estado) {
+  var instrucaoSql = `insert into endereco (fkLogradouro, nomeLogradouro, numLogradouro, cidade, estado, bairro, cep, complemento) 
+  VALUES ('${tipoLogradouro}','${nomeLogradouro}','${numero}','${cidade}', '${estado}', '${bairro}' ,'${cep}','${complemento}')`;
 
   return database.executar(instrucaoSql);
 }
