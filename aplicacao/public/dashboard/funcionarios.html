@@ -13,12 +13,14 @@
     <link rel="stylesheet" href="../css/funcionarios.css">
     <link rel="stylesheet" href="../css/mensagemCard.css">
     <link rel="stylesheet" href="../css/default.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body onload="listarFuncionarios(), listarTiposUsuarios()">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
 
     <div id="frame" class="frame-aplicacao" style="display: flex;">
@@ -83,9 +85,9 @@
                     </label>
 
 
-                    <label for="telefone">
+                    <label for="email">
                         Email:
-                        <input type="text" id="email_input" placeholder="exemplo@gmail.com">
+                        <input type="email" id="email_input" placeholder="exemplo@gmail.com">
                     </label>
 
                     <label for="senha">
@@ -359,19 +361,60 @@
     function adicionarUsuario() {
         var nomeVar = nome_input.value;
         var emailVar = email_input.value;
+        var senhaVar = senha_input.value;
         var nivelVar = select_nivel.value;
         var cpfVar = cpf_input.value;
 
-        if (nomeVar == "" ||
-            emailVar == "" ||
-            cpfVar == "" ||
-            nivelVar == "#"
-        ) {
+        let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        let cpfRegex = /^\d{11}$/;
 
-            alert("Preencha todos os campos corretamente!");
-
+        if (nomeVar === "" || emailVar === "" || cpfVar === "" || nivelVar === "#") {
+            Toastify({
+                text: "Preencha todos os campos corretamente!",
+                duration: 3000,
+                gravity: "top",
+                position: 'center', 
+                backgroundColor: "#888",
+            }).showToast();
             return false;
         }
+
+        // Validação do email
+        if (!emailRegex.test(emailVar)) {
+            Toastify({
+                text: "Por favor, insira um e-mail válido.",
+                duration: 3000,
+                gravity: "top",
+                position: 'center',
+                backgroundColor: "#888",
+            }).showToast();
+            return;
+        }
+
+        // Validação da senha
+        if (senhaVar.length < 8) {
+            Toastify({
+                text: "A senha deve ter pelo menos 8 caracteres.",
+                duration: 3000,
+                gravity: "top",
+                position: 'center',
+                backgroundColor: "#888",
+            }).showToast();
+            return;
+        }
+
+        // Validação do CPF
+        if (!cpfRegex.test(cpfVar)) {
+            Toastify({
+                text: "Por favor, insira um CPF válido com 11 dígitos.",
+                duration: 3000,
+                gravity: "top",
+                position: 'center',
+                backgroundColor: "#888",
+            }).showToast();
+            return;
+        }
+
 
         fetch("/usuarios/cadastrar", {
             method: "POST",
