@@ -39,4 +39,9 @@ router.put("/removerEmpresa/:idEmpresa", function (req, res) {
   empresaController.removerEmpresa(req, res);
 });
 
+router.get("/listarTipoLogradouro", function (req, res) {
+  empresaController.listarTipoLogradouro(req, res);
+});
+
+
 module.exports = router;

@@ -4,10 +4,12 @@
    tamanho de fonte: px 
    tamanho de div: vw e vh*/
 
-canvas {
-    width: 75vw !important;
-    height: 75vh !important;
+   canvas {
+    width: 60vw !important;
+    height: 60vh !important;
     margin: 0 auto;
+    margin-bottom: 7%;
+    margin-top: 3%;
 }
 
 .frame-graficos {
@@ -16,19 +18,20 @@ canvas {
 }
 
 .pesquisarButton {
-    height: 5vh;
-    width: 10vw;
+    height: 4vh;
+    width: 7vw;
     border-radius: 10px;
     border: 0px solid black;
     background: #e5e5e5;
     color: #000000;
     cursor: pointer;
     font-weight: 700;
+    margin-left: 8px;
 }
 
 .tituloGraficos {
     display: block;
-    font-size: 30px;
+    font-size: 25px;
     margin-bottom: 1%;
 }
 
@@ -63,14 +66,14 @@ canvas {
     width: 85vw;
     margin: 2% 2%;
 
-
     & h1 {
-        font-size: 45px;
+        font-size: 33px;
         padding-bottom: 3%;
         font-family: "Allerta", sans-serif;
         font-weight: 400;
         font-style: normal;
     }
+
 
     & b {
         font-family: "Allerta", sans-serif;
@@ -82,9 +85,9 @@ canvas {
 .input1 {
     margin-left: 10px;
     margin-right: 5px;
-    padding-left: 4%;
-    width: 10vw;
-    height: 5vh;
+    padding-left: 2%;
+    width: 8vw;
+    height: 4vh;
     border-radius: 17px;
     color: white;
     background: radial-gradient(circle, #3D3C46, #16151A);
@@ -93,13 +96,14 @@ canvas {
 }
 
 .input2 {
-    margin-left: 5px;
-    padding-left: 4%;
-    width: 10vw;
-    height: 5vh;
+    margin-left: 10px;
+    margin-right: 5px;
+    padding-left: 2%;
+    width: 8vw;
+    height: 4vh;
     border-radius: 17px;
-    background: radial-gradient(circle, #3D3C46, #16151A);
     color: white;
+    background: radial-gradient(circle, #3D3C46, #16151A);
     font-family: "Allerta", sans-serif;
 
 }

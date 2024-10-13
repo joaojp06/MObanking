@@ -8,7 +8,7 @@ function buscarPorCnpj(req, res) {
   });
 }
 
-function listarEmpresas(req, res) {
+function listarEmpresas(_req, res) {
   empresaModel.listarEmpresas().then((resultado) => {
     res.status(200).json(resultado);
   });
@@ -124,7 +124,7 @@ function editar(req, res) {
   var razaoSocial = req.body.razaoSocialServer;
   var cnpj = req.body.cnpjServer;
 
-  empresaModel.editar(cnpj).then((resultado) => {
+  empresaModel.editar(cnpj).then((_resultado) => {
     empresaModel.cadastrar(idEmpresa, fkEndereco, razaoSocial, cnpj).then((resultado) => {
       res.status(201).json(resultado);
     });
@@ -146,6 +146,21 @@ function removerEmpresa(req, res) {
     });
 }
 
+function listarTipoLogradouro(_req, res) {
+  
+  empresaModel.listarTipoLogradouro().then((resultado) => {
+    if (resultado.length > 0) {
+      res.status(200).json(resultado);
+    } else {
+      res.status(204).json([]);
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+    console.log("Houve um erro ao buscar os tipos de logradouro: ", erro.sqlMessage);
+    res.status(500).json(erro.sqlMessage);
+  });
+}
+
 module.exports = {
   buscarPorCnpj,
   buscarPorId,
@@ -155,5 +170,6 @@ module.exports = {
   cadastrarEndereco,
   editarEndereco,
   editar,
-  removerEmpresa
+  removerEmpresa,
+  listarTipoLogradouro
 };

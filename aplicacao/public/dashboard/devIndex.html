@@ -71,9 +71,7 @@
                     <label for="">
                         Tipo logradouro
                         <select name="" id="tipo_logradouro_select">
-                            <option selected hidden value="#">Escolha</option>
-                            <option value="1">Rua</option>
-                            <option value="2">Avenida</option>
+
                         </select>
                     </label>
 
@@ -111,9 +109,7 @@
                         Planos
                         <select name="" id="tipo_planos_select">
                             <option selected hidden value="#">Escolha de Planos</option>
-                            <option value="basico">Básico</option>
-                            <option value="intermediario">Intermediário</option>
-                            <option value="profissional">Profissional</option>
+                           
                         </select>
                     </label>
 
@@ -154,9 +150,6 @@
                     <label for="">
                         Tipo logradouro
                         <select name="" id="tipo_logradouro_select_editar">
-                            <option selected hidden value="#">Escolha</option>
-                            <option value="1">Rua</option>
-                            <option value="2">Avenida</option>
                         </select>
                     </label>
 
@@ -338,7 +331,7 @@
                     bairroServer: bairroVar,
                     cidadeServer: cidadeVar,
                     estadoServer: estadoVar
-                
+
                 }),
             }).then(function (resposta) {
                 console.log("resposta: ", resposta);
@@ -455,79 +448,79 @@
             }
         }
 
-            fetch("/empresas/cadastrarEndereco", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    nomeLogradouroServer: nomeLogradouroVar,
-                    tipoLogradouroServer: tipoLogradouroVar,
-                    numeroServer: numeroVar,
-                    cepServer: cepVar,
-                    complementoServer: complementoVar,
-                    bairroServer: bairroVar,
-                    cidadeServer: cidadeVar,
-                    estadoServer: estadoVar
-                }),
-            }).then(function (resposta) {
-                console.log("resposta: ", resposta);
+        fetch("/empresas/cadastrarEndereco", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nomeLogradouroServer: nomeLogradouroVar,
+                tipoLogradouroServer: tipoLogradouroVar,
+                numeroServer: numeroVar,
+                cepServer: cepVar,
+                complementoServer: complementoVar,
+                bairroServer: bairroVar,
+                cidadeServer: cidadeVar,
+                estadoServer: estadoVar
+            }),
+        }).then(function (resposta) {
+            console.log("resposta: ", resposta);
 
-                if (resposta.ok) {
+            if (resposta.ok) {
 
-                    resposta.json()
-                        .then(json => {
-                            console.log("\n\n\n\n\nALEATÓRIO PARA VER A RESPOSTA");
-                            console.log(json);
-                            var idInserido = json.insertId;
-                            console.log(idInserido);
+                resposta.json()
+                    .then(json => {
+                        console.log("\n\n\n\n\nALEATÓRIO PARA VER A RESPOSTA");
+                        console.log(json);
+                        var idInserido = json.insertId;
+                        console.log(idInserido);
 
-                            sessionStorage.ID_ENDERECO = idInserido;
+                        sessionStorage.ID_ENDERECO = idInserido;
 
-                            fetch("/empresas/cadastrar", {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                },
-                                body: JSON.stringify({
-                                    idEnderecoServer: idInserido,
-                                    razaoSocialServer: razaoSocialVar,
-                                    cnpjServer: cnpjVar
-                                }),
-                            }).then().catch()
+                        fetch("/empresas/cadastrar", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                idEnderecoServer: idInserido,
+                                razaoSocialServer: razaoSocialVar,
+                                cnpjServer: cnpjVar
+                            }),
+                        }).then().catch()
 
-                        });
+                    });
 
-                    usoCardMensagemSucesso()
-                    descCardSucesso.innerHTML = `Cadastro realizado` //Descrição para o card
+                usoCardMensagemSucesso()
+                descCardSucesso.innerHTML = `Cadastro realizado` //Descrição para o card
 
-                    setTimeout(() => {
-                        fecharModalAddUser();
-                    }, "1000");
-
-
-                } else {
-                    console.log(resposta);
-                    throw "Houve um erro ao tentar realizar o cadastro!";
-                }
-            }).catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-                return false;
-            });
-
-        }
+                setTimeout(() => {
+                    fecharModalAddUser();
+                }, "1000");
 
 
-        function listarEmpresas() {
-            fetch(`/empresas/listarEmpresas`, {
-                method: "GET",
-            })
-                .then(function (resposta) {
-                    resposta.json().then((empresas) => {
-                        empresas.forEach((registro) => {
+            } else {
+                console.log(resposta);
+                throw "Houve um erro ao tentar realizar o cadastro!";
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            return false;
+        });
 
-                            listagemEmpresas.innerHTML +=
-                                `
+    }
+
+
+    function listarEmpresas() {
+        fetch(`/empresas/listarEmpresas`, {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json().then((empresas) => {
+                    empresas.forEach((registro) => {
+
+                        listagemEmpresas.innerHTML +=
+                            `
                             <div class="container">
 
                             <div class="nome">
@@ -548,116 +541,177 @@
 
                             </div>
             `;
-                        });
                     });
-                })
-                .catch(function (resposta) {
-                    console.log(`#ERRO: ${resposta}`);
                 });
-        }
-
-        function listarEmpresasPorId(id, fkEnd) {
-            idEmpresa = id
-            fkEndereco = fkEnd
-            modalEditarEmpresa();
-
-            fetch(`/empresas/listarEmpresasPorId/${idEmpresa}`, {
-                method: "GET",
             })
-                .then(function (resposta) {
-                    return resposta.json(); // Retorne o JSON diretamente
-                })
-                .then((empresas) => {
-                    console.log(empresas);
-
-                    // Se empresas for um array, use forEach
-                    empresas.forEach((empresa) => {
-                        var idEmpresa = empresa.empresa_id;
-                        var fkEndereco = empresa.endereco_id;
-                        razao_social_input_editar.value = empresa.razaoSocial;
-                        cnpj_input_editar.value = empresa.cnpj;
-                        nome_logradouro_input_editar.value = empresa.nomeLogradouro;
-                        bairro_input_editar.value = empresa.bairro;
-                        cidade_input_editar.value = empresa.cidade
-                        cep_logradouro_input_editar.value = empresa.cep;
-                        numero_logradouro_input_editar.value = empresa.numLogradouro;
-                        estado_input_editar.value = empresa.estado
-                        complemento_logradouro_input_editar.value = empresa.complemento;
-                        var ax = empresa.tipo_logradouro
-                        tipo_logradouro_select_editar.value = 1;
-                    });
-
-                    // Passar os parâmetros corretamente
-                    console.log(ax)
-                    document.getElementById('editar_button').onclick = function () {
-                        editarEmpresa(fkEndereco, idEmpresa);
-                    };
-                })
-                .catch(function (erro) {
-                    console.log(`#ERRO: ${erro}`);
-                });
-        }
-
-        function removerEmpresa(idEmpresa) {
-            console.log(idEmpresa);
-            fetch(`/empresas/removerEmpresa/${idEmpresa}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                }
-            }).then(function (resposta) {
-                console.log("resposta: ", resposta);
-                if (resposta.ok) {
-                    listarEmpresas();
-                    usoCardMensagemSucesso()
-                    descCardSucesso.innerHTML = `Empresa removida`
-                } else {
-                    console.log(resposta);
-                    throw "Houve um erro ao tentar desativar a empresa!";
-                }
-            }).catch(function (resposta) {
+            .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
-                return false;
             });
-        }
+    }
+
+    function listarEmpresasPorId(id, fkEnd) {
+        idEmpresa = id
+        fkEndereco = fkEnd
+        modalEditarEmpresa();
+
+        fetch(`/empresas/listarEmpresasPorId/${idEmpresa}`, {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                return resposta.json(); // Retorne o JSON diretamente
+            })
+            .then((empresas) => {
+                console.log(empresas);
+
+                // Se empresas for um array, use forEach
+                empresas.forEach((empresa) => {
+                    var idEmpresa = empresa.empresa_id;
+                    var fkEndereco = empresa.endereco_id;
+                    razao_social_input_editar.value = empresa.razaoSocial;
+                    cnpj_input_editar.value = empresa.cnpj;
+                    nome_logradouro_input_editar.value = empresa.nomeLogradouro;
+                    bairro_input_editar.value = empresa.bairro;
+                    cidade_input_editar.value = empresa.cidade
+                    cep_logradouro_input_editar.value = empresa.cep;
+                    numero_logradouro_input_editar.value = empresa.numLogradouro;
+                    estado_input_editar.value = empresa.estado
+                    complemento_logradouro_input_editar.value = empresa.complemento;
+                    var ax = empresa.tipo_logradouro
+                    tipo_logradouro_select_editar.value = 1;
+                });
+
+                // Passar os parâmetros corretamente
+                console.log(ax)
+                document.getElementById('editar_button').onclick = function () {
+                    editarEmpresa(fkEndereco, idEmpresa);
+                };
+            })
+            .catch(function (erro) {
+                console.log(`#ERRO: ${erro}`);
+            });
+    }
+
+    function removerEmpresa(idEmpresa) {
+        console.log(idEmpresa);
+        fetch(`/empresas/removerEmpresa/${idEmpresa}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }).then(function (resposta) {
+            console.log("resposta: ", resposta);
+            if (resposta.ok) {
+                listarEmpresas();
+                usoCardMensagemSucesso()
+                descCardSucesso.innerHTML = `Empresa removida`
+            } else {
+                console.log(resposta);
+                throw "Houve um erro ao tentar desativar a empresa!";
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            return false;
+        });
+    }
 
 
-        // Funções de card de alerta
 
-        // esse é o id = descCardSucesso para innerHTML a mensagem de sucesso
-        function abrirCardSucesoMensagem() {
+    function listarTipoLogradouro() {
+        fetch(`/empresas/listarTipoLogradouro`, {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json().then((tipo) => {
 
-            const card = document.getElementById("cardSucessoMsg");
-            card.classList.remove("fecharCardMensagem");
-            card.classList.add("abriCardMensagem");
-        }
-        function fecharCardSucessoMensagem() {
-            const card = document.getElementById("cardSucessoMsg");
-            card.classList.remove("abriCardMensagem");
-            card.classList.add("fecharCardMensagem");
-        }
-        // esse é o id = descCardErro para innerHTML a mensagem de sucesso
-        function fecharCardErroMensagem() {
-            const card = document.getElementById("cardErroMsg");
-            card.classList.remove("abriCardMensagem");
-            card.classList.add("fecharCardMensagem");
-        }
-        function abrirCardErroMensagem() {
-            const card = document.getElementById("cardErroMsg");
-            card.classList.remove("fecharCardMensagem");
-            card.classList.add("abriCardMensagem");
-        }
-        function usoCardMensagemErro() {
-            abrirCardErroMensagem();
-            setTimeout(() => {
-                fecharCardErroMensagem();
-            }, "7000");
-        }
-        function usoCardMensagemSucesso() {
-            abrirCardSucesoMensagem();
-            setTimeout(() => {
-                fecharCardSucessoMensagem();
-            }, "7000");
-        }
+                    tipo.forEach((registro) => {
+
+                        tipo_logradouro_select.innerHTML += `
+                        
+                <option value="${registro.id}">${registro.tipo}</option>
+            
+            `;
+
+                        tipo_logradouro_select_editar.innerHTML += `
+                        
+                <option value="${registro.id}">${registro.tipo}</option>
+                    
+            `;
+
+                    });
+                });
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+    function listarTipoPlanos() {
+        fetch(`/empresas/listarTipoLogradouro`, {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json().then((tipo) => {
+
+                    tipo.forEach((registro) => {
+
+                        tipo_logradouro_select.innerHTML += `
+                        
+                <option value="${registro.id}">${registro.tipo}</option>
+            
+            `;
+
+                        tipo_logradouro_select_editar.innerHTML += `
+                        
+                <option value="${registro.id}">${registro.tipo}</option>
+                    
+            `;
+
+                    });
+                });
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+
+
+    // Funções de card de alerta
+
+    // esse é o id = descCardSucesso para innerHTML a mensagem de sucesso
+    function abrirCardSucesoMensagem() {
+
+        const card = document.getElementById("cardSucessoMsg");
+        card.classList.remove("fecharCardMensagem");
+        card.classList.add("abriCardMensagem");
+    }
+    function fecharCardSucessoMensagem() {
+        const card = document.getElementById("cardSucessoMsg");
+        card.classList.remove("abriCardMensagem");
+        card.classList.add("fecharCardMensagem");
+    }
+    // esse é o id = descCardErro para innerHTML a mensagem de sucesso
+    function fecharCardErroMensagem() {
+        const card = document.getElementById("cardErroMsg");
+        card.classList.remove("abriCardMensagem");
+        card.classList.add("fecharCardMensagem");
+    }
+    function abrirCardErroMensagem() {
+        const card = document.getElementById("cardErroMsg");
+        card.classList.remove("fecharCardMensagem");
+        card.classList.add("abriCardMensagem");
+    }
+    function usoCardMensagemErro() {
+        abrirCardErroMensagem();
+        setTimeout(() => {
+            fecharCardErroMensagem();
+        }, "7000");
+    }
+    function usoCardMensagemSucesso() {
+        abrirCardSucesoMensagem();
+        setTimeout(() => {
+            fecharCardSucessoMensagem();
+        }, "7000");
+    }
 
 </script>

@@ -15,7 +15,7 @@
 /* ----------- CARDS SEÇÃO ----------  */
 
 .conteudo h1 {
-    font-size: 45px;
+    font-size: 36px;
     padding-bottom: 3%;
 }
 .back-image-card{
@@ -30,12 +30,12 @@
 
 }
 .card {
-    width: 38vw;
-    height: 32vh;
+    width: 36vw;
+    height: 27vh;
     background: linear-gradient(155deg, black, #414141);
     border-radius: 15px;
     color: white;
-    padding: 9% 0%;
+    padding: 9% 1%;
     cursor: pointer;
     position: relative;
 
@@ -130,8 +130,8 @@ canvas {
 
     & h2 {
         text-align: left;
-        width: 80%;
-        padding: 3% 5%;
+        width: 83%;
+        padding: 1% 0%;
         font-size: 25px;
     }
 }
@@ -153,7 +153,7 @@ canvas {
     border-radius: 10px;
     background: #18171d;
     color: white;
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
     margin-bottom: 2%;
 }
@@ -188,7 +188,6 @@ canvas {
 
     & h2 {
         font-size: 20px;
-        text-align: center;
     }
 
 }
