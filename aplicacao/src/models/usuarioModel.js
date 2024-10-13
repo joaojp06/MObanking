@@ -15,7 +15,7 @@ function cadastrar(nome, email, cpf,nivel, fkEmpresa, nivel, senha) {
 
     var instrucaoSql = `
         insert into usuario (fkEmpresa, fkTipoUsuario, nome, cpf, email, senha, status)
-        VALUES ('${fkEmpresa}','${nivel}','${nome}', ${cpf}', '${email}', ${senha}, 'ativo');
+        VALUES ('${fkEmpresa}','${nivel}','${nome}', '${cpf}', '${email}', '${senha}', 'ativo');
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

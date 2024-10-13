@@ -370,50 +370,33 @@
 
 
         if (nomeVar == "" || emailVar == "" || cpfVar == "" || nivelVar == "#") {
-            Toastify({
-                text: "Preencha todos os campos corretamente!",
-                duration: 3000,
-                gravity: "top",
-                position: 'center',
-                backgroundColor: "#888",
-            }).showToast();
-            return false;
+            descCardErro.innerHTML = "Preencha todos os campos."
+            usoCardMensagemErro()
+
+            return
         }
 
-        // Validação do email
         if (!emailRegex.test(emailVar)) {
-            Toastify({
-                text: "Por favor, insira um e-mail válido.",
-                duration: 3000,
-                gravity: "top",
-                position: 'center',
-                backgroundColor: "#888",
-            }).showToast();
-            return;
+            descCardErro.innerHTML = "Insira um e-mail válido."
+            usoCardMensagemErro()
+
+            return
         }
 
         // Validação da senha
         if (senhaVar.length < 8) {
-            Toastify({
-                text: "A senha deve ter pelo menos 8 caracteres.",
-                duration: 3000,
-                gravity: "top",
-                position: 'center',
-                backgroundColor: "#888",
-            }).showToast();
-            return;
+            descCardErro.innerHTML = "A senha deve ter pelo menos 8 caracteres."
+            usoCardMensagemErro()
+
+            return
         }
 
         // Validação do CPF
         if (!cpfRegex.test(cpfVar)) {
-            Toastify({
-                text: "Por favor, insira um CPF válido com 11 dígitos.",
-                duration: 3000,
-                gravity: "top",
-                position: 'center',
-                backgroundColor: "#888",
-            }).showToast();
-            return;
+            descCardErro.innerHTML = "Insira um CPF válido com 11 dígitos."
+            usoCardMensagemErro()
+
+            return
         }
 
 
@@ -502,40 +485,20 @@
         console.log(idUsuario);
 
         if (nomeVar == "" || emailVar == "" || cpfVar == "") {
-            Toastify({
-                text: "Preencha todos os campos corretamente!",
-                duration: 3000,
-                gravity: "top",
-                position: 'center',
-                backgroundColor: "#888",
-            }).showToast();
+            descCardErro.innerHTML = "Preencha todos os campos."
+            usoCardMensagemErro()
 
         } else if (!emailRegex.test(emailVar)) {
-            Toastify({
-                text: "Por favor, insira um e-mail válido.",
-                duration: 3000,
-                gravity: "top",
-                position: 'center',
-                backgroundColor: "#888",
-            }).showToast();
+            descCardErro.innerHTML = "Insira um e-mail válido."
+            usoCardMensagemErro()
 
         } else if (senhaVar.length < 8) {
-            Toastify({
-                text: "A senha deve ter pelo menos 8 caracteres.",
-                duration: 3000,
-                gravity: "top",
-                position: 'center',
-                backgroundColor: "#888",
-            }).showToast();
+            descCardErro.innerHTML = "A senha deve ter pelo menos 8 caracteres."
+            usoCardMensagemErro()
 
         } else if (!cpfRegex.test(cpfVar)) {
-            Toastify({
-                text: "Por favor, insira um CPF válido com 11 dígitos.",
-                duration: 3000,
-                gravity: "top",
-                position: 'center',
-                backgroundColor: "#888",
-            }).showToast();
+            descCardErro.innerHTML = "Insira um CPF válido com 11 dígitos."
+            usoCardMensagemErro()
 
         } else {
             fetch(`/usuarios/editarUsuarioADM/${idUsuario}`, {
