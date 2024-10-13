@@ -7,7 +7,7 @@ function buscarPorId(id) {
 }
 
 function listarEmpresas() {
-  var instrucaoSql = `select id_empresa, razaoSocial, cnpj, status, nomeLogradouro, numLogradouro, cidade, estado, bairro, cep, complemento, tipo_logradouro, fkEndereco from vw_empresa_endereco where status = 'ativa';`;
+  var instrucaoSql = `select id_empresa, razaoSocial, cnpj, status, nomeLogradouro, numLogradouro, cidade, estado, bairro, cep, complemento, tipo_logradouro, fkEndereco from vw_empresa_endereco where status = 'Ativa';`;
 
   return database.executar(instrucaoSql);
 }
@@ -33,9 +33,9 @@ function cadastrarEndereco(nomeLogradouro, tipoLogradouro, numero, cep, compleme
   return database.executar(instrucaoSql);
 }
 
-function cadastrar(fkEndereco, razaoSocial, cnpj) {
-  var instrucaoSql = `INSERT INTO empresa (fkEndereco, razaoSocial, cnpj) 
-  VALUES ('${fkEndereco}','${razaoSocial}', '${cnpj}')`;
+function cadastrar(fkEndereco, razaoSocial, cnpj, plano) {
+  var instrucaoSql = `INSERT INTO empresa (fkEndereco, razaoSocial, cnpj, fkPlano, status) 
+  VALUES ('${fkEndereco}','${razaoSocial}', '${cnpj}', ${plano}, 'Ativa')`;
 
   return database.executar(instrucaoSql);
 }

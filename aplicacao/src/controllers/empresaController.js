@@ -47,7 +47,7 @@ function cadastrarEndereco(req, res) {
       function (erro) {
         console.log(erro);
         console.log(
-          "\nHouve um erro ao realizar o cadastro! Erro: ",
+          "\nHouve um erro ao realizar o cadastro! ENDEREÇO Erro: ",
           erro.sqlMessage
         );
         res.status(500).json(erro.sqlMessage);
@@ -61,18 +61,21 @@ function cadastrar(req, res) {
   var fkEndereco = req.body.idEnderecoServer;
   var razaoSocial = req.body.razaoSocialServer;
   var cnpj = req.body.cnpjServer;
+  var plano = req.body.planoServer;
+  empresaModel.cadastrar(fkEndereco, razaoSocial, cnpj, plano)
+    .then((resultado) => {
+      res.status(201).json(resultado);
+    }).catch(
+      function (erro) {
+        console.log(erro);
+        console.log(
+          "\nHouve um erro ao realizar o cadastro EMPRESA DADOS! Erro: ",
+          erro.sqlMessage
+        );
+        res.status(500).json(erro.sqlMessage);
+      }
+    );
 
-  empresaModel.buscarPorCnpj(cnpj).then((resultado) => {
-    if (resultado.length > 0) {
-      res
-        .status(401)
-        .json({ mensagem: `A empresa com o cnpj ${cnpj} já existe` });
-    } else {
-      empresaModel.cadastrar(fkEndereco, razaoSocial, cnpj).then((resultado) => {
-        res.status(201).json(resultado);
-      });
-    }
-  });
 }
 
 function editarEndereco(req, res) {
@@ -94,11 +97,11 @@ function editarEndereco(req, res) {
     res.status(400).send("A nomeLogradouro está indefinido!");
   } else if (tipoLogradouro == undefined) {
     res.status(400).send("A tipoLogradouro está indefinido!");
-  }else if (numero == undefined) {
+  } else if (numero == undefined) {
     res.status(400).send("A numero está indefinido!");
-  }else if (cep == undefined) {
+  } else if (cep == undefined) {
     res.status(400).send("A cep está indefinido!");
-  }else if (complemento == undefined) {
+  } else if (complemento == undefined) {
     res.status(400).send("A complemento está indefinido!");
   } else {
 
@@ -123,9 +126,12 @@ function editar(req, res) {
   var idEmpresa = req.params.idEmpresa;
   var razaoSocial = req.body.razaoSocialServer;
   var cnpj = req.body.cnpjServer;
+  var plano = req.body.planoServer;
+
+
 
   empresaModel.editar(cnpj).then((_resultado) => {
-    empresaModel.cadastrar(idEmpresa, fkEndereco, razaoSocial, cnpj).then((resultado) => {
+    empresaModel.cadastrar(idEmpresa, fkEndereco, razaoSocial, cnpj, plano).then((resultado) => {
       res.status(201).json(resultado);
     });
   });
@@ -135,19 +141,19 @@ function editar(req, res) {
 function removerEmpresa(req, res) {
   var idEmpresa = req.params.idEmpresa;
   empresaModel.removerEmpresa(idEmpresa).then((resultado) => {
-      if (resultado.length > 0) {
-        res.status(200).json(resultado);
-      } else {
-        res.status(204).json([]);
-      }
-    }).catch(function (erro) {
-      console.log(erro);
-      res.status(500).json(erro.sqlMessage);
-    });
+    if (resultado.length > 0) {
+      res.status(200).json(resultado);
+    } else {
+      res.status(204).json([]);
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+    res.status(500).json(erro.sqlMessage);
+  });
 }
 
 function listarTipoLogradouro(req, res) {
-  
+
   empresaModel.listarTipoLogradouro().then((resultado) => {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
@@ -162,7 +168,7 @@ function listarTipoLogradouro(req, res) {
 }
 
 function listarTipoPlanos(req, res) {
-  
+
   empresaModel.listarTipoPlanos().then((resultado) => {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
