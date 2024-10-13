@@ -57,7 +57,7 @@
     </nav>
     <div class="conteudo">
       <div style="display: flex; justify-content: space-between;">
-        <h1>Máquinas</h1>
+        <h1 onclick="alertaEstatico()">Máquinas</h1>
         <select class="selectListarServidores" onchange="listarServidores()" id="selectListServidores">
           <option value="ativo">Servidores ativos</option>
           <option value="desativado">Servidores desativados</option>
@@ -150,13 +150,27 @@
     </svg>
   </div>
 
-
+<div class="alertCardEstatico" id="alertCardEstatico">
+    <span class="tituloAlerta">Alerta</span>
+    <span class="descAlerta">A máquina com ID: 1 atingiu o limite estipulado de 85% no serviço de CPU</span>
+    <span>Data: 14/10/2024 - 12:22:09</span>
+</div>
 
 </body>
 
 </html>
 
 <script>
+
+  function alertaEstatico(){
+    const card = document.getElementById("alertCardEstatico");
+
+    card.classList.add("alertCardEstaticoUsar");
+    setTimeout(() => {
+      card.classList.remove("alertCardEstaticoUsar");
+    }, "7000");
+
+  }
 
   const menuLaterealHTML = document.getElementById('menuLateralBox')
   var sessTipoUsuario = sessionStorage.ID_TIPO_USUARIO
@@ -219,9 +233,9 @@
     })
       .then(function (resposta) {
         if (resposta.status == 204) {
-         
+
           listagemServidores.innerHTML = "Nenhum resultado encontrado."
-          
+
           throw "Nenhum resultado encontrado!!";
         }
         resposta.json().then((servidores) => {
