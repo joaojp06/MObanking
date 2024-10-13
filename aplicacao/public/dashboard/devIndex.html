@@ -87,7 +87,36 @@
 
                     <label for="">
                         Estado:
-                        <input type="text" id="estado_input" placeholder="Estado...">
+                        <select id="estado_input_select">
+                            <option value="" selected hidden>Selecione um estado</option>
+                            <option value="AC">Acre (AC)</option>
+                            <option value="AL">Alagoas (AL)</option>
+                            <option value="AP">Amapá (AP)</option>
+                            <option value="AM">Amazonas (AM)</option>
+                            <option value="BA">Bahia (BA)</option>
+                            <option value="CE">Ceará (CE)</option>
+                            <option value="DF">Distrito Federal (DF)</option>
+                            <option value="ES">Espírito Santo (ES)</option>
+                            <option value="GO">Goiás (GO)</option>
+                            <option value="MA">Maranhão (MA)</option>
+                            <option value="MT">Mato Grosso (MT)</option>
+                            <option value="MS">Mato Grosso do Sul (MS)</option>
+                            <option value="MG">Minas Gerais (MG)</option>
+                            <option value="PA">Pará (PA)</option>
+                            <option value="PB">Paraíba (PB)</option>
+                            <option value="PR">Paraná (PR)</option>
+                            <option value="PE">Pernambuco (PE)</option>
+                            <option value="PI">Piauí (PI)</option>
+                            <option value="RJ">Rio de Janeiro (RJ)</option>
+                            <option value="RN">Rio Grande do Norte (RN)</option>
+                            <option value="RS">Rio Grande do Sul (RS)</option>
+                            <option value="RO">Rondônia (RO)</option>
+                            <option value="RR">Roraima (RR)</option>
+                            <option value="SC">Santa Catarina (SC)</option>
+                            <option value="SP">São Paulo (SP)</option>
+                            <option value="SE">Sergipe (SE)</option>
+                            <option value="TO">Tocantins (TO)</option>
+                        </select>
                     </label>
 
                     <label for="">
@@ -149,7 +178,7 @@
                     <label for="">
                         Tipo logradouro
                         <select name="" id="tipo_logradouro_select_editar">
-
+                            
                         </select>
                     </label>
 
@@ -165,7 +194,36 @@
 
                     <label for="">
                         Estado:
-                        <input type="text" id="estado_input_editar" placeholder="Estado...">
+                        <select id="estado_input_select_editar">
+                            <option value="" selected hidden>Selecione um estado</option>
+                            <option value="AC">Acre (AC)</option>
+                            <option value="AL">Alagoas (AL)</option>
+                            <option value="AP">Amapá (AP)</option>
+                            <option value="AM">Amazonas (AM)</option>
+                            <option value="BA">Bahia (BA)</option>
+                            <option value="CE">Ceará (CE)</option>
+                            <option value="DF">Distrito Federal (DF)</option>
+                            <option value="ES">Espírito Santo (ES)</option>
+                            <option value="GO">Goiás (GO)</option>
+                            <option value="MA">Maranhão (MA)</option>
+                            <option value="MT">Mato Grosso (MT)</option>
+                            <option value="MS">Mato Grosso do Sul (MS)</option>
+                            <option value="MG">Minas Gerais (MG)</option>
+                            <option value="PA">Pará (PA)</option>
+                            <option value="PB">Paraíba (PB)</option>
+                            <option value="PR">Paraná (PR)</option>
+                            <option value="PE">Pernambuco (PE)</option>
+                            <option value="PI">Piauí (PI)</option>
+                            <option value="RJ">Rio de Janeiro (RJ)</option>
+                            <option value="RN">Rio Grande do Norte (RN)</option>
+                            <option value="RS">Rio Grande do Sul (RS)</option>
+                            <option value="RO">Rondônia (RO)</option>
+                            <option value="RR">Roraima (RR)</option>
+                            <option value="SC">Santa Catarina (SC)</option>
+                            <option value="SP">São Paulo (SP)</option>
+                            <option value="SE">Sergipe (SE)</option>
+                            <option value="TO">Tocantins (TO)</option>
+                        </select>
                     </label>
 
                     <label for="">
@@ -295,7 +353,7 @@
         var complementoVar = complemento_logradouro_input_editar.value
         var bairroVar = bairro_input_editar.value;
         var cidadeVar = cidade_input_editar.value;
-        var estadoVar = estado_input_editar.value;
+        var estadoVar = estado_input_select_editar.value;
 
         if (razaoSocialVar == "" ||
             cnpjVar == "" ||
@@ -410,7 +468,8 @@
         var complementoVar = complemento_logradouro_input.value
         var bairroVar = bairro_input.value;
         var cidadeVar = cidade_input.value;
-        var estadoVar = estado_input.value;
+        var estadoVar =  estado_input_select.value;
+        var planoVar = tipo_planos_select.value;
 
         if (razaoSocialVar == "" ||
             cnpjVar == "" ||
@@ -421,7 +480,8 @@
             complementoVar == "" ||
             bairroVar == "" ||
             cidadeVar == "" ||
-            estadoVar == ""
+            estadoVar == "" ||
+            planoVar == ""
         ) {
             descCardErro.innerHTML = "Preencha todos os campos"
             usoCardMensagemErro()
@@ -625,7 +685,7 @@
                     tipo.forEach((registro) => {
 
                         tipo_planos_select.innerHTML += `
-                        
+                <option value="" selected hidden>Selecione um plano</option>
                 <option value="${registro.id}">${registro.nome}</option>
             
             `;
@@ -649,7 +709,7 @@
                     tipo.forEach((registro) => {
 
                         tipo_logradouro_select.innerHTML += `
-                        
+                <option value="" selected hidden>Selecione um tipo de logradouro</option>
                 <option value="${registro.id}">${registro.tipo}</option>
             
             `;
