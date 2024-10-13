@@ -358,6 +358,9 @@
 
 
 
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let cpfRegex = /^\d{11}$/;
+
     function adicionarUsuario() {
         var nomeVar = nome_input.value;
         var emailVar = email_input.value;
@@ -365,15 +368,13 @@
         var nivelVar = select_nivel.value;
         var cpfVar = cpf_input.value;
 
-        let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        let cpfRegex = /^\d{11}$/;
 
         if (nomeVar === "" || emailVar === "" || cpfVar === "" || nivelVar === "#") {
             Toastify({
                 text: "Preencha todos os campos corretamente!",
                 duration: 3000,
                 gravity: "top",
-                position: 'center', 
+                position: 'center',
                 backgroundColor: "#888",
             }).showToast();
             return false;
@@ -500,8 +501,42 @@
 
         console.log(idUsuario);
 
-        if (emailVar.value == "" || nomeVar.value == "" || senhaVar.value == "" || cpfVar.value == "") {
-            alert("Preencha todos os campos!")
+        if (nomeVar === "" || emailVar === "" || cpfVar === "") {
+            Toastify({
+                text: "Preencha todos os campos corretamente!",
+                duration: 3000,
+                gravity: "top",
+                position: 'center',
+                backgroundColor: "#888",
+            }).showToast();
+
+        } else if (!emailRegex.test(emailVar)) {
+            Toastify({
+                text: "Por favor, insira um e-mail válido.",
+                duration: 3000,
+                gravity: "top",
+                position: 'center',
+                backgroundColor: "#888",
+            }).showToast();
+
+        } else if (senhaVar.length < 8) {
+            Toastify({
+                text: "A senha deve ter pelo menos 8 caracteres.",
+                duration: 3000,
+                gravity: "top",
+                position: 'center',
+                backgroundColor: "#888",
+            }).showToast();
+
+        } else if (!cpfRegex.test(cpfVar)) {
+            Toastify({
+                text: "Por favor, insira um CPF válido com 11 dígitos.",
+                duration: 3000,
+                gravity: "top",
+                position: 'center',
+                backgroundColor: "#888",
+            }).showToast();
+
         } else {
             fetch(`/usuarios/editarUsuarioADM/${idUsuario}`, {
                 method: "PUT",
