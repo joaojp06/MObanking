@@ -44,4 +44,8 @@ router.get("/listarTipoLogradouro", function (req, res) {
 });
 
 
+router.get("/listarTipoPlanos", function (req, res) {
+  empresaController.listarTipoPlanos(req, res);
+});
+
 module.exports = router;

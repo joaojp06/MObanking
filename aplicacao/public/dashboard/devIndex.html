@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 
-<body onload="listarEmpresas(),listarTipoLogradouro()">
+<body onload="listarEmpresas(),listarTipoLogradouro(), listarTipoPlanos()">
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
@@ -108,8 +108,7 @@
                     <label for="">
                         Planos
                         <select name="" id="tipo_planos_select">
-                            <option selected hidden value="#">Escolha de Planos</option>
-                           <!-- Este select eu quero que as option venha do banco, porém, não esta funcionando -->
+                            
                         </select>
                     </label>
 
@@ -150,7 +149,7 @@
                     <label for="">
                         Tipo logradouro
                         <select name="" id="tipo_logradouro_select_editar">
-                             <!-- Este select eu também quero que as option venha do banco, porém, não esta funcionando -->
+
                         </select>
                     </label>
 
@@ -616,9 +615,8 @@
     }
 
 
-
-    function listarTipoLogradouro() {
-        fetch(`/empresas/listarTipoLogradouro`, {
+    function listarTipoPlanos() {
+        fetch(`/empresas/listarTipoPlanos`, {
             method: "GET",
         })
             .then(function (resposta) {
@@ -626,16 +624,10 @@
 
                     tipo.forEach((registro) => {
 
-                        tipo_logradouro_select.innerHTML += `
+                        tipo_planos_select.innerHTML += `
                         
-                <option value="${registro.id}">${registro.tipo}</option>
+                <option value="${registro.id}">${registro.nome}</option>
             
-            `;
-
-                        tipo_logradouro_select_editar.innerHTML += `
-                        
-                <option value="${registro.id}">${registro.tipo}</option>
-                    
             `;
 
                     });
@@ -646,7 +638,8 @@
             });
     }
 
-    function listarTipoPlanos() {
+
+    function listarTipoLogradouro() {
         fetch(`/empresas/listarTipoLogradouro`, {
             method: "GET",
         })
