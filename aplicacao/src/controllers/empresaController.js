@@ -146,7 +146,7 @@ function removerEmpresa(req, res) {
     });
 }
 
-function listarTipoLogradouro(_req, res) {
+function listarTipoLogradouro(req, res) {
   
   empresaModel.listarTipoLogradouro().then((resultado) => {
     if (resultado.length > 0) {

@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 
-<body onload="listarEmpresas()">
+<body onload="listarEmpresas(),listarTipoLogradouro()">
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
@@ -109,7 +109,7 @@
                         Planos
                         <select name="" id="tipo_planos_select">
                             <option selected hidden value="#">Escolha de Planos</option>
-                           
+                           <!-- Este select eu quero que as option venha do banco, porém, não esta funcionando -->
                         </select>
                     </label>
 
@@ -150,6 +150,7 @@
                     <label for="">
                         Tipo logradouro
                         <select name="" id="tipo_logradouro_select_editar">
+                             <!-- Este select eu também quero que as option venha do banco, porém, não esta funcionando -->
                         </select>
                     </label>
 
