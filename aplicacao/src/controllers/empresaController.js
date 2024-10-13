@@ -82,6 +82,10 @@ function editarEndereco(req, res) {
   var numero = req.body.numeroServer;
   var cep = req.body.cepServer;
   var complemento = req.body.complementoServer;
+  var bairro = req.body.bairroServer;
+  var cidade = req.body.cidadeServer;
+  var estado = req.body.estadoServer;
+
 
   console.log(`------  ${idEndereco}  -------`)
   if (idEndereco == undefined) {
@@ -98,7 +102,7 @@ function editarEndereco(req, res) {
     res.status(400).send("A complemento está indefinido!");
   } else {
 
-    empresaModel.editarEndereco(idEndereco, nomeLogradouro, tipoLogradouro, numero, cep, complemento)
+    empresaModel.editarEndereco(idEndereco, nomeLogradouro, tipoLogradouro, numero, cep, complemento, bairro, cidade, estado)
       .then((resultado) => {
         res.status(201).json(resultado);
       }).catch(

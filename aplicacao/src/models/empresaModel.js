@@ -40,14 +40,16 @@ function cadastrar(fkEndereco, razaoSocial, cnpj) {
   return database.executar(instrucaoSql);
 }
 
-function editarEndereco(idEndereco, nomeLogradouro, tipoLogradouro, numero, cep, complemento) {
+function editarEndereco(idEndereco, nomeLogradouro, numero, cep, complemento, bairro, cidade, estado) {
   console.log(`idEndereco: ${idEndereco}`); // Adicione esta linha para depuração
   var instrucaoSql = `
-  UPDATE endereco
+ UPDATE endereco
   SET fkLogradouro = 1,
       nomeLogradouro = '${nomeLogradouro}',
       numLogradouro = ${numero},
-      bairro = 'Centro Atualizado',
+      cidade = '${cidade}',
+      estado = '${bairro}',
+      bairro = '${estado}',
       cep = '${cep}',
       complemento = '${complemento}'
   WHERE id = ${idEndereco};
