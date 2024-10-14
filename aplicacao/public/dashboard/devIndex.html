@@ -30,7 +30,7 @@
                     <p>Adicionar</p>
                 </button>
 
-                <button class="botao-adicionar">
+                <button onclick="sair()" class="botao-adicionar">
                     <p>Sair</p>
                 </button>
             </div>
@@ -324,6 +324,10 @@
 </html>
 
 <script>
+
+    function sair() {
+        window.location = "../index.html"
+    }
 
     let idEmpresa; // Declare fora das funções
     let fkEndereco;
