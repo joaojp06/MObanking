@@ -1,0 +1,329 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: "Nunito Sans", sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #000000;
+  font-family: "Nunito Sans";
+  color: #fff;
+  text-align: center;
+  /* line-height: 1.5; */
+}
+
+section {
+  scroll-margin-top: 80px;
+}
+
+.background_inicio {
+  display: flex;
+  justify-content: center;
+  background-image: url("../imagens/seção-início-shot-data-center-multiple-rows-600nw-1394052911\ 1.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 800px;
+
+  .logo {
+    width: 7%;
+    height: auto;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.7% 4%;
+    margin-top: 1%;
+    background-color: #000000;
+    width: 85%;
+    height: 80px;
+    border-radius: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+  }
+
+  nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+    gap: 50px;
+    position: relative;
+  }
+
+  nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .botao_login {
+    background-color: #07648e;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: "Nunito Sans";
+    font-size: 18px;
+  }
+
+  .botao_login a {
+    text-decoration: none;
+    color: #fff;
+  }
+
+  .conteudo_inicio {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .titulo {
+    font-size: 55px;
+  }
+
+  .slogan_alto {
+    font-size: 73px;
+  }
+
+  .slogan_baixo {
+    font-size: 60px;
+  }
+
+  .texto {
+    text-align: center;
+  }
+
+  .linha_azul {
+    /* display: grid; */
+    width: 65%;
+    height: 2.4px;
+    background-color: #076996;
+    margin: 5px 0;
+    align-self: center;
+  }
+
+  /* .meio_linha_azul {
+      width: 15%;
+      height: 100%;
+      background-color: #033146;
+      justify-self: center;
+  } */
+
+  .saiba_mais {
+    margin: 80px 0 0 0;
+    cursor: pointer;
+    width: 25%;
+    padding: 10px;
+    font-size: 30px;
+    border-radius: 20px;
+    border-style: none;
+    background-color: #076996;
+    color: #fff;
+  }
+}
+
+.pai_sobre_nos {
+  background-color: #032a3c;
+  padding: 20px;
+  width: 100%;
+  height: 850px;
+
+  .borda_sobre_nos {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border: solid #000000;
+    height: 100%;
+  }
+
+  .titulo_secao {
+    font-size: 70px;
+    margin-bottom: 80px;
+  }
+
+  .table_sobre_nos {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .conjunto {
+    display: flex;
+    padding: 10px;
+    width: 85%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .conjunto .texto {
+    margin: 0 30px;
+  }
+
+  .conjunto .imagem img {
+    width: 350px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.background_servicos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url("../imagens/parqueservidores.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 600px;
+  padding: 20px;
+
+  .titulo_secao {
+    font-size: 70px;
+    margin-bottom: 80px;
+  }
+
+  .table_servicos {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .textos {
+    font-size: 30px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 60%;
+  }
+
+  .box_servicos {
+    display: flex;
+  }
+
+  .box_servicos .linha_azul {
+    width: 5px;
+    height: 100%;
+    background-color: #076996;
+    margin: 0 5px 0 0;
+  }
+
+  .table_servicos .imagem {
+    background-color: #fff;
+  }
+
+  .table_servicos .imagem img {
+    width: 500px;
+  }
+}
+
+.background_contato {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url("../imagens/fantasy-art-texture-computer-wallpaper-preview\ 1.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 650px;
+
+  .titulo_secao {
+    font-size: 70px;
+    margin: 20px 0 80px 60px;
+    align-self: flex-start;
+  }
+
+  .table_contato {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .texto {
+    font-size: 30px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 60%;
+  }
+
+  .box_contato {
+    display: flex;
+  }
+
+  .box_contato .linha_azul {
+    width: 5px;
+    height: 100%;
+    background-color: #076996;
+    margin: 0 5px 0 0;
+  }
+
+  .formulario {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  input,
+  textarea {
+    width: 80%;
+    padding: 10px;
+    margin: 20px 0;
+    border-radius: 20px;
+    border-style: none;
+    font-size: 16px;
+    color: #fff;
+    box-sizing: border-box;
+    background-color: #042431;
+  }
+
+  textarea {
+    height: 150px;
+    resize: none;
+    color: #fff;
+    background-color: #042431;
+  }
+
+  .botao_enviar {
+    cursor: pointer;
+    width: 25%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 40px;
+    background-color: #042431;
+    color: #ffffff88;
+  }
+}
+
+.footer {
+  width: 100%;
+  height: 150px;
+  background-color: #0871A2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  .imagens{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .imagens img {
+    width: 60%;
+  }
+}
