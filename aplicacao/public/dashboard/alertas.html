@@ -125,8 +125,13 @@
 
                         let data = new Date(registro.alerta_data);
 
-                        // Formatando a data no formato dd/mm/yy
-                        let dataFormatada = `${("0" + data.getDate()).slice(-2)}/${("0" + (data.getMonth() + 1)).slice(-2)}/${data.getFullYear().toString().slice(-2)}`;
+                        // Formata a data no formato dd/mm/yy hh:mm:ss
+                        let dataFormatada = `${("0" + data.getDate()).slice(-2)}/${("0" + (data.getMonth() + 1)).slice(-2)}/${data.getFullYear().toString().slice(-2)} ` +
+                            `${("0" + data.getHours()).slice(-2)}:${("0" + data.getMinutes()).slice(-2)}:${("0" + data.getSeconds()).slice(-2)}`;
+
+                        
+
+
                         listagemAlertas.innerHTML += `
             <div class="container">
 

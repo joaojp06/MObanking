@@ -80,15 +80,15 @@
       <h2>Uso RAM </h2>
       <canvas id="graficoRAM-box"></canvas>
     </div>
-    <div class="grafico-box">
-      <h2>Uso DISCO </h2>
-      <canvas id="graficosDISCO-box"></canvas>
+    <div class="grafico-box" id="receberGraficoDados">
+
     </div>
     <button class="desativarServidorButton" id="buttonDesativarServidor" onclick="desativarServidor()">Desativar
       servidor</button>
     <button class="desativarServidorButton" id="buttonAtivarServidor" onclick="ativarServidor()">Ativar
       servidor</button>
   </div>
+
 
 
 
@@ -150,11 +150,11 @@
     </svg>
   </div>
 
-<div class="alertCardEstatico" id="alertCardEstatico">
+  <div class="alertCardEstatico" id="alertCardEstatico">
     <span class="tituloAlerta">Alerta</span>
     <span class="descAlerta">A máquina com ID: 1 atingiu o limite estipulado de 85% no serviço de CPU</span>
     <span>Data: 14/10/2024 - 12:22:09</span>
-</div>
+  </div>
 
 </body>
 
@@ -162,7 +162,7 @@
 
 <script>
 
-  function alertaEstatico(){
+  function alertaEstatico() {
     const card = document.getElementById("alertCardEstatico");
 
     card.classList.add("alertCardEstaticoUsar");
@@ -185,6 +185,15 @@
     `
   }
 
+
+  if (sessionStorage.ID_PLANO == 2 || sessionStorage.ID_PLANO == 3) {
+    receberGraficoDados.innerHTML += `
+    
+      <h2>Uso DISCO </h2>
+      <canvas id="graficosDISCO-box"></canvas>
+    
+    `
+  }
 
   nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
 
@@ -272,7 +281,7 @@
           } else if (planoEmpresa == 2) {
             servidores.forEach((registro) => {
               listagemServidores.innerHTML +=
-                `<div onclick="abrirModal()" class="card">
+                `<div onclick="abrirModal(${registro.id_servidor}, ${status})" class="card">
               <h2>ID: ${registro.id_servidor}</h2>
               <div class="back-image-card"></div>
               <div class="indicadores-box">
@@ -306,7 +315,7 @@
           } else if (planoEmpresa == 3) {
             servidores.forEach((registro) => {
               listagemServidores.innerHTML +=
-                `<div onclick="abrirModal()" class="card">
+                `<div onclick="abrirModal(${registro.id_servidor}, ${status})" class="card">
               <h2>ID: ${registro.id_servidor}</h2>
               <div class="back-image-card"></div>
               <div class="indicadores-box">
