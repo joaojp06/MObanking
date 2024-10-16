@@ -292,3 +292,35 @@ canvas {
 .alertCardEstaticoUsar{
     bottom: 2% !important;
 }
+
+.mudarLimiteBox{
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3%;
+
+    & input{
+        border: none;
+        background: #2c2c2c;
+        color: white;
+        border-radius: 10px;
+        padding: 4.5% 2%;
+        width: 60%;
+    }
+
+    & button{
+        padding: 1% 4%;
+    cursor: pointer;
+    border-radius: 10px;
+    border: none;
+    background: #2c2c2c;
+    color: white;
+    font-size: 15px;
+    }
+
+    & .boxInputs{
+        display: flex;
+    }
+}

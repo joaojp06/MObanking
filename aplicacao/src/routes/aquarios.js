@@ -23,4 +23,8 @@ router.get("/listarServidores/:idEmpresa/:status", function (req, res) {
   aquarioController.listarServidores(req, res);
 })
 
+router.get("/listarLimite/:id_servidor", function (req, res) {
+  aquarioController.listarLimite(req, res);
+})
+
 module.exports = router;

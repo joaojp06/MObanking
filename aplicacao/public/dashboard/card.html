@@ -72,17 +72,17 @@
   <div style="display: none" class="modal" id="modal">
     <i onclick="fecharModal()" id="closeModal" class="fa-solid fa-x"></i>
     <h1>Gráficos</h1>
-    <div class="grafico-box">
-      <h2>Uso CPU </h2>
-      <canvas id="graficoCPU-box"></canvas>
+    <div id="modalGraficos">
+      <!-- Essa parte recebe de forma dinâmica(fkPlano) os gráficos que são exibidos em tempo real -->
     </div>
-    <div class="grafico-box">
-      <h2>Uso RAM </h2>
-      <canvas id="graficoRAM-box"></canvas>
-    </div>
-    <div class="grafico-box" id="receberGraficoDados">
+    <h1>Limites dos componentes</h1>
+    <div class="mudarLimiteBox" >
+      <div class="boxInputs" id="mudarLimiteBox">
 
+      </div>
+      <button>Editar</button>
     </div>
+
     <button class="desativarServidorButton" id="buttonDesativarServidor" onclick="desativarServidor()">Desativar
       servidor</button>
     <button class="desativarServidorButton" id="buttonAtivarServidor" onclick="ativarServidor()">Ativar
@@ -186,12 +186,102 @@
   }
 
 
-  if (sessionStorage.ID_PLANO == 2 || sessionStorage.ID_PLANO == 3) {
-    receberGraficoDados.innerHTML += `
+  if (sessionStorage.ID_PLANO == 1) {
+    modalGraficos.innerHTML = `
     
+    <div class="grafico-box">
+    <h2>Uso CPU </h2>
+    <canvas id="graficoCPU-box"></canvas>
+  </div>
+  <div class="grafico-box">
+    <h2>Uso RAM </h2>
+    <canvas id="graficoRAM-box"></canvas>
+  </div>
+  
+  `
+
+  mudarLimiteBox.innerHTML += `
+  <label for="">
+        CPU %
+        <input id="cpu_limite_input" type="number">
+      </label>
+      <label for="">
+        RAM %
+        <input id="ram_limite_input" type="number">
+      </label>
+      
+  `
+  } else if (sessionStorage.ID_PLANO == 2) {
+    modalGraficos.innerHTML += `
+    
+    <div class="grafico-box">
+    <h2>Uso CPU </h2>
+    <canvas id="graficoCPU-box"></canvas>
+  </div>
+  <div class="grafico-box">
+    <h2>Uso RAM </h2>
+    <canvas id="graficoRAM-box"></canvas>
+  </div>
+  <div class="grafico-box" id="receberGraficoDados">
+    <h2>Uso DISCO </h2>
+    <canvas id="graficosDISCO-box"></canvas>
+  </div>
+  
+  
+  `
+  mudarLimiteBox.innerHTML += `
+    <label for="">
+        CPU %
+        <input id="cpu_limite_input" type="number">
+      </label>
+      <label for="">
+        RAM %
+        <input id="ram_limite_input" type="number">
+      </label>
+      <label for="">
+        DISCO GB
+        <input id="disco_limite_input" type="number">
+      </label>
+  `
+  } else if (sessionStorage.ID_PLANO == 3) {
+    modalGraficos.innerHTML += `
+    
+      <div class="grafico-box">
+      <h2>Uso CPU </h2>
+      <canvas id="graficoCPU-box"></canvas>
+    </div>
+    <div class="grafico-box">
+      <h2>Uso RAM </h2>
+      <canvas id="graficoRAM-box"></canvas>
+    </div>
+    <div class="grafico-box" id="receberGraficoDados">
       <h2>Uso DISCO </h2>
       <canvas id="graficosDISCO-box"></canvas>
+    </div>
+    <div class="grafico-box" id="receberGraficoDados">
+      <h2>Mb REDE </h2>
+      <canvas id="graficosREDE-box"></canvas>
+    </div>
     
+    `
+
+    mudarLimiteBox.innerHTML += `
+      <label for="">
+        CPU %
+        <input id="cpu_limite_input" type="number">
+      </label>
+      <label for="">
+        RAM %
+        <input id="ram_limite_input" type="number">
+      </label>
+      <label for="">
+        DISCO GB
+        <input id="disco_limite_input" type="number">
+      </label>
+      <label for="">
+        REDE MB
+        <input id="rede_limite_input" type="number">
+      </label>
     `
   }
 
@@ -212,7 +302,7 @@
       buttonDesativarServidor.style.display = 'none'
     }
 
-
+    listarLimite(id_servidor)
     // modal.display = "block"
     modal.style.display = "block";
     const frame = document.getElementById("frame");
@@ -229,7 +319,7 @@
   var idEmpresa = sessionStorage.ID_EMPRESA;
   function listarServidores() {
 
-    listagemServidores.innerHTML = ``
+    listagemServidores.innerHTML = `` //Limpando a div para atualizar com maior fluidez
     var status = selectListServidores.value
     if (status == 'ativo') {
       status = 1 // VERÁ SERVIDORES ATIVOS - MODIFICAÇÃO NA CONTROLLE
@@ -437,6 +527,29 @@
 
   }
 
+  function listarLimite(id_servidor) {
+    fetch(`/aquarios/listarLimite/${id_servidor}`, {
+      method: "GET",
+    })
+      .then(function (resposta) {
+
+        resposta.json().then((limite) => {
+          limite.forEach((registro) => {
+
+            cpu_limite_input.value = registro.limite_valor_cpu
+            ram_limite_input.value = registro.limite_valor_cpu
+
+            disco_limite_input.value = registro.limite_valor_disco
+            rede_limite_input.value = registro.limite_valor_rede
+
+          });
+        });
+
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
 
   // gráficos estatico
 
@@ -606,7 +719,61 @@
     }
   });
 
+  const graficoREDE = document.getElementById('graficosREDE-box');
+  new Chart(graficoREDE, {
+    type: 'line',
+    data: {
+      labels: ['19:02', '19:02', '19:02', '19:02', '19:02', '19:02', '19:02'], // Marcação de tempo
+      datasets: [{
+        label: 'MB REDE',
+        data: [345, 323, 312, 370, 432, 430], // Dados de uso da CPU
+        borderColor: 'white',  // Cor da linha
+        backgroundColor: 'rgba(255, 255, 255, 0.5)', // Preenchimento abaixo da linha
+        fill: true,  // Ativa o preenchimento abaixo da linha
+        pointBackgroundColor: 'white',  // Cor dos pontos
+        pointBorderColor: 'white',  // Cor das bordas dos pontos
+        pointRadius: 5,  // Tamanho dos pontos
+        tension: 0.1
 
+      }]
+    },
+    options: {
+      scales: {
+        x: {
+          grid: {
+            display: false // Remove a grade vertical
+          },
+          ticks: {
+            color: 'white', // Cor dos rótulos do eixo X
+            font: {
+              size: 16 // Tamanho da fonte das labels no eixo X
+            }
+          }
+        },
+        y: {
+          grid: {
+            display: false // Remove a grade horizontal
+          },
+          ticks: {
+            color: 'white', // Cor dos rótulos do eixo Y
+            font: {
+              size: 16 // Tamanho da fonte das labels no eixo X
+            }
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          display: false // Remove a legenda
+        }
+      },
+      elements: {
+        line: {
+          tension: 0.4 // Deixa as linhas mais suaves
+        }
+      }
+    }
+  });
 
 
 
