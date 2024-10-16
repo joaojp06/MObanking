@@ -76,11 +76,11 @@
       <!-- Essa parte recebe de forma dinâmica(fkPlano) os gráficos que são exibidos em tempo real -->
     </div>
     <h1>Limites dos componentes</h1>
-    <div class="mudarLimiteBox" >
+    <div class="mudarLimiteBox">
       <div class="boxInputs" id="mudarLimiteBox">
 
       </div>
-      <button>Editar</button>
+      <button onclick="editarLimiteServidor(idServidorPar)">Editar</button>
     </div>
 
     <button class="desativarServidorButton" id="buttonDesativarServidor" onclick="desativarServidor()">Desativar
@@ -200,7 +200,7 @@
   
   `
 
-  mudarLimiteBox.innerHTML += `
+    mudarLimiteBox.innerHTML += `
   <label for="">
         CPU %
         <input id="cpu_limite_input" type="number">
@@ -229,7 +229,7 @@
   
   
   `
-  mudarLimiteBox.innerHTML += `
+    mudarLimiteBox.innerHTML += `
     <label for="">
         CPU %
         <input id="cpu_limite_input" type="number">
@@ -303,6 +303,8 @@
     }
 
     listarLimite(id_servidor)
+
+    
     // modal.display = "block"
     modal.style.display = "block";
     const frame = document.getElementById("frame");
@@ -527,6 +529,60 @@
 
   }
 
+  function editarLimiteServidor(idServidorPar) {
+
+    var idServidor = idServidorPar
+    var idPlano = sessionStorage.ID_PLANO
+
+    if (idPlano == 1) {
+      var limiteCpu = cpu_limite_input.value
+      var limiteRam = ram_limite_input.value
+    } else if (idPlano == 2) {
+      var limiteCpu = cpu_limite_input.value
+      var limiteRam = ram_limite_input.value
+      var limiteDisco = disco_limite_input.value
+    } else if (idPlano == 3) {
+      var limiteCpu = cpu_limite_input.value
+      var limiteRam = ram_limite_input.value
+      var limiteDisco = disco_limite_input.value
+      var limiteRede = rede_limite_input.value
+    }
+
+    fetch(`/aquarios/editarLimiteServidor`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+
+        idServidorServer: idServidor,
+        idPlanoServer: idPlano,
+        limiteCpuServer: limiteCpu,
+        limiteRamServer: limiteRam,
+        limiteDiscoServer: limiteDisco,
+        limiteRedeServer: limiteRede
+        
+      }),
+    }).then(function (resposta) {
+      console.log("resposta: ", resposta);
+
+      if (resposta.ok) {
+
+        usoCardMensagemSucesso()
+        descCardSucesso.innerHTML = `Edição de limite realizada`
+
+
+      } else {
+        console.log(resposta);
+        throw "Houve um erro ao tentar realizar a edição!";
+      }
+    }).catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
+      return false;
+    });
+
+  }
+
   function listarLimite(id_servidor) {
     fetch(`/aquarios/listarLimite/${id_servidor}`, {
       method: "GET",
@@ -537,7 +593,7 @@
           limite.forEach((registro) => {
 
             cpu_limite_input.value = registro.limite_valor_cpu
-            ram_limite_input.value = registro.limite_valor_cpu
+            ram_limite_input.value = registro.limite_valor_ram
 
             disco_limite_input.value = registro.limite_valor_disco
             rede_limite_input.value = registro.limite_valor_rede

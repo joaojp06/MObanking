@@ -26,5 +26,8 @@ router.get("/listarServidores/:idEmpresa/:status", function (req, res) {
 router.get("/listarLimite/:id_servidor", function (req, res) {
   aquarioController.listarLimite(req, res);
 })
+router.put("/editarLimiteServidor", function (req, res) {
+  aquarioController.editarLimiteServidor(req, res);
+})
 
 module.exports = router;
