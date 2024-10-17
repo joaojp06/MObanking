@@ -563,20 +563,24 @@
                                 cnpjServer: cnpjVar,
                                 planoServer: planoVar
                             }),
-                        }).then().catch()
+                        }).then(function (resposta) {
+                            usoCardMensagemSucesso()
+                            descCardSucesso.innerHTML = `Cadastro realizado` //Descrição para o card
 
-                        usoCardMensagemSucesso()
-                        descCardSucesso.innerHTML = `Cadastro realizado` //Descrição para o card
+                            listagemEmpresas.innerHTML = " "
+                            listarEmpresas()
 
-                        listagemEmpresas.innerHTML = " "
-                        listarEmpresas()
+                            setTimeout(() => {
+                                fecharModalAddUser();
+                            }, "1000");
+                        }).catch()
+
+
 
                     });
 
 
-                setTimeout(() => {
-                    fecharModalAddUser();
-                }, "1000");
+
 
 
             } else {

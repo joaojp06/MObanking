@@ -401,6 +401,15 @@
                 console.log("resposta: ", resposta);
 
                 if (resposta.ok) {
+                    usoCardMensagemSucesso()
+                    descCardSucesso.innerHTML = `Usuário adicionado`
+
+                    listagemFuncionario.innerHTML = ""
+                    listarFuncionarios()
+
+                    setTimeout(() => {
+                        fecharModalAddUser();
+                    }, "1000");
 
                     resposta.json()
                         .then(json => {
@@ -409,12 +418,7 @@
 
                         });
 
-                    usoCardMensagemSucesso()
-                    descCardSucesso.innerHTML = `Usuário adicionado`
 
-                    setTimeout(() => {
-                        fecharModalAddUser();
-                    }, "1000");
 
 
                 } else {
