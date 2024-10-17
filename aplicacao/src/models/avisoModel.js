@@ -107,17 +107,80 @@ function deletar(idAviso) {
   return database.executar(instrucaoSql);
 }
 
-function listarAlertas(idEmpresa) {
+function listarAlertas(idEmpresa, tipo, filtroServidor) {
   console.log(
     "ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()"
   );
   var instrucaoSql = `
-        
-select alerta_id, alerta_descricao, alerta_data, limite_valor, nome_servico, alerta_data, limite_unidade, id_servidor from vw_alertas where id_empresa = ${idEmpresa};
+        SELECT 
+    alerta_id, 
+    alerta_descricao, 
+    alerta_data, 
+    limite_valor, 
+    nome_servico, 
+    alerta_data, 
+    limite_unidade, 
+    id_servidor
+FROM 
+    vw_alertas
+WHERE 
+    id_empresa = ${idEmpresa}
+    AND nome_servico LIKE '${tipo}'
+    AND id_servidor ${filtroServidor};
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }
+
+function listarAlertasFiltro(idEmpresa, tipo, filtroServidor) {
+  console.log(
+    "ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()"
+  );
+  var instrucaoSql = `
+        SELECT 
+    alerta_id, 
+    alerta_descricao, 
+    alerta_data, 
+    limite_valor, 
+    nome_servico, 
+    alerta_data, 
+    limite_unidade, 
+    id_servidor
+FROM 
+    vw_alertas
+WHERE 
+    id_empresa = ${idEmpresa}
+    AND nome_servico LIKE '${tipo}'
+    AND id_servidor = ${filtroServidor};
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+function filtrarPorTipo(tipo, idEmpresa) {
+  console.log(
+    "ACESSEI O AVISO MODEL - Função filtrarPorTipo()"
+  );
+  var instrucaoSql = `
+      SELECT 
+    alerta_id, 
+    alerta_descricao, 
+    alerta_data, 
+    limite_valor, 
+    nome_servico, 
+    alerta_data, 
+    limite_unidade, 
+    id_servidor
+FROM 
+    vw_alertas
+WHERE 
+    id_empresa = 1
+    AND nome_servico LIKE '${tipo}';                     
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
 
 module.exports = {
   listar,
@@ -127,4 +190,6 @@ module.exports = {
   editar,
   deletar,
   listarAlertas,
+  filtrarPorTipo,
+  listarAlertasFiltro
 };

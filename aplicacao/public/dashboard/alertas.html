@@ -31,7 +31,6 @@
                         <span class="titulo-link-menu">Gráficos</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="alertas.html">
                         <span class="icon-menu"><i class="fa-solid fa-triangle-exclamation"></i></span>
@@ -40,29 +39,25 @@
                 </li>
             </ul>
 
-
             <div class="name-menu">
                 <a href="usuarioInfo.html">
                     <h2 id="nome_perfil_menu"></h2>
                 </a>
             </div>
 
-
             <a class="buttonSair-menu" href="../index.html">
                 <h2 id="">Sair</h2>
             </a>
-
         </nav>
 
         <div class="conteudo">
             <h1>Histórico de Alertas</h1>
-            <button class="botao-filtro">
+            <button onclick="modalFiltro()" class="botao-filtro">
                 <p>Filtro</p>
             </button>
+
             <span class="title-atividade">Atividades</span>
             <span class="linha-title-atividades"></span>
-
-
 
             <div class="colunas">
                 <div class="titulo-data">
@@ -79,85 +74,127 @@
                 </div>
             </div>
             <div id="listagemAlertas" class="lista">
-
-                <!-- Lugar onde acontecerá a listagem dos alertas :) -->
-
             </div>
-
         </div>
-
     </div>
+
+    <div class="modalFiltro" id="modalFiltro">
+        <div class="modal-content">
+            <div class="title-box">
+                <h2>Filtro de Alertas</h2>
+                <i onclick="fecharModalFiltro()" id="closeModal" class="fa-solid fa-x" style="cursor: pointer;"></i>
+            </div>
+            <div class="form-box-pai">
+                <div class="form">
+                    <label for="filtroComponente">
+                        Selecione o componente:
+                        <select id="filtroComponente">
+                            
+                        </select>
+                        <br>
+                        <br>
+                        Selecione o Servdor:
+                        <input value="0" id="filtroServidor" type="number" placeholder="insira o servidor...">
+                </div>
+                <div>
+                    <button onclick="listarAlertas()">Aplicar Filtro</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        if (sessionStorage.ID_PLANO == 1) {
+            filtroComponente.innerHTML = `
+            <option value="0">Todos</option>
+            <option value="1">CPU</option>
+            <option value="2">RAM</option>
+            `
+        }
+
+        if (sessionStorage.ID_PLANO == 2) {
+            filtroComponente.innerHTML = `
+            <option value="0">Todos</option>
+            <option value="1">CPU</option>
+            <option value="2">RAM</option>
+            <option value="3">Disco</option>
+            `
+        }
+
+        if (sessionStorage.ID_PLANO == 3) {
+            filtroComponente.innerHTML = `
+            <option value="0">Todos</option>
+            <option value="1">CPU</option>
+            <option value="2">RAM</option>
+            <option value="3">Disco</option>
+            <option value="4">Rede</option>
+            `
+        }
+
+        function modalFiltro() {
+            document.getElementById('modalFiltro').style.display = 'flex';
+        }
+
+        function fecharModalFiltro() {
+            document.getElementById('modalFiltro').style.display = 'none';
+        }
+
+        function aplicarFiltro() {
+            const filtro = document.getElementById('filtroComponente').value;
+            console.log('Filtro aplicado:', filtro);
+            fecharModalFiltro();
+            listarAlertasPorFiltro(filtro);
+        }
+
+        
+
+        nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
+
+        function listarAlertas() {
+            listagemAlertas.innerHTML = ``
+            var filtroServidor = document.getElementById('filtroServidor').value;
+            var filtroComponente = document.getElementById('filtroComponente').value;
+            var idEmpresa = sessionStorage.ID_EMPRESA; 
+            fetch(`/avisos/listarAlertas/${idEmpresa}/${filtroComponente}/${filtroServidor}`, {
+                method: "GET",
+            })
+                .then(function (resposta) {
+                    if (resposta.status == 204) {
+                        listagemAlertas.innerHTML = "Nenhum resultado encontrado.";
+                        throw "Nenhum resultado encontrado!!";
+                    }
+                    resposta.json().then((alertas) => {
+                        alertas.forEach((registro) => {
+                            let data = new Date(registro.alerta_data);
+                            let dataFormatada = `${("0" + data.getDate()).slice(-2)}/${("0" + (data.getMonth() + 1)).slice(-2)}/${data.getFullYear().toString().slice(-2)} ` +
+                                `${("0" + data.getHours()).slice(-2)}:${("0" + data.getMinutes()).slice(-2)}:${("0" + data.getSeconds()).slice(-2)}`;
+
+                            listagemAlertas.innerHTML += `
+                                <div class="container">
+                                    <div class="data">
+                                        <b>${dataFormatada}</b>
+                                    </div>
+                                    <div class="identificador">
+                                        <b>${registro.alerta_id}</b>
+                                    </div>
+                                    <div class="status">
+                                        <b>${registro.id_servidor}</b>
+                                    </div>
+                                    <div class="componente">
+                                        <b>${registro.nome_servico}</b>
+                                    </div>
+                                </div>
+                                <div class="linha-colunas"></div>
+                            `;
+                        });
+                    });
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                });
+        }
+    </script>
 </body>
 
 </html>
-
-<script>
-
-    const menuLaterealHTML = document.getElementById('menuLateralBox')
-    var sessTipoUsuario = sessionStorage.ID_TIPO_USUARIO
-    if (sessTipoUsuario == 1) {
-        menuLaterealHTML.innerHTML += `
-     <li>
-          <a href="funcionarios.html">
-            <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
-            <span class="titulo-link-menu">Funcionários</span>
-          </a>
-        </li>
-    `
-    }
-
-    nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
-
-    var idEmpresa = sessionStorage.ID_EMPRESA
-    function listarAlertas() {
-        fetch(`/avisos/listarAlertas/${idEmpresa}`, {
-            method: "GET",
-        })
-            .then(function (resposta) {
-                if (resposta.status == 204) {
-
-                    listagemAlertas.innerHTML = "Nenhum resultado encontrado."
-
-                    throw "Nenhum resultado encontrado!!";
-                }
-                resposta.json().then((alertas) => {
-                    alertas.forEach((registro) => {
-
-                        let data = new Date(registro.alerta_data);
-
-                        // Formata a data no formato dd/mm/yy hh:mm:ss
-                        let dataFormatada = `${("0" + data.getDate()).slice(-2)}/${("0" + (data.getMonth() + 1)).slice(-2)}/${data.getFullYear().toString().slice(-2)} ` +
-                            `${("0" + data.getHours()).slice(-2)}:${("0" + data.getMinutes()).slice(-2)}:${("0" + data.getSeconds()).slice(-2)}`;
-
-                        
-
-
-                        listagemAlertas.innerHTML += `
-            <div class="container">
-
-                    <div class="data">
-                        <b>${dataFormatada}</b>
-                    </div>
-
-                    <div class="identificador">
-                        <b>${registro.alerta_id}</b>
-                    </div>
-
-                    <div class="status">
-                        <b>${registro.id_servidor}</b>
-                    </div>
-                    <div class="componente">
-                        <b>${registro.nome_servico}</b>
-                    </div>
-                </div>
-
-                <div class="linha-colunas"></div>
-            `;
-                    });
-                });
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
-    }
-</script>

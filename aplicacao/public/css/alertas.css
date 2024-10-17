@@ -8,9 +8,7 @@
 
 /* ----------- FIM CSS PADRÃO FIM ----------  */
 
-
 .botao-filtro {
-
     cursor: pointer;
     font-size: 13px;
     gap: 8%;
@@ -26,7 +24,6 @@
     margin-top: 0%;
     margin-bottom: 3%;
     border: 1px solid white;
-
 }
 
 .botao-filtro:hover {
@@ -35,19 +32,15 @@
     border-radius: 15px;
 }
 
-.conteudo {
+.conteudo h1 {
+    font-size: 33px;
+    padding-bottom: 3%;
+    margin-top: inherit;
+}
 
-    & h1 {
-        font-size: 33px;
-        padding-bottom: 3%;
-        margin-top: inherit;
-    }
-
-    & span {
-        color: rgba(0, 0, 0, 0.703);
-        font-size: 18px;
-    }
-
+.conteudo span {
+    color: rgba(0, 0, 0, 0.703);
+    font-size: 18px;
 }
 
 .linha-title-atividades {
@@ -71,15 +64,14 @@
 }
 
 .colunas {
-
-    & p {
-        font-size: 85%;
-        color: rgba(0, 0, 0, 0.703);
-    }
-
     display: flex;
     margin-left: 2%;
     margin-bottom: 0.5%;
+}
+
+.colunas p {
+    font-size: 85%;
+    color: rgba(0, 0, 0, 0.703);
 }
 
 .linha-colunas {
@@ -100,7 +92,6 @@
     padding: 2%;
     padding-top: 1.5%;
 }
-
 
 .lista::-webkit-scrollbar {
     width: 16px;
@@ -128,15 +119,13 @@
     /* Cor do polegar ao passar o mouse */
 }
 
-
 .container {
-    & p {
-        font-size: 80%;
-        color: rgb(0, 0, 0);
-    }
-
     display: flex;
+}
 
+.container p {
+    font-size: 80%;
+    color: rgb(0, 0, 0);
 }
 
 .data {
@@ -149,4 +138,39 @@
 
 .status {
     width: 13.5vw;
+}
+
+/* Estilo do Modal */
+.modalFiltro {
+    display: none; /* Esconder o modal por padrão */
+    position: fixed; /* Fixo na tela */
+    z-index: 1; /* Ficar acima de outros elementos */
+    left: 0;
+    top: 0;
+    width: 100%; /* Largura total */
+    height: 100%; /* Altura total */
+    overflow: auto; /* Habilitar rolagem se necessário */
+    background-color: rgb(0, 0, 0); /* Fundo preto */
+    background-color: rgba(0, 0, 0, 0.4); /* Fundo preto com transparência */
+}
+
+.modal-content {
+    background-color: #fefefe; /* Fundo branco */
+    margin: 15% auto; /* Margem automática para centralizar */
+    padding: 20px; /* Espaçamento interno */
+    border: 1px solid #888; /* Borda */
+    width: 80%; /* Largura do modal */
+    border-radius: 10px; /* Borda arredondada */
+}
+
+.title-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-box-pai {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }

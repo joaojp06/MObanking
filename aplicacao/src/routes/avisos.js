@@ -27,8 +27,13 @@ router.delete("/deletar/:idAviso", function (req, res) {
     avisoController.deletar(req, res);
 });
 
-router.get(`/listarAlertas/:idEmpresa`, function (req, res) {
+router.get(`/listarAlertas/:idEmpresa/:filtroComponente/:filtroServidor`, function (req, res) {
     avisoController.listarAlertas(req, res);
 });
+
+router.get("/filtrar/:tipo", function (req, res) {
+    avisoController.filtrarPorTipo(req, res);
+});
+
 
 module.exports = router;

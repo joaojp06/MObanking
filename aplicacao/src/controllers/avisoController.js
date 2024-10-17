@@ -127,19 +127,59 @@ function deletar(req, res) {
 }
 
 function listarAlertas(req, res) {
+    var filtroServidor = req.params.filtroServidor;
+    var filtroComponente = req.params.filtroComponente;
     var idEmpresa = req.params.idEmpresa;
-    avisoModel.listarAlertas(idEmpresa).then(function (resultado) {
-        if (resultado.length > 0) {
-            res.status(200).json(resultado);
-        } else {
-            res.status(204).send("Nenhum resultado encontrado!")
-        }
-    }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
-    });
+    if (filtroComponente == 0) {
+        filtroComponente = '%'
+    } else if (filtroComponente == 1) {
+        filtroComponente = 'cpu'
+    } else if (filtroComponente == 2) {
+        filtroComponente = 'ram'
+    } else if (filtroComponente == 3) {
+        filtroComponente = 'disco'
+    } else if (filtroComponente == 4) {
+        filtroComponente = 'rede'
+    } else {res.status(400).send("Erro aQQUI 400!!!!!");}
+
+    if (filtroServidor == 0) {
+        filtroServidor = 'is not null'
+    } else {
+        filtroServidor = `= ${filtroServidor}`
+    }
+
+        avisoModel.listarAlertas(idEmpresa, filtroComponente, filtroServidor).then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
 }
+
+function filtrarPorTipo(req, res) {
+    var idEmpresa = req.params.idEmpresa;
+    var tipoComponente = req.params.tipo;
+
+    avisoModel.filtrarPorTipo(tipoComponente, idEmpresa)
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!");
+            }
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao buscar os avisos: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 
 module.exports = {
     listar,
@@ -148,5 +188,6 @@ module.exports = {
     publicar,
     editar,
     deletar,
-    listarAlertas
+    listarAlertas,
+    filtrarPorTipo
 }
