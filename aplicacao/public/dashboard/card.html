@@ -304,7 +304,7 @@
 
     listarLimite(id_servidor)
 
-    
+
     // modal.display = "block"
     modal.style.display = "block";
     const frame = document.getElementById("frame");
@@ -479,6 +479,10 @@
           usoCardMensagemSucesso()
           descCardSucesso.innerHTML = `Servidor id:${idServidor} desativado` //Descrição para o card
 
+          setTimeout(() => {
+            fecharModal();
+          }, "1000");
+
         } else {
           console.log(resposta);
           throw "Houve um erro ao tentar realizar a desativação!";
@@ -516,6 +520,10 @@
 
           usoCardMensagemSucesso()
           descCardSucesso.innerHTML = `Servidor id:${idServidor} ativado` //Descrição para o card
+
+          setTimeout(() => {
+            fecharModal();
+          }, "1000");
 
         } else {
           console.log(resposta);
@@ -561,7 +569,7 @@
         limiteRamServer: limiteRam,
         limiteDiscoServer: limiteDisco,
         limiteRedeServer: limiteRede
-        
+
       }),
     }).then(function (resposta) {
       console.log("resposta: ", resposta);
@@ -570,6 +578,10 @@
 
         usoCardMensagemSucesso()
         descCardSucesso.innerHTML = `Edição de limite realizada`
+
+        setTimeout(() => {
+          fecharModal();
+        }, "1000");
 
 
       } else {

@@ -432,6 +432,7 @@
                     usoCardMensagemSucesso()
                     descCardSucesso.innerHTML = `Edição realizada com sucesso.`
 
+
                     setTimeout(() => {
                         fecharModalAddUser();
                     }, "1000");
@@ -564,12 +565,14 @@
                             }),
                         }).then().catch()
 
+                        usoCardMensagemSucesso()
+                        descCardSucesso.innerHTML = `Cadastro realizado` //Descrição para o card
+
+                        listagemEmpresas.innerHTML = " "
+                        listarEmpresas()
+
                     });
 
-                usoCardMensagemSucesso()
-                descCardSucesso.innerHTML = `Cadastro realizado` //Descrição para o card
-
-                listarEmpresas()
 
                 setTimeout(() => {
                     fecharModalAddUser();
