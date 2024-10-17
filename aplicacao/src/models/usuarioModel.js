@@ -27,7 +27,7 @@ function listarFuncionarios(idEmpresa, idUsuarioListFun) {
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
-        select * from vw_usuario_empresa where idEmpresa = ${idEmpresa} AND idUsuario != ${idUsuarioListFun};
+        select * from vw_usuario_empresa where idEmpresa = ${idEmpresa} AND idUsuario != ${idUsuarioListFun} AND status <> 'Desativado';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

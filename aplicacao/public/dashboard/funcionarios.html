@@ -551,6 +551,8 @@
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
+                listagemFuncionario.innerHTML = ""
+                listarFuncionarios()
                 usoCardMensagemSucesso()
                 descCardSucesso.innerHTML = `Usuário removido`
             } else {
