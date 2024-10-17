@@ -1,0 +1,61 @@
+@media (max-width: 400px) {
+
+    .spanSobreNosDesk{
+        display: none !important;
+    }
+    .spanSobreNosSmart{
+        display: block !important;
+    }
+
+    header {
+        display: none !important;
+    }
+
+    .background_inicio {
+
+        height: 55vh;
+
+        .titulo {
+            font-size: 20px;
+        }
+
+        .slogan_alto {
+            font-size: 20px;
+        }
+
+        .slogan_baixo {
+            font-size: 20px;
+        }
+
+        .texto {
+            text-align: center;
+            padding: 5px;
+        }
+
+    }
+
+    .pai_sobre_nos {
+        .titulo_secao {
+            font-size: 35px;
+            margin-bottom: 0px;
+        }
+        .conjunto {
+          
+            flex-direction: column;
+        }
+        .conjunto .texto {
+            width: 110%;
+        }
+    }
+
+   
+
+    /* tirando o espaço ao lado */
+    .background_servicos {
+        .table_servicos .imagem {
+            display: none;
+        }
+    }
+
+
+}
