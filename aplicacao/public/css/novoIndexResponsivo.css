@@ -1,0 +1,135 @@
+@media (max-width: 400px) {
+
+    .spanSobreNosDesk{
+        display: none !important;
+    }
+    .spanSobreNosSmart{
+        display: block !important;
+        font-size: 15px !important;
+    }
+
+    header {
+        display: none !important;
+    }
+
+    .background_inicio {
+
+        height: 55vh;
+
+        .titulo {
+            font-size: 20px;
+        }
+
+        .slogan_alto {
+            font-size: 20px;
+        }
+
+        .slogan_baixo {
+            font-size: 20px;
+        }
+
+        .texto {
+            text-align: center;
+            padding: 5px;
+        }
+
+    }
+
+    .pai_sobre_nos {
+        height: auto;
+        .titulo_secao {
+            font-size: 50px;
+            margin-bottom: 0px;
+        }
+        .conjunto {
+          
+            flex-direction: column;
+        }
+        .conjunto .texto {
+            width: 110%;
+            font-size: 15px;
+            margin: 10px 0;
+            & span{
+                font-size: 19px !important;
+            }
+        }
+        .conjunto .imagem img {
+            width: 70vw;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .conjuntoInver{
+            flex-direction: column-reverse;
+        }
+    }
+
+   
+
+    /* tirando o espaço ao lado */
+    .background_servicos {
+        .table_servicos .imagem {
+            display: none;
+        }
+    }
+
+
+    /* SERVIÇOS */
+
+    .background_servicos {
+        height: auto;
+
+        & .titulo_secao{
+            font-size: 50px;
+        }
+
+        & .box_servicos {
+            & div {
+                width: 100%;
+                font-size: 20px;
+            }
+        }
+    }
+
+    /* CONTATO */
+
+    .background_contato{
+        height: auto;
+
+        & form{
+            width: 100vw;
+        }
+
+        & .titulo_secao{
+            font-size: 50px;
+            padding-top: 30px;
+        }
+
+        .table_contato {
+            width: 90%;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .texto {
+            font-size: 16px;
+            text-align: left;
+            display: flex;
+            flex-direction: unset;
+            justify-content: space-between;
+            width: 90%;
+        }
+        .botao_enviar {
+            cursor: pointer;
+            width: 75%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 40px;
+            background-color: #042431;
+            color: #ffffff88;
+            margin-bottom: 15%;
+        }
+    }
+
+
+}

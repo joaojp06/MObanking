@@ -95,9 +95,9 @@ function listarServidores(req, res) {
   var idEmpresa = req.params.idEmpresa;
   var status = req.params.status;
 
-  if(status == 1){
+  if (status == 1) {
     status = 'ativo'
-  }else{
+  } else {
     status = 'desativado'
   }
 
@@ -134,11 +134,72 @@ function listarLimite(req, res) {
 }
 
 
+function editarLimiteServidor(req, res) {
+  var idServidor = req.body.idServidorServer;
+  var idPlano = req.body.idPlanoServer;
+  var limiteCpu = req.body.limiteCpuServer;
+  var limiteRam = req.body.limiteRamServer;
+  var limiteDisco = req.body.limiteDiscoServer;
+  var limiteRede = req.body.limiteRedeServer;
+
+  // Faça as validações dos valores
+  if (idPlano == 1) {
+    aquarioModel.editarLimiteServidorPlano1(idServidor, limiteCpu, limiteRam)
+      .then(
+        function (resultado) {
+          res.json(resultado);
+        }
+      ).catch(
+        function (erro) {
+          console.log(erro);
+          console.log(
+            "\nHouve um erro ao realizar a edição! Erro: to NA CONTROLLER ",
+            erro.sqlMessage
+          );
+          res.status(500).json(erro.sqlMessage);
+        }
+      );
+  }else if(idPlano == 2){
+    aquarioModel.editarLimiteServidorPlano2(idServidor, limiteCpu, limiteRam, limiteDisco)
+      .then(
+        function (resultado) {
+          res.json(resultado);
+        }
+      ).catch(
+        function (erro) {
+          console.log(erro);
+          console.log(
+            "\nHouve um erro ao realizar a edição! Erro: to NA CONTROLLER ",
+            erro.sqlMessage
+          );
+          res.status(500).json(erro.sqlMessage);
+        }
+      );
+  }else if(idPlano == 3){
+    aquarioModel.editarLimiteServidorPlano3(idServidor, limiteCpu, limiteRam, limiteDisco, limiteRede)
+      .then(
+        function (resultado) {
+          res.json(resultado);
+        }
+      ).catch(
+        function (erro) {
+          console.log(erro);
+          console.log(
+            "\nHouve um erro ao realizar a edição! Erro: to NA CONTROLLER ",
+            erro.sqlMessage
+          );
+          res.status(500).json(erro.sqlMessage);
+        }
+      );
+  }
+}
+
 module.exports = {
   buscarAquariosPorEmpresa,
   cadastrar,
   listarServidores,
   desativarServidor,
   ativarServidor,
-  listarLimite
+  listarLimite,
+  editarLimiteServidor
 }

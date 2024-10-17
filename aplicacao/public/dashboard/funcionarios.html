@@ -373,75 +373,64 @@
             descCardErro.innerHTML = "Preencha todos os campos."
             usoCardMensagemErro()
 
-            return
-        }
-
-        if (!emailRegex.test(emailVar)) {
+        } else if (!emailRegex.test(emailVar)) {
             descCardErro.innerHTML = "Insira um e-mail válido."
             usoCardMensagemErro()
-
-            return
-        }
-
-        // Validação da senha
-        if (senhaVar.length < 8) {
+        } else if (senhaVar.length < 8) {
             descCardErro.innerHTML = "A senha deve ter pelo menos 8 caracteres."
             usoCardMensagemErro()
-
-            return
-        }
-
-        // Validação do CPF
-        if (!cpfRegex.test(cpfVar)) {
+        } else if (!cpfRegex.test(cpfVar)) {
             descCardErro.innerHTML = "Insira um CPF válido com 11 dígitos."
             usoCardMensagemErro()
 
-            return
+        } else {
+            fetch("/usuarios/cadastrar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    nomeServer: nomeVar,
+                    emailServer: emailVar,
+                    senhaServer: senhaVar,
+                    cpfServer: cpfVar,
+                    nivelServer: nivelVar,
+                    fkEmpresa: idEmpresa
+                }),
+            }).then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    usoCardMensagemSucesso()
+                    descCardSucesso.innerHTML = `Usuário adicionado`
+
+                    listagemFuncionario.innerHTML = ""
+                    listarFuncionarios()
+
+                    setTimeout(() => {
+                        fecharModalAddUser();
+                    }, "1000");
+
+                    resposta.json()
+                        .then(json => {
+                            console.log("\n\n\n\n\nALEATÓRIO PARA VER A RESPOSTA");
+                            console.log(json);
+
+                        });
+
+
+
+
+                } else {
+                    console.log(resposta);
+                    throw "Houve um erro ao tentar realizar o cadastro! TO NO FUNCIONARIO.HTML";
+                }
+
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+                return false;
+            });
         }
-
-
-        fetch("/usuarios/cadastrar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                nomeServer: nomeVar,
-                emailServer: emailVar,
-                senhaServer: senhaVar,
-                cpfServer: cpfVar,
-                nivelServer: nivelVar,
-                fkEmpresa: idEmpresa
-            }),
-        }).then(function (resposta) {
-            console.log("resposta: ", resposta);
-
-            if (resposta.ok) {
-
-                resposta.json()
-                    .then(json => {
-                        console.log("\n\n\n\n\nALEATÓRIO PARA VER A RESPOSTA");
-                        console.log(json);
-
-                    });
-
-                usoCardMensagemSucesso()
-                descCardSucesso.innerHTML = `Usuário adicionado`
-
-                setTimeout(() => {
-                    fecharModalAddUser();
-                }, "1000");
-
-
-            } else {
-                console.log(resposta);
-                throw "Houve um erro ao tentar realizar o cadastro! TO NO FUNCIONARIO.HTML";
-            }
-
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-            return false;
-        });
 
     }
 
@@ -523,8 +512,8 @@
                     descCardSucesso.innerHTML = `Edição realizada`
 
                     setTimeout(() => {
-                    fecharModalEditUser();
-                }, "1000");
+                        fecharModalEditUser();
+                    }, "1000");
 
 
                 } else {
@@ -551,6 +540,8 @@
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
+                listagemFuncionario.innerHTML = ""
+                listarFuncionarios()
                 usoCardMensagemSucesso()
                 descCardSucesso.innerHTML = `Usuário removido`
             } else {

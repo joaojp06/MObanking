@@ -3,22 +3,24 @@ var database = require("../database/config")
 function autenticar(email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
     var instrucaoSql = `
-    select * from vw_usuario_empresa WHERE emailUsuario = '${email}' AND senha = '${senha}';
+    select * from vw_usuario_empresa WHERE emailUsuario = '${email}' AND senha = '${senha}' AND status = 'Ativo';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
 
-function cadastrar(nome, email, cpf,nivel, fkEmpresa, nivel, senha) {
+function cadastrar(nome, email, cpf,senha, fkEmpresa, nivel) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente.");
+    console.log("Parâmetros recebidos:", { nome, email, cpf, senha, fkEmpresa, nivel });
 
     var instrucaoSql = `
         insert into usuario (fkEmpresa, fkTipoUsuario, nome, cpf, email, senha, status)
-        VALUES ('${fkEmpresa}','${nivel}','${nome}', '${cpf}', '${email}', '${senha}', 'ativo');
+        VALUES ('${fkEmpresa}','${nivel}','${nome}', '${cpf}', '${email}', '${senha}', 'Ativo');
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
+    
 }
 
 function listarFuncionarios(idEmpresa, idUsuarioListFun) {
@@ -27,7 +29,7 @@ function listarFuncionarios(idEmpresa, idUsuarioListFun) {
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
-        select * from vw_usuario_empresa where idEmpresa = ${idEmpresa} AND idUsuario != ${idUsuarioListFun};
+        select * from vw_usuario_empresa where idEmpresa = ${idEmpresa} AND idUsuario != ${idUsuarioListFun} AND status <> 'Desativado';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

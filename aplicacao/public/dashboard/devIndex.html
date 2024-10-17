@@ -136,7 +136,7 @@
                     <label for="">
                         Planos
                         <select name="" id="tipo_planos_select">
-                            
+
                         </select>
                     </label>
 
@@ -169,7 +169,7 @@
                         <input type="number" id="cnpj_input_editar" placeholder="XX. XXX. XXX/0001-XX">
                     </label>
 
-                    
+
 
                     <label for="">
                         Plano:
@@ -186,7 +186,7 @@
                     <label for="">
                         Tipo logradouro
                         <select id="tipo_logradouro_select_editar">
-                            
+
                         </select>
                     </label>
 
@@ -432,6 +432,7 @@
                     usoCardMensagemSucesso()
                     descCardSucesso.innerHTML = `Edição realizada com sucesso.`
 
+
                     setTimeout(() => {
                         fecharModalAddUser();
                     }, "1000");
@@ -482,7 +483,7 @@
         var complementoVar = complemento_logradouro_input.value
         var bairroVar = bairro_input.value;
         var cidadeVar = cidade_input.value;
-        var estadoVar =  estado_input_select.value;
+        var estadoVar = estado_input_select.value;
         var planoVar = tipo_planos_select.value;
 
         if (razaoSocialVar == "" ||
@@ -562,18 +563,24 @@
                                 cnpjServer: cnpjVar,
                                 planoServer: planoVar
                             }),
-                        }).then().catch()
+                        }).then(function (resposta) {
+                            usoCardMensagemSucesso()
+                            descCardSucesso.innerHTML = `Cadastro realizado` //Descrição para o card
+
+                            listagemEmpresas.innerHTML = " "
+                            listarEmpresas()
+
+                            setTimeout(() => {
+                                fecharModalAddUser();
+                            }, "1000");
+                        }).catch()
+
+
 
                     });
 
-                usoCardMensagemSucesso()
-                descCardSucesso.innerHTML = `Cadastro realizado` //Descrição para o card
 
-                listarEmpresas()
 
-                setTimeout(() => {
-                    fecharModalAddUser();
-                }, "1000");
 
 
             } else {
@@ -654,7 +661,7 @@
                     cep_logradouro_input_editar.value = empresa.cep;
                     numero_logradouro_input_editar.value = empresa.numLogradouro;
                     complemento_logradouro_input_editar.value = empresa.complemento;
-                    
+
                     tipo_logradouro_select_editar.value = empresa.id_logradouro;
                     tipo_planos_select_editar.value = empresa.fkPlano
                     estado_input_select_editar.value = empresa.estado
@@ -681,6 +688,7 @@
         }).then(function (resposta) {
             console.log("resposta: ", resposta);
             if (resposta.ok) {
+                listagemEmpresas.innerHTML = ""
                 listarEmpresas();
                 usoCardMensagemSucesso()
                 descCardSucesso.innerHTML = `Empresa removida`
@@ -709,7 +717,7 @@
                 <option value="${registro.id}">${registro.nome}</option>
             
             `;
-            tipo_planos_select_editar.innerHTML += `
+                        tipo_planos_select_editar.innerHTML += `
                 
                 <option value="${registro.id}">${registro.nome}</option>
             
