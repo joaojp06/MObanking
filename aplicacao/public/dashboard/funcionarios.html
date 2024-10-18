@@ -537,6 +537,9 @@
                     usoCardMensagemSucesso()
                     descCardSucesso.innerHTML = `Edição realizada`
 
+                    listagemFuncionario.innerHTML = ""
+                    listarFuncionarios()
+
                     setTimeout(() => {
                         fecharModalEditUser();
                     }, "1000");
