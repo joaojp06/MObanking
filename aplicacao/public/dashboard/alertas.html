@@ -89,7 +89,7 @@
                     <label for="filtroComponente">
                         Selecione o componente:
                         <select id="filtroComponente">
-                            
+
                         </select>
                         <br>
                         <br>
@@ -104,6 +104,19 @@
     </div>
 
     <script>
+
+        const menuLaterealHTML = document.getElementById('menuLateralBox')
+        var sessTipoUsuario = sessionStorage.ID_TIPO_USUARIO
+        if (sessTipoUsuario == 1) {
+            menuLaterealHTML.innerHTML += `
+     <li>
+          <a href="funcionarios.html">
+            <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
+            <span class="titulo-link-menu">Funcionários</span>
+          </a>
+        </li>
+    `
+        }
 
         if (sessionStorage.ID_PLANO == 1) {
             filtroComponente.innerHTML = `
@@ -147,7 +160,7 @@
             listarAlertasPorFiltro(filtro);
         }
 
-        
+
 
         nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
 
@@ -155,7 +168,7 @@
             listagemAlertas.innerHTML = ``
             var filtroServidor = document.getElementById('filtroServidor').value;
             var filtroComponente = document.getElementById('filtroComponente').value;
-            var idEmpresa = sessionStorage.ID_EMPRESA; 
+            var idEmpresa = sessionStorage.ID_EMPRESA;
             fetch(`/avisos/listarAlertas/${idEmpresa}/${filtroComponente}/${filtroServidor}`, {
                 method: "GET",
             })
