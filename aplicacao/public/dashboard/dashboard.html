@@ -61,7 +61,65 @@
 
             <!-- Seção da CPU -->
             <div class="frame-graficos">
-                <span class="tituloGraficos">CPU</span>
+                <div id="frameGraficos">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+
+    const menuLaterealHTML = document.getElementById('menuLateralBox')
+    var sessTipoUsuario = sessionStorage.ID_TIPO_USUARIO
+    if (sessTipoUsuario == 1) {
+        menuLaterealHTML.innerHTML += `
+     <li>
+          <a href="funcionarios.html">
+            <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
+            <span class="titulo-link-menu">Funcionários</span>
+          </a>
+        </li>
+    `
+    }
+    const frameGraficos = document.getElementById('frameGraficos')
+    if(sessionStorage.ID_PLANO == 1){
+        frameGraficos.innerHTML = `
+        <span class="tituloGraficos">CPU</span>
+
+                <input id="cpuInput1" type="date" class="input1 custom-date">
+
+                <span>a</span>
+
+                <input id="cpuInput2" type="date" class="input2 custom-date">
+
+                <button class="pesquisarButton">Pesquisar</button>
+
+                <canvas id="graficoCPU-box"></canvas>
+
+
+                <!-- Seção da Memória -->
+                <span class="tituloGraficos">Memória</span>
+
+                <input type="date" class="input1 custom-date">
+
+                <span>a</span>
+
+                <input type="date" class="input2 custom-date">
+                <button class="pesquisarButton">Pesquisar</button>
+                <canvas id="graficoRAM-box">GRÁFICOS</canvas>
+
+            
+                    
+        `
+    }
+
+    if(sessionStorage.ID_PLANO == 2){
+        frameGraficos.innerHTML = `
+        <span class="tituloGraficos">CPU</span>
 
                 <input id="cpuInput1" type="date" class="input1 custom-date">
 
@@ -94,28 +152,64 @@
 
                 <input type="date" class="input2 custom-date">
                 <button class="pesquisarButton">Pesquisar</button>
-                <canvas id="graficoDISCO-box">GRÁFICOS
-            </div>
-        </div>
-    </div>
-</body>
+                <canvas id="graficoDISCO-box"></canvas>
 
-</html>
-
-<script>
-
-    const menuLaterealHTML = document.getElementById('menuLateralBox')
-    var sessTipoUsuario = sessionStorage.ID_TIPO_USUARIO
-    if (sessTipoUsuario == 1) {
-        menuLaterealHTML.innerHTML += `
-     <li>
-          <a href="funcionarios.html">
-            <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
-            <span class="titulo-link-menu">Funcionários</span>
-          </a>
-        </li>
-    `
+                
+                    
+        `
     }
+
+    if(sessionStorage.ID_PLANO == 3){
+        frameGraficos.innerHTML = `
+        <span class="tituloGraficos">CPU</span>
+
+                <input id="cpuInput1" type="date" class="input1 custom-date">
+
+                <span>a</span>
+
+                <input id="cpuInput2" type="date" class="input2 custom-date">
+
+                <button class="pesquisarButton">Pesquisar</button>
+
+                <canvas id="graficoCPU-box"></canvas>
+
+
+                <!-- Seção da Memória -->
+                <span class="tituloGraficos">Memória</span>
+
+                <input type="date" class="input1 custom-date">
+
+                <span>a</span>
+
+                <input type="date" class="input2 custom-date">
+                <button class="pesquisarButton">Pesquisar</button>
+                <canvas id="graficoRAM-box">GRÁFICOS</canvas>
+
+                <!-- Seção da Disco -->
+                <span class="tituloGraficos">Disco</span>
+
+                <input type="date" class="input1 custom-date">
+
+                <span>a</span>
+
+                <input type="date" class="input2 custom-date">
+                <button class="pesquisarButton">Pesquisar</button>
+                <canvas id="graficoDISCO-box"></canvas>
+
+                <!-- Seção da Rede -->
+                <span class="tituloGraficos">Rede</span>
+
+                <input type="date" class="input1 custom-date">
+
+                <span>a</span>
+
+                <input type="date" class="input2 custom-date">
+                <button class="pesquisarButton">Pesquisar</button>
+                <canvas id="graficoREDE-box"></canvas>
+                    
+        `
+    }
+
     nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
 
 
@@ -223,6 +317,28 @@
 
 
 
+
+    const graficoREDE = document.getElementById('graficoREDE-box');
+    new Chart(graficoREDE, {
+        type: 'line',
+        data: {
+            labels: [dia6, dia5, dia4, dia3, dia2, dia1, hojeFormatado], // Marcação de tempo
+            datasets: [{
+                label: 'Mb redes enviados',
+                data: [223, 122, 212, 234, 287, 290], // Dados de uso da CPU
+                borderColor: 'rgb(75, 192, 192)',
+                fill: false,
+                tension: 0.1 // Suavização da linha
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
 
 
 

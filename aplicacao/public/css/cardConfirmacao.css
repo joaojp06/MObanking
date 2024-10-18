@@ -1,0 +1,23 @@
+.confirmarModal{
+    position: absolute;
+    top: -30%;
+    left: 50%;
+    transform: translate(-50%, 20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #2c2c2c;
+    color: white;
+    padding: 2% 3%;
+    border-radius: 15px;
+    transition: all 1s;
+
+    & button{
+        background-color: white;
+        padding: 0.3rem 1.7rem;
+        margin-top: 10px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+}
+

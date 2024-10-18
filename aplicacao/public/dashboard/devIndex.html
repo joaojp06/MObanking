@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../css/mensagemCard.css">
     <link rel="stylesheet" href="../css/devIndex.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="../css/cardConfirmacao.css">
 </head>
 
 <body onload="listarEmpresas(),listarTipoLogradouro(), listarTipoPlanos()">
@@ -318,12 +319,35 @@
     </div>
 
 
-
+    <div class="confirmarModal" id="confirmarModalDesativar">
+        <h2>Deseja realmente deletar essa empresa ?</h2>
+        <div>
+            <button onclick="fecharDesativar(), removerEmpresa(idEmpresaDelete)" class="simButon">Sim</button>
+            <button onclick="fecharDesativar()" class="naoButon">Não</button>
+        </div>
+    </div>
 </body>
 
 </html>
 
 <script>
+
+    let idEmpresaDelete;
+    function confirmarDesativar(idEmpresa) {
+        idEmpresaDelete = idEmpresa
+        confirmarModalDesativar.style.top = '0'
+        const frame = document.getElementById('frame');
+        frame.classList.add('blur-grid')
+
+    }
+
+    function fecharDesativar() {
+
+        const frame = document.getElementById('frame');
+        frame.classList.remove('blur-grid')
+        confirmarModalDesativar.style.top = '-20%'
+    }
+
 
     function sair() {
         window.location = "../index.html"
@@ -620,7 +644,7 @@
                             </div>
                             <div class="opcoes">
                                     <i onclick=" listarEmpresasPorId(${registro.id_empresa}, ${registro.fkEndereco})" class="fa-solid fa-pen"></i>
-                                <i class="fa-solid fa-trash" onclick="removerEmpresa(${registro.id_empresa})"></i>
+                                <i class="fa-solid fa-trash" onclick="confirmarDesativar(${registro.id_empresa})"></i>
                             </div>
 
                             </div>

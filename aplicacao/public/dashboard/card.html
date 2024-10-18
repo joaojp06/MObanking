@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="../css/mensagemCard.css">
   <link rel="stylesheet" href="../css/card.css" />
   <link rel="stylesheet" href="../css/default.css" />
+  <link rel="stylesheet" href="../css/cardConfirmacao.css">
   <!-- scripts do Chart.js - 2022-1 -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -63,7 +64,9 @@
           <option value="desativado">Servidores desativados</option>
         </select>
       </div>
-      <div id="listagemServidores" class="card-grid-pai"></div>
+      <div id="listagemServidores" class="card-grid-pai">
+
+      </div>
     </div>
   </div>
 
@@ -83,9 +86,9 @@
       <button onclick="editarLimiteServidor(idServidorPar)">Editar</button>
     </div>
 
-    <button class="desativarServidorButton" id="buttonDesativarServidor" onclick="desativarServidor()">Desativar
+    <button class="desativarServidorButton" id="buttonDesativarServidor" onclick="confirmarDesativar()">Desativar
       servidor</button>
-    <button class="desativarServidorButton" id="buttonAtivarServidor" onclick="ativarServidor()">Ativar
+    <button class="desativarServidorButton" id="buttonAtivarServidor" onclick="confirmarAtivar()">Ativar
       servidor</button>
   </div>
 
@@ -156,11 +159,62 @@
     <span>Data: 14/10/2024 - 12:22:09</span>
   </div>
 
+
+  <div class="confirmarModal" id="confirmarModalDesativar">
+    <h2>Deseja realmente desativar esse servidor ?</h2>
+    <div>
+      <button onclick="fecharDesativar(), desativarServidor()" class="simButon">Sim</button>
+      <button onclick="fecharDesativar()" class="naoButon">Não</button>
+    </div>
+  </div>
+
+  <div class="confirmarModal" id="confirmarModalAtivar">
+    <h2>Deseja ativar esse servidor ?</h2>
+    <div>
+      <button onclick="fecharAtivar(), ativarServidor()" class="simButon">Sim</button>
+      <button onclick="fecharAtivar()" class="naoButon">Não</button>
+    </div>
+  </div>
+
+
 </body>
 
 </html>
 
 <script>
+
+  function confirmarDesativar() {
+
+    confirmarModalDesativar.style.top = '0'
+    const frame = document.getElementById('frame');
+    frame.classList.add('blur-grid')
+
+  }
+
+  function fecharDesativar() {
+
+    const frame = document.getElementById('frame');
+    frame.classList.remove('blur-grid')
+    confirmarModalDesativar.style.top = '-20%'
+  }
+
+  function confirmarAtivar() {
+
+confirmarModalAtivar.style.top = '0'
+const frame = document.getElementById('frame');
+frame.classList.add('blur-grid')
+
+}
+
+function fecharAtivar() {
+
+const frame = document.getElementById('frame');
+frame.classList.remove('blur-grid')
+confirmarModalAtivar.style.top = '-20%'
+}
+
+
+
 
   function alertaEstatico() {
     const card = document.getElementById("alertCardEstatico");

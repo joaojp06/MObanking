@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="../css/cardConfirmacao.css">
 </head>
 
 <body onload="listarFuncionarios(), listarTiposUsuarios()">
@@ -220,11 +221,36 @@
         </svg>
     </div>
 
+    <div class="confirmarModal" id="confirmarModalDesativar">
+        <h2>Deseja realmente deletar esse usuário ?</h2>
+        <div>
+          <button onclick="fecharDesativar(), removerUsuario(idUsuarioDelete)" class="simButon">Sim</button>
+          <button onclick="fecharDesativar()" class="naoButon">Não</button>
+        </div>
+      </div>
+    
+
 </body>
 
 </html>
 
 <script>
+
+    let idUsuarioDelete;
+    function confirmarDesativar(idUsuario) {
+        idUsuarioDelete = idUsuario
+        confirmarModalDesativar.style.top = '0'
+        const frame = document.getElementById('frame');
+        frame.classList.add('blur-grid')
+
+    }
+
+    function fecharDesativar() {
+
+        const frame = document.getElementById('frame');
+        frame.classList.remove('blur-grid')
+        confirmarModalDesativar.style.top = '-20%'
+    }
 
     const menuLaterealHTML = document.getElementById('menuLateralBox')
     var sessTipoUsuario = sessionStorage.ID_TIPO_USUARIO
@@ -311,7 +337,7 @@
                         </div>
                     </div>
                     <div class="opcoes">
-                        <i class="fa-solid fa-trash" id="trash" onclick="removerUsuario(${registro.idUsuario})"></i>       
+                        <i class="fa-solid fa-trash" id="trash" onclick="confirmarDesativar(${registro.idUsuario})"></i>       
                         <i class="fa-solid fa-pencil" id="pencil" onclick="abrirModalEditADM(${registro.idUsuario})"></i>
                     </div>
 
