@@ -33,23 +33,23 @@ function cadastrarEndereco(nomeLogradouro, tipoLogradouro, numero, cep, compleme
   return database.executar(instrucaoSql);
 }
 
-function cadastrar(fkEndereco, razaoSocial, cnpj, plano) {
+function cadastrar(razaoSocial, cnpj, plano) {
   var instrucaoSql = `INSERT INTO empresa (fkEndereco, razaoSocial, cnpj, fkPlano, status) 
   VALUES ('${fkEndereco}','${razaoSocial}', '${cnpj}', ${plano}, 'Ativa')`;
 
   return database.executar(instrucaoSql);
 }
 
-function editarEndereco(idEndereco, nomeLogradouro, numero, cep, complemento, bairro, cidade, estado) {
+function editarEndereco(idEndereco, nomeLogradouro, tipoLogradouro, numero, cep, complemento, bairro, cidade, estado) {
   console.log(`idEndereco: ${idEndereco}`); // Adicione esta linha para depuração
   var instrucaoSql = `
  UPDATE endereco
-  SET fkLogradouro = 1,
+  SET fkLogradouro = ${tipoLogradouro},
       nomeLogradouro = '${nomeLogradouro}',
       numLogradouro = ${numero},
       cidade = '${cidade}',
-      estado = '${bairro}',
-      bairro = '${estado}',
+      estado = '${estado}',
+      bairro = '${bairro}',
       cep = '${cep}',
       complemento = '${complemento}'
   WHERE id = ${idEndereco};
@@ -59,12 +59,13 @@ function editarEndereco(idEndereco, nomeLogradouro, numero, cep, complemento, ba
 }
 
 
-function editar(idEmpresa, razaoSocial, cnpj) {
+function editar(idEmpresa, razaoSocial, cnpj, plano) {
   var instrucaoSql = `
-  UPDATE empresa
-SET razaoSocial = '${razaoSocial}',
-    cnpj = '${cnpj}'
-WHERE id = ${idEmpresa};
+update empresa
+set fkPlano = ${plano},
+razaoSocial = '${razaoSocial}',
+cnpj = ${cnpj}
+where id = ${idEmpresa};
   `;
 
   return database.executar(instrucaoSql);

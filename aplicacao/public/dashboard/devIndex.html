@@ -170,15 +170,6 @@
                         <input type="number" id="cnpj_input_editar" placeholder="XX. XXX. XXX/0001-XX">
                     </label>
 
-
-
-                    <label for="">
-                        Plano:
-                        <select id="tipo_planos_select_editar">
-
-                        </select>
-                    </label>
-
                     <label for="">
                         Nome logradouro:
                         <input type="text" id="nome_logradouro_input_editar" placeholder="Logradouro...">
@@ -249,8 +240,12 @@
                         <input type="text" id="complemento_logradouro_input_editar" placeholder="Complemento...">
                     </label>
 
+                    <label for="">
+                        Plano:
+                        <select id="tipo_planos_select_editar">
 
-
+                        </select>
+                    </label>
                 </form>
 
             </div>
@@ -380,17 +375,17 @@
         // var fkEndereco = fkEndereco
         // var idEmpresa = idEmpresa
 
-        var razaoSocialVar = razao_social_input_editar.value
-        var cnpjVar = cnpj_input_editar.value
-        var planoVar = tipo_planos_select_editar.value
-        var nomeLogradouroVar = nome_logradouro_input_editar.value
-        var tipoLogradouroVar = tipo_logradouro_select_editar.value
-        var numeroVar = numero_logradouro_input_editar.value
-        var cepVar = cep_logradouro_input_editar.value
-        var complementoVar = complemento_logradouro_input_editar.value
+        var razaoSocialVar = razao_social_input_editar.value;
+        var cnpjVar = cnpj_input_editar.value;
+        var nomeLogradouroVar = nome_logradouro_input_editar.value;
+        var tipoLogradouroVar = tipo_logradouro_select_editar.value;
+        var numeroVar = numero_logradouro_input_editar.value;
+        var cepVar = cep_logradouro_input_editar.value;
+        var complementoVar = complemento_logradouro_input_editar.value;
         var bairroVar = bairro_input_editar.value;
         var cidadeVar = cidade_input_editar.value;
         var estadoVar = estado_input_select_editar.value;
+        var planoVar = tipo_planos_select_editar.value;
 
         if (razaoSocialVar == "" ||
             cnpjVar == "" ||
@@ -435,9 +430,11 @@
 
                     resposta.json()
                         .then(json => {
-                            console.log("\n\n\n\n\nALEATÓRIO PARA VER A RESPOSTA");
+                            
                             console.log(json);
-                            console.log(idInserido);
+                           
+
+                            console.log(`${razaoSocialVar} -- ${cnpjVar} -- ${planoVar} -- ${idEmpresa}`)
 
                             fetch(`/empresas/editar/${idEmpresa}`, {
                                 method: "PUT",
@@ -449,24 +446,34 @@
                                     cnpjServer: cnpjVar,
                                     planoServer: planoVar
                                 }),
-                            }).then().catch()
+                            }).then(function (resposta) {
+                                if (resposta.ok) {
+                                    usoCardMensagemSucesso()
+                                    descCardSucesso.innerHTML = `Edição realizada com sucesso.`
+
+                                    listagemEmpresas.innerHTML = " "
+                                    listarEmpresas()
+
+                                    setTimeout(() => {
+                                        fecharModalAddUser();
+                                    }, "1000");
+                                } else {
+                                    console.log(resposta);
+                                    throw "Houve um erro ao tentar realizar a edição - dados empresa!";
+                                }
+                            }).catch(function (resposta) {
+                                console.log(`#ERRO: ${resposta}`);
+                                return false;
+                            });
 
                         });
 
-                    usoCardMensagemSucesso()
-                    descCardSucesso.innerHTML = `Edição realizada com sucesso.`
 
-                    listagemEmpresas.innerHTML = " "
-                    listarEmpresas()
-
-                    setTimeout(() => {
-                        fecharModalAddUser();
-                    }, "1000");
 
 
                 } else {
                     console.log(resposta);
-                    throw "Houve um erro ao tentar realizar a edição!";
+                    throw "Houve um erro ao tentar realizar a edição - Endereço empresa!";
                 }
             }).catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);

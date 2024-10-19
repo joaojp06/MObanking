@@ -128,13 +128,31 @@ function editar(req, res) {
   var cnpj = req.body.cnpjServer;
   var plano = req.body.planoServer;
 
+  if (idEmpresa == undefined) {
+    res.status(400).send("IdEmpresa indefindido");
+  } else if (razaoSocial == undefined) {
+    res.status(400).send("Razao social está indefinido!");
+  } else if (cnpj == undefined) {
+    res.status(400).send("Cnpj está indefinido!");
+  } else if (plano == undefined) {
+    res.status(400).send("Plano está indefinido!");
+  } else {
+    empresaModel.editar(idEmpresa, razaoSocial, cnpj, plano)
+      .then((resultado) => {
+        res.status(201).json(resultado);
+      }).catch(
+        function (erro) {
+          console.log(erro);
+          console.log(
+            "\nHouve um erro ao realizar o cadastro EMPRESA DADOS! Erro: ",
+            erro.sqlMessage
+          );
+          res.status(500).json(erro.sqlMessage);
+        }
+      );
+  }
 
 
-  empresaModel.editar(cnpj).then((_resultado) => {
-    empresaModel.cadastrar(idEmpresa, fkEndereco, razaoSocial, cnpj, plano).then((resultado) => {
-      res.status(201).json(resultado);
-    });
-  });
 }
 
 
