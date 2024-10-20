@@ -74,7 +74,7 @@ section {
     font-size: 18px;
   }
 
-  .botao_login a {
+  .botao_login {
     text-decoration: none;
     color: #fff;
   }
