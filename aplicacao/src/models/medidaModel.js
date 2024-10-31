@@ -1,15 +1,16 @@
 var database = require("../database/config");
 
-function buscarUltimasMedidas(idAquario, limite_linhas) {
+function buscarMedidasServidor(idServidor) {
 
-    var instrucaoSql = `SELECT 
-        dht11_temperatura as temperatura, 
-        dht11_umidade as umidade,
-                        momento,
-                        DATE_FORMAT(momento,'%H:%i:%s') as momento_grafico
-                    FROM medida
-                    WHERE fk_aquario = ${idAquario}
-                    ORDER BY id DESC LIMIT ${limite_linhas}`;
+    var instrucaoSql = `
+    SELECT * FROM (
+    SELECT *, ROW_NUMBER() OVER (PARTITION BY fkServico ORDER BY id DESC) as row_num
+    FROM registro
+    WHERE fkServidor = ${idServidor}
+) sub
+WHERE row_num <= 5;
+
+    `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -30,6 +31,6 @@ function buscarMedidasEmTempoReal(idAquario) {
 }
 
 module.exports = {
-    buscarUltimasMedidas,
+    buscarMedidasServidor,
     buscarMedidasEmTempoReal
 }

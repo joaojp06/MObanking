@@ -200,18 +200,18 @@
 
   function confirmarAtivar() {
 
-confirmarModalAtivar.style.top = '0'
-const frame = document.getElementById('frame');
-frame.classList.add('blur-grid')
+    confirmarModalAtivar.style.top = '0'
+    const frame = document.getElementById('frame');
+    frame.classList.add('blur-grid')
 
-}
+  }
 
-function fecharAtivar() {
+  function fecharAtivar() {
 
-const frame = document.getElementById('frame');
-frame.classList.remove('blur-grid')
-confirmarModalAtivar.style.top = '-20%'
-}
+    const frame = document.getElementById('frame');
+    frame.classList.remove('blur-grid')
+    confirmarModalAtivar.style.top = '-20%'
+  }
 
 
 
@@ -461,7 +461,7 @@ confirmarModalAtivar.style.top = '-20%'
           } else if (planoEmpresa == 3) {
             servidores.forEach((registro) => {
               listagemServidores.innerHTML +=
-                `<div onclick="abrirModal(${registro.id_servidor}, ${status})" class="card">
+                `<div onclick="abrirModal(${registro.id_servidor}, ${status}), AtualizarGraficos(${registro.id_servidor})" class="card">
               <h2>ID: ${registro.id_servidor}</h2>
               <div class="back-image-card"></div>
               <div class="indicadores-box">
@@ -673,229 +673,335 @@ confirmarModalAtivar.style.top = '-20%'
       });
   }
 
+
+
+
+
+
+  function obterDadosGrafico(idServidorParFun) {
+
+    var idServidor = idServidorParFun
+
+    fetch(`/medidas/servidor/${idServidor}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+          resposta.reverse();
+
+          plotarGrafico(resposta);
+
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+  }
+
+  function AtualizarGraficos(idServidor) {
+    obterDadosGrafico(idServidor);
+    iniciarAtualizacaoAoVivo();
+  }
+
+  function iniciarAtualizacaoAoVivo() {
+    setInterval(() => {
+      if (idServidorPar) { // Certifique-se de que o parâmetro está definido
+        obterDadosGrafico(idServidorPar); // Atualize o gráfico com o parâmetro atual
+      }
+    }, 3000); // Intervalo de 3 segundos
+  }
+
+
+  let graficoCpuInstance = null;
+
+  function plotarGrafico(resposta) {
+
+
+    console.log('iniciando plotagem do gráfico...');
+
+    if (graficoCpuInstance) {
+        graficoCpuInstance.destroy();
+    }
+
+    // Criando estrutura para plotar gráfico - labels
+    let labels = [];
+
+    // Criando estrutura para plotar gráfico - dados
+    let dadosCpu = {
+      labels: labels,
+      datasets: [{
+        label: '',
+        data: [],
+      }],
+
+    };
+
+    console.log('----------------------------------------------')
+    console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+    console.log(resposta)
+
+    // Inserindo valores recebidos em estrutura para plotar o gráfico
+    for (i = 0; i < resposta.length; i++) {
+      var registro = resposta[i];
+
+      let data = registro.data;
+      let horario = new Date(data).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+      if (registro.fkServico == 1) {
+        labels.push(`${horario}`);
+        dadosCpu.datasets[0].data.push(registro.valor);
+      }
+
+
+    }
+
+    console.log('----------------------------------------------')
+    console.log('O gráfico será plotado com os respectivos valores:')
+    console.log('Labels:')
+    console.log(labels)
+    console.log('dadosCpu:')
+    console.log(dadosCpu.datasets)
+    console.log('----------------------------------------------')
+
+
+    const graficoCPU = document.getElementById('graficoCPU-box');
+
+    graficoCpuInstance = new Chart(graficoCPU, {
+      type: 'line',
+      data: {
+        labels: dadosCpu.labels,
+        datasets: [{
+          label: dadosCpu.datasets[0].label,
+          data: dadosCpu.datasets[0].data,
+          borderColor: 'white',
+          backgroundColor: 'rgba(255, 255, 255, 0.5)',
+          fill: true,
+          pointBackgroundColor: 'white',
+          pointBorderColor: 'white',
+          pointRadius: 5,
+          tension: 0.1
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            grid: {
+              display: false // Remove a grade vertical
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo X
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          },
+          y: {
+            grid: {
+              display: false // Remove a grade horizontal
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo Y
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false // Remove a legenda
+          }
+        },
+        elements: {
+          line: {
+            tension: 0.4 // Deixa as linhas mais suaves
+          }
+        }
+      }
+    });
+
+    const graficoRAM = document.getElementById('graficoRAM-box');
+    new Chart(graficoRAM, {
+      type: 'line',
+      data: {
+        labels: ['19:02', '19:02', '19:02', '19:02', '19:02', '19:02', '19:02'], // Marcação de tempo
+        datasets: [{
+          label: 'Uso de RAM',
+          data: [60, 65, 64, 64, 56, 59], // Dados de uso da CPU
+          borderColor: 'white',  // Cor da linha
+          backgroundColor: 'rgba(255, 255, 255, 0.5)', // Preenchimento abaixo da linha
+          fill: true,  // Ativa o preenchimento abaixo da linha
+          pointBackgroundColor: 'white',  // Cor dos pontos
+          pointBorderColor: 'white',  // Cor das bordas dos pontos
+          pointRadius: 5,  // Tamanho dos pontos,  // Tamanho dos pontos
+          tension: 0.1
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            grid: {
+              display: false // Remove a grade vertical
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo X
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          },
+          y: {
+            grid: {
+              display: false // Remove a grade horizontal
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo Y
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false // Remove a legenda
+          }
+        },
+        elements: {
+          line: {
+            tension: 0.4 // Deixa as linhas mais suaves
+          }
+        }
+      }
+    });
+
+    const graficoDISCO = document.getElementById('graficosDISCO-box');
+    new Chart(graficoDISCO, {
+      type: 'line',
+      data: {
+        labels: ['19:02', '19:02', '19:02', '19:02', '19:02', '19:02', '19:02'], // Marcação de tempo
+        datasets: [{
+          label: 'Uso de DISCO',
+          data: [5.3, 5.5, 5.9, 5.0, 4.9, 4.8], // Dados de uso da CPU
+          borderColor: 'white',  // Cor da linha
+          backgroundColor: 'rgba(255, 255, 255, 0.5)', // Preenchimento abaixo da linha
+          fill: true,  // Ativa o preenchimento abaixo da linha
+          pointBackgroundColor: 'white',  // Cor dos pontos
+          pointBorderColor: 'white',  // Cor das bordas dos pontos
+          pointRadius: 5,  // Tamanho dos pontos
+          tension: 0.1
+
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            grid: {
+              display: false // Remove a grade vertical
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo X
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          },
+          y: {
+            grid: {
+              display: false // Remove a grade horizontal
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo Y
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false // Remove a legenda
+          }
+        },
+        elements: {
+          line: {
+            tension: 0.4 // Deixa as linhas mais suaves
+          }
+        }
+      }
+    });
+
+    const graficoREDE = document.getElementById('graficosREDE-box');
+    new Chart(graficoREDE, {
+      type: 'line',
+      data: {
+        labels: ['19:02', '19:02', '19:02', '19:02', '19:02', '19:02', '19:02'], // Marcação de tempo
+        datasets: [{
+          label: 'MB REDE',
+          data: [345, 323, 312, 370, 432, 430], // Dados de uso da CPU
+          borderColor: 'white',  // Cor da linha
+          backgroundColor: 'rgba(255, 255, 255, 0.5)', // Preenchimento abaixo da linha
+          fill: true,  // Ativa o preenchimento abaixo da linha
+          pointBackgroundColor: 'white',  // Cor dos pontos
+          pointBorderColor: 'white',  // Cor das bordas dos pontos
+          pointRadius: 5,  // Tamanho dos pontos
+          tension: 0.1
+
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            grid: {
+              display: false // Remove a grade vertical
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo X
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          },
+          y: {
+            grid: {
+              display: false // Remove a grade horizontal
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo Y
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false // Remove a legenda
+          }
+        },
+        elements: {
+          line: {
+            tension: 0.4 // Deixa as linhas mais suaves
+          }
+        }
+      }
+    });
+
+   
+
+  }
+
+
+
+
+
+
   // gráficos estatico
 
-  const garficoCPU = document.getElementById('graficoCPU-box');
-  new Chart(garficoCPU, {
-    type: 'line',
-    data: {
-      labels: ['19:02', '19:02', '19:02', '19:02', '19:02', '19:02', '19:02'], // Marcação de tempo
-      datasets: [{
-        label: 'Uso de CPU',
-        data: [5.3, 5.5, 5.9, 5.0, 4.9, 4.8, 3], // Dados de uso da CPU
-        borderColor: 'white',  // Cor da linha
-        backgroundColor: 'rgba(255, 255, 255, 0.5)', // Preenchimento abaixo da linha
-        fill: true,  // Ativa o preenchimento abaixo da linha
-        pointBackgroundColor: 'white',  // Cor dos pontos
-        pointBorderColor: 'white',  // Cor das bordas dos pontos
-        pointRadius: 5,  // Tamanho dos pontos
-        tension: 0.1
-      }]
-    },
-    options: {
-      scales: {
-        x: {
-          grid: {
-            display: false // Remove a grade vertical
-          },
-          ticks: {
-            color: 'white', // Cor dos rótulos do eixo X
-            font: {
-              size: 16 // Tamanho da fonte das labels no eixo X
-            }
-          }
-        },
-        y: {
-          grid: {
-            display: false // Remove a grade horizontal
-          },
-          ticks: {
-            color: 'white', // Cor dos rótulos do eixo Y
-            font: {
-              size: 16 // Tamanho da fonte das labels no eixo X
-            }
-          }
-        }
-      },
-      plugins: {
-        legend: {
-          display: false // Remove a legenda
-        }
-      },
-      elements: {
-        line: {
-          tension: 0.4 // Deixa as linhas mais suaves
-        }
-      }
-    }
-  });
 
-  const graficoRAM = document.getElementById('graficoRAM-box');
-  new Chart(graficoRAM, {
-    type: 'line',
-    data: {
-      labels: ['19:02', '19:02', '19:02', '19:02', '19:02', '19:02', '19:02'], // Marcação de tempo
-      datasets: [{
-        label: 'Uso de RAM',
-        data: [60, 65, 64, 64, 56, 59], // Dados de uso da CPU
-        borderColor: 'white',  // Cor da linha
-        backgroundColor: 'rgba(255, 255, 255, 0.5)', // Preenchimento abaixo da linha
-        fill: true,  // Ativa o preenchimento abaixo da linha
-        pointBackgroundColor: 'white',  // Cor dos pontos
-        pointBorderColor: 'white',  // Cor das bordas dos pontos
-        pointRadius: 5,  // Tamanho dos pontos,  // Tamanho dos pontos
-        tension: 0.1
-      }]
-    },
-    options: {
-      scales: {
-        x: {
-          grid: {
-            display: false // Remove a grade vertical
-          },
-          ticks: {
-            color: 'white', // Cor dos rótulos do eixo X
-            font: {
-              size: 16 // Tamanho da fonte das labels no eixo X
-            }
-          }
-        },
-        y: {
-          grid: {
-            display: false // Remove a grade horizontal
-          },
-          ticks: {
-            color: 'white', // Cor dos rótulos do eixo Y
-            font: {
-              size: 16 // Tamanho da fonte das labels no eixo X
-            }
-          }
-        }
-      },
-      plugins: {
-        legend: {
-          display: false // Remove a legenda
-        }
-      },
-      elements: {
-        line: {
-          tension: 0.4 // Deixa as linhas mais suaves
-        }
-      }
-    }
-  });
-
-  const graficoDISCO = document.getElementById('graficosDISCO-box');
-  new Chart(graficoDISCO, {
-    type: 'line',
-    data: {
-      labels: ['19:02', '19:02', '19:02', '19:02', '19:02', '19:02', '19:02'], // Marcação de tempo
-      datasets: [{
-        label: 'Uso de DISCO',
-        data: [5.3, 5.5, 5.9, 5.0, 4.9, 4.8], // Dados de uso da CPU
-        borderColor: 'white',  // Cor da linha
-        backgroundColor: 'rgba(255, 255, 255, 0.5)', // Preenchimento abaixo da linha
-        fill: true,  // Ativa o preenchimento abaixo da linha
-        pointBackgroundColor: 'white',  // Cor dos pontos
-        pointBorderColor: 'white',  // Cor das bordas dos pontos
-        pointRadius: 5,  // Tamanho dos pontos
-        tension: 0.1
-
-      }]
-    },
-    options: {
-      scales: {
-        x: {
-          grid: {
-            display: false // Remove a grade vertical
-          },
-          ticks: {
-            color: 'white', // Cor dos rótulos do eixo X
-            font: {
-              size: 16 // Tamanho da fonte das labels no eixo X
-            }
-          }
-        },
-        y: {
-          grid: {
-            display: false // Remove a grade horizontal
-          },
-          ticks: {
-            color: 'white', // Cor dos rótulos do eixo Y
-            font: {
-              size: 16 // Tamanho da fonte das labels no eixo X
-            }
-          }
-        }
-      },
-      plugins: {
-        legend: {
-          display: false // Remove a legenda
-        }
-      },
-      elements: {
-        line: {
-          tension: 0.4 // Deixa as linhas mais suaves
-        }
-      }
-    }
-  });
-
-  const graficoREDE = document.getElementById('graficosREDE-box');
-  new Chart(graficoREDE, {
-    type: 'line',
-    data: {
-      labels: ['19:02', '19:02', '19:02', '19:02', '19:02', '19:02', '19:02'], // Marcação de tempo
-      datasets: [{
-        label: 'MB REDE',
-        data: [345, 323, 312, 370, 432, 430], // Dados de uso da CPU
-        borderColor: 'white',  // Cor da linha
-        backgroundColor: 'rgba(255, 255, 255, 0.5)', // Preenchimento abaixo da linha
-        fill: true,  // Ativa o preenchimento abaixo da linha
-        pointBackgroundColor: 'white',  // Cor dos pontos
-        pointBorderColor: 'white',  // Cor das bordas dos pontos
-        pointRadius: 5,  // Tamanho dos pontos
-        tension: 0.1
-
-      }]
-    },
-    options: {
-      scales: {
-        x: {
-          grid: {
-            display: false // Remove a grade vertical
-          },
-          ticks: {
-            color: 'white', // Cor dos rótulos do eixo X
-            font: {
-              size: 16 // Tamanho da fonte das labels no eixo X
-            }
-          }
-        },
-        y: {
-          grid: {
-            display: false // Remove a grade horizontal
-          },
-          ticks: {
-            color: 'white', // Cor dos rótulos do eixo Y
-            font: {
-              size: 16 // Tamanho da fonte das labels no eixo X
-            }
-          }
-        }
-      },
-      plugins: {
-        legend: {
-          display: false // Remove a legenda
-        }
-      },
-      elements: {
-        line: {
-          tension: 0.4 // Deixa as linhas mais suaves
-        }
-      }
-    }
-  });
 
 
 
