@@ -15,19 +15,25 @@ Copie a seção abaixo em todas as página da dash, user, config user, etc
 
 
 /* ----------- MENU ---------- */
+.logo-menu {
+    width: 50px; /* Ajuste o tamanho conforme necessário */
+    height: auto; /* Mantém a proporção da imagem */
+    display: block;
+    margin: 0 auto 10px; /* Centraliza a imagem e adiciona espaço abaixo */
+}
 
 .titulo-menu {
     align-self: flex-start;
     font-size: 15px;
     font-weight: 100;
     padding: 5% 13%;
-    margin-top: 12%;
+    margin-top: 26%;
     color: white;
 }
 
 .menu-lateral {
     width: 7vw;
-    background-image: linear-gradient(to bottom, #16151A, #34333B);
+    background-image: linear-gradient(to bottom, #30607D, #04344A);
     height: 92vh;
     margin: 2% 1%;
     border-radius: 35px;
@@ -44,13 +50,13 @@ Copie a seção abaixo em todas as página da dash, user, config user, etc
 
 .menu-lateral ul {
     position: absolute;
-    top: 15%;
+    top: 18%;
     left: 3%;
 }
 
 
 .menu-lateral:hover li:hover {
-    background-image: linear-gradient(158deg, black, #1f1f1f00);
+    background-image: linear-gradient(158deg, #254960, #032535);
     border: 1px solid white;
     border-radius: 15px;
     width: 100%;
