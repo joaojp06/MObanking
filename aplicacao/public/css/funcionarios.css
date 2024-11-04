@@ -7,7 +7,16 @@
 }
 
 /* ----------- FIM CSS PADRÃO FIM ----------  */
-
+.logo-menu {
+    width: 50px; /* Ajuste o tamanho conforme necessário */
+    height: auto; /* Mantém a proporção da imagem */
+    display: block;
+    margin: 0 auto 10px; /* Centraliza a imagem e adiciona espaço abaixo */
+    position: absolute; /* Torna a posição da imagem absoluta */
+    top: 7%; /* Ajuste a posição vertical conforme necessário */
+    left: 2.8%; /* Ajuste a posição horizontal conforme necessário */
+    z-index: 10; /* Certifica-se de que a imagem fique acima de outros elementos */
+}
 
 .conteudo {
     & h1 {
@@ -36,7 +45,7 @@
     border-radius: 15px;
     font-family: "Allerta",
     sans-serif;
-    background: linear-gradient(to left, #3D3C46, #16151A);
+    background: linear-gradient(to left, #284f68, #032433);
     color: white;
     margin-top: 0%;
     margin-bottom: 1%;
@@ -45,7 +54,7 @@
 }
 
 .botao-adicionar:hover {
-    background-image: linear-gradient(158deg, black, #1f1f1f6d);
+    background-image: linear-gradient(158deg, #31617e, #05374e);
     border: 1px solid white;
     border-radius: 15px;
     /* width: 100%; */
@@ -58,7 +67,7 @@
     padding: 0.6%;
     border-radius: 15px;
     border: 1px solid #ccc;
-    background: linear-gradient(to left, #38383c, #16151A);
+    background: linear-gradient(to left, #214154, #021923);
     color: white;
     margin-bottom: 1%;
 }
