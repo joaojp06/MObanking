@@ -61,11 +61,15 @@
             <h1>Dashboard</h1>
 
             <!-- Seção da CPU -->
+
             <div class="frame-graficos">
-                <div id="frameGraficos">
-                    
+                <div class="container">
+                    <div id="frameGraficos">
+
+                    </div>
                 </div>
             </div>
+
         </div>
     </div>
 </body>
@@ -87,7 +91,7 @@
     `
     }
     const frameGraficos = document.getElementById('frameGraficos')
-    if(sessionStorage.ID_PLANO == 1){
+    if (sessionStorage.ID_PLANO == 1) {
         frameGraficos.innerHTML = `
         <span class="tituloGraficos">CPU</span>
 
@@ -118,7 +122,7 @@
         `
     }
 
-    if(sessionStorage.ID_PLANO == 2){
+    if (sessionStorage.ID_PLANO == 2) {
         frameGraficos.innerHTML = `
         <span class="tituloGraficos">CPU</span>
 
@@ -160,8 +164,9 @@
         `
     }
 
-    if(sessionStorage.ID_PLANO == 3){
+    if (sessionStorage.ID_PLANO == 3) {
         frameGraficos.innerHTML = `
+        <div class= "container">
         <span class="tituloGraficos">CPU</span>
 
                 <input id="cpuInput1" type="date" class="input1 custom-date">
@@ -173,9 +178,11 @@
                 <button class="pesquisarButton">Pesquisar</button>
 
                 <canvas id="graficoCPU-box"></canvas>
+                </div>
 
 
                 <!-- Seção da Memória -->
+                <div class= "container">
                 <span class="tituloGraficos">Memória</span>
 
                 <input type="date" class="input1 custom-date">
@@ -185,8 +192,10 @@
                 <input type="date" class="input2 custom-date">
                 <button class="pesquisarButton">Pesquisar</button>
                 <canvas id="graficoRAM-box">GRÁFICOS</canvas>
+                </div>
 
                 <!-- Seção da Disco -->
+                <div class= "container">
                 <span class="tituloGraficos">Disco</span>
 
                 <input type="date" class="input1 custom-date">
@@ -196,8 +205,10 @@
                 <input type="date" class="input2 custom-date">
                 <button class="pesquisarButton">Pesquisar</button>
                 <canvas id="graficoDISCO-box"></canvas>
+                </div>
 
                 <!-- Seção da Rede -->
+                <div class= "container">
                 <span class="tituloGraficos">Rede</span>
 
                 <input type="date" class="input1 custom-date">
@@ -207,7 +218,7 @@
                 <input type="date" class="input2 custom-date">
                 <button class="pesquisarButton">Pesquisar</button>
                 <canvas id="graficoREDE-box"></canvas>
-                    
+                </div>
         `
     }
 
