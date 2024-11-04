@@ -311,11 +311,11 @@
     </div>
     <div class="grafico-box" id="receberGraficoDados">
       <h2>Uso DISCO </h2>
-      <canvas id="graficosDISCO-box"></canvas>
+      <canvas id="graficoDISCO-box"></canvas>
     </div>
     <div class="grafico-box" id="receberGraficoDados">
       <h2>Mb REDE </h2>
-      <canvas id="graficosREDE-box"></canvas>
+      <canvas id="graficoREDE-box"></canvas>
     </div>
     
     `
@@ -717,6 +717,9 @@
 
 
   let graficoCpuInstance = null;
+  let graficoRamInstance = null;
+  let graficoDiscoInstance = null;
+  let graficoRedeInstance = null;
 
   function plotarGrafico(resposta) {
 
@@ -726,13 +729,52 @@
     if (graficoCpuInstance) {
         graficoCpuInstance.destroy();
     }
+    if (graficoRamInstance) {
+        graficoRamInstance.destroy();
+    }
+    if (graficoDiscoInstance) {
+        graficoDiscoInstance.destroy();
+    }
+    if (graficoRedeInstance) {
+        graficoRedeInstance.destroy();
+    }
 
     // Criando estrutura para plotar gráfico - labels
-    let labels = [];
+    let labelsCpu = [];
+    let labelsRam = [];
+    let labelsDisco = [];
+    let labelsRede = [];
 
     // Criando estrutura para plotar gráfico - dados
     let dadosCpu = {
-      labels: labels,
+      labels: labelsCpu,
+      datasets: [{
+        label: '',
+        data: [],
+      }],
+
+    };
+
+    let dadosRam = {
+      labels: labelsRam,
+      datasets: [{
+        label: '',
+        data: [],
+      }],
+
+    };
+
+    let dadosDisco = {
+      labels: labelsDisco,
+      datasets: [{
+        label: '',
+        data: [],
+      }],
+
+    };
+
+    let dadosRede = {
+      labels: labelsRede,
       datasets: [{
         label: '',
         data: [],
@@ -752,23 +794,45 @@
       let horario = new Date(data).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
       if (registro.fkServico == 1) {
-        labels.push(`${horario}`);
+        labelsCpu.push(`${horario}`);
         dadosCpu.datasets[0].data.push(registro.valor);
       }
 
+      if (registro.fkServico == 2) {
+        labelsRam.push(`${horario}`);
+        dadosRam.datasets[0].data.push(registro.valor);
+      }
+
+      if (registro.fkServico == 3) {
+        labelsDisco.push(`${horario}`);
+        dadosDisco.datasets[0].data.push(registro.valor);
+      }
+
+      if (registro.fkServico == 4) {
+        labelsRede.push(`${horario}`);
+        dadosRede.datasets[0].data.push(registro.valor);
+      }
 
     }
 
     console.log('----------------------------------------------')
     console.log('O gráfico será plotado com os respectivos valores:')
     console.log('Labels:')
-    console.log(labels)
     console.log('dadosCpu:')
     console.log(dadosCpu.datasets)
+    console.log('dadosRam:')
+    console.log(dadosRam.datasets)
+    console.log('dadosDisco:')
+    console.log(dadosDisco.datasets)
+    console.log('dadosRede:')
+    console.log(dadosRede.datasets)
     console.log('----------------------------------------------')
 
 
     const graficoCPU = document.getElementById('graficoCPU-box');
+    const graficoRAM = document.getElementById('graficoRAM-box');
+    const graficoDISCO = document.getElementById('graficoDISCO-box');
+    const graficoREDE = document.getElementById('graficoREDE-box');
 
     graficoCpuInstance = new Chart(graficoCPU, {
       type: 'line',
@@ -824,20 +888,19 @@
       }
     });
 
-    const graficoRAM = document.getElementById('graficoRAM-box');
-    new Chart(graficoRAM, {
+    graficoRamInstance = new Chart(graficoRAM, {
       type: 'line',
       data: {
-        labels: ['19:02', '19:02', '19:02', '19:02', '19:02', '19:02', '19:02'], // Marcação de tempo
+        labels: dadosRam.labels,
         datasets: [{
-          label: 'Uso de RAM',
-          data: [60, 65, 64, 64, 56, 59], // Dados de uso da CPU
-          borderColor: 'white',  // Cor da linha
-          backgroundColor: 'rgba(255, 255, 255, 0.5)', // Preenchimento abaixo da linha
-          fill: true,  // Ativa o preenchimento abaixo da linha
-          pointBackgroundColor: 'white',  // Cor dos pontos
-          pointBorderColor: 'white',  // Cor das bordas dos pontos
-          pointRadius: 5,  // Tamanho dos pontos,  // Tamanho dos pontos
+          label: dadosRam.datasets[0].label,
+          data: dadosRam.datasets[0].data,
+          borderColor: 'white',
+          backgroundColor: 'rgba(255, 255, 255, 0.5)',
+          fill: true,
+          pointBackgroundColor: 'white',
+          pointBorderColor: 'white',
+          pointRadius: 5,
           tension: 0.1
         }]
       },
@@ -879,22 +942,20 @@
       }
     });
 
-    const graficoDISCO = document.getElementById('graficosDISCO-box');
-    new Chart(graficoDISCO, {
+    graficoDiscoInstance = new Chart(graficoDISCO, {
       type: 'line',
       data: {
-        labels: ['19:02', '19:02', '19:02', '19:02', '19:02', '19:02', '19:02'], // Marcação de tempo
+        labels: dadosDisco.labels,
         datasets: [{
-          label: 'Uso de DISCO',
-          data: [5.3, 5.5, 5.9, 5.0, 4.9, 4.8], // Dados de uso da CPU
-          borderColor: 'white',  // Cor da linha
-          backgroundColor: 'rgba(255, 255, 255, 0.5)', // Preenchimento abaixo da linha
-          fill: true,  // Ativa o preenchimento abaixo da linha
-          pointBackgroundColor: 'white',  // Cor dos pontos
-          pointBorderColor: 'white',  // Cor das bordas dos pontos
-          pointRadius: 5,  // Tamanho dos pontos
+          label: dadosDisco.datasets[0].label,
+          data: dadosDisco.datasets[0].data,
+          borderColor: 'white',
+          backgroundColor: 'rgba(255, 255, 255, 0.5)',
+          fill: true,
+          pointBackgroundColor: 'white',
+          pointBorderColor: 'white',
+          pointRadius: 5,
           tension: 0.1
-
         }]
       },
       options: {
@@ -935,22 +996,20 @@
       }
     });
 
-    const graficoREDE = document.getElementById('graficosREDE-box');
-    new Chart(graficoREDE, {
+    graficoRedeInstance = new Chart(graficoREDE, {
       type: 'line',
       data: {
-        labels: ['19:02', '19:02', '19:02', '19:02', '19:02', '19:02', '19:02'], // Marcação de tempo
+        labels: dadosRede.labels,
         datasets: [{
-          label: 'MB REDE',
-          data: [345, 323, 312, 370, 432, 430], // Dados de uso da CPU
-          borderColor: 'white',  // Cor da linha
-          backgroundColor: 'rgba(255, 255, 255, 0.5)', // Preenchimento abaixo da linha
-          fill: true,  // Ativa o preenchimento abaixo da linha
-          pointBackgroundColor: 'white',  // Cor dos pontos
-          pointBorderColor: 'white',  // Cor das bordas dos pontos
-          pointRadius: 5,  // Tamanho dos pontos
+          label: dadosRede.datasets[0].label,
+          data: dadosRede.datasets[0].data,
+          borderColor: 'white',
+          backgroundColor: 'rgba(255, 255, 255, 0.5)',
+          fill: true,
+          pointBackgroundColor: 'white',
+          pointBorderColor: 'white',
+          pointRadius: 5,
           tension: 0.1
-
         }]
       },
       options: {
