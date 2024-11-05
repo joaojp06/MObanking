@@ -57,7 +57,7 @@ h5 span{
 
   .form {
       width: 50%;
-      background-color: #076793;
+      background: linear-gradient(to bottom, #076793, #054866);
 
       .logo {
           display: flex;
@@ -92,9 +92,8 @@ h5 span{
           margin: 2%;
           width: 80%;
           height: 40px;
-          background-color: #076793;
-          opacity: 1;
-          border: 1px solid #fff;
+          background-color: transparent;
+          border: 1px solid rgba(255, 255, 255, 0.6);
           border-radius: 5px;
           padding: 5px;
           font-size: 16px;
@@ -103,6 +102,7 @@ h5 span{
 
       .inputs input::placeholder {
           color: #fff;
+          opacity: 0.65;
       }
 
       .box_esqueceu_senha {
