@@ -1,11 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
-*{
-  margin: 0;
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
+* {
   box-sizing: border-box;
+  margin: 0;
   font-family: "Nunito Sans", sans-serif;
+  scroll-behavior: smooth;
 }
-body{
-	background-color: #ffffff;
+
+body {
+  font-family: "Nunito Sans";
+  text-align: center;
 }
 
 
@@ -14,6 +17,7 @@ body{
   height: 30px;
   display: flex;
   justify-content: start;
+  position: fixed;
 }
 .seta{
   margin: 10px;
@@ -36,25 +40,108 @@ h5 span{
   padding: 0 30px;
   font-weight: 700;
 }
-.secao{
-  position: relative;
+
+.pai {
   width: 100%;
-  display: block;
-  text-align: center;
-}
-.titulo{
-  font-size: 25px;
-}
-.formulario{
-  min-height: 80vh;
-}
-.centro{
-  margin: auto;
-  height: 550px;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .box {
+      width: 60%;
+      height: 70%;
+      display: flex;
+      box-shadow: 10px 8px 25px -8px black;
+  }
+
+  .form {
+      width: 50%;
+      background-color: #076793;
+
+      .logo {
+          display: flex;
+      }
+
+      .logo img {
+          width: 22%;
+      }
+
+      .texto {
+          margin-top: 5%;
+          display: flex;
+          justify-content: center;
+      }
+
+      .mensagem {
+          display: flex;
+          flex-direction: column;
+          color: #fff;
+          text-align: left;
+          font-size: 40px
+      }
+
+      .inputs {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 5%;
+      }
+
+      .inputs input {
+          margin: 2%;
+          width: 80%;
+          height: 40px;
+          background-color: #076793;
+          opacity: 1;
+          border: 1px solid #fff;
+          border-radius: 5px;
+          padding: 5px;
+          font-size: 16px;
+          color: #fff;
+      }
+
+      .inputs input::placeholder {
+          color: #fff;
+      }
+
+      .box_esqueceu_senha {
+          width: 90%;
+          display: flex;
+          justify-content: flex-end;
+      }
+
+      .esq_senha a {
+          font-size: small;
+          color: #ddd;
+      }
+
+      .inputs button {
+          margin-top: 5%;
+          background-color: #119DDE;
+          border-radius: 7px;
+          border-style: none;
+          width: 50%;
+          height: 40px;
+          color: #fff;
+      }
+  }
+
+  .img {
+      width: 50%;
+      background-color: #0E1339;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .img img {
+      margin-top: 10%;
+      width: 70%;
+      height: 80%;
+  }
 }
+
 .escolha{
   display: flex;
   justify-content: center;
