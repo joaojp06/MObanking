@@ -279,7 +279,7 @@
   </div>
   <div class="grafico-box" id="receberGraficoDados">
     <h2>Uso DISCO </h2>
-    <canvas id="graficosDISCO-box"></canvas>
+    <canvas id="graficoDISCO-box"></canvas>
   </div>
   
   
@@ -404,7 +404,7 @@
             servidores.forEach((registro) => {
 
               listagemServidores.innerHTML +=
-                `<div onclick="abrirModal(${registro.id_servidor}, ${status})" class="card">
+                `<div onclick="abrirModal(${registro.id_servidor}, ${status}), AtualizarGraficos(${registro.id_servidor})" class="card">
               <h2>ID: ${registro.id_servidor}</h2>
               <div class="back-image-card"></div>
               <div class="indicadores-box">
@@ -428,7 +428,7 @@
           } else if (planoEmpresa == 2) {
             servidores.forEach((registro) => {
               listagemServidores.innerHTML +=
-                `<div onclick="abrirModal(${registro.id_servidor}, ${status})" class="card">
+                `<div onclick="abrirModal(${registro.id_servidor}, ${status}), AtualizarGraficos(${registro.id_servidor})" class="card">
               <h2>ID: ${registro.id_servidor}</h2>
               <div class="back-image-card"></div>
               <div class="indicadores-box">
