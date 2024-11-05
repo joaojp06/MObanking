@@ -75,7 +75,7 @@
 
   <div style="display: none" class="modal" id="modal">
     <i onclick="fecharModal()" id="closeModal" class="fa-solid fa-x"></i>
-    <h1>Gráficos</h1>
+    
     <div id="modalGraficos">
       <!-- Essa parte recebe de forma dinâmica(fkPlano) os gráficos que são exibidos em tempo real -->
     </div>
@@ -712,7 +712,7 @@
       if (idServidorPar) { // Certifique-se de que o parâmetro está definido
         obterDadosGrafico(idServidorPar); // Atualize o gráfico com o parâmetro atual
       }
-    }, 3000); // Intervalo de 3 segundos
+    }, 5000); // Intervalo de 3 segundos
   }
 
 

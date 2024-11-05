@@ -93,6 +93,7 @@
     const frameGraficos = document.getElementById('frameGraficos')
     if (sessionStorage.ID_PLANO == 1) {
         frameGraficos.innerHTML = `
+        <div class= "container">
         <span class="tituloGraficos">CPU</span>
 
                 <input id="cpuInput1" type="date" class="input1 custom-date">
@@ -104,7 +105,8 @@
                 <button class="pesquisarButton">Pesquisar</button>
 
                 <canvas id="graficoCPU-box"></canvas>
-
+<div>
+    <div class= "container">
 
                 <!-- Seção da Memória -->
                 <span class="tituloGraficos">Memória</span>
@@ -116,7 +118,7 @@
                 <input type="date" class="input2 custom-date">
                 <button class="pesquisarButton">Pesquisar</button>
                 <canvas id="graficoRAM-box">GRÁFICOS</canvas>
-
+<div>
             
                     
         `
@@ -124,6 +126,7 @@
 
     if (sessionStorage.ID_PLANO == 2) {
         frameGraficos.innerHTML = `
+        <div class= "container">
         <span class="tituloGraficos">CPU</span>
 
                 <input id="cpuInput1" type="date" class="input1 custom-date">
@@ -135,7 +138,8 @@
                 <button class="pesquisarButton">Pesquisar</button>
 
                 <canvas id="graficoCPU-box"></canvas>
-
+        <div>
+        <div class= "container">
 
                 <!-- Seção da Memória -->
                 <span class="tituloGraficos">Memória</span>
@@ -147,7 +151,8 @@
                 <input type="date" class="input2 custom-date">
                 <button class="pesquisarButton">Pesquisar</button>
                 <canvas id="graficoRAM-box">GRÁFICOS</canvas>
-
+            <div>
+                <div class= "container">
                 <!-- Seção da Disco -->
                 <span class="tituloGraficos">Disco</span>
 
@@ -159,7 +164,7 @@
                 <button class="pesquisarButton">Pesquisar</button>
                 <canvas id="graficoDISCO-box"></canvas>
 
-                
+                <div>
                     
         `
     }

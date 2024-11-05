@@ -22,20 +22,19 @@
 }
 
 #frameGraficos {
-
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    /* gap: 13px; */
-    max-height: 85vh;
-    /* overflow: auto; */
+    grid-template-columns: repeat(2, 1fr); /* Define duas colunas fixas */
+    gap: 13px;
     max-width: 85vw;
-    width: 80vw;
-
+    width: 70vw;
+    justify-items: center;
 }
+
+
 
 canvas {
     width: 30vw !important;
-    height: 30vh !important;
+    height: 25vh !important;
     /* margin: 0 auto; */
     margin-bottom: 7%;
     margin-top: 3%;
