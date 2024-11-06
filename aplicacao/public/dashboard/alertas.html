@@ -68,10 +68,13 @@
                     <p>Identificador</p>
                 </div>
                 <div class="titulo-status">
-                    <p>Servidor código</p>
+                    <p>Função</p>
                 </div>
                 <div class="titulo-componentes">
                     <p>Componente(s)</p>
+                </div>
+                <div class="titulo-descricao">
+                    <p>Descrição</p>
                 </div>
             </div>
             <div id="listagemAlertas" class="lista">
@@ -190,13 +193,16 @@
                                         <b>${dataFormatada}</b>
                                     </div>
                                     <div class="identificador">
-                                        <b>${registro.alerta_id}</b>
+                                        <b>${registro.servidor_apelido}</b>
                                     </div>
                                     <div class="status">
-                                        <b>${registro.id_servidor}</b>
+                                        <b>${registro.servidor_funcao}</b>
                                     </div>
                                     <div class="componente">
                                         <b>${registro.nome_servico}</b>
+                                    </div>
+                                    <div class="descricao">
+                                        <b>${registro.alerta_descricao}</b>
                                     </div>
                                 </div>
                                 <div class="linha-colunas"></div>

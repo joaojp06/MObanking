@@ -62,16 +62,22 @@
 }
 
 .titulo-data {
-    width: 12.9vw;
+    width: 12vw;
 }
 
 .titulo-identificador {
-    width: 17vw;
+    width: 8vw;
 }
 
 .titulo-status {
-    width: 13.5vw;
+    width: 18vw;
 }
+
+.titulo-componentes{
+    width: 10vw;
+}
+
+
 
 .colunas {
     display: flex;
@@ -132,16 +138,21 @@
 }
 
 .data {
-    width: 12.9vw;
+    width: 12vw;
+}
+
+.componente{
+    width: 10vw;
 }
 
 .identificador {
-    width: 17vw;
+    width: 8vw;
 }
 
 .status {
-    width: 13.5vw;
+    width: 18vw;
 }
+
 
 /* Estilo do Modal */
 .modalFiltro {

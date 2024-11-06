@@ -113,14 +113,7 @@ function listarAlertas(idEmpresa, tipo, filtroServidor) {
   );
   var instrucaoSql = `
         SELECT 
-    alerta_id, 
-    alerta_descricao, 
-    alerta_data, 
-    limite_valor, 
-    nome_servico, 
-    alerta_data, 
-    limite_unidade, 
-    id_servidor
+    *
 FROM 
     vw_alertas
 WHERE 
