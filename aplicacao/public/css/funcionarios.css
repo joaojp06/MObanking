@@ -171,7 +171,7 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    background: #2c2c2c;
+    background: linear-gradient(155deg, #407fa6, #084f70, #074764);
     color: white;
     width: 57vw;
     height: 75vh;
@@ -221,14 +221,14 @@
     }
 
     .form-box-pai::-webkit-scrollbar-thumb {
-        background-color: #2c2c2c;
+        background-color: #052f43;
         /* Cor do polegar da barra de rolagem */
         border-radius: 10px;
         /* Borda arredondada do polegar */
     }
 
     .form-box-pai::-webkit-scrollbar-thumb:hover {
-        background-color: #555;
+        background-color: #084d6d;
         /* Cor do polegar ao passar o mouse */
     }
 
@@ -264,17 +264,17 @@
         margin-top: 15px;
         margin-right: 40%;
         font-size: 18px;
-        background: white;
+        background: linear-gradient(155deg, #4d97c5, #0b6893);
         cursor: pointer;
-        border: 2px solid #2c2c2c;
-        color: #3f3f3f;
+        border: 0px solid #2c2c2c;
+        color: white;
         transition: all 0.3s ease;
     }
             
     & button:hover {
-        background-color: #A9A9A9;
+        background: linear-gradient(155deg, #478ab4, #0b648e);
         color: white;
-        transform: scale(1.05);
+        transform: scale(1.02);
         box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
     }
 
@@ -290,4 +290,19 @@
     /* Aplica o desfoque */
     transition: filter 0.3s ease-in-out;
     /* Transição suave do desfoque */
+}
+
+input[type=number]::-webkit-inner-spin-button { 
+    -webkit-appearance: none;
+}
+input[type=number] { 
+   -moz-appearance: textfield;
+   appearance: textfield;
+}
+
+select {
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    appearance: none; 
+    background-image: none; 
 }

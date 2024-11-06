@@ -172,8 +172,9 @@ canvas {
 /* ---------- MODAL ---------- */
 
 .modal {
+    color: white;
     width: 90vw;
-    background-color: #d9d9d9;
+    background: linear-gradient(155deg, #407fa6, #084f70, #042e41);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -188,7 +189,7 @@ canvas {
         right: 2%;
         top: 3%;
         font-size: 30px;
-        color: rgb(0, 0, 0);
+        color: rgb(255, 255, 255);
         cursor: pointer;
 
     }
