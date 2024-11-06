@@ -47,7 +47,6 @@ function autenticar(req, res) {
     }
 }
 
-
 function cadastrar(req, res) {
     var fkEmpresa = req.body.fkEmpresa
     var nome = req.body.nomeServer;
@@ -101,7 +100,7 @@ function listarFuncionarios(req, res) {
     });
   }
 
-  function infoUsuario(req, res) {
+function infoUsuario(req, res) {
     var idUsuario = req.params.idUsuario;
   
     usuarioModel.infoUsuario(idUsuario).then((resultado) => {
@@ -117,7 +116,7 @@ function listarFuncionarios(req, res) {
     });
   }
 
-  function listarTipoUsuario(req, res) {
+function listarTipoUsuario(req, res) {
     
   
     usuarioModel.listarTipoUsuario().then((resultado) => {
@@ -133,7 +132,7 @@ function listarFuncionarios(req, res) {
     });
   }
 
-  function editarUsuario(req, res) {
+function editarUsuario(req, res) {
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
@@ -218,6 +217,67 @@ function removerUsuario(req, res) {
       });
 }
 
+function recuperarSenha(req, res) {
+    var email = req.body.emailServer;
+    var cpf = req.body.cpfServer;
+
+    if (email == undefined) {
+        res.status(400).send("Seu email está undefined!");
+    } else if (cpf == undefined) {
+        res.status(400).send("Seu CPF está undefined!");
+    } else {
+
+        usuarioModel.recuperarSenha(email, cpf)
+            .then(
+                function (resultadoRecuperar) {
+                    console.log(`\nResultados encontrados: ${resultadoRecuperar.length}`);
+                    if (resultadoRecuperar.length == 1) {
+                        console.log(resultadoRecuperar);
+
+                        res.status(200).json(resultadoRecuperar);
+                    } else if (resultadoRecuperar.length == 0) {
+                        console.log(resultadoRecuperar)
+                        res.status(403).send("Email e/ou CPF inválido(s)");
+                    } else {
+                        res.status(403).send("Mais de um usuário com o mesmo login e senha!");
+                    }
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
+function redefinirSenha(req, res) {
+    var senha = req.body.senhaServer;
+    var idUsuario = req.body.idUsuarioServer
+
+    // Faça as validações dos valores
+    if (senha == undefined) {
+        res.status(400).send("Sua senha está undefined!");  
+    } else {
+        usuarioModel.redefinirSenha(senha, idUsuario)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar a edição! Erro: to NA CONTROLLER ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+    }
+}
+
 module.exports = {
     autenticar,
     cadastrar,
@@ -226,5 +286,7 @@ module.exports = {
     listarTipoUsuario,
     infoUsuario,
     editarUsuarioADM,
-    removerUsuario
+    removerUsuario,
+    recuperarSenha,
+    redefinirSenha
 }

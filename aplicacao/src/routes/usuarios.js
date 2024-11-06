@@ -40,4 +40,12 @@ router.put("/removerUsuario/:idUsuario", function (req, res) {
     usuarioController.removerUsuario(req, res);
 });
 
+router.post("/recuperarSenha", function (req, res) {
+    usuarioController.recuperarSenha(req, res);
+});
+
+router.put("/redefinirSenha", function (req, res) {
+    usuarioController.redefinirSenha(req, res);
+});
+
 module.exports = router;

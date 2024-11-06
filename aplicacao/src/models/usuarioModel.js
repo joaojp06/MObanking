@@ -9,7 +9,6 @@ function autenticar(email, senha) {
     return database.executar(instrucaoSql);
 }
 
-
 function cadastrar(nome, email, cpf,senha, fkEmpresa, nivel) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente.");
     console.log("Parâmetros recebidos:", { nome, email, cpf, senha, fkEmpresa, nivel });
@@ -95,6 +94,27 @@ function removerUsuario(idUsuario) {
     return database.executar(instrucaoSql);
 }
 
+function recuperarSenha(email, cpf) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, cpf)
+    var instrucaoSql = `
+    select * from vw_usuario_empresa WHERE emailUsuario = '${email}' AND cpfUsuario = '${cpf}' AND status = 'Ativo';
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function redefinirSenha(senha, idUsuario) {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():");
+
+    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
+    //  e na ordem de inserção dos dados.
+    var instrucaoSql = `
+    update usuario set senha = '${senha}' where id = ${idUsuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     autenticar,
     cadastrar,
@@ -103,5 +123,7 @@ module.exports = {
     listarTipoUsuario,
     infoUsuario,
     editarUsuarioADM,
-    removerUsuario
+    removerUsuario,
+    recuperarSenha,
+    redefinirSenha
 };
