@@ -153,11 +153,17 @@ canvas {
     cursor: pointer;
     border-radius: 10px;
     border: none;
-    background: #2c2c2c;
+    background: linear-gradient(155deg, #4d97c5, #0b6893);
     color: white;
     font-size: 15px;
     margin: 0 auto;
     display: block;
+    transition: all 0.3s ease;
+}
+
+.desativarServidorButton:hover{
+    background: linear-gradient(155deg, #3e799e, #084d6d);
+    transform: scale(1.02);
 }
 
 .selectListarServidores{
@@ -333,12 +339,31 @@ canvas {
     cursor: pointer;
     border-radius: 10px;
     border: none;
-    background: #2c2c2c;
+    background: #0b6893;
     color: white;
     font-size: 15px;
+    transition: all 0.3s ease;
+    }
+    button:hover{
+        transform: scale(1.02);
     }
 
     & .boxInputs{
         display: flex;
     }
+}
+
+input[type=number]::-webkit-inner-spin-button { 
+    -webkit-appearance: none;
+}
+input[type=number] { 
+   -moz-appearance: textfield;
+   appearance: textfield;
+}
+
+select {
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    appearance: none; 
+    background-image: none; 
 }
