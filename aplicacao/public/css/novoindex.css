@@ -38,7 +38,7 @@ section {
     justify-content: space-between;
     padding: 0.7% 4%;
     margin-top: 1%;
-    background-color: #000000;
+    background: linear-gradient(to right, #076793, #054866);
     width: 85%;
     height: 80px;
     border-radius: 50px;
@@ -58,25 +58,23 @@ section {
   }
 
   nav ul li a {
-    color: #fff;
+    font-size: 130%;
+    /* font-weight: bold; */
+    color: #ffffff;
     text-decoration: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   }
 
   .botao_login {
-    background-color: #07648e;
-    color: #fff;
+    background-color: #119DDE;
     border: none;
     padding: 10px 20px;
     border-radius: 30px;
     cursor: pointer;
     font-family: "Nunito Sans";
-    font-size: 18px;
-  }
-
-  .botao_login {
+    font-size: 120%;
     text-decoration: none;
     color: #fff;
+    /* font-weight: bold; */
   }
 
   .conteudo_inicio {
