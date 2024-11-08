@@ -19,7 +19,7 @@
 
 </head>
 
-<body onload="listarServidores()">
+<body onload="listarServidores(),infoApelidoFuncaoServidor(idServidor)">
   <div id="frame" class="frame-aplicacao" style="display: flex">
     <nav class="menu-lateral">
       <img src="../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
@@ -243,7 +243,10 @@
 
   if (sessionStorage.ID_PLANO == 1) {
     modalGraficos.innerHTML = `
-    
+    <div class="div-inp">
+      <input id="inp_apelido" type="text">
+      <input id="inp_funcao" type="text">
+    </div>
     <div class="grafico-box">
     <h2>Uso CPU </h2>
     <canvas id="graficoCPU-box"></canvas>
@@ -268,7 +271,10 @@
   `
   } else if (sessionStorage.ID_PLANO == 2) {
     modalGraficos.innerHTML += `
-    
+    <div class="div-inp">
+      <input id="inp_apelido" type="text">
+      <input id="inp_funcao" type="text">
+    </div>
     <div class="grafico-box">
     <h2>Uso CPU </h2>
     <canvas id="graficoCPU-box"></canvas>
@@ -300,8 +306,11 @@
   `
   } else if (sessionStorage.ID_PLANO == 3) {
     modalGraficos.innerHTML += `
-    
-      <div class="grafico-box">
+    <div class="div-inp">
+      <input id="inp_apelido" type="text">
+      <input id="inp_funcao" type="text">
+    </div>
+    <div class="grafico-box">
       <h2>Uso CPU </h2>
       <canvas id="graficoCPU-box"></canvas>
     </div>
@@ -342,7 +351,7 @@
 
   nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
 
-  let idServidorPar
+  let idServidorPar;
 
   function abrirModal(id_servidor, status) {
     console.log(`ESSE É O ID DO MEU MODAL: ${id_servidor}`)
@@ -405,7 +414,8 @@
 
               listagemServidores.innerHTML +=
                 `<div onclick="abrirModal(${registro.id_servidor}, ${status}), AtualizarGraficos(${registro.id_servidor})" class="card">
-              <h2>ID: ${registro.id_servidor}</h2>
+              <h2 id="apelido_card">Apelido:</h2>
+              <h2 id="funcao_card">Função:</h2>
               <div class="back-image-card"></div>
               <div class="indicadores-box">
               <div class="indicador-pai">
@@ -429,7 +439,8 @@
             servidores.forEach((registro) => {
               listagemServidores.innerHTML +=
                 `<div onclick="abrirModal(${registro.id_servidor}, ${status}), AtualizarGraficos(${registro.id_servidor})" class="card">
-              <h2>ID: ${registro.id_servidor}</h2>
+              <h2 id="apelido_card">Apelido:</h2>
+              <h2 id="funcao_card">Função:</h2>
               <div class="back-image-card"></div>
               <div class="indicadores-box">
               <div class="indicador-pai">
@@ -463,7 +474,8 @@
             servidores.forEach((registro) => {
               listagemServidores.innerHTML +=
                 `<div onclick="abrirModal(${registro.id_servidor}, ${status}), AtualizarGraficos(${registro.id_servidor})" class="card">
-              <h2>ID: ${registro.id_servidor}</h2>
+              <h2 id="apelido_card">Apelido:</h2>
+              <h2 id="funcao_card">Função:</h2>
               <div class="back-image-card"></div>
               <div class="indicadores-box">
               <div class="indicador-pai"> 
@@ -649,6 +661,29 @@
     });
 
   }
+
+function infoApelidoFuncaoServidor(idServidor) {
+    idServidorPar = idServidor;
+    fetch(`/aquarios/infoApelidoFuncaoServidor/${idServidor}`, {
+        method: "GET",
+    })
+        .then(function (resposta) {
+          console.log("Status da resposta:", resposta.status); 
+            resposta.json().then((servidor) => {
+
+                servidor.forEach((registro) => {
+
+                  inp_apelido.value = registro.Apelido;
+                  apelido_card.value = registro.Apelido;
+                  inp_funcao.value = registro.Funcao;
+                  funcao_card.value = registro.Funcao;
+
+                });
+            });
+        })
+        .then(data => console.log("Dados recebidos:", data))
+        .catch(error => console.error("Erro na requisição:", error));
+}
 
   function listarLimite(id_servidor) {
     fetch(`/aquarios/listarLimite/${id_servidor}`, {

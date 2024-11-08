@@ -116,6 +116,22 @@ function listarServidores(req, res) {
   });
 }
 
+function infoApelidoFuncaoServidor(req, res) {
+  var idServidor = req.params.idServidor;
+
+  aquarioModel.infoApelidoFuncaoServidor(idServidor).then((resultado) => {
+    if (resultado.length > 0) {
+      res.status(200).json(resultado);
+    } else {
+      res.status(204).json([]);
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+    console.log("Houve um erro ao obter informações do servidor desejado: ", erro.sqlMessage);
+    res.status(500).json(erro.sqlMessage);
+  });
+}
+
 function listarLimite(req, res) {
   var idServidor = req.params.id_servidor;
 
@@ -198,6 +214,7 @@ module.exports = {
   buscarAquariosPorEmpresa,
   cadastrar,
   listarServidores,
+  infoApelidoFuncaoServidor,
   desativarServidor,
   ativarServidor,
   listarLimite,
