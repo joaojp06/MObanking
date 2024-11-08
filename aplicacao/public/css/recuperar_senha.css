@@ -11,226 +11,260 @@ body {
   text-align: center;
 }
 
-.voltar{
-    width: 100%;
-    height: 30px;
-    display: flex;
-    justify-content: start;
-    position: fixed;
+.voltar {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: start;
+  position: fixed;
 
-    .seta{
+  .seta {
     margin: 10px;
   }
-  .seta a{
+  .seta a {
     text-decoration: none;
   }
   a:hover {
-      text-decoration: none;
+    text-decoration: none;
   }
-  }
-  
+}
 
 .pai {
-    width: 100%;
-    height: 100vh;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .box {
+    width: 60%;
+    height: 70%;
+    display: flex;
+    box-shadow: 10px 8px 25px -8px black;
+  }
+
+  .form_recuperar {
+    width: 50%;
+    background: linear-gradient(to bottom, #076793, #054866);
+
+    .logo {
+      display: flex;
+    }
+
+    .logo img {
+      width: 22%;
+    }
+
+    .texto {
+      margin-top: 5%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .mensagem {
+      width: 70%;
+      display: flex;
+      flex-direction: column;
+      color: #fff;
+      text-align: left;
+      font-size: 40px;
+    }
+
+    .inputs {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 5%;
+    }
+
+    .inputs input {
+      margin: 2%;
+      width: 76%;
+      height: 40px;
+      background-color: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 5px;
+      padding: 5px;
+      font-size: 16px;
+      color: #fff;
+      box-shadow: 2.5px 1.5px 15px -5.5px black;
+      transition: border-color 0.4s, box-shadow 0.4s;
+    }
+
+    .inputs input:hover {
+      border-color: #007bff;
+      box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+    }
+
+    .inputs input::placeholder {
+      color: #fff;
+      opacity: 0.65;
+    }
+
+    .inputs input:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+    .box_esqueceu_senha {
+      width: 90%;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .esq_senha a {
+      font-size: small;
+      color: #ddd;
+    }
+
+    .inputs button {
+      margin-top: 5%;
+      background-color: #119dde;
+      border-radius: 7px;
+      border-style: none;
+      width: 45%;
+      height: 40px;
+      font-size: 110%;
+      color: #fff;
+      box-shadow: 8px 5px 15px -5.5px black;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .inputs button:hover {
+      background-color: #007bff;
+      transform: scale(1.045);
+    }
+  }
+
+  .form_redefinir {
+    width: 50%;
+    background: linear-gradient(to bottom, #076793, #054866);
+
+    .logo {
+      display: flex;
+    }
+
+    .logo img {
+      width: 22%;
+    }
+
+    .texto {
+      margin-top: 5%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .mensagem {
+      width: 70%;
+      display: flex;
+      flex-direction: column;
+      color: #fff;
+      text-align: left;
+      font-size: 40px;
+    }
+
+    .inputs {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 5%;
+    }
+
+    .inputs input {
+      margin: 2%;
+      width: 76%;
+      height: 40px;
+      background-color: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 5px;
+      padding: 5px;
+      font-size: 16px;
+      color: #fff;
+      box-shadow: 2.5px 1.5px 15px -5.5px black;
+      transition: border-color 0.4s, box-shadow 0.4s;
+    }
+
+    .inputs input:hover {
+      border-color: #007bff;
+      box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+    }
+
+    .inputs input::placeholder {
+      color: #fff;
+      opacity: 0.65;
+    }
+
+    .inputs input:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+    .box_esqueceu_senha {
+      width: 90%;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .esq_senha a {
+      font-size: small;
+      color: #ddd;
+    }
+
+    .inputs button {
+      margin-top: 5%;
+      background-color: #119dde;
+      border-radius: 7px;
+      border-style: none;
+      width: 40%;
+      height: 35px;
+      font-size: 110%;
+      color: #fff;
+      box-shadow: 8px 5px 15px -5.5px black;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .inputs button:hover {
+        background-color: #007bff;
+        transform: scale(1.045);
+      }
+  }
+
+  .img {
+    width: 50%;
+    background-color: #0e1339;
+  }
+
+  .img div {
     display: flex;
     justify-content: center;
     align-items: center;
-  
-    .box {
-        width: 60%;
-        height: 70%;
-        display: flex;
-        box-shadow: 10px 8px 25px -8px black;
-    }
-
-    .form_recuperar {
-        width: 50%;
-        background: linear-gradient(to bottom, #076793, #054866);
-  
-        .logo {
-            display: flex;
-        }
-  
-        .logo img {
-            width: 22%;
-        }
-  
-        .texto {
-            margin-top: 5%;
-            display: flex;
-            justify-content: center;
-        }
-  
-        .mensagem {
-            width: 70%;
-            display: flex;
-            flex-direction: column;
-            color: #fff;
-            text-align: left;
-            font-size: 40px
-        }
-  
-        .inputs {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 5%;
-        }
-  
-        .inputs input {
-            margin: 2%;
-            width: 76%;
-            height: 40px;
-            background-color: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 5px;
-            padding: 5px;
-            font-size: 16px;
-            color: #fff;
-            box-shadow: 2.5px 1.5px 15px -5.5px black;
-        }
-  
-        .inputs input::placeholder {
-            color: #fff;
-            opacity: 0.65;
-        }
-  
-        .box_esqueceu_senha {
-            width: 90%;
-            display: flex;
-            justify-content: flex-end;
-        }
-  
-        .esq_senha a {
-            font-size: small;
-            color: #ddd;
-        }
-  
-        .inputs button {
-            margin-top: 5%;
-            background-color: #119DDE;
-            border-radius: 7px;
-            border-style: none;
-            width: 45%;
-            height: 40px;
-            font-size: 110%;
-            color: #fff;
-            box-shadow: 8px 5px 15px -5.5px black;
-        }
-    }
-  
-    .form_redefinir {
-        width: 50%;
-        background: linear-gradient(to bottom, #076793, #054866);
-  
-        .logo {
-            display: flex;
-        }
-  
-        .logo img {
-            width: 22%;
-        }
-  
-        .texto {
-            margin-top: 5%;
-            display: flex;
-            justify-content: center;
-        }
-  
-        .mensagem {
-            width: 70%;
-            display: flex;
-            flex-direction: column;
-            color: #fff;
-            text-align: left;
-            font-size: 40px
-        }
-  
-        .inputs {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 5%;
-        }
-  
-        .inputs input {
-            margin: 2%;
-            width: 76%;
-            height: 40px;
-            background-color: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 5px;
-            padding: 5px;
-            font-size: 16px;
-            color: #fff;
-            box-shadow: 2.5px 1.5px 15px -5.5px black;
-        }
-  
-        .inputs input::placeholder {
-            color: #fff;
-            opacity: 0.65;
-        }
-  
-        .box_esqueceu_senha {
-            width: 90%;
-            display: flex;
-            justify-content: flex-end;
-        }
-  
-        .esq_senha a {
-            font-size: small;
-            color: #ddd;
-        }
-  
-        .inputs button {
-            margin-top: 5%;
-            background-color: #119DDE;
-            border-radius: 7px;
-            border-style: none;
-            width: 40%;
-            height: 35px;
-            font-size: 110%;
-            color: #fff;
-            box-shadow: 8px 5px 15px -5.5px black;
-        }
-    }
-  
-    .img {
-        width: 50%;
-        background-color: #0E1339;
-    }
-
-    .img div {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-    }
-  
-    .img .recuperar {
-        height: 85%;
-        filter: drop-shadow(18px 10px 1px rgba(0, 0, 0, 0.5));
-    }
-
-    .img .redefinir {
-        height: 70%;
-        filter: drop-shadow(18px 10px 1px rgba(0, 0, 0, 0.8));
-    }
+    width: 100%;
+    height: 100%;
   }
 
-  input[type=number]::-webkit-inner-spin-button { 
-    -webkit-appearance: none;
+  .img .recuperar {
+    height: 85%;
+    filter: drop-shadow(18px 10px 1px rgba(0, 0, 0, 0.5));
+  }
+
+  .img .redefinir {
+    height: 70%;
+    filter: drop-shadow(18px 10px 1px rgba(0, 0, 0, 0.8));
+  }
 }
-input[type=number] { 
-   -moz-appearance: textfield;
-   appearance: textfield;
+
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 select {
-    -webkit-appearance: none;
-    -moz-appearance: none; 
-    appearance: none; 
-    background-image: none; 
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: none;
 }
