@@ -23,9 +23,10 @@ router.get("/listarServidores/:idEmpresa/:status", function (req, res) {
   aquarioController.listarServidores(req, res);
 })
 
-router.get("/infoApelidoFuncaoServidor/:idServidor/:status", function (req, res) {
-  aquarioController.infoApelidoFuncaoServidor(req, res);
+router.get("/listarApelidoFuncaoInput/:id_servidor", function (req, res) {
+  aquarioController.listarApelidoFuncaoInput(req, res);
 })
+
 
 router.get("/listarLimite/:id_servidor", function (req, res) {
   aquarioController.listarLimite(req, res);

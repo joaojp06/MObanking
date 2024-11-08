@@ -19,7 +19,7 @@
 
 </head>
 
-<body onload="listarServidores(),infoApelidoFuncaoServidor(idServidor)">
+<body onload="listarServidores(), listarApelidoFuncaoInp(id_servidor)">
   <div id="frame" class="frame-aplicacao" style="display: flex">
     <nav class="menu-lateral">
       <img src="../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
@@ -76,7 +76,7 @@
   <div style="display: none" class="modal" id="modal">
     <i onclick="fecharModal()" id="closeModal" class="fa-solid fa-x"></i>
     
-    <div id="modalGraficos">
+    <div id="modalGraficos" onclick="listarApelidoFuncaoInp(id_servidor)">
       <!-- Essa parte recebe de forma dinâmica(fkPlano) os gráficos que são exibidos em tempo real -->
     </div>
     <h1>Limites dos componentes</h1>
@@ -414,8 +414,8 @@
 
               listagemServidores.innerHTML +=
                 `<div onclick="abrirModal(${registro.id_servidor}, ${status}), AtualizarGraficos(${registro.id_servidor})" class="card">
-              <h2 id="apelido_card">Apelido:</h2>
-              <h2 id="funcao_card">Função:</h2>
+              <h2 id="apelido_card">${registro.apelido}</h2>
+              <h2 id="funcao_card">${registro.funcao}</h2>
               <div class="back-image-card"></div>
               <div class="indicadores-box">
               <div class="indicador-pai">
@@ -439,8 +439,8 @@
             servidores.forEach((registro) => {
               listagemServidores.innerHTML +=
                 `<div onclick="abrirModal(${registro.id_servidor}, ${status}), AtualizarGraficos(${registro.id_servidor})" class="card">
-              <h2 id="apelido_card">Apelido:</h2>
-              <h2 id="funcao_card">Função:</h2>
+              <h2 id="apelido_card">${registro.apelido}</h2>
+              <h2 id="funcao_card">${registro.funcao}</h2>
               <div class="back-image-card"></div>
               <div class="indicadores-box">
               <div class="indicador-pai">
@@ -474,8 +474,8 @@
             servidores.forEach((registro) => {
               listagemServidores.innerHTML +=
                 `<div onclick="abrirModal(${registro.id_servidor}, ${status}), AtualizarGraficos(${registro.id_servidor})" class="card">
-              <h2 id="apelido_card">Apelido:</h2>
-              <h2 id="funcao_card">Função:</h2>
+              <h2 id="apelido_card">${registro.apelido}</h2>
+              <h2 id="funcao_card">${registro.funcao}</h2>
               <div class="back-image-card"></div>
               <div class="indicadores-box">
               <div class="indicador-pai"> 
@@ -662,29 +662,6 @@
 
   }
 
-function infoApelidoFuncaoServidor(idServidor) {
-    idServidorPar = idServidor;
-    fetch(`/aquarios/infoApelidoFuncaoServidor/${idServidor}`, {
-        method: "GET",
-    })
-        .then(function (resposta) {
-          console.log("Status da resposta:", resposta.status); 
-            resposta.json().then((servidor) => {
-
-                servidor.forEach((registro) => {
-
-                  inp_apelido.value = registro.Apelido;
-                  apelido_card.value = registro.Apelido;
-                  inp_funcao.value = registro.Funcao;
-                  funcao_card.value = registro.Funcao;
-
-                });
-            });
-        })
-        .then(data => console.log("Dados recebidos:", data))
-        .catch(error => console.error("Erro na requisição:", error));
-}
-
   function listarLimite(id_servidor) {
     fetch(`/aquarios/listarLimite/${id_servidor}`, {
       method: "GET",
@@ -709,10 +686,26 @@ function infoApelidoFuncaoServidor(idServidor) {
       });
   }
 
+  function listarApelidoFuncaoInp(id_servidor) {
+    fetch(`/aquarios/listarApelidoFuncaoInp/${id_servidor}`, {
+      method: "GET",
+    })
+      .then(function (resposta) {
 
+        resposta.json().then((ApelidoFuncao) => {
+          ApelidoFuncao.forEach((registro) => {
 
+            inp_apelido.value = registro.apelido;
+            inp_funcao.value = registro.funcao
 
+          });
+        });
 
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
 
   function obterDadosGrafico(idServidorParFun) {
 
