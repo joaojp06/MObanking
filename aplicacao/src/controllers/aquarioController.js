@@ -176,7 +176,7 @@ function editarLimiteServidor(req, res) {
           res.status(500).json(erro.sqlMessage);
         }
       );
-  }else if(idPlano == 2){
+  } else if (idPlano == 2) {
     aquarioModel.editarLimiteServidorPlano2(idServidor, limiteCpu, limiteRam, limiteDisco)
       .then(
         function (resultado) {
@@ -192,7 +192,7 @@ function editarLimiteServidor(req, res) {
           res.status(500).json(erro.sqlMessage);
         }
       );
-  }else if(idPlano == 3){
+  } else if (idPlano == 3) {
     aquarioModel.editarLimiteServidorPlano3(idServidor, limiteCpu, limiteRam, limiteDisco, limiteRede)
       .then(
         function (resultado) {
@@ -211,6 +211,29 @@ function editarLimiteServidor(req, res) {
   }
 }
 
+function editarInfoServidor(req, res) {
+  var idServidor = req.body.idServidorServer;
+  var apelidoServidor = req.body.apelidoServidorServer;
+  var funcaoServidor = req.body.funcaoServidorServer;
+
+  aquarioModel.editarInfoServidor(idServidor, apelidoServidor, funcaoServidor)
+    .then(
+      function (resultado) {
+        res.json(resultado);
+      }
+    ).catch(
+      function (erro) {
+        console.log(erro);
+        console.log(
+          "\nHouve um erro ao realizar a edição! Erro: to NA CONTROLLER ",
+          erro.sqlMessage
+        );
+        res.status(500).json(erro.sqlMessage);
+      }
+    );
+
+}
+
 module.exports = {
   buscarAquariosPorEmpresa,
   cadastrar,
@@ -219,5 +242,6 @@ module.exports = {
   desativarServidor,
   ativarServidor,
   listarLimite,
-  editarLimiteServidor
+  editarLimiteServidor,
+  editarInfoServidor
 }

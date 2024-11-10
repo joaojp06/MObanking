@@ -115,6 +115,20 @@ WHERE fkServidor = ${idServidor} AND fkServico IN (1, 2, 3, 4);
   return database.executar(instrucaoSql);
 }
 
+function editarInfoServidor(idServidor, apelidoServidor, funcaoServidor) {
+  console.log(
+    "ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editarInfoServidor()"
+  );
+  var instrucaoSql = `
+  UPDATE servidor 
+SET apelido = ${apelidoServidor}, funcao = ${funcaoServidor}
+WHERE id = ${idServidor};
+
+  `;
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
 module.exports = {
   buscarAquariosPorEmpresa,
   cadastrar,
@@ -125,5 +139,6 @@ module.exports = {
   listarApelidoFuncaoInput,
   editarLimiteServidorPlano1,
   editarLimiteServidorPlano2,
-  editarLimiteServidorPlano3
+  editarLimiteServidorPlano3,
+  editarInfoServidor
 };

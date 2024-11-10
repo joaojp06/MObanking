@@ -36,4 +36,8 @@ router.put("/editarLimiteServidor", function (req, res) {
   aquarioController.editarLimiteServidor(req, res);
 })
 
+router.put("/editarInfoServidor", function (req, res) {
+  aquarioController.editarInfoServidor(req, res);
+})
+
 module.exports = router;

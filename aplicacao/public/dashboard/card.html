@@ -75,10 +75,23 @@
 
   <div style="display: none" class="modal" id="modal">
     <i onclick="fecharModal()" id="closeModal" class="fa-solid fa-x"></i>
-    
+
     <div id="modalGraficos" onclick="listarApelidoFuncaoInp(id_servidor)">
       <!-- Essa parte recebe de forma dinâmica(fkPlano) os gráficos que são exibidos em tempo real -->
     </div>
+
+    <div class="div-inp">
+      <h1> Informações do Servidor </h1>
+      <br>
+      <label>
+        <b>Apelido: </b><input id="input_apelido" type="text">
+      </label>
+      <label>
+        <b>Função: </b><input id="input_funcao" type="text">
+      </label>
+      <button onclick="editarInfoServidor(idServidorPar)">Editar</button>
+    </div>
+
     <h1>Limites dos componentes</h1>
     <div class="mudarLimiteBox">
       <div class="boxInputs" id="mudarLimiteBox">
@@ -306,10 +319,7 @@
   `
   } else if (sessionStorage.ID_PLANO == 3) {
     modalGraficos.innerHTML += `
-    <div class="div-inp">
-      <input id="inp_apelido" type="text">
-      <input id="inp_funcao" type="text">
-    </div>
+    
     <div class="grafico-box">
       <h2>Uso CPU </h2>
       <canvas id="graficoCPU-box"></canvas>
@@ -326,6 +336,7 @@
       <h2>Mb REDE </h2>
       <canvas id="graficoREDE-box"></canvas>
     </div>
+    
     
     `
 
@@ -604,6 +615,50 @@
 
   }
 
+  function editarInfoServidor(idServidorPar) {
+
+    var idServidor = idServidorPar
+
+    var apelidoServidor = input_apelido.value
+    var funcaoServidor = input_funcao.value
+
+    fetch(`/aquarios/editarInfoServidor`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+
+        idServidorServer: idServidor,
+        ApelidoServidorServer: apelidoServidor,
+        FuncaoServidorServer: funcaoServidor
+
+      }),
+    }).then(function (resposta) {
+      console.log("resposta: ", resposta);
+
+      if (resposta.ok) {
+
+        usoCardMensagemSucesso()
+        descCardSucesso.innerHTML = `Edição de limite realizada`
+
+        setTimeout(() => {
+          fecharModal();
+        }, "1000");
+
+
+      } else {
+        console.log(resposta);
+        throw "Houve um erro ao tentar realizar a edição!";
+      }
+    }).catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
+      return false;
+    });
+
+  }
+
+  
   function editarLimiteServidor(idServidorPar) {
 
     var idServidor = idServidorPar
@@ -755,16 +810,16 @@
     console.log('iniciando plotagem do gráfico...');
 
     if (graficoCpuInstance) {
-        graficoCpuInstance.destroy();
+      graficoCpuInstance.destroy();
     }
     if (graficoRamInstance) {
-        graficoRamInstance.destroy();
+      graficoRamInstance.destroy();
     }
     if (graficoDiscoInstance) {
-        graficoDiscoInstance.destroy();
+      graficoDiscoInstance.destroy();
     }
     if (graficoRedeInstance) {
-        graficoRedeInstance.destroy();
+      graficoRedeInstance.destroy();
     }
 
     // Criando estrutura para plotar gráfico - labels
@@ -1078,7 +1133,7 @@
       }
     });
 
-   
+
 
   }
 
