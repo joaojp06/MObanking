@@ -61,15 +61,16 @@
 }
 
 .container {
+    margin-bottom: 1%;
+    background: linear-gradient(to left, #214154, #032737);
     display: flex;
-    /* justify-content: space-between; */
+    justify-content: space-evenly;
     align-items: center;
     padding: 0.6%;
     border-radius: 15px;
     border: 1px solid #ccc;
-    background: linear-gradient(to left, #214154, #021923);
+    font-size: 110%;
     color: white;
-    margin-bottom: 1%;
 }
 
 .nome {
