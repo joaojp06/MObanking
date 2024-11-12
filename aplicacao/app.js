@@ -21,6 +21,14 @@ var avisosRouter = require("./src/routes/avisos");
 var medidasRouter = require("./src/routes/medidas");
 var aquariosRouter = require("./src/routes/aquarios");
 var empresasRouter = require("./src/routes/empresas");
+// -----------INDIVIDUAIS-----------
+var fabioRouter = require("./src/routes/fabio");
+var fariaRouter = require("./src/routes/faria");
+var joaoRouter = require("./src/routes/joao");
+var juliaRouter = require("./src/routes/julia");
+var kauaRouter = require("./src/routes/kaua");
+var maikonRouter = require("./src/routes/maikon");
+
 
 
 app.use(express.json());
@@ -35,6 +43,13 @@ app.use("/avisos", avisosRouter);
 app.use("/medidas", medidasRouter);
 app.use("/aquarios", aquariosRouter);
 app.use("/empresas", empresasRouter);
+// -----------INDIVIDUAIS-----------
+app.use("/fabio", fabioRouter);
+app.use("/faria", fariaRouter);
+app.use("/joao", joaoRouter);
+app.use("/julia", juliaRouter);
+app.use("/kaua", kauaRouter);
+app.use("/maikon", maikonRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`
