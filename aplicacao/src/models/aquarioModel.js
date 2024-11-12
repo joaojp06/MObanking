@@ -42,7 +42,18 @@ function listarLimite(idServidor) {
     "ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()"
   );
   var instrucaoSql = `
-  select * from vw_limites_servico where id_servidor = ${idServidor};
+  SELECT 
+    fkServidor,
+    MAX(CASE WHEN fkServico = 1 THEN valor END) AS limite_valor_cpu,
+    MAX(CASE WHEN fkServico = 2 THEN valor END) AS limite_valor_ram,
+    MAX(CASE WHEN fkServico = 3 THEN valor END) AS limite_valor_disco,
+    MAX(CASE WHEN fkServico = 4 THEN valor END) AS limite_valor_rede
+FROM 
+    limite_servico_monitorado
+WHERE 
+    fkServidor = ${idServidor}
+GROUP BY 
+    fkServidor;
   `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
