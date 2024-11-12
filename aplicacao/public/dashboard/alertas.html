@@ -38,6 +38,18 @@
                         <span class="titulo-link-menu">Alertas</span>
                     </a>
                 </li>
+                <li class="dashboard-item">
+                    <a href="javascript:void(0);" onclick="toggleSubmenu()">
+                        <span class="icon-menu"><i class="fa-solid fa-chart-pie"></i></span>
+                        <span class="titulo-link-menu">Dashboard </span> <i id="mais_simbolo" class="fa-solid fa-plus"></i> <i style="display: none;" id="menos_simbolo" class="fa-solid fa-minus"></i>
+                    </a>
+                    
+                </li>   
+                <div class="submenu">
+                    <li><a href="#">Maikon</a></li>
+                    <li><a href="#">JP</a></li>
+                    <li><a href="#">Fabio</a></li>
+                </div>
             </ul>
 
             <div class="name-menu">
@@ -47,12 +59,13 @@
             </div>
 
             <a class="buttonSair-menu" href="../index.html">
-                <h2 id="">Sair</h2>
+                <h2>Sair</h2>
             </a>
         </nav>
 
+
         <div class="conteudo">
-            <h1>Histórico de Alertas</h1>
+            <h1 onclick="minhaFuncao()">Histórico de Alertas</h1>
             <button onclick="modalFiltro()" class="botao-filtro">
                 <p>Filtro</p>
             </button>
@@ -108,6 +121,40 @@
     </div>
 
     <script>
+
+function toggleSubmenu() {
+    const submenu = document.querySelector('.submenu');
+    const mais = document.getElementById('mais_simbolo');
+    const menos = document.getElementById('menos_simbolo');
+    
+    // Alterna a exibição do submenu
+    submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+
+    // Alterna a exibição dos ícones "+" e "-"
+    if (submenu.style.display === 'block') {
+        mais.style.display = 'none';
+        menos.style.display = 'inline';
+    } else {
+        mais.style.display = 'inline';
+        menos.style.display = 'none';
+    }
+}
+
+function minhaFuncao(){
+    const submenu = document.querySelector('.submenu');
+    const mais = document.getElementById('mais_simbolo');
+    const menos = document.getElementById('menos_simbolo');
+    
+    // Fecha o submenu e reseta os ícones
+    submenu.style.display = 'none';
+    mais.style.display = 'inline';
+    menos.style.display = 'none';
+}
+
+
+
+
+
 
         const menuLaterealHTML = document.getElementById('menuLateralBox')
         var sessTipoUsuario = sessionStorage.ID_TIPO_USUARIO

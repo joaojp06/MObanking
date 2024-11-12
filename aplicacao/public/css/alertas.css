@@ -284,3 +284,22 @@ select {
     background: transparent;
     background-image: none; 
 }
+
+
+
+
+/* Estilos para o submenu */
+.submenu {
+     /* Oculta o submenu por padrão */
+    padding-left: 20px;
+}
+
+.submenu li {
+    padding: 5px 0;
+}
+
+.submenu li a {
+    color: white;
+    font-size: 16px;
+    text-decoration: none;
+}

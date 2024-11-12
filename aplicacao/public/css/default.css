@@ -40,6 +40,10 @@ Copie a seção abaixo em todas as página da dash, user, config user, etc
     display: flex;
     transition: all 0.8s;
     flex-direction: column;
+
+    & .submenu{
+        display: none;
+    }
 }
 
 .menu-lateral ul li {
@@ -60,6 +64,9 @@ Copie a seção abaixo em todas as página da dash, user, config user, etc
     border: 1px solid white;
     border-radius: 15px;
     width: 100%;
+
+    
+
 }
 
 .titulo-link-menu {
@@ -111,6 +118,7 @@ Copie a seção abaixo em todas as página da dash, user, config user, etc
 
 .menu-lateral:hover {
     width: 20vw;
+    
 }
 
 .menu-lateral li a {
