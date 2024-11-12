@@ -150,7 +150,7 @@
 
 .lista {
     width: 96%;
-    height: 73%;
+    max-height: 73%;
     overflow-y: auto;
     border: 1px solid #000000;
     border-radius: 20px;
