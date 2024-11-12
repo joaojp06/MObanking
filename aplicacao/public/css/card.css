@@ -43,7 +43,7 @@ body{
 }
 .card {
     width: 36vw;
-    height: 35vh;
+    height: auto;
     background: linear-gradient(155deg, #284f68, #032433);
     border-radius: 15px;
     color: white;
