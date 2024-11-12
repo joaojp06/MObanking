@@ -130,6 +130,7 @@ function listarAlertas(req, res) {
     var filtroServidor = req.params.filtroServidor;
     var filtroComponente = req.params.filtroComponente;
     var idEmpresa = req.params.idEmpresa;
+    
     if (filtroComponente == 0) {
         filtroComponente = '%'
     } else if (filtroComponente == 1) {

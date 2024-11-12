@@ -43,11 +43,11 @@ body{
 }
 .card {
     width: 36vw;
-    height: 27vh;
+    height: 35vh;
     background: linear-gradient(155deg, #284f68, #032433);
     border-radius: 15px;
     color: white;
-    padding: 9% 1%;
+    padding: 5% 1%;
     cursor: pointer;
     position: relative;
 
