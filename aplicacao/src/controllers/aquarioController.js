@@ -216,21 +216,35 @@ function editarInfoServidor(req, res) {
   var apelidoServidor = req.body.apelidoServidorServer;
   var funcaoServidor = req.body.funcaoServidorServer;
 
-  aquarioModel.editarInfoServidor(idServidor, apelidoServidor, funcaoServidor)
-    .then(
-      function (resultado) {
-        res.json(resultado);
-      }
-    ).catch(
-      function (erro) {
-        console.log(erro);
-        console.log(
-          "\nHouve um erro ao realizar a edição! Erro: to NA CONTROLLER ",
-          erro.sqlMessage
-        );
-        res.status(500).json(erro.sqlMessage);
-      }
-    );
+  if (idServidor == undefined) {
+    res.status(400).send("id SERVIDOR está undefined!");
+  } else if (apelidoServidor == undefined) {
+    res.status(400).send("apelido SERVIDOR está undefined!");
+  } else if (funcaoServidor == undefined) {
+    res.status(400).send("funcao SERVIDOR está undefined!");
+  }
+
+  else {
+
+    aquarioModel.editarInfoServidor(idServidor, apelidoServidor, funcaoServidor)
+      .then(
+        function (resultado) {
+          res.json(resultado);
+        }
+      ).catch(
+        function (erro) {
+          console.log(erro);
+          console.log(
+            "\nHouve um erro ao realizar a edição! Erro: to NA CONTROLLER ",
+            erro.sqlMessage
+          );
+          res.status(500).json(erro.sqlMessage);
+        }
+      );
+
+  }
+
+
 
 }
 
