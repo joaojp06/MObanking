@@ -19,7 +19,7 @@
 
 </head>
 
-<body onload="listarServidores(), listarApelidoFuncaoInp(id_servidor)">
+<body onload="listarServidores()">
   <div id="frame" class="frame-aplicacao" style="display: flex">
     <nav class="menu-lateral">
       <img src="../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
@@ -76,7 +76,7 @@
   <div style="display: none" class="modal" id="modal">
     <i onclick="fecharModal()" id="closeModal" class="fa-solid fa-x"></i>
 
-    <div id="modalGraficos" onclick="listarApelidoFuncaoInp(id_servidor)">
+    <div id="modalGraficos">
       <!-- Essa parte recebe de forma dinâmica(fkPlano) os gráficos que são exibidos em tempo real -->
     </div>
 
@@ -371,6 +371,7 @@
     }
 
     listarLimite(id_servidor)
+    listarApelidoFuncaoInp(id_servidor)
 
 
     // modal.display = "block"
@@ -633,7 +634,7 @@
       if (resposta.ok) {
 
         usoCardMensagemSucesso()
-        descCardSucesso.innerHTML = `Edição de limite realizada`
+        descCardSucesso.innerHTML = `Edição de informações realizada`
 
         setTimeout(() => {
           fecharModal();
@@ -735,7 +736,7 @@
   }
 
   function listarApelidoFuncaoInp(id_servidor) {
-    fetch(`/aquarios/listarApelidoFuncaoInp/${id_servidor}`, {
+    fetch(`/aquarios/listarApelidoFuncaoInput/${id_servidor}`, {
       method: "GET",
     })
       .then(function (resposta) {
@@ -743,8 +744,8 @@
         resposta.json().then((ApelidoFuncao) => {
           ApelidoFuncao.forEach((registro) => {
 
-            inp_apelido.value = registro.apelido;
-            inp_funcao.value = registro.funcao
+            input_apelido.value = registro.apelido;
+            input_funcao.value = registro.funcao
 
           });
         });

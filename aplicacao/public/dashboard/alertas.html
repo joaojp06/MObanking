@@ -41,7 +41,7 @@
                 <li class="dashboard-item">
                     <a href="javascript:void(0);" onclick="toggleSubmenu()">
                         <span class="icon-menu"><i class="fa-solid fa-chart-pie"></i></span>
-                        <span class="titulo-link-menu">Dashboard </span> <i id="mais_simbolo" class="fa-solid fa-plus"></i> <i style="display: none;" id="menos_simbolo" class="fa-solid fa-minus"></i>
+                        <span class="titulo-link-menu">Dashboard </span> <i class="fa-solid setaMenu fa-sort-down"></i>
                     </a>
                     
                 </li>   
@@ -124,19 +124,15 @@
 
 function toggleSubmenu() {
     const submenu = document.querySelector('.submenu');
-    const mais = document.getElementById('mais_simbolo');
-    const menos = document.getElementById('menos_simbolo');
+    const seta = document.querySelector('.fa-sort-down');
     
     // Alterna a exibição do submenu
     submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
 
-    // Alterna a exibição dos ícones "+" e "-"
     if (submenu.style.display === 'block') {
-        mais.style.display = 'none';
-        menos.style.display = 'inline';
+        seta.classList.add("girarSeta")
     } else {
-        mais.style.display = 'inline';
-        menos.style.display = 'none';
+        seta.classList.remove("girarSeta")
     }
 }
 

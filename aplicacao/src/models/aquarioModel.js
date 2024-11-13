@@ -51,7 +51,7 @@ function listarApelidoFuncaoInput(idServidor) {
     "ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()"
   );
   var instrucaoSql = `
-  select s.apelido, s.funcao from vw_servidor_card where id_servidor = ${idServidor};
+  select apelido, funcao from vw_servidor_card where id_servidor = ${idServidor};
   `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -119,8 +119,8 @@ function editarInfoServidor(idServidor, apelidoServidor, funcaoServidor) {
   );
   var instrucaoSql = `
   UPDATE servidor 
-SET apelido = ${apelidoServidor}, funcao = ${funcaoServidor}
-WHERE id = ${idServidor};
+  SET apelido = '${apelidoServidor}', funcao = '${funcaoServidor}'
+  WHERE id = ${idServidor};
 
   `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);

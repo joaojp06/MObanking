@@ -46,6 +46,14 @@ Copie a seção abaixo em todas as página da dash, user, config user, etc
     }
 }
 
+.girarSeta{
+    transform: rotate(180deg);
+}
+
+.setaMenu{
+    transition: all 0.3s;
+}
+
 .menu-lateral ul li {
     padding: 3%;
     transition: all 0.5s;
