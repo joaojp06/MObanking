@@ -67,7 +67,7 @@ Copie a seção abaixo em todas as página da dash, user, config user, etc
 }
 
 
-.menu-lateral:hover li:hover {
+.menu-aberto:hover li:hover {
     background-image: linear-gradient(158deg, #254960, #032535);
     border: 1px solid white;
     border-radius: 15px;
@@ -109,22 +109,22 @@ Copie a seção abaixo em todas as página da dash, user, config user, etc
     opacity: 0;
 }
 
-.menu-lateral:hover .titulo-link-menu {
+.menu-aberto:hover .titulo-link-menu {
     display: block;
     opacity: 1;
 }
 
-.menu-lateral:hover .titulo-menu {
+.menu-aberto:hover .titulo-menu {
     opacity: 1;
     transition: all 1s;
 }
 
-.menu-lateral:hover .name-menu,
-.menu-lateral:hover .buttonSair-menu {
+.menu-aberto:hover .name-menu,
+.menu-aberto:hover .buttonSair-menu {
     opacity: 1;
 }
 
-.menu-lateral:hover {
+.menu-aberto:hover {
     width: 20vw;
     
 }

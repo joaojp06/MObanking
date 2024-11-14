@@ -16,7 +16,7 @@
 
 <body onload="listarAlertas()">
     <div class="frame-aplicacao" style="display: flex;">
-        <nav class="menu-lateral" onmouseout="ocultarMenu()">
+        <nav class="menu-lateral" onmouseenter="exibirMenu()" onmouseleave="ocultarMenu()">
             <img src="../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
             <h2 class="titulo-menu">Menu</h2>
             <ul id="menuLateralBox">
@@ -43,9 +43,8 @@
                         <span class="icon-menu"><i class="fa-solid fa-chart-pie"></i></span>
                         <span class="titulo-link-menu">Dashboard </span> <i class="fa-solid setaMenu fa-sort-down"></i>
                     </a>
-                    
-                </li>   
-                <div class="submenu">
+                </li>
+                <div class="submenu" onmouseenter="manterSubmenu()" onmouseleave="fecharSubmenu()">
                     <li><a href="#">Maikon</a></li>
                     <li><a href="#">JP</a></li>
                     <li><a href="#">Fabio</a></li>
@@ -62,6 +61,7 @@
                 <h2>Sair</h2>
             </a>
         </nav>
+
 
 
         <div class="conteudo">
@@ -122,30 +122,37 @@
 
     <script>
 
-        // JavaScript
-        function toggleSubmenu() {
+let submenuAberto = false;
+
+function toggleSubmenu() {
     const submenu = document.querySelector('.submenu');
     const seta = document.querySelector('.fa-sort-down');
     
-    // Alterna a exibição do submenu
     submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+    submenuAberto = submenu.style.display === 'block';
 
-    if (submenu.style.display === 'block') {
+    if (submenuAberto) {
         seta.classList.add("girarSeta");
     } else {
         seta.classList.remove("girarSeta");
     }
 }
 
+function exibirMenu() {
+    const menuLateral = document.querySelector('.menu-lateral');
+    menuLateral.classList.add('menu-aberto');
+}
 
 function ocultarMenu() {
     const submenu = document.querySelector('.submenu');
     const seta = document.querySelector('.fa-sort-down');
 
-    // Fecha o submenu ao sair do menu
+    // Fecha o submenu e redefine o ícone de seta quando o mouse sai do nav
     submenu.style.display = 'none';
     seta.classList.remove("girarSeta");
+    submenuAberto = false;
 }
+
 
 
 
