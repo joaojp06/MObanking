@@ -16,7 +16,7 @@
 
 <body onload="listarAlertas()">
     <div class="frame-aplicacao" style="display: flex;">
-        <nav class="menu-lateral">
+        <nav class="menu-lateral" onmouseout="ocultarMenu()">
             <img src="../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
             <h2 class="titulo-menu">Menu</h2>
             <ul id="menuLateralBox">
@@ -122,7 +122,8 @@
 
     <script>
 
-function toggleSubmenu() {
+        // JavaScript
+        function toggleSubmenu() {
     const submenu = document.querySelector('.submenu');
     const seta = document.querySelector('.fa-sort-down');
     
@@ -130,22 +131,22 @@ function toggleSubmenu() {
     submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
 
     if (submenu.style.display === 'block') {
-        seta.classList.add("girarSeta")
+        seta.classList.add("girarSeta");
     } else {
-        seta.classList.remove("girarSeta")
+        seta.classList.remove("girarSeta");
     }
 }
 
-function minhaFuncao(){
+
+function ocultarMenu() {
     const submenu = document.querySelector('.submenu');
-    const mais = document.getElementById('mais_simbolo');
-    const menos = document.getElementById('menos_simbolo');
-    
-    // Fecha o submenu e reseta os ícones
+    const seta = document.querySelector('.fa-sort-down');
+
+    // Fecha o submenu ao sair do menu
     submenu.style.display = 'none';
-    mais.style.display = 'inline';
-    menos.style.display = 'none';
+    seta.classList.remove("girarSeta");
 }
+
 
 
 
