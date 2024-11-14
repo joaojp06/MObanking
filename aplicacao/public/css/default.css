@@ -55,14 +55,15 @@ Copie a seção abaixo em todas as página da dash, user, config user, etc
 }
 
 .menu-lateral ul li {
-    padding: 3%;
+    padding: 1%;
     transition: all 0.5s;
     width: 35%;
+    cursor: pointer;
 }
 
 .menu-lateral ul {
     position: absolute;
-    top: 18%;
+    top: 14%;
     left: 3%;
 }
 
