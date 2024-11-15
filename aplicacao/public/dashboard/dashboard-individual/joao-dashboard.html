@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="ptbr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MOBANKING</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="shortcut icon" href="../../imagens/logo.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="../../css/reset.css" />
+  <link rel="stylesheet" href="../../css/mensagemCard.css">
+  <link rel="stylesheet" href="../../css/card.css" />
+  <link rel="stylesheet" href="../../css/default.css" />
+  <link rel="stylesheet" href="../../css/cardConfirmacao.css">
+  <!-- scripts do Chart.js - 2022-1 -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body onload="listarServidores()">
+  <div id="frame" class="frame-aplicacao" style="display: flex">
+    <nav class="menu-lateral">
+      <img src="../../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
+      <!-- ../imagens/mobank-logo-menu-lateral.svg -->
+      <h2 class="titulo-menu">Menu</h2>
+
+      <ul id="menuLateralBox">
+        <li>
+          <a href="card.html">
+            <span class="icon-menu"><i class="fa-solid fa-server"></i></span>
+            <span class="titulo-link-menu">Máquinas</span>
+          </a>
+        </li>
+        <li>
+          <a href="dashboard.html">
+            <span class="icon-menu"><i class="fa-solid fa-chart-simple"></i></span>
+            <span class="titulo-link-menu">Gráficos</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="alertas.html">
+            <span class="icon-menu"><i class="fa-solid fa-triangle-exclamation"></i></span>
+            <span class="titulo-link-menu">Alertas</span>
+          </a>
+        </li>
+
+      </ul>
+
+      <div class="name-menu">
+        <a href="usuarioInfo.html">
+          <h2 id="nome_perfil_menu"></h2>
+        </a>
+      </div>
+      <a class="buttonSair-menu" href="../index.html">
+        <h2 id="">Sair</h2>
+      </a>
+    </nav>
+    <div class="conteudo">
+      <div style="display: flex; justify-content: space-between;">
+        <h1 onclick="alertaEstatico()">Máquinas</h1>
+        <select class="selectListarServidores" onchange="listarServidores()" id="selectListServidores">
+          <option value="ativo">Servidores ativos</option>
+          <option value="desativado">Servidores desativados</option>
+        </select>
+      </div>
+      <div id="listagemServidores" class="card-grid-pai">
+
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL -->
+
+  <div style="display: none" class="modal" id="modal">
+    <i onclick="fecharModal()" id="closeModal" class="fa-solid fa-x"></i>
+
+    <div id="modalGraficos">
+      <!-- Essa parte recebe de forma dinâmica(fkPlano) os gráficos que são exibidos em tempo real -->
+    </div>
+
+    <div class="div-inp">
+      <h1> Informações do Servidor </h1>
+      <br>
+      <label>
+        <b>Apelido: </b><input id="input_apelido" type="text">
+      </label>
+      <label>
+        <b>Função: </b><input id="input_funcao" type="text">
+      </label>
+      <button onclick="editarInfoServidor(idServidorPar)">Editar</button>
+    </div>
+
+    <h1>Limites dos componentes</h1>
+    <div class="mudarLimiteBox">
+      <div class="boxInputs" id="mudarLimiteBox">
+
+      </div>
+      <button onclick="editarLimiteServidor(idServidorPar)">Editar</button>
+    </div>
+
+    <button class="desativarServidorButton" id="buttonDesativarServidor" onclick="confirmarDesativar()">Desativar
+      servidor</button>
+    <button class="desativarServidorButton" id="buttonAtivarServidor" onclick="confirmarAtivar()">Ativar
+      servidor</button>
+  </div>
+
+
+
+
+
+  <!-- CARD DE SUCESSO -->
+
+  <div id="cardSucessoMsg" class="cardMensagem fecharCardMensagem">
+    <svg class="wave" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M0,256L11.4,240C22.9,224,46,192,69,192C91.4,192,114,224,137,234.7C160,245,183,235,206,213.3C228.6,192,251,160,274,149.3C297.1,139,320,149,343,181.3C365.7,213,389,267,411,282.7C434.3,299,457,277,480,250.7C502.9,224,526,192,549,181.3C571.4,171,594,181,617,208C640,235,663,277,686,256C708.6,235,731,149,754,122.7C777.1,96,800,128,823,165.3C845.7,203,869,245,891,224C914.3,203,937,117,960,112C982.9,107,1006,181,1029,197.3C1051.4,213,1074,171,1097,144C1120,117,1143,107,1166,133.3C1188.6,160,1211,224,1234,218.7C1257.1,213,1280,139,1303,133.3C1325.7,128,1349,192,1371,192C1394.3,192,1417,128,1429,96L1440,64L1440,320L1428.6,320C1417.1,320,1394,320,1371,320C1348.6,320,1326,320,1303,320C1280,320,1257,320,1234,320C1211.4,320,1189,320,1166,320C1142.9,320,1120,320,1097,320C1074.3,320,1051,320,1029,320C1005.7,320,983,320,960,320C937.1,320,914,320,891,320C868.6,320,846,320,823,320C800,320,777,320,754,320C731.4,320,709,320,686,320C662.9,320,640,320,617,320C594.3,320,571,320,549,320C525.7,320,503,320,480,320C457.1,320,434,320,411,320C388.6,320,366,320,343,320C320,320,297,320,274,320C251.4,320,229,320,206,320C182.9,320,160,320,137,320C114.3,320,91,320,69,320C45.7,320,23,320,11,320L0,320Z"
+        fill-opacity="1"></path>
+    </svg>
+
+    <div class="icon-container">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-width="0" fill="currentColor"
+        stroke="currentColor" class="icon">
+        <path
+          d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z">
+        </path>
+      </svg>
+    </div>
+    <div class="message-text-container">
+      <p class="message-text">Mensagem de sucesso</p>
+      <p class="sub-text" id="descCardSucesso"></p>
+    </div>
+    <svg onclick="fecharCardSucessoMensagem()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15" stroke-width="0"
+      fill="none" stroke="currentColor" class="cross-icon">
+      <path fill="currentColor"
+        d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z"
+        clip-rule="evenodd" fill-rule="evenodd"></path>
+    </svg>
+  </div>
+
+  <!-- CARD DE ERRO -->
+  <div id="cardErroMsg" class="cardMensagem fecharCardMensagem">
+    <svg class="waveErro" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M0,256L11.4,240C22.9,224,46,192,69,192C91.4,192,114,224,137,234.7C160,245,183,235,206,213.3C228.6,192,251,160,274,149.3C297.1,139,320,149,343,181.3C365.7,213,389,267,411,282.7C434.3,299,457,277,480,250.7C502.9,224,526,192,549,181.3C571.4,171,594,181,617,208C640,235,663,277,686,256C708.6,235,731,149,754,122.7C777.1,96,800,128,823,165.3C845.7,203,869,245,891,224C914.3,203,937,117,960,112C982.9,107,1006,181,1029,197.3C1051.4,213,1074,171,1097,144C1120,117,1143,107,1166,133.3C1188.6,160,1211,224,1234,218.7C1257.1,213,1280,139,1303,133.3C1325.7,128,1349,192,1371,192C1394.3,192,1417,128,1429,96L1440,64L1440,320L1428.6,320C1417.1,320,1394,320,1371,320C1348.6,320,1326,320,1303,320C1280,320,1257,320,1234,320C1211.4,320,1189,320,1166,320C1142.9,320,1120,320,1097,320C1074.3,320,1051,320,1029,320C1005.7,320,983,320,960,320C937.1,320,914,320,891,320C868.6,320,846,320,823,320C800,320,777,320,754,320C731.4,320,709,320,686,320C662.9,320,640,320,617,320C594.3,320,571,320,549,320C525.7,320,503,320,480,320C457.1,320,434,320,411,320C388.6,320,366,320,343,320C320,320,297,320,274,320C251.4,320,229,320,206,320C182.9,320,160,320,137,320C114.3,320,91,320,69,320C45.7,320,23,320,11,320L0,320Z"
+        fill-opacity="1"></path>
+    </svg>
+
+    <div class="icon-containerErro">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-width="0" fill="currentColor"
+        stroke="currentColor" class="iconErro">
+        <path
+          d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z">
+        </path>
+      </svg>
+    </div>
+    <div class="message-text-container">
+      <p class="message-textErro">Mensagem de erro</p>
+      <p class="sub-text" id="descCardErro"></p>
+    </div>
+    <svg onclick="fecharCardErroMensagem()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15" stroke-width="0"
+      fill="none" stroke="currentColor" class="cross-icon">
+      <path fill="currentColor"
+        d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z"
+        clip-rule="evenodd" fill-rule="evenodd"></path>
+    </svg>
+  </div>
+
+  <div class="alertCardEstatico" id="alertCardEstatico">
+    <span class="tituloAlerta">Alerta</span>
+    <span class="descAlerta">A máquina com ID: 1 atingiu o limite estipulado de 85% no serviço de CPU</span>
+    <span>Data: 14/10/2024 - 12:22:09</span>
+  </div>
+
+
+  <div class="confirmarModal" id="confirmarModalDesativar">
+    <h2>Deseja realmente desativar esse servidor ?</h2>
+    <div>
+      <button onclick="fecharDesativar(), desativarServidor()" class="simButon">Sim</button>
+      <button onclick="fecharDesativar()" class="naoButon">Não</button>
+    </div>
+  </div>
+
+  <div class="confirmarModal" id="confirmarModalAtivar">
+    <h2>Deseja ativar esse servidor ?</h2>
+    <div>
+      <button onclick="fecharAtivar(), ativarServidor()" class="simButon">Sim</button>
+      <button onclick="fecharAtivar()" class="naoButon">Não</button>
+    </div>
+  </div>
+
+
+</body>
+
+</html>
+
+<script>
+
+  function confirmarDesativar() {
+
+    confirmarModalDesativar.style.top = '0'
+    const frame = document.getElementById('frame');
+    frame.classList.add('blur-grid')
+
+  }
+
+  function fecharDesativar() {
+
+    const frame = document.getElementById('frame');
+    frame.classList.remove('blur-grid')
+    confirmarModalDesativar.style.top = '-20%'
+  }
+
+  function confirmarAtivar() {
+
+    confirmarModalAtivar.style.top = '0'
+    const frame = document.getElementById('frame');
+    frame.classList.add('blur-grid')
+
+  }
+
+  function fecharAtivar() {
+
+    const frame = document.getElementById('frame');
+    frame.classList.remove('blur-grid')
+    confirmarModalAtivar.style.top = '-20%'
+  }
+
+
+
+
+  function alertaEstatico() {
+    const card = document.getElementById("alertCardEstatico");
+
+    card.classList.add("alertCardEstaticoUsar");
+    setTimeout(() => {
+      card.classList.remove("alertCardEstaticoUsar");
+    }, "7000");
+
+  }
+
+  const menuLaterealHTML = document.getElementById('menuLateralBox')
+  var sessTipoUsuario = sessionStorage.ID_TIPO_USUARIO
+  if (sessTipoUsuario == 1) {
+    menuLaterealHTML.innerHTML += `
+     <li>
+          <a href="funcionarios.html">
+            <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
+            <span class="titulo-link-menu">Funcionários</span>
+          </a>
+        </li>
+    `
+  }
+
+
+  if (sessionStorage.ID_PLANO == 1) {
+    modalGraficos.innerHTML = `
+    
+    <div class="grafico-box">
+    <h2>Uso CPU </h2>
+    <canvas id="graficoCPU-box"></canvas>
+  </div>
+  <div class="grafico-box">
+    <h2>Uso RAM </h2>
+    <canvas id="graficoRAM-box"></canvas>
+  </div>
+  
+  `
+
+    mudarLimiteBox.innerHTML += `
+  <label for="">
+        CPU %
+        <input id="cpu_limite_input" type="number">
+      </label>
+      <label for="">
+        RAM %
+        <input id="ram_limite_input" type="number">
+      </label>
+      
+  `
+  } else if (sessionStorage.ID_PLANO == 2) {
+    modalGraficos.innerHTML += `
+    <div class="grafico-box">
+    <h2>Uso CPU </h2>
+    <canvas id="graficoCPU-box"></canvas>
+  </div>
+  <div class="grafico-box">
+    <h2>Uso RAM </h2>
+    <canvas id="graficoRAM-box"></canvas>
+  </div>
+  <div class="grafico-box" id="receberGraficoDados">
+    <h2>Uso DISCO </h2>
+    <canvas id="graficoDISCO-box"></canvas>
+  </div>
+  
+  
+  `
+    mudarLimiteBox.innerHTML += `
+    <label for="">
+        CPU %
+        <input id="cpu_limite_input" type="number">
+      </label>
+      <label for="">
+        RAM %
+        <input id="ram_limite_input" type="number">
+      </label>
+      <label for="">
+        DISCO GB
+        <input id="disco_limite_input" type="number">
+      </label>
+  `
+  } else if (sessionStorage.ID_PLANO == 3) {
+    modalGraficos.innerHTML += `
+    
+    <div class="grafico-box">
+      <h2>Uso CPU </h2>
+      <canvas id="graficoCPU-box"></canvas>
+    </div>
+    <div class="grafico-box">
+      <h2>Uso RAM </h2>
+      <canvas id="graficoRAM-box"></canvas>
+    </div>
+    <div class="grafico-box" id="receberGraficoDados">
+      <h2>Uso DISCO </h2>
+      <canvas id="graficoDISCO-box"></canvas>
+    </div>
+    <div class="grafico-box" id="receberGraficoDados">
+      <h2>Mb REDE </h2>
+      <canvas id="graficoREDE-box"></canvas>
+    </div>
+    
+    
+    `
+
+    mudarLimiteBox.innerHTML += `
+      <label for="">
+        CPU %
+        <input id="cpu_limite_input" type="number">
+      </label>
+      <label for="">
+        RAM %
+        <input id="ram_limite_input" type="number">
+      </label>
+      <label for="">
+        DISCO GB
+        <input id="disco_limite_input" type="number">
+      </label>
+      <label for="">
+        REDE MB
+        <input id="rede_limite_input" type="number">
+      </label>
+    `
+  }
+
+  nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
+
+  let idServidorPar;
+
+  function abrirModal(id_servidor, status) {
+    console.log(`ESSE É O ID DO MEU MODAL: ${id_servidor}`)
+    console.log(`ESSE É O STATUS DO MEU MODAL: ${status}`)
+    idServidorPar = id_servidor
+
+    if (status == 1) {
+      buttonAtivarServidor.style.display = 'none'
+      buttonDesativarServidor.style.display = 'block'
+    } else {
+      buttonAtivarServidor.style.display = 'block'
+      buttonDesativarServidor.style.display = 'none'
+    }
+
+    listarLimite(id_servidor)
+    listarApelidoFuncaoInp(id_servidor)
+
+
+    // modal.display = "block"
+    modal.style.display = "block";
+    const frame = document.getElementById("frame");
+    frame.classList.add("blur-grid");
+  }
+
+  function fecharModal() {
+    modal.style.display = "none";
+    const frame = document.getElementById("frame");
+    frame.classList.remove("blur-grid");
+    listarServidores()
+  }
+
+  var idEmpresa = sessionStorage.ID_EMPRESA;
+  function listarServidores() {
+
+    listagemServidores.innerHTML = `` //Limpando a div para atualizar com maior fluidez
+    var status = selectListServidores.value
+    if (status == 'ativo') {
+      status = 1 // VERÁ SERVIDORES ATIVOS - MODIFICAÇÃO NA CONTROLLE
+    } else {
+      status = 2
+    }
+
+    fetch(`/aquarios/listarServidores/${idEmpresa}/${status}`, {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        if (resposta.status == 204) {
+
+          listagemServidores.innerHTML = "Nenhum resultado encontrado."
+
+          throw "Nenhum resultado encontrado!!";
+        }
+        resposta.json().then((servidores) => {
+          console.log(servidores); // Log da resposta da API com os dados do banco
+          planoEmpresa = sessionStorage.ID_PLANO
+
+          console.log(`Estou no HTML PLANO EMPRESA ${planoEmpresa}`)
+
+          if (planoEmpresa == 1) {
+            servidores.forEach((registro) => {
+
+              listagemServidores.innerHTML +=
+                `<div onclick="abrirModal(${registro.id_servidor}, ${status}), AtualizarGraficos(${registro.id_servidor})" class="card">
+              <h2 id="apelido_card">${registro.apelido}</h2>
+              <h2 id="funcao_card">${registro.funcao}</h2>
+              <div class="back-image-card"></div>
+              <div class="indicadores-box">
+              <div class="indicador-pai">
+              <img class="ax-mg-left" src="../imagens/icon-cpu.png" alt="" />
+              <div class="indicador-titulo">
+              <span>CPU - uso</span>
+              <p>${registro.valorCpu}% de ${registro.capacidade_total_cpu}Ghz</p>
+              </div>
+              </div>
+              <div class="indicador-pai">
+              <img src="../imagens/icon-ram.png" alt="" />
+              <div class="indicador-titulo">
+              <span>RAM - Uso</span>
+              <p>${registro.valorRam}% de ${registro.capacidade_total_ram}GB</p>
+              </div>
+              </div>
+              </div>
+              </div>`;
+            });
+          } else if (planoEmpresa == 2) {
+            servidores.forEach((registro) => {
+              listagemServidores.innerHTML +=
+                `<div onclick="abrirModal(${registro.id_servidor}, ${status}), AtualizarGraficos(${registro.id_servidor})" class="card">
+              <h2 id="apelido_card">${registro.apelido}</h2>
+              <h2 id="funcao_card">${registro.funcao}</h2>
+              <div class="back-image-card"></div>
+              <div class="indicadores-box">
+              <div class="indicador-pai">
+              <img class="ax-mg-left" src="../imagens/icon-cpu.png" alt="" />
+              <div class="indicador-titulo">
+              <span>CPU - uso</span>
+              <p>${registro.valorCpu}% de ${registro.capacidade_total_cpu}Ghz</p>
+              </div>
+              </div>
+              <div class="indicador-pai">
+              <img src="../imagens/icon-ram.png" alt="" />
+              <div class="indicador-titulo">
+              <span>RAM - Uso</span>
+              <p>${registro.valorRam}% de ${registro.capacidade_total_ram}GB</p>
+              </div>
+              </div>
+              <div class="indicador-pai">
+              <img class="ax-mg-left"
+                src="../imagens/icon-disco.png"
+                alt=""
+              />
+              <div class="indicador-titulo">
+              <span>Disco - Uso</span>
+              <p>${registro.valorDisco}GB de ${registro.capacidade_total_disco}GB</p>
+              </div>
+              </div>
+              </div>
+              </div>`;
+            });
+          } else if (planoEmpresa == 3) {
+            servidores.forEach((registro) => {
+              listagemServidores.innerHTML +=
+                `<div onclick="abrirModal(${registro.id_servidor}, ${status}), AtualizarGraficos(${registro.id_servidor})" class="card">
+              <h2 id="apelido_card">${registro.apelido}</h2>
+              <h2 id="funcao_card">${registro.funcao}</h2>
+              <div class="back-image-card"></div>
+              <div class="indicadores-box">
+              <div class="indicador-pai"> 
+              <img src="../imagens/icon-rede.png" alt="" />
+              <div class="indicador-titulo">
+              <span>Rede - mb enviados</span>
+              <p>${registro.valorRede}MB</p>
+              </div>
+              </div>
+              <div class="indicador-pai">
+              <img class="ax-mg-left" src="../imagens/icon-cpu.png" alt="" />
+              <div class="indicador-titulo">
+              <span>CPU - uso</span>
+              <p>${registro.valorCpu}% de ${registro.capacidade_total_cpu}Ghz</p>
+              </div>
+              </div>
+              <div class="indicador-pai">
+              <img src="../imagens/icon-ram.png" alt="" />
+              <div class="indicador-titulo">
+              <span>RAM - Uso</span>
+              <p>${registro.valorRam}% de ${registro.capacidade_total_ram}GB</p>
+              </div>
+              </div>
+              <div class="indicador-pai">
+              <img
+                class="ax-mg-left"
+                src="../imagens/icon-disco.png"
+                alt=""
+              />
+              <div class="indicador-titulo">
+              <span>Disco - Uso</span>
+              <p>${registro.valorDisco}GB de ${registro.capacidade_total_disco}GB</p>
+              </div>
+              </div>
+              </div>
+              </div>`;
+            });
+          }
+        });
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
+
+
+  function desativarServidor() {
+    var idServidor = idServidorPar
+    console.log(`Estou na minha função desativarServidor e o idServidor é: ${idServidor}`)
+
+
+    if (idServidor == null) {
+      alert("Algo deu errado")
+    } else {
+      fetch(`/aquarios/desativarServidor/${idServidor}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+
+        }),
+      }).then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+
+          usoCardMensagemSucesso()
+          descCardSucesso.innerHTML = `Servidor id:${idServidor} desativado` //Descrição para o card
+
+          setTimeout(() => {
+            fecharModal();
+          }, "1000");
+
+        } else {
+          console.log(resposta);
+          throw "Houve um erro ao tentar realizar a desativação!";
+        }
+      }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        return false;
+      });
+    }
+
+  }
+
+  function ativarServidor() {
+
+
+    var idServidor = idServidorPar
+    console.log(`Estou na minha função ativarServidor e o idServidor é: ${idServidor}`)
+
+
+    if (idServidor == null) {
+      alert("Algo deu errado")
+    } else {
+      fetch(`/aquarios/ativarServidor/${idServidor}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+
+        }),
+      }).then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+
+          usoCardMensagemSucesso()
+          descCardSucesso.innerHTML = `Servidor id:${idServidor} ativado` //Descrição para o card
+
+          setTimeout(() => {
+            fecharModal();
+          }, "1000");
+
+        } else {
+          console.log(resposta);
+          throw "Houve um erro ao tentar realizar a ativação!";
+        }
+      }).catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        return false;
+      });
+    }
+
+  }
+
+  function editarInfoServidor(idServidorPar) {
+
+    var idServidor = idServidorPar
+
+    var apelidoServidor = input_apelido.value
+    var funcaoServidor = input_funcao.value
+
+    fetch(`/aquarios/editarInfoServidor`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+
+        idServidorServer: idServidor,
+        apelidoServidorServer: apelidoServidor,
+        funcaoServidorServer: funcaoServidor
+
+      }),
+    }).then(function (resposta) {
+      console.log("resposta: ", resposta);
+
+      if (resposta.ok) {
+
+        usoCardMensagemSucesso()
+        descCardSucesso.innerHTML = `Edição de informações realizada`
+
+        setTimeout(() => {
+          fecharModal();
+        }, "1000");
+
+
+      } else {
+        console.log(resposta);
+        throw "Houve um erro ao tentar realizar a edição!";
+      }
+    }).catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
+      return false;
+    });
+
+  }
+
+  
+  function editarLimiteServidor(idServidorPar) {
+
+    var idServidor = idServidorPar
+    var idPlano = sessionStorage.ID_PLANO
+
+    if (idPlano == 1) {
+      var limiteCpu = cpu_limite_input.value
+      var limiteRam = ram_limite_input.value
+    } else if (idPlano == 2) {
+      var limiteCpu = cpu_limite_input.value
+      var limiteRam = ram_limite_input.value
+      var limiteDisco = disco_limite_input.value
+    } else if (idPlano == 3) {
+      var limiteCpu = cpu_limite_input.value
+      var limiteRam = ram_limite_input.value
+      var limiteDisco = disco_limite_input.value
+      var limiteRede = rede_limite_input.value
+    }
+
+    fetch(`/aquarios/editarLimiteServidor`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+
+        idServidorServer: idServidor,
+        idPlanoServer: idPlano,
+        limiteCpuServer: limiteCpu,
+        limiteRamServer: limiteRam,
+        limiteDiscoServer: limiteDisco,
+        limiteRedeServer: limiteRede
+
+      }),
+    }).then(function (resposta) {
+      console.log("resposta: ", resposta);
+
+      if (resposta.ok) {
+
+        usoCardMensagemSucesso()
+        descCardSucesso.innerHTML = `Edição de limite realizada`
+
+        setTimeout(() => {
+          fecharModal();
+        }, "1000");
+
+
+      } else {
+        console.log(resposta);
+        throw "Houve um erro ao tentar realizar a edição!";
+      }
+    }).catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
+      return false;
+    });
+
+  }
+
+  function listarLimite(id_servidor) {
+    fetch(`/aquarios/listarLimite/${id_servidor}`, {
+      method: "GET",
+    })
+      .then(function (resposta) {
+
+        resposta.json().then((limite) => {
+          limite.forEach((registro) => {
+
+            cpu_limite_input.value = registro.limite_valor_cpu
+            ram_limite_input.value = registro.limite_valor_ram
+
+            disco_limite_input.value = registro.limite_valor_disco
+            rede_limite_input.value = registro.limite_valor_rede
+
+          });
+        });
+
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
+
+  function listarApelidoFuncaoInp(id_servidor) {
+    fetch(`/aquarios/listarApelidoFuncaoInput/${id_servidor}`, {
+      method: "GET",
+    })
+      .then(function (resposta) {
+
+        resposta.json().then((ApelidoFuncao) => {
+          ApelidoFuncao.forEach((registro) => {
+
+            input_apelido.value = registro.apelido;
+            input_funcao.value = registro.funcao
+
+          });
+        });
+
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
+
+  function obterDadosGrafico(idServidorParFun) {
+
+    var idServidor = idServidorParFun
+
+    fetch(`/medidas/servidor/${idServidor}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+          resposta.reverse();
+
+          plotarGrafico(resposta);
+
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+  }
+
+  function AtualizarGraficos(idServidor) {
+    obterDadosGrafico(idServidor);
+    iniciarAtualizacaoAoVivo();
+  }
+
+  function iniciarAtualizacaoAoVivo() {
+    setInterval(() => {
+      if (idServidorPar) { // Certifique-se de que o parâmetro está definido
+        obterDadosGrafico(idServidorPar); // Atualize o gráfico com o parâmetro atual
+      }
+    }, 5000); // Intervalo de 3 segundos
+  }
+
+
+  let graficoCpuInstance = null;
+  let graficoRamInstance = null;
+  let graficoDiscoInstance = null;
+  let graficoRedeInstance = null;
+
+  function plotarGrafico(resposta) {
+
+
+    console.log('iniciando plotagem do gráfico...');
+
+    if (graficoCpuInstance) {
+      graficoCpuInstance.destroy();
+    }
+    if (graficoRamInstance) {
+      graficoRamInstance.destroy();
+    }
+    if (graficoDiscoInstance) {
+      graficoDiscoInstance.destroy();
+    }
+    if (graficoRedeInstance) {
+      graficoRedeInstance.destroy();
+    }
+
+    // Criando estrutura para plotar gráfico - labels
+    let labelsCpu = [];
+    let labelsRam = [];
+    let labelsDisco = [];
+    let labelsRede = [];
+
+    // Criando estrutura para plotar gráfico - dados
+    let dadosCpu = {
+      labels: labelsCpu,
+      datasets: [{
+        label: '',
+        data: [],
+      }],
+
+    };
+
+    let dadosRam = {
+      labels: labelsRam,
+      datasets: [{
+        label: '',
+        data: [],
+      }],
+
+    };
+
+    let dadosDisco = {
+      labels: labelsDisco,
+      datasets: [{
+        label: '',
+        data: [],
+      }],
+
+    };
+
+    let dadosRede = {
+      labels: labelsRede,
+      datasets: [{
+        label: '',
+        data: [],
+      }],
+
+    };
+
+    console.log('----------------------------------------------')
+    console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+    console.log(resposta)
+
+    // Inserindo valores recebidos em estrutura para plotar o gráfico
+    for (i = 0; i < resposta.length; i++) {
+      var registro = resposta[i];
+
+      let data = registro.data;
+      let horario = new Date(data).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+      if (registro.fkServico == 1) {
+        labelsCpu.push(`${horario}`);
+        dadosCpu.datasets[0].data.push(registro.valor);
+      }
+
+      if (registro.fkServico == 2) {
+        labelsRam.push(`${horario}`);
+        dadosRam.datasets[0].data.push(registro.valor);
+      }
+
+      if (registro.fkServico == 3) {
+        labelsDisco.push(`${horario}`);
+        dadosDisco.datasets[0].data.push(registro.valor);
+      }
+
+      if (registro.fkServico == 4) {
+        labelsRede.push(`${horario}`);
+        dadosRede.datasets[0].data.push(registro.valor);
+      }
+
+    }
+
+    console.log('----------------------------------------------')
+    console.log('O gráfico será plotado com os respectivos valores:')
+    console.log('Labels:')
+    console.log('dadosCpu:')
+    console.log(dadosCpu.datasets)
+    console.log('dadosRam:')
+    console.log(dadosRam.datasets)
+    console.log('dadosDisco:')
+    console.log(dadosDisco.datasets)
+    console.log('dadosRede:')
+    console.log(dadosRede.datasets)
+    console.log('----------------------------------------------')
+
+
+    const graficoCPU = document.getElementById('graficoCPU-box');
+    const graficoRAM = document.getElementById('graficoRAM-box');
+    const graficoDISCO = document.getElementById('graficoDISCO-box');
+    const graficoREDE = document.getElementById('graficoREDE-box');
+
+    graficoCpuInstance = new Chart(graficoCPU, {
+      type: 'line',
+      data: {
+        labels: dadosCpu.labels,
+        datasets: [{
+          label: dadosCpu.datasets[0].label,
+          data: dadosCpu.datasets[0].data,
+          borderColor: 'white',
+          backgroundColor: 'rgba(255, 255, 255, 0.5)',
+          fill: true,
+          pointBackgroundColor: 'white',
+          pointBorderColor: 'white',
+          pointRadius: 5,
+          tension: 0.1
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            grid: {
+              display: false // Remove a grade vertical
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo X
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          },
+          y: {
+            grid: {
+              display: false // Remove a grade horizontal
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo Y
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false // Remove a legenda
+          }
+        },
+        elements: {
+          line: {
+            tension: 0.4 // Deixa as linhas mais suaves
+          }
+        }
+      }
+    });
+
+    graficoRamInstance = new Chart(graficoRAM, {
+      type: 'line',
+      data: {
+        labels: dadosRam.labels,
+        datasets: [{
+          label: dadosRam.datasets[0].label,
+          data: dadosRam.datasets[0].data,
+          borderColor: 'white',
+          backgroundColor: 'rgba(255, 255, 255, 0.5)',
+          fill: true,
+          pointBackgroundColor: 'white',
+          pointBorderColor: 'white',
+          pointRadius: 5,
+          tension: 0.1
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            grid: {
+              display: false // Remove a grade vertical
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo X
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          },
+          y: {
+            grid: {
+              display: false // Remove a grade horizontal
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo Y
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false // Remove a legenda
+          }
+        },
+        elements: {
+          line: {
+            tension: 0.4 // Deixa as linhas mais suaves
+          }
+        }
+      }
+    });
+
+    graficoDiscoInstance = new Chart(graficoDISCO, {
+      type: 'line',
+      data: {
+        labels: dadosDisco.labels,
+        datasets: [{
+          label: dadosDisco.datasets[0].label,
+          data: dadosDisco.datasets[0].data,
+          borderColor: 'white',
+          backgroundColor: 'rgba(255, 255, 255, 0.5)',
+          fill: true,
+          pointBackgroundColor: 'white',
+          pointBorderColor: 'white',
+          pointRadius: 5,
+          tension: 0.1
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            grid: {
+              display: false // Remove a grade vertical
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo X
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          },
+          y: {
+            grid: {
+              display: false // Remove a grade horizontal
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo Y
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false // Remove a legenda
+          }
+        },
+        elements: {
+          line: {
+            tension: 0.4 // Deixa as linhas mais suaves
+          }
+        }
+      }
+    });
+
+    graficoRedeInstance = new Chart(graficoREDE, {
+      type: 'line',
+      data: {
+        labels: dadosRede.labels,
+        datasets: [{
+          label: dadosRede.datasets[0].label,
+          data: dadosRede.datasets[0].data,
+          borderColor: 'white',
+          backgroundColor: 'rgba(255, 255, 255, 0.5)',
+          fill: true,
+          pointBackgroundColor: 'white',
+          pointBorderColor: 'white',
+          pointRadius: 5,
+          tension: 0.1
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            grid: {
+              display: false // Remove a grade vertical
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo X
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          },
+          y: {
+            grid: {
+              display: false // Remove a grade horizontal
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo Y
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false // Remove a legenda
+          }
+        },
+        elements: {
+          line: {
+            tension: 0.4 // Deixa as linhas mais suaves
+          }
+        }
+      }
+    });
+
+
+
+  }
+
+
+
+
+
+
+  // gráficos estatico
+
+
+
+
+
+  // Funções de card de alerta
+
+  // esse é o id = descCardSucesso para innerHTML a mensagem de sucesso
+  function abrirCardSucesoMensagem() {
+    cardSucessoMsg
+    const card = document.getElementById("cardSucessoMsg");
+    card.classList.remove("fecharCardMensagem");
+    card.classList.add("abriCardMensagem");
+  }
+  function fecharCardSucessoMensagem() {
+    cardSucessoMsg
+    const card = document.getElementById("cardSucessoMsg");
+    card.classList.remove("abriCardMensagem");
+    card.classList.add("fecharCardMensagem");
+  }
+  // esse é o id = descCardErro para innerHTML a mensagem de sucesso
+  function fecharCardErroMensagem() {
+    const card = document.getElementById("cardErroMsg");
+    card.classList.remove("abriCardMensagem");
+    card.classList.add("fecharCardMensagem");
+  }
+  function abrirCardErroMensagem() {
+    const card = document.getElementById("cardErroMsg");
+    card.classList.remove("fecharCardMensagem");
+    card.classList.add("abriCardMensagem");
+  }
+  function usoCardMensagemErro() {
+    abrirCardErroMensagem();
+    setTimeout(() => {
+      fecharCardErroMensagem();
+    }, "7000");
+  }
+  function usoCardMensagemSucesso() {
+    abrirCardSucesoMensagem();
+    setTimeout(() => {
+      fecharCardSucessoMensagem();
+    }, "7000");
+  }
+
+</script>
