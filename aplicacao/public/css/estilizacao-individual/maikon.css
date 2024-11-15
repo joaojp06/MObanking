@@ -1,0 +1,100 @@
+
+
+.conteudo h1 {
+    font-size: 36px;
+    padding-bottom: 3%;
+}
+
+/* HEADER - INFO BOX */
+
+
+.pesquisa_box_inp {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.info_box {
+    display: flex;
+    align-items: center;
+    width: 80%;
+
+    & label {
+        font-size: 1rem;
+
+    }
+
+    & input {
+        border-radius: 27px;
+        padding: 10px 9px;
+        width: 16vw;
+        border: 1px solid;
+    }
+
+    & i {
+        margin-left: 3%;
+        font-size: 1.3rem;
+        cursor: pointer;
+        color: #07374d;
+    }
+}
+
+.indicadores {
+    display: flex;
+    margin-left: 7%;
+    gap: 0px 40px;
+
+    & div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 7px 0px;
+        border-radius: 15px;
+        background-image: linear-gradient(to right, #30607D, #04344A);
+        box-shadow: -20px -4px 60px #bebebe, 20px 20px 60px #ffffff;
+        width: 24vh;
+        padding: 2% 7%;
+        color: #ffffff;
+    }
+
+    & p,
+    & span {
+        font-size: 0.8rem;
+    }
+}
+
+/* Listagem cards */
+
+.listagem_cards {
+    margin-top: 4%;
+
+
+    & div {
+        display: flex;
+        background-image: linear-gradient(to right, #30607D, #04344A);
+        padding: 1.3% 1%;
+        border-radius: 10px;
+        gap: 10%;
+        color: white;
+        width: auto;
+        margin-bottom: 1%;
+    
+        & h3{
+            font-size: .9rem;
+            width: 13vw;
+        }
+
+        & span{
+            font-size: 1.3rem;
+        }
+    
+    }
+
+    & .apelido_card{
+        width: 3vw !important;
+    }
+
+}
+.plusModal_card{
+    cursor: pointer;
+}

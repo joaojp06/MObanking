@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ptbr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOBANKING</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" href="../../imagens/logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../../css/reset.css">
+    <link rel="stylesheet" href="../../css/default.css" />
+    <link rel="stylesheet" href="../../css/cardConfirmacao.css">
+    <link rel="stylesheet" href="../../css/estilizacao-individual/maikon.css">
+    <!-- <link rel="stylesheet" href=" link do novo css "> -->
+    <!-- scripts do Chart.js - 2022-1 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="frame-aplicacao" style="display: flex;">
+        <nav class="menu-lateral" onmouseenter="exibirMenu()" onmouseleave="ocultarMenu()">
+            <img src="../../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
+            <ul id="menuLateralBox">
+                <li>
+                    <a href="../card.html">
+                        <span class="icon-menu"><i class="fa-solid fa-server"></i></span>
+                        <span class="titulo-link-menu">Máquinas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../dashboard.html">
+                        <span class="icon-menu"><i class="fa-solid fa-chart-simple"></i></span>
+                        <span class="titulo-link-menu">Gráficos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../alertas.html">
+                        <span class="icon-menu"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                        <span class="titulo-link-menu">Alertas</span>
+                    </a>
+                </li>
+                <li class="dashboard-item">
+                    <a href="javascript:void(0);" onclick="toggleSubmenu()">
+                        <span class="icon-menu"><i class="fa-solid fa-chart-pie"></i></span>
+                        <span class="titulo-link-menu">Dashboard </span> <i class="fa-solid setaMenu fa-sort-down"></i>
+                    </a>
+                </li>
+                <div class="submenu" onmouseenter="manterSubmenu()" onmouseleave="fecharSubmenu()">
+                    <li><a href="dashboard-individual/maikon-dashboard.html">Maikon</a></li>
+                    <li><a href="dashboard-individual/joao-dashboard.html">JP</a></li>
+                    <li><a href="dashboard-individual/fabio-dashboard.html">Fabio</a></li>
+                    <li><a href="dashboard-individual/kaua-dashboard.html">Kauâ</a></li>
+                    <li><a href="dashboard-individual/faria-dashboard.html">Gabriel</a></li>
+                </div>
+            </ul>
+
+            <div class="name-menu">
+                <a href="../usuarioInfo.html">
+                    <h2 id="nome_perfil_menu"></h2>
+                </a>
+            </div>
+
+            <a class="buttonSair-menu" href="../../index.html">
+                <h2>Sair</h2>
+            </a>
+        </nav>
+        <div class="conteudo">
+            <h1>Demanda de hardware</h1>
+
+            <div class="info_box">
+                <div class="pesquisa_box">
+                    <label>
+                        Pesquise por código
+                    </label>
+                    <div class="pesquisa_box_inp">
+                        <input type="text" placeholder="Digite o código do servidor">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                </div>
+
+                <div class="indicadores">
+                    <div>
+                        <i class="fa-solid fa-circle-exclamation" style="color: rgb(220, 142, 26);"></i>
+                        <p>Ociosos</p>
+                        <span>2</span>
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-circle-exclamation" style="color: #c70000;"></i>
+                        <p>Sobrecarregados</p>
+                        <span>2</span>
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-circle-exclamation" style="color: #029602;"></i>
+                        <p>Estáveis</p>
+                        <span>2</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="listagem_cards">
+                <div>
+                    <h3 class="apelido_card">SABE23</h3>
+                    <span>|</span>
+                    <h3>Servidor de pix</h3>
+                    <span>|</span>
+                    <h3>Componente(s): Ram</h3>
+                    <span id="plusModal" class="plusModal_card">+</span>
+                </div>
+                <div>
+                    <h3 class="apelido_card">SABE23</h3>
+                    <span>|</span>
+                    <h3>Servidor de faturas</h3>
+                    <span>|</span>
+                    <h3>Componente(s): Ram, cpu</h3>
+                    <span id="plusModal" class="plusModal_card">+</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    let submenuAberto = false;
+
+    function toggleSubmenu() {
+        const submenu = document.querySelector('.submenu');
+        const seta = document.querySelector('.fa-sort-down');
+
+        submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+        submenuAberto = submenu.style.display === 'block';
+
+        if (submenuAberto) {
+            seta.classList.add("girarSeta");
+        } else {
+            seta.classList.remove("girarSeta");
+        }
+    }
+
+    function exibirMenu() {
+        const menuLateral = document.querySelector('.menu-lateral');
+        menuLateral.classList.add('menu-aberto');
+    }
+
+    function ocultarMenu() {
+        const submenu = document.querySelector('.submenu');
+        const seta = document.querySelector('.fa-sort-down');
+
+        // Fecha o submenu e redefine o ícone de seta quando o mouse sai do nav
+        submenu.style.display = 'none';
+        seta.classList.remove("girarSeta");
+        submenuAberto = false;
+    }
+
+    const menuLaterealHTML = document.getElementById('menuLateralBox')
+    var sessTipoUsuario = sessionStorage.ID_TIPO_USUARIO
+    if (sessTipoUsuario == 1) {
+        menuLaterealHTML.innerHTML += `
+     <li>
+          <a href="funcionarios.html">
+            <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
+            <span class="titulo-link-menu">Funcionários</span>
+          </a>
+        </li>
+    `
+    }
+
+    nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
+</script>
