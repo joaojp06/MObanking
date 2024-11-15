@@ -52,10 +52,10 @@ Copie a seção abaixo em todas as página da dash, user, config user, etc
 
 .setaMenu{
     transition: all 0.3s;
+    opacity: 0;
 }
 
 .menu-lateral ul li {
-    padding: 1%;
     transition: all 0.5s;
     width: 35%;
     cursor: pointer;
@@ -67,6 +67,13 @@ Copie a seção abaixo em todas as página da dash, user, config user, etc
     left: 3%;
 }
 
+.menu-aberto:hover .menu-lateral ul {
+    width: auto;
+}
+
+.menu-aberto:hover .setaMenu {
+    opacity: 1;
+}
 
 .menu-aberto:hover li:hover {
     background-image: linear-gradient(158deg, #254960, #032535);
@@ -74,8 +81,6 @@ Copie a seção abaixo em todas as página da dash, user, config user, etc
     border-radius: 15px;
     width: 100%;
     padding: 5% 6%;
-    
-
 }
 
 .titulo-link-menu {
@@ -97,6 +102,7 @@ Copie a seção abaixo em todas as página da dash, user, config user, etc
 
 .menu-lateral .titulo-link-menu {
     opacity: 0;
+    display: none;
 }
 
 .titulo-menu {
