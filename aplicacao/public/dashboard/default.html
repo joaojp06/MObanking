@@ -8,53 +8,66 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="shortcut icon" href="../imagens/logo.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="shortcut icon" href="../../imagens/logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../../css/reset.css">
+    <link rel="stylesheet" href="../../css/default.css" />
+    <link rel="stylesheet" href="../../css/cardConfirmacao.css">
     <!-- <link rel="stylesheet" href=" link do novo css "> -->
+    <!-- scripts do Chart.js - 2022-1 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
     <div class="frame-aplicacao" style="display: flex;">
-        <nav class="menu-lateral">
-            <img src="../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu"> <!-- Adicione a imagem aqui -->
-            <h2 class="titulo-menu">Menu</h2>
-            <ul>
+        <nav class="menu-lateral" onmouseenter="exibirMenu()" onmouseleave="ocultarMenu()">
+            <img src="../../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
+            <ul id="menuLateralBox">
                 <li>
-                    <a href="card.html">
+                    <a href="../card.html">
                         <span class="icon-menu"><i class="fa-solid fa-server"></i></span>
                         <span class="titulo-link-menu">Máquinas</span>
                     </a>
                 </li>
                 <li>
-                    <a href="dashboard.html">
+                    <a href="../dashboard.html">
                         <span class="icon-menu"><i class="fa-solid fa-chart-simple"></i></span>
                         <span class="titulo-link-menu">Gráficos</span>
                     </a>
                 </li>
                 <li>
-                    <a href="funcionarios.html">
-                        <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
-                        <span class="titulo-link-menu">Funcionários</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="alertas.html">
+                    <a href="../alertas.html">
                         <span class="icon-menu"><i class="fa-solid fa-triangle-exclamation"></i></span>
                         <span class="titulo-link-menu">Alertas</span>
                     </a>
                 </li>
+                <li class="dashboard-item">
+                    <a href="javascript:void(0);" onclick="toggleSubmenu()">
+                        <span class="icon-menu"><i class="fa-solid fa-chart-pie"></i></span>
+                        <span class="titulo-link-menu">Dashboard </span> <i class="fa-solid setaMenu fa-sort-down"></i>
+                    </a>
+                </li>
+                <div class="submenu" onmouseenter="manterSubmenu()" onmouseleave="fecharSubmenu()">
+                    <li><a href="dashboard-individual/maikon-dashboard.html">Maikon</a></li>
+                    <li><a href="dashboard-individual/joao-dashboard.html">JP</a></li>
+                    <li><a href="dashboard-individual/fabio-dashboard.html">Fabio</a></li>
+                    <li><a href="dashboard-individual/kaua-dashboard.html">Kauâ</a></li>
+                    <li><a href="dashboard-individual/faria-dashboard.html">Gabriel</a></li>
+                </div>
             </ul>
 
             <div class="name-menu">
-                <a href="usuarioInfo.html">
-                    <h2>Maikon Douglas</h2>
+                <a href="../usuarioInfo.html">
+                    <h2 id="nome_perfil_menu"></h2>
                 </a>
             </div>
-            <a class="buttonSair-menu" href="../index.html">
-                <h2 id="">Sair</h2>
+
+            <a class="buttonSair-menu" href="../../index.html">
+                <h2>Sair</h2>
             </a>
         </nav>
-        <div class="conteudo"></div>
+        <div class="conteudo">
+
+        </div>
     </div>
 </body>
 
