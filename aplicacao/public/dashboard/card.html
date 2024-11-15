@@ -24,49 +24,49 @@
     <nav class="menu-lateral" onmouseenter="exibirMenu()" onmouseleave="ocultarMenu()">
       <img src="../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
       <ul id="menuLateralBox">
-          <li>
-              <a href="card.html">
-                  <span class="icon-menu"><i class="fa-solid fa-server"></i></span>
-                  <span class="titulo-link-menu">Máquinas</span>
-              </a>
-          </li>
-          <li>
-              <a href="dashboard.html">
-                  <span class="icon-menu"><i class="fa-solid fa-chart-simple"></i></span>
-                  <span class="titulo-link-menu">Gráficos</span>
-              </a>
-          </li>
-          <li>
-              <a href="alertas.html">
-                  <span class="icon-menu"><i class="fa-solid fa-triangle-exclamation"></i></span>
-                  <span class="titulo-link-menu">Alertas</span>
-              </a>
-          </li>
-          <li class="dashboard-item">
-              <a href="javascript:void(0);" onclick="toggleSubmenu()">
-                  <span class="icon-menu"><i class="fa-solid fa-chart-pie"></i></span>
-                  <span class="titulo-link-menu">Dashboard </span> <i class="fa-solid setaMenu fa-sort-down"></i>
-              </a>
-          </li>
-          <div class="submenu" onmouseenter="manterSubmenu()" onmouseleave="fecharSubmenu()">
-              <li><a href="dashboard-individual/maikon-dashboard.html">Maikon</a></li>
-              <li><a href="dashboard-individual/joao-dashboard.html">JP</a></li>
-              <li><a href="dashboard-individual/fabio-dashboard.html">Fabio</a></li>
-              <li><a href="dashboard-individual/kaua-dashboard.html">Kauâ</a></li>
-              <li><a href="dashboard-individual/faria-dashboard.html">Gabriel</a></li>
-          </div>
+        <li>
+          <a href="card.html">
+            <span class="icon-menu"><i class="fa-solid fa-server"></i></span>
+            <span class="titulo-link-menu">Máquinas</span>
+          </a>
+        </li>
+        <li>
+          <a href="dashboard.html">
+            <span class="icon-menu"><i class="fa-solid fa-chart-simple"></i></span>
+            <span class="titulo-link-menu">Gráficos</span>
+          </a>
+        </li>
+        <li>
+          <a href="alertas.html">
+            <span class="icon-menu"><i class="fa-solid fa-triangle-exclamation"></i></span>
+            <span class="titulo-link-menu">Alertas</span>
+          </a>
+        </li>
+        <li class="dashboard-item">
+          <a href="javascript:void(0);" onclick="toggleSubmenu()">
+            <span class="icon-menu"><i class="fa-solid fa-chart-pie"></i></span>
+            <span class="titulo-link-menu">Dashboard </span> <i class="fa-solid setaMenu fa-sort-down"></i>
+          </a>
+        </li>
+        <div class="submenu" onmouseenter="manterSubmenu()" onmouseleave="fecharSubmenu()">
+          <li><a href="dashboard-individual/maikon-dashboard.html">Maikon</a></li>
+          <li><a href="dashboard-individual/joao-dashboard.html">JP</a></li>
+          <li><a href="dashboard-individual/fabio-dashboard.html">Fabio</a></li>
+          <li><a href="dashboard-individual/kaua-dashboard.html">Kauâ</a></li>
+          <li><a href="dashboard-individual/faria-dashboard.html">Gabriel</a></li>
+        </div>
       </ul>
 
       <div class="name-menu">
-          <a href="usuarioInfo.html">
-              <h2 id="nome_perfil_menu"></h2>
-          </a>
+        <a href="usuarioInfo.html">
+          <h2 id="nome_perfil_menu"></h2>
+        </a>
       </div>
 
       <a class="buttonSair-menu" href="../index.html">
-          <h2>Sair</h2>
+        <h2>Sair</h2>
       </a>
-  </nav>
+    </nav>
     <div class="conteudo">
       <div style="display: flex; justify-content: space-between;">
         <h1 onclick="alertaEstatico()">Máquinas</h1>
@@ -207,29 +207,29 @@
 
 <script>
 
-  
-let submenuAberto = false;
 
-function toggleSubmenu() {
+  let submenuAberto = false;
+
+  function toggleSubmenu() {
     const submenu = document.querySelector('.submenu');
     const seta = document.querySelector('.fa-sort-down');
-    
+
     submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
     submenuAberto = submenu.style.display === 'block';
 
     if (submenuAberto) {
-        seta.classList.add("girarSeta");
+      seta.classList.add("girarSeta");
     } else {
-        seta.classList.remove("girarSeta");
+      seta.classList.remove("girarSeta");
     }
-}
+  }
 
-function exibirMenu() {
+  function exibirMenu() {
     const menuLateral = document.querySelector('.menu-lateral');
     menuLateral.classList.add('menu-aberto');
-}
+  }
 
-function ocultarMenu() {
+  function ocultarMenu() {
     const submenu = document.querySelector('.submenu');
     const seta = document.querySelector('.fa-sort-down');
 
@@ -237,7 +237,7 @@ function ocultarMenu() {
     submenu.style.display = 'none';
     seta.classList.remove("girarSeta");
     submenuAberto = false;
-}
+  }
 
   function confirmarDesativar() {
 
@@ -694,7 +694,7 @@ function ocultarMenu() {
 
   }
 
-  
+
   function editarLimiteServidor(idServidorPar) {
 
     var idServidor = idServidorPar

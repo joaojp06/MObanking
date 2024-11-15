@@ -1,0 +1,30 @@
+.div-msg-alerta {
+    margin-left: 5%;
+    margin-top: 6%;
+    /* height: auto; */
+    width: 14vw;
+    text-align: left;
+    background-color: rgba(87, 150, 199, 0.170);
+    padding: 1.2%;
+    border-radius: 10px;
+}
+
+.div-alerta{
+    display: flex;
+    padding: 1%;
+    margin-left: 5%;
+    margin-top: 6%;
+    background-color: rgba(87, 150, 199, 0.170);
+    width: 14vw;
+    border-radius: 10px;
+    align-items: center;
+}
+
+
+.cor-alerta {
+    border-radius: 8px;
+    background-color: green;
+    margin-left: 7%;
+    width: 60%;
+    height: 6vh;
+}
