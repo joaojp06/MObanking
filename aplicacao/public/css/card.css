@@ -185,7 +185,7 @@ canvas {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    max-height: 80vh;
+    max-height: 85vh;
     overflow: auto;
     border-radius: 12px;
     padding: 2%;
@@ -210,6 +210,38 @@ canvas {
     }
 
 }
+
+.modal-buttons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+ .modal-button {
+    padding: 10px 20px;
+    border: 0.5px solid;
+    border-color: white;
+    border-radius: 35px;
+    background: #0b6893;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; 
+}
+
+
+.modal-button:hover {
+    background: linear-gradient(to bottom, #30607D, #04344A);
+    transform: scale(1.05);
+}
+
+.modal-button.active {
+    background: linear-gradient(to bottom, #30607D, #04344A);
+    font-weight: bold;
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
 
 .div-inp{
 
@@ -246,11 +278,11 @@ canvas {
 
 }
 
-#modalGraficos{
-    display: grid;
+#modalGraficos {
+    display: grid !important;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    max-width: 85vw;
+    max-width: 98vw;
 }
 
 .modal::-webkit-scrollbar {
@@ -317,6 +349,7 @@ canvas {
     /* Aplica o desfoque */
     transition: filter 0.3s ease-in-out;
     /* Transição suave do desfoque */
+    background-color: gray;
 }
 
 .alertCardEstatico {

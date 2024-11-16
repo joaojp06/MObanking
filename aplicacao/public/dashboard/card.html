@@ -86,34 +86,47 @@
   <div style="display: none" class="modal" id="modal">
     <i onclick="fecharModal()" id="closeModal" class="fa-solid fa-x"></i>
 
-    <div id="modalGraficos">
+
+    <div class="modal-buttons">
+      <button class="modal-button" data-page="modalGraficos">Dados em tempo real </button>
+      <button class="modal-button" data-page="tendenciaUso"> Tendência de uso </button>
+      <button class="modal-button" data-page="configuracoes"> Configurações </button>
+    </div>
+
+    <div id="modalGraficos" class="pagina">
       <!-- Essa parte recebe de forma dinâmica(fkPlano) os gráficos que são exibidos em tempo real -->
     </div>
 
-    <div class="div-inp">
-      <h1> Informações do Servidor </h1>
-      <br>
-      <label>
-        <b>Apelido: </b><input id="input_apelido" type="text">
-      </label>
-      <label>
-        <b>Função: </b><input id="input_funcao" type="text">
-      </label>
-      <button onclick="editarInfoServidor(idServidorPar)">Editar</button>
-    </div>
+    <div id="tendenciaUso" class="pagina" style="display: none;">Conteúdo: Tendência de uso</div>
 
-    <h1>Limites dos componentes</h1>
-    <div class="mudarLimiteBox">
-      <div class="boxInputs" id="mudarLimiteBox">
-
+    <div id="configuracoes" class="pagina" style="display: none;">
+      <div class="div-inp">
+        <h1> Informações do Servidor </h1>
+        <br>
+        <label>
+          <b>Apelido: </b><input id="input_apelido" type="text">
+        </label>
+        <label>
+          <b>Função: </b><input id="input_funcao" type="text">
+        </label>
+        <button onclick="editarInfoServidor(idServidorPar)">Editar</button>
       </div>
-      <button onclick="editarLimiteServidor(idServidorPar)">Editar</button>
-    </div>
 
-    <button class="desativarServidorButton" id="buttonDesativarServidor" onclick="confirmarDesativar()">Desativar
-      servidor</button>
-    <button class="desativarServidorButton" id="buttonAtivarServidor" onclick="confirmarAtivar()">Ativar
-      servidor</button>
+      <h1>Limites dos componentes</h1>
+      <div class="mudarLimiteBox">
+        <div class="boxInputs" id="mudarLimiteBox">
+
+        </div>
+        <button onclick="editarLimiteServidor(idServidorPar)">Editar</button>
+      </div>
+
+      <button class="desativarServidorButton" id="buttonDesativarServidor" onclick="confirmarDesativar()">Desativar
+        servidor
+      </button>
+      <button class="desativarServidorButton" id="buttonAtivarServidor" onclick="confirmarAtivar()">Ativar
+        servidor
+      </button>
+    </div>
   </div>
 
 
@@ -352,6 +365,7 @@
         <input id="disco_limite_input" type="number">
       </label>
   `
+
   } else if (sessionStorage.ID_PLANO == 3) {
     modalGraficos.innerHTML += `
     
@@ -393,6 +407,7 @@
         <input id="rede_limite_input" type="number">
       </label>
     `
+
   }
 
   nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
@@ -415,11 +430,21 @@
     listarLimite(id_servidor)
     listarApelidoFuncaoInp(id_servidor)
 
-
     // modal.display = "block"
     modal.style.display = "block";
     const frame = document.getElementById("frame");
     frame.classList.add("blur-grid");
+
+    // Selecionar automaticamente a primeira página e botão
+    const firstButton = document.querySelector('.modal-button');
+    const firstPage = document.querySelector('.pagina');
+
+    // Mostra a primeira página e marca o primeiro botão como ativo
+    if (firstButton && firstPage) {
+      firstButton.classList.add('active');
+      firstPage.style.display = 'block';
+    }
+
   }
 
   function fecharModal() {
@@ -1222,5 +1247,29 @@
       fecharCardSucessoMensagem();
     }, "7000");
   }
+
+  // Seleciona todos os botões
+  const buttons = document.querySelectorAll('.modal-button');
+
+  // Adiciona um evento de clique para cada botão
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Esconde todas as páginas
+      document.querySelectorAll('.pagina').forEach(page => page.style.display = 'none');
+      document.querySelectorAll('.modal-button').forEach(btn => btn.classList.remove('active'));
+
+      // Remove a classe 'active' de todos os botões
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      // Mostra a página correspondente ao botão clicado
+      const pageId = button.getAttribute('data-page');
+      document.getElementById(pageId).style.display = 'block';
+
+      // Adiciona a classe 'active' ao botão clicado
+      button.classList.add('active');
+    });
+  });
+
+  
 
 </script>
