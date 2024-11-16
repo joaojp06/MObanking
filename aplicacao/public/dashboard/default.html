@@ -72,3 +72,52 @@
 </body>
 
 </html>
+
+<script>
+
+    function exibirMenu() {
+        const menuLateral = document.querySelector('.menu-lateral');
+        menuLateral.classList.add('menu-aberto');
+    }
+
+    function ocultarMenu() {
+        const submenu = document.querySelector('.submenu');
+        const seta = document.querySelector('.fa-sort-down');
+
+        // Fecha o submenu e redefine o ícone de seta quando o mouse sai do nav
+        submenu.style.display = 'none';
+        seta.classList.remove("girarSeta");
+        submenuAberto = false;
+    }
+
+    function toggleSubmenu() {
+        const submenu = document.querySelector('.submenu');
+        const seta = document.querySelector('.fa-sort-down');
+
+        submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+        submenuAberto = submenu.style.display === 'block';
+
+        if (submenuAberto) {
+            seta.classList.add("girarSeta");
+        } else {
+            seta.classList.remove("girarSeta");
+        }
+    }
+
+    const menuLaterealHTML = document.getElementById('menuLateralBox')
+    var sessTipoUsuario = sessionStorage.ID_TIPO_USUARIO
+    if (sessTipoUsuario == 1) {
+        menuLaterealHTML.innerHTML += `
+     <li>
+          <a href="../funcionarios.html">
+            <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
+            <span class="titulo-link-menu">Funcionários</span>
+          </a>
+        </li>
+    `
+    }
+
+    nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
+
+
+</script>
