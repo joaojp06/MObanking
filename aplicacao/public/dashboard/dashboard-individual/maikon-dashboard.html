@@ -120,6 +120,65 @@
 
         </div>
     </div>
+
+
+    <div class="modalDemanda" id="modalDemanda">
+        <div class="infoServidor_box">
+            <div>
+                <span>Código</span>
+                <h2>SABE23</h2>
+            </div>
+            <div>
+                <span>Função</span>
+                <h2>Servidor do Pix</h2>
+            </div>
+            <div>
+                <span>Componente ociosos</span>
+                <h2>Ram</h2>
+            </div>
+            <i onclick="fecharModal()" id="closeModal" class="closeModal fa-solid fa-x"></i>
+        </div>
+
+        <div class="graficoEspec_box">
+            <div class="grafico_box">
+                <canvas id="radarDemanda" width="400" height="400"></canvas>
+            </div>
+            <div class="infoCalc_box">
+                <div class="picos_box">
+                    <span>Picos Ram</span>
+                    <p>12/11/23 - 12:22:31 - 33%</p>
+                    <p>12/11/23 - 12:22:31 - 33%</p>
+                    <p>12/11/23 - 12:22:31 - 33%</p>
+                </div>
+                
+                <div class="infoServidorDemandaEspc_box">
+                    <div>
+                        <span>Total cpu</span>
+                        <p>1.7Ghz</p>
+                    </div>
+                    <div>
+                        <span>Total Ram</span>
+                        <p>16GB</p>
+                    </div>
+                </div>
+                <div class="calc_box">
+                    <h2>Calculadora</h2>
+
+                    <div class="inputCalc_box">
+                        <label>Valor de uso médio desejado</label>
+                        <input type="text" placeholder="Digite em porcentagem 0% a 100%" id="valorDesejado">
+                        <div>
+                            <button>Calcular</button>
+                        </div>
+                    </div>
+                    <div>
+                        <h3>Resultado</h3>
+                        <span id="repCalculo"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
@@ -170,4 +229,56 @@
     }
 
     nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
+
+
+
+
+
+
+
+
+    const data = {
+        labels: [
+            'Min',
+            'Média',
+            'Max'
+        ],
+        datasets: [{
+            label: 'Ram',
+            data: [65, 59, 90],
+            fill: true,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgb(255, 99, 132)',
+            pointBackgroundColor: 'rgb(255, 99, 132)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(255, 99, 132)'
+        }, {
+            label: 'Cpu',
+            data: [28, 48, 40],
+            fill: true,
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgb(54, 162, 235)',
+            pointBackgroundColor: 'rgb(54, 162, 235)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(54, 162, 235)'
+        }]
+    };
+
+    const config = {
+        type: 'radar',
+        data: data,
+        options: {
+            elements: {
+                line: {
+                    borderWidth: 3
+                }
+            }
+        },
+    };
+
+    const ctx = document.getElementById('radarDemanda').getContext('2d');
+    new Chart(ctx, config);
+
 </script>

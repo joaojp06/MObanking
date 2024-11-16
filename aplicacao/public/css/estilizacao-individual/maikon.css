@@ -1,8 +1,12 @@
-
-
 .conteudo h1 {
     font-size: 36px;
     padding-bottom: 3%;
+}
+
+.blur-grid {
+    filter: blur(5px);
+    transition: filter 0.3s ease-in-out;
+    background-color: gray;
 }
 
 /* HEADER - INFO BOX */
@@ -34,7 +38,7 @@
     & i {
         margin-left: 3%;
         font-size: 1.3rem;
-        cursor: pointer;
+
         color: #07374d;
     }
 }
@@ -78,23 +82,140 @@
         color: white;
         width: auto;
         margin-bottom: 1%;
-    
-        & h3{
+
+        & h3 {
             font-size: .9rem;
             width: 13vw;
         }
 
-        & span{
+        & span {
             font-size: 1.3rem;
         }
-    
+
     }
 
-    & .apelido_card{
+    & .apelido_card {
         width: 3vw !important;
     }
 
 }
-.plusModal_card{
+
+.plusModal_card {
     cursor: pointer;
+}
+
+/* Demanda modal*/
+
+.modalDemanda {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 75vw;
+    height: 80vh;
+    border-radius: 20px;
+    background-color: #ffffff;
+    padding: 2%;
+    color: rgb(0, 0, 0);
+    border: solid 1px #b0b0b0;
+    box-shadow: #c0c0c0 -4px -4px 20px 4px;
+
+    & .infoServidor_box {
+        display: flex;
+        justify-content: space-around;
+
+        & h2 {
+            font-size: 2rem;
+            margin-top: 5px;
+        }
+
+    }
+
+}
+
+.graficoEspec_box {
+    display: flex;
+    margin-top: 5%;
+
+    & .grafico_box {
+        width: 50%;
+    }
+
+    & canvas {
+        width: 37vw;
+        height: 37vh;
+    }
+
+    & p {
+        font-size: 1.6rem;
+    }
+
+    & .infoCalc_box {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    & .infoServidorDemandaEspc_box {
+        display: flex;
+        justify-content: space-between;
+        gap: 0px 20px;
+
+        & div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 5%;
+        }
+    }
+}
+
+.closeModal {
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.picos_box {
+    width: 20vw;
+}
+
+/* Calculadora */
+
+.calc_box {
+    margin-top: 5%;
+    width: 20vw;
+    & h2 {
+        font-size: 1.6rem;
+        margin-bottom: 2%;
+    }
+
+    & .inputCalc_box {
+        display: flex;
+        flex-direction: column;
+    }
+
+    & input {
+        height: 3vh;
+        border-radius: 5px;
+        border: 1px solid gray;
+        margin-bottom: 2%;
+    }
+    & button{
+        float: right;
+        padding: 2% 10%;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: active 0.2s;
+
+    }
+
+    & button:hover{
+        background-color: #04344A;
+        color: white;
+    }
+    & button:active{
+        transform: scale(0.9);
+    }
 }
