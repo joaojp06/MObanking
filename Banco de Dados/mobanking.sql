@@ -69,6 +69,7 @@ create table if not exists servidor (
     fkEmpresa int,
     funcao varchar(90),
     status varchar(45) not null,
+    mac char(17),
 		foreign key (fkEmpresa) references empresa(id),
 		primary key (id, fkEmpresa));
 
