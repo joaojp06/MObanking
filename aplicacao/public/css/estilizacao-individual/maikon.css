@@ -38,8 +38,13 @@
     & i {
         margin-left: 3%;
         font-size: 1.3rem;
-
+        cursor: pointer;
         color: #07374d;
+        transition: all 0.3s;
+    }
+
+    & i:hover{
+        margin-bottom: .3rem;
     }
 }
 
@@ -86,6 +91,7 @@
         & h3 {
             font-size: .9rem;
             width: 13vw;
+            display: flex;
         }
 
         & span {
@@ -102,6 +108,12 @@
 
 .plusModal_card {
     cursor: pointer;
+    font-size: 1rem !important;
+}
+
+.spanStatus {
+    font-size: 1rem !important;
+    margin: 0px 5px;
 }
 
 /* Demanda modal*/
@@ -118,7 +130,7 @@
     padding: 2%;
     color: rgb(0, 0, 0);
     border: solid 1px #b0b0b0;
-    box-shadow: #c0c0c0 -4px -4px 20px 4px;
+    display: none;
 
     & .infoServidor_box {
         display: flex;
@@ -139,15 +151,18 @@
 
     & .grafico_box {
         width: 50%;
+        display: flex;
+        justify-content: center;
     }
 
     & canvas {
-        width: 37vw;
-        height: 37vh;
+        width: 55vw !important;
+        height: 60vh !important;
     }
 
     & p {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
+        margin-bottom: 5px;
     }
 
     & .infoCalc_box {
@@ -159,8 +174,9 @@
 
     & .infoServidorDemandaEspc_box {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         gap: 0px 20px;
+        width: 27vw;
 
         & div {
             display: flex;
@@ -177,45 +193,14 @@
 }
 
 .picos_box {
-    width: 20vw;
+    width: 27vw;
+}
+
+.statusModal_box {
+    display: flex;
+    gap: 10px;
+
 }
 
 /* Calculadora */
 
-.calc_box {
-    margin-top: 5%;
-    width: 20vw;
-    & h2 {
-        font-size: 1.6rem;
-        margin-bottom: 2%;
-    }
-
-    & .inputCalc_box {
-        display: flex;
-        flex-direction: column;
-    }
-
-    & input {
-        height: 3vh;
-        border-radius: 5px;
-        border: 1px solid gray;
-        margin-bottom: 2%;
-    }
-    & button{
-        float: right;
-        padding: 2% 10%;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: active 0.2s;
-
-    }
-
-    & button:hover{
-        background-color: #04344A;
-        color: white;
-    }
-    & button:active{
-        transform: scale(0.9);
-    }
-}

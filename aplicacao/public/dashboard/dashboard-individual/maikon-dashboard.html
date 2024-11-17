@@ -18,8 +18,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body>
-    <div class="frame-aplicacao" style="display: flex;">
+<body onload="listar()">
+    <div id="frame" class="frame-aplicacao" style="display: flex;">
         <nav class="menu-lateral" onmouseenter="exibirMenu()" onmouseleave="ocultarMenu()">
             <img src="../../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
             <ul id="menuLateralBox">
@@ -75,8 +75,8 @@
                         Pesquise por código
                     </label>
                     <div class="pesquisa_box_inp">
-                        <input type="text" placeholder="Digite o código do servidor">
-                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input id="pesquisaCodigo" type="text" placeholder="Digite o código do servidor">
+                        <i onclick="listar()" class="fa-solid fa-magnifying-glass"></i>
                     </div>
                 </div>
 
@@ -84,38 +84,38 @@
                     <div>
                         <i class="fa-solid fa-circle-exclamation" style="color: rgb(220, 142, 26);"></i>
                         <p>Ociosos</p>
-                        <span>2</span>
+                        <span id="spanOcioso_indicador">0</span>
                     </div>
                     <div>
                         <i class="fa-solid fa-circle-exclamation" style="color: #c70000;"></i>
                         <p>Sobrecarregados</p>
-                        <span>2</span>
+                        <span id="spanSobrecarregado_indicador">0</span>
                     </div>
                     <div>
                         <i class="fa-solid fa-circle-exclamation" style="color: #029602;"></i>
                         <p>Estáveis</p>
-                        <span>2</span>
+                        <span id="spanEstavel_indicador">0</span>
                     </div>
                 </div>
             </div>
 
-            <div class="listagem_cards">
-                <div>
-                    <h3 class="apelido_card">SABE23</h3>
-                    <span>|</span>
-                    <h3>Servidor de pix</h3>
-                    <span>|</span>
-                    <h3>Componente(s): Ram</h3>
-                    <span id="plusModal" class="plusModal_card">+</span>
-                </div>
-                <div>
-                    <h3 class="apelido_card">SABE23</h3>
-                    <span>|</span>
-                    <h3>Servidor de faturas</h3>
-                    <span>|</span>
-                    <h3>Componente(s): Ram, cpu</h3>
-                    <span id="plusModal" class="plusModal_card">+</span>
-                </div>
+            <div id="listagem_cards" class="listagem_cards">
+                <!-- <div>
+                        <h3 class="apelido_card">SABE23</h3>
+                        <span>|</span>
+                        <h3>Servidor de pix</h3>
+                        <span>|</span>
+                        <h3>Componente(s): Ram</h3>
+                        <span onclick="abrirModal()" id="plusModal" class="plusModal_card">+</span>
+                    </div>
+                    <div>
+                        <h3 class="apelido_card">SABE23</h3>
+                        <span>|</span>
+                        <h3>Servidor de faturas</h3>
+                        <span>|</span>
+                        <h3>Componente(s): Ram, cpu</h3>
+                        <span id="plusModal" class="plusModal_card">+</span>
+                    </div> -->
             </div>
 
         </div>
@@ -123,8 +123,8 @@
 
 
     <div class="modalDemanda" id="modalDemanda">
-        <div class="infoServidor_box">
-            <div>
+        <div id="infoServidor_box" class="infoServidor_box">
+            <!-- <div>
                 <span>Código</span>
                 <h2>SABE23</h2>
             </div>
@@ -136,46 +136,41 @@
                 <span>Componente ociosos</span>
                 <h2>Ram</h2>
             </div>
-            <i onclick="fecharModal()" id="closeModal" class="closeModal fa-solid fa-x"></i>
+            <i onclick="fecharModal()" id="closeModal" class="closeModal fa-solid fa-x"></i> -->
         </div>
 
         <div class="graficoEspec_box">
             <div class="grafico_box">
-                <canvas id="radarDemanda" width="400" height="400"></canvas>
+                <canvas id="radarDemanda"></canvas>
             </div>
             <div class="infoCalc_box">
-                <div class="picos_box">
+
+                <div id="picos_box" class="picos_box">
                     <span>Picos Ram</span>
-                    <p>12/11/23 - 12:22:31 - 33%</p>
-                    <p>12/11/23 - 12:22:31 - 33%</p>
-                    <p>12/11/23 - 12:22:31 - 33%</p>
+                    <div id="picoRam_box">
+                        <!-- <p>12/11/23 - 12:22:31 - 33%</p>
+                        <p>12/11/23 - 12:22:31 - 33%</p>
+                        <p>12/11/23 - 12:22:31 - 33%</p> -->
+                    </div>
+                    <span>Picos Cpu</span>
+                    <div id="picoCpu_box">
+
+                    </div>
+
+
                 </div>
-                
-                <div class="infoServidorDemandaEspc_box">
-                    <div>
+
+                <div id="infoServidorDemandaEspc_box" class="infoServidorDemandaEspc_box">
+                    <!-- <div>
                         <span>Total cpu</span>
                         <p>1.7Ghz</p>
                     </div>
                     <div>
                         <span>Total Ram</span>
                         <p>16GB</p>
-                    </div>
+                    </div> -->
                 </div>
-                <div class="calc_box">
-                    <h2>Calculadora</h2>
 
-                    <div class="inputCalc_box">
-                        <label>Valor de uso médio desejado</label>
-                        <input type="text" placeholder="Digite em porcentagem 0% a 100%" id="valorDesejado">
-                        <div>
-                            <button>Calcular</button>
-                        </div>
-                    </div>
-                    <div>
-                        <h3>Resultado</h3>
-                        <span id="repCalculo"></span>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -237,48 +232,291 @@
 
 
 
-    const data = {
-        labels: [
-            'Min',
-            'Média',
-            'Max'
-        ],
-        datasets: [{
-            label: 'Ram',
-            data: [65, 59, 90],
-            fill: true,
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgb(255, 99, 132)',
-            pointBackgroundColor: 'rgb(255, 99, 132)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgb(255, 99, 132)'
-        }, {
-            label: 'Cpu',
-            data: [28, 48, 40],
-            fill: true,
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderColor: 'rgb(54, 162, 235)',
-            pointBackgroundColor: 'rgb(54, 162, 235)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgb(54, 162, 235)'
-        }]
-    };
 
-    const config = {
-        type: 'radar',
-        data: data,
-        options: {
-            elements: {
-                line: {
-                    borderWidth: 3
-                }
+
+    let idServidorPar
+
+
+
+    let chartInstance; // Variável global para armazenar a instância do gráfico
+
+    function abrirModal(idServidor) {
+        const frame = document.getElementById("frame");
+        frame.classList.add("blur-grid");
+
+        // Alimentando a let com o valor dinâmico do servidor ao clicar no plus do card
+        idServidorPar = idServidor;
+
+        const servidor = servidoresGlobal.find(s => s.idServidor === idServidor);
+        const infoServidor_box = document.getElementById('infoServidor_box');
+        const infoServidorDemandaEspc_box = document.getElementById('infoServidorDemandaEspc_box');
+
+        // Limpar o conteúdo do modal antes de adicionar os novos dados
+        infoServidor_box.innerHTML = '';
+        infoServidorDemandaEspc_box.innerHTML = '';
+
+        listarLimites()
+
+        if (servidor) {
+            var statusCpu = determinarStatusComponenteCorGrafico(servidor.media_valor_cpu, servidor.desvio_padrao_cpu);
+            var statusRam = determinarStatusComponenteCorGrafico(servidor.media_valor_ram, servidor.desvio_padrao_ram);
+
+            var statusCpuT = determinarStatusComponente(servidor.media_valor_cpu, servidor.desvio_padrao_cpu);
+            var statusRamT = determinarStatusComponente(servidor.media_valor_ram, servidor.desvio_padrao_ram);
+
+            infoServidor_box.innerHTML = `
+        <div>
+            <span>Código</span>
+            <h2>${servidor.apelido}</h2>
+        </div>
+        <div>
+            <span>Função</span>
+            <h2>${servidor.funcao}</h2>
+        </div>
+        <div>
+            <span>Status</span>
+            <div class="statusModal_box">
+            <h2 style="color: ${statusRamT};">Ram</h2>
+            <h2 style="color: ${statusCpuT};">Cpu</h2>
+            </div>
+        </div>
+        <i onclick="fecharModal()" id="closeModal" class="closeModal fa-solid fa-x"></i>
+        `;
+
+            infoServidorDemandaEspc_box.innerHTML = `
+        <div>
+            <span>Total cpu</span>
+            <p>${servidor.capacidade_total_cpu}Ghz</p>
+        </div>
+        <div>
+            <span>Total Ram</span>
+            <p>${servidor.capacidade_total_ram}GB</p>
+        </div>
+        `;
+
+            if (statusCpu == statusRam) {
+                statusCpu = "#ff262615"
+                statusRam = "#86000030"
             }
-        },
-    };
+            // Gráfico
+            const data = {
+                labels: ['Min', 'Média', 'Max'],
+                datasets: [{
+                    label: 'Ram',
+                    data: [servidor.valor_minimo_ram, servidor.media_valor_ram, servidor.valor_maximo_ram],
+                    fill: true,
+                    backgroundColor: `${statusRam}`,
+                    borderColor: `${statusRam}`,
+                    pointBackgroundColor: `${statusRam}`,
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: `${statusRam}`
+                }, {
+                    label: 'Cpu',
+                    data: [servidor.valor_minimo_cpu, servidor.media_valor_cpu, servidor.valor_maximo_cpu],
+                    fill: true,
+                    backgroundColor: `${statusCpu}`,
+                    borderColor: `${statusCpu}`,
+                    pointBackgroundColor: `${statusCpu}`,
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: `${statusCpu}`
+                }]
+            };
 
-    const ctx = document.getElementById('radarDemanda').getContext('2d');
-    new Chart(ctx, config);
+            const config = {
+                type: 'radar',
+                data: data,
+                options: {
+                    elements: {
+                        line: {
+                            borderWidth: 3
+                        }
+                    }
+                }
+            };
+
+            const ctx = document.getElementById('radarDemanda').getContext('2d');
+
+            // Destroi o gráfico existente, se houver
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            // Cria um novo gráfico e armazena a instância na variável global
+            chartInstance = new Chart(ctx, config);
+        }
+
+        const modal = document.getElementById("modalDemanda");
+        modal.style.display = "block";
+    }
+
+    function fecharModal() {
+        const modal = document.getElementById("modalDemanda")
+        modal.style.display = "none"
+
+        const frame = document.getElementById("frame");
+        frame.classList.remove("blur-grid");
+
+        // Destroi o gráfico quando o modal é fechado
+        if (chartInstance) {
+            chartInstance.destroy();
+            chartInstance = null;
+        }
+    }
+
+    function listarLimites() {
+
+        picoCpu_box.innerHTML = ``; // Limpando a div para atualizar com maior fluidez
+        picoRam_box.innerHTML = ``; // Limpando a div para atualizar com maior fluidez
+
+        fetch(`/maikon/listarLimites/${idServidorPar}`, {
+            method: "GET"
+        })
+            .then(function (resposta) {
+                if (resposta.status == 204) {
+                    picos_box.innerHTML = "Nenhum resultado encontrado.";
+                    throw "Nenhum resultado encontrado!!";
+                }
+                return resposta.json();
+            })
+            .then((picos) => {
+                console.log(picos); // Log da resposta da API com os dados do banco
+
+                picos.forEach((registro) => {
+
+                    var dataFormatadaCpu = formatarData(registro.data_cpu)
+                    var dataFormatadaRam = formatarData(registro.data_ram)
+
+
+                    picoCpu_box.innerHTML += `
+                        <p>${dataFormatadaRam} - ${registro.valor_cpu}%</p>
+                    
+                    `;
+                    picoRam_box.innerHTML += `
+                        <p>${dataFormatadaCpu} - ${registro.valor_ram}%</p>
+
+                    `;
+                });
+
+
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+    function formatarData(dataISO) {
+        const jsonDate = "2024-01-03T15:00:00.000Z";
+
+        // Converter a string em um objeto Date
+        const date = new Date(dataISO);
+
+        // Obter os componentes da data em UTC
+        const day = String(date.getUTCDate()).padStart(2, '0');
+        const month = String(date.getUTCMonth() + 1).padStart(2, '0'); // Os meses começam do 0
+        const year = date.getUTCFullYear();
+
+        const hours = String(date.getUTCHours()).padStart(2, '0');
+        const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+        const seconds = String(date.getUTCSeconds()).padStart(2, '0');
+        
+
+        // Formata a data no padrão desejado
+        return `${day}/${month}/${year} - ${hours}:${minutes}:${seconds}`;
+    }
+
+    // Exemplo de uso
+    const dataISO = "2024-11-17T19:43:15.000Z";
+    const dataFormatada = formatarData(dataISO);
+    console.log(dataFormatada); // Saída: '17/11/24 - 19:43:15'
+
+
+
+    // Função para colocar cor nos área de status
+    function determinarStatusComponente(media, desvio) {
+        if (media < 30 && desvio < 10) {
+            return "#dc8e1a"; //ocioso
+        } else if (media > 70 || desvio > 20) {
+            return "#c70000"; //Sobrecarga
+        } else {
+            return "#029602"; //OK estavel
+        }
+    }
+    //Função para colorir os back do grafico 
+    function determinarStatusComponenteCorGrafico(media, desvio) {
+        if (media < 30 && desvio < 10) {
+            return "rgba(220, 142, 26, 0.2)"; //ocioso
+        } else if (media > 70 || desvio > 20) {
+            return "rgba(199, 0, 0, 0.2)"; //Sobrecarga
+        } else {
+            return "rgb(2, 150, 2, 0.2)"; //OK estavel
+        }
+    }
+
+    var servidoresGlobal
+    // Função de listar os cards
+    function listar() {
+        // Lets para alimentar campo de indicador, qtd de servidores ociosos, sobrecarregados ou estáveis 
+        let qtdOcioso = 0;
+        let qtdSobrecarregado = 0;
+        let qtdEstavel = 0;
+
+        var idEmpresa = sessionStorage.ID_EMPRESA;
+        listagem_cards.innerHTML = ``; // Limpando a div para atualizar com maior fluidez
+        var apelido = pesquisaCodigo.value;
+        if (apelido === undefined || apelido === "") {
+            apelido = "%";
+        }
+
+        apelido = encodeURIComponent(apelido);
+
+        console.log(apelido);
+        fetch(`/maikon/listar/${idEmpresa}/${apelido}`, {
+            method: "GET"
+        })
+            .then(function (resposta) {
+                if (resposta.status == 204) {
+                    listagem_cards.innerHTML = "Nenhum resultado encontrado.";
+                    throw "Nenhum resultado encontrado!!";
+                }
+                return resposta.json();
+            })
+            .then((servidores) => {
+                console.log(servidores); // Log da resposta da API com os dados do banco
+                servidoresGlobal = servidores; // Armazenando os dados na variável global
+
+                servidores.forEach((registro) => {
+                    var statusCpu = determinarStatusComponente(registro.media_valor_cpu, registro.desvio_padrao_cpu);
+                    var statusRam = determinarStatusComponente(registro.media_valor_ram, registro.desvio_padrao_ram);
+
+                    if (registro.statusCpu === "sobrecarga" || registro.statusRam === "sobrecarga") {
+                        qtdSobrecarregado += 1;
+                    } else if (registro.statusCpu === "ocioso" || registro.statusRam === "ocioso") {
+                        qtdOcioso += 1;
+                    } else if (registro.statusCpu === "estavel" || registro.statusRam === "estavel") {
+                        qtdEstavel += 1;
+                    }
+
+                    listagem_cards.innerHTML += `
+                <div>
+                    <h3 class="apelido_card">${registro.apelido}</h3>
+                    <span>|</span>
+                    <h3>${registro.funcao}</h3>
+                    <span>|</span>
+                    <h3> status: <span class="spanStatus" style="color: ${statusRam};">Ram </span> - <span class="spanStatus" style="color: ${statusCpu};">Cpu</span> </h3>
+                    <span onclick="abrirModal(${registro.idServidor})" id="plusModal" class="plusModal_card">ver mais +</span>
+                </div>
+            `;
+                });
+
+                spanEstavel_indicador.innerHTML = qtdEstavel;
+                spanOcioso_indicador.innerHTML = qtdOcioso;
+                spanSobrecarregado_indicador.innerHTML = qtdSobrecarregado;
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
 
 </script>
