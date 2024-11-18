@@ -16,15 +16,11 @@ WHERE row_num <= 5;
     return database.executar(instrucaoSql);
 }
 
-function buscarMedidasEmTempoReal(idAquario) {
+function buscarMedidasServidorMedia(idEmpresa) {
 
-    var instrucaoSql = `SELECT 
-        dht11_temperatura as temperatura, 
-        dht11_umidade as umidade,
-                        DATE_FORMAT(momento,'%H:%i:%s') as momento_grafico, 
-                        fk_aquario 
-                        FROM medida WHERE fk_aquario = ${idAquario} 
-                    ORDER BY id DESC LIMIT 1`;
+    var instrucaoSql = `
+    select * from vw_media_diaria_componentes where id_empresa = 3;
+    `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -32,5 +28,5 @@ function buscarMedidasEmTempoReal(idAquario) {
 
 module.exports = {
     buscarMedidasServidor,
-    buscarMedidasEmTempoReal
+    buscarMedidasServidorMedia
 }

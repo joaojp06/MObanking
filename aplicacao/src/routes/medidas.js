@@ -7,8 +7,8 @@ router.get("/servidor/:idServidor", function (req, res) {
     medidaController.buscarMedidasServidor(req, res);
 });
 
-router.get("/tempo-real/:idAquario", function (req, res) {
-    medidaController.buscarMedidasEmTempoReal(req, res);
+router.get("/servidorMedia/:idEmpresa", function (req, res) {
+    medidaController.buscarMedidasServidorMedia(req, res);
 })
 
 module.exports = router;
