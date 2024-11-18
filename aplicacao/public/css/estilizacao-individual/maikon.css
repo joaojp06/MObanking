@@ -181,7 +181,6 @@
         & div {
             display: flex;
             flex-direction: column;
-            align-items: center;
             margin-top: 5%;
         }
     }
@@ -194,6 +193,13 @@
 
 .picos_box {
     width: 27vw;
+
+    & span{
+    }
+}
+
+.picosDesc_box{
+    margin: 5% 0%;
 }
 
 .statusModal_box {
@@ -202,5 +208,9 @@
 
 }
 
-/* Calculadora */
+/* Descrição do Upgrade ou downgrade */
+.calculDesc_box{
+    margin-top: 5%;
+    width: 27vw;
+}
 

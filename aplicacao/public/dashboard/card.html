@@ -19,7 +19,7 @@
 
 </head>
 
-<body onload="listarServidores()">
+<body onload="listarServidores(),gerenciarModal()">
   <div id="frame" class="frame-aplicacao" style="display: flex">
     <nav class="menu-lateral" onmouseenter="exibirMenu()" onmouseleave="ocultarMenu()">
       <img src="../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
@@ -82,22 +82,28 @@
   </div>
 
   <!-- MODAL -->
-
   <div style="display: none" class="modal" id="modal">
     <i onclick="fecharModal()" id="closeModal" class="fa-solid fa-x"></i>
 
-
     <div class="modal-buttons">
-      <button class="modal-button" data-page="modalGraficos">Dados em tempo real </button>
-      <button class="modal-button" data-page="tendenciaUso"> Tendência de uso </button>
-      <button class="modal-button" data-page="configuracoes"> Configurações </button>
+      <button onclick="exbirTempoReal()" class="modal-button" data-page="modalGraficos">Dados em tempo real</button>
+      <button onclick="exibirTendenciaUso()" class="modal-button" data-page="tendenciaUso"> Tendência de uso </button>
+      <button onclick="exibirConfiguracoes()" class="modal-button" data-page="configuracoes"> Configurações </button>
     </div>
 
     <div id="modalGraficos" class="pagina">
       <!-- Essa parte recebe de forma dinâmica(fkPlano) os gráficos que são exibidos em tempo real -->
     </div>
 
-    <div id="tendenciaUso" class="pagina" style="display: none;">Conteúdo: Tendência de uso</div>
+    <div id="tendenciaUso" class="pagina" style="display: none;">
+      <!-- Essa parte tem que receber de forma dinamica e exibir em tempo real -->
+      `Contenúdo: Tendência de uso` <br>
+      A <br>
+      A <br>
+      A <br>
+      A <br>
+      
+    </div>
 
     <div id="configuracoes" class="pagina" style="display: none;">
       <div class="div-inp">
@@ -115,7 +121,7 @@
       <h1>Limites dos componentes</h1>
       <div class="mudarLimiteBox">
         <div class="boxInputs" id="mudarLimiteBox">
-
+          <!-- Dinâmico de acordo com o fk(Plano) -->
         </div>
         <button onclick="editarLimiteServidor(idServidorPar)">Editar</button>
       </div>
@@ -128,13 +134,11 @@
       </button>
     </div>
   </div>
-
-
+  </div>
 
 
 
   <!-- CARD DE SUCESSO -->
-
   <div id="cardSucessoMsg" class="cardMensagem fecharCardMensagem">
     <svg class="wave" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -190,13 +194,14 @@
     </svg>
   </div>
 
+  <!-- CARD DO ALERTA ESTÁTICO -->
   <div class="alertCardEstatico" id="alertCardEstatico">
     <span class="tituloAlerta">Alerta</span>
     <span class="descAlerta">A máquina com ID: 1 atingiu o limite estipulado de 85% no serviço de CPU</span>
     <span>Data: 14/10/2024 - 12:22:09</span>
   </div>
 
-
+  <!-- CARD CONFIRMAR DESATIVAÇÃO -->
   <div class="confirmarModal" id="confirmarModalDesativar">
     <h2>Deseja realmente desativar esse servidor ?</h2>
     <div>
@@ -205,6 +210,7 @@
     </div>
   </div>
 
+  <!-- CARD PARA CONFIRMAR ATIVAÇÃO -->
   <div class="confirmarModal" id="confirmarModalAtivar">
     <h2>Deseja ativar esse servidor ?</h2>
     <div>
@@ -219,7 +225,6 @@
 </html>
 
 <script>
-
 
   let submenuAberto = false;
 
@@ -282,9 +287,6 @@
     confirmarModalAtivar.style.top = '-20%'
   }
 
-
-
-
   function alertaEstatico() {
     const card = document.getElementById("alertCardEstatico");
 
@@ -295,6 +297,7 @@
 
   }
 
+  // CONFIGURAÇÃO DO MENU - OPÇÃO "FUNCIONÁRIOS"
   const menuLaterealHTML = document.getElementById('menuLateralBox')
   var sessTipoUsuario = sessionStorage.ID_TIPO_USUARIO
   if (sessTipoUsuario == 1) {
@@ -308,10 +311,10 @@
     `
   }
 
-
+  // PARTE QUE ALIMENTA A PÁGINA "DADOS EM TEMPO REAL" DO MODAL
+  // E A DIV LIMITE DE ACORDO COM O FKPLANO
   if (sessionStorage.ID_PLANO == 1) {
     modalGraficos.innerHTML = `
-    
     <div class="grafico-box">
     <h2>Uso CPU </h2>
     <canvas id="graficoCPU-box"></canvas>
@@ -320,7 +323,6 @@
     <h2>Uso RAM </h2>
     <canvas id="graficoRAM-box"></canvas>
   </div>
-  
   `
 
     mudarLimiteBox.innerHTML += `
@@ -351,7 +353,7 @@
   
   
   `
-    mudarLimiteBox.innerHTML += `
+    mudarLimiteBox.innerHTML = `
     <label for="">
         CPU %
         <input id="cpu_limite_input" type="number">
@@ -367,7 +369,7 @@
   `
 
   } else if (sessionStorage.ID_PLANO == 3) {
-    modalGraficos.innerHTML += `
+    modalGraficos.innerHTML = `
     
     <div class="grafico-box">
       <h2>Uso CPU </h2>
@@ -389,7 +391,7 @@
     
     `
 
-    mudarLimiteBox.innerHTML += `
+    mudarLimiteBox.innerHTML = `
       <label for="">
         CPU %
         <input id="cpu_limite_input" type="number">
@@ -436,13 +438,17 @@
     frame.classList.add("blur-grid");
 
     // Selecionar automaticamente a primeira página e botão
-    const firstButton = document.querySelector('.modal-button');
-    const firstPage = document.querySelector('.pagina');
+    const buttons = document.querySelectorAll('.modal-button');
+    const pages = document.querySelectorAll('.pagina');
 
-    // Mostra a primeira página e marca o primeiro botão como ativo
-    if (firstButton && firstPage) {
-      firstButton.classList.add('active');
-      firstPage.style.display = 'block';
+    if (buttons.length > 0 && pages.length > 0) {
+      // Desmarcar todos os botões e ocultar todas as páginas
+      buttons.forEach(button => button.classList.remove('active'));
+      pages.forEach(page => page.style.display = 'none');
+
+      // Marcar o primeiro botão como ativo e exibir a primeira página
+      buttons[0].classList.add('active');
+      pages[0].style.display = 'block';
     }
 
   }
@@ -592,7 +598,6 @@
         console.log(`#ERRO: ${resposta}`);
       });
   }
-
 
   function desativarServidor() {
     var idServidor = idServidorPar
@@ -859,14 +864,12 @@
     }, 5000); // Intervalo de 3 segundos
   }
 
-
   let graficoCpuInstance = null;
   let graficoRamInstance = null;
   let graficoDiscoInstance = null;
   let graficoRedeInstance = null;
 
   function plotarGrafico(resposta) {
-
 
     console.log('iniciando plotagem do gráfico...');
 
@@ -1198,19 +1201,7 @@
 
   }
 
-
-
-
-
-
-  // gráficos estatico
-
-
-
-
-
-  // Funções de card de alerta
-
+  // FUNÇÕES CARD ALERTA
   // esse é o id = descCardSucesso para innerHTML a mensagem de sucesso
   function abrirCardSucesoMensagem() {
     cardSucessoMsg
@@ -1248,28 +1239,38 @@
     }, "7000");
   }
 
-  // Seleciona todos os botões
-  const buttons = document.querySelectorAll('.modal-button');
-
-  // Adiciona um evento de clique para cada botão
-  buttons.forEach(button => {
-    button.addEventListener('click', () => {
-      // Esconde todas as páginas
-      document.querySelectorAll('.pagina').forEach(page => page.style.display = 'none');
-      document.querySelectorAll('.modal-button').forEach(btn => btn.classList.remove('active'));
-
-      // Remove a classe 'active' de todos os botões
-      buttons.forEach(btn => btn.classList.remove('active'));
-
-      // Mostra a página correspondente ao botão clicado
-      const pageId = button.getAttribute('data-page');
-      document.getElementById(pageId).style.display = 'block';
-
-      // Adiciona a classe 'active' ao botão clicado
-      button.classList.add('active');
+  function gerenciarModal() {
+    // Seleciona todos os botões
+    const buttons = document.querySelectorAll('.modal-button');
+    // Adiciona um evento de clique para cada botão
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Esconde todas as páginas
+        document.querySelectorAll('.pagina').forEach(page => page.style.display = 'none');
+        document.querySelectorAll('.modal-button').forEach(btn => btn.classList.remove('active'));
+        // Mostra a página correspondente ao botão clicado
+        const pageId = button.getAttribute('data-page');
+        document.getElementById(pageId).style.display = 'block';
+        // Adiciona a classe 'active' ao botão clicado
+        button.classList.add('active');
+      });
     });
-  });
+  }
 
-  
+
+  function exibirTendenciaUso() {
+    modalGraficos.innerHTML = ``;
+    configuracoes.innerHTML = ``;
+  }
+
+  function exibirConfiguracoes() {
+    modalGraficos.innerHTML = ``;
+    tendenciaUso.innerHTML = ``;
+  }
+
+  function exbirTempoReal() {
+    configuracoes.innerHTML = ``;
+    tendenciaUso.innerHTML = ``;
+  }
 
 </script>
