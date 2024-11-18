@@ -19,7 +19,7 @@
 
 </head>
 
-<body onload="listarServidores(), atualizarDivLimite(),gerenciarModal()">
+<body onload="listarServidores(),gerenciarModal()">
   <div id="frame" class="frame-aplicacao" style="display: flex">
     <nav class="menu-lateral" onmouseenter="exibirMenu()" onmouseleave="ocultarMenu()">
       <img src="../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
@@ -97,7 +97,12 @@
 
     <div id="tendenciaUso" class="pagina" style="display: none;">
       <!-- Essa parte tem que receber de forma dinamica e exibir em tempo real -->
-      `Contenúdo: Tendência de uso`
+      `Contenúdo: Tendência de uso` <br>
+      A <br>
+      A <br>
+      A <br>
+      A <br>
+      
     </div>
 
     <div id="configuracoes" class="pagina" style="display: none;">
@@ -221,7 +226,6 @@
 
 <script>
 
-
   let submenuAberto = false;
 
   function toggleSubmenu() {
@@ -308,6 +312,7 @@
   }
 
   // PARTE QUE ALIMENTA A PÁGINA "DADOS EM TEMPO REAL" DO MODAL
+  // E A DIV LIMITE DE ACORDO COM O FKPLANO
   if (sessionStorage.ID_PLANO == 1) {
     modalGraficos.innerHTML = `
     <div class="grafico-box">
@@ -348,7 +353,7 @@
   
   
   `
-    mudarLimiteBox.innerHTML += `
+    mudarLimiteBox.innerHTML = `
     <label for="">
         CPU %
         <input id="cpu_limite_input" type="number">
@@ -364,7 +369,7 @@
   `
 
   } else if (sessionStorage.ID_PLANO == 3) {
-    modalGraficos.innerHTML += `
+    modalGraficos.innerHTML = `
     
     <div class="grafico-box">
       <h2>Uso CPU </h2>
@@ -386,7 +391,7 @@
     
     `
 
-    mudarLimiteBox.innerHTML += `
+    mudarLimiteBox.innerHTML = `
       <label for="">
         CPU %
         <input id="cpu_limite_input" type="number">
@@ -1252,13 +1257,10 @@
     });
   }
 
-  
 
   function exibirTendenciaUso() {
     modalGraficos.innerHTML = ``;
     configuracoes.innerHTML = ``;
-
-    tendenciaUso.innerHTML = `Contenúdo: Tendência de uso`;
   }
 
   function exibirConfiguracoes() {
@@ -1267,104 +1269,8 @@
   }
 
   function exbirTempoReal() {
-    if (sessionStorage.ID_PLANO == 1) {
-      modalGraficos.innerHTML = `
-    <div class="grafico-box">
-    <h2>Uso CPU </h2>
-    <canvas id="graficoCPU-box"></canvas>
-  </div>
-  <div class="grafico-box">
-    <h2>Uso RAM </h2>
-    <canvas id="graficoRAM-box"></canvas>
-  </div>
-  `
-    } else if (sessionStorage.ID_PLANO == 2) {
-      modalGraficos.innerHTML = `
-    <div class="grafico-box">
-    <h2>Uso CPU </h2>
-    <canvas id="graficoCPU-box"></canvas>
-  </div>
-  <div class="grafico-box">
-    <h2>Uso RAM </h2>
-    <canvas id="graficoRAM-box"></canvas>
-  </div>
-  <div class="grafico-box" id="receberGraficoDados">
-    <h2>Uso DISCO </h2>
-    <canvas id="graficoDISCO-box"></canvas>
-  </div>
-  `
-    } else if (sessionStorage.ID_PLANO == 3) {
-      modalGraficos.innerHTML += `
-    <div class="grafico-box">
-      <h2>Uso CPU </h2>
-      <canvas id="graficoCPU-box"></canvas>
-    </div>
-    <div class="grafico-box">
-      <h2>Uso RAM </h2>
-      <canvas id="graficoRAM-box"></canvas>
-    </div>
-    <div class="grafico-box" id="receberGraficoDados">
-      <h2>Uso DISCO </h2>
-      <canvas id="graficoDISCO-box"></canvas>
-    </div>
-    <div class="grafico-box" id="receberGraficoDados">
-      <h2>Mb REDE </h2>
-      <canvas id="graficoREDE-box"></canvas>
-    </div>
-    `
-    }
+    configuracoes.innerHTML = ``;
+    tendenciaUso.innerHTML = ``;
   }
-
-  function atualizarDivLimite() {
-    if (sessionStorage.ID_PLANO == 1) {
-      mudarLimiteBox.innerHTML = `
-  <label for="">
-        CPU %
-        <input id="cpu_limite_input" type="number">
-      </label>
-      <label for="">
-        RAM %
-        <input id="ram_limite_input" type="number">
-      </label>
-      
-  `
-    } else if (sessionStorage.ID_PLANO == 2) {
-      mudarLimiteBox.innerHTML = `
-    <label for="">
-        CPU %
-        <input id="cpu_limite_input" type="number">
-      </label>
-      <label for="">
-        RAM %
-        <input id="ram_limite_input" type="number">
-      </label>
-      <label for="">
-        DISCO GB
-        <input id="disco_limite_input" type="number">
-      </label>
-  `
-
-    } else if (sessionStorage.ID_PLANO == 3) {
-      mudarLimiteBox.innerHTML += `
-      <label for="">
-        CPU %
-        <input id="cpu_limite_input" type="number">
-      </label>
-      <label for="">
-        RAM %
-        <input id="ram_limite_input" type="number">
-      </label>
-      <label for="">
-        DISCO GB
-        <input id="disco_limite_input" type="number">
-      </label>
-      <label for="">
-        REDE MB
-        <input id="rede_limite_input" type="number">
-      </label>
-    `
-    }
-  }
-
 
 </script>
