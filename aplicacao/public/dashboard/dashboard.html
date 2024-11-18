@@ -21,39 +21,50 @@
 
 <body onload="obterDadosGrafico(idEmpresa)">
     <div class="frame-aplicacao" style="display: flex;">
-        <nav class="menu-lateral">
-            <img src="../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
-            <h2 class="titulo-menu">Menu</h2>
+        <nav class="menu-lateral" onmouseenter="exibirMenu()" onmouseleave="ocultarMenu()">
+            <img src="../../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
             <ul id="menuLateralBox">
                 <li>
-                    <a href="card.html">
+                    <a href="../card.html">
                         <span class="icon-menu"><i class="fa-solid fa-server"></i></span>
                         <span class="titulo-link-menu">Máquinas</span>
                     </a>
                 </li>
                 <li>
-                    <a href="dashboard.html">
+                    <a href="../dashboard.html">
                         <span class="icon-menu"><i class="fa-solid fa-chart-simple"></i></span>
                         <span class="titulo-link-menu">Gráficos</span>
                     </a>
                 </li>
-
                 <li>
-                    <a href="alertas.html">
+                    <a href="../alertas.html">
                         <span class="icon-menu"><i class="fa-solid fa-triangle-exclamation"></i></span>
                         <span class="titulo-link-menu">Alertas</span>
                     </a>
                 </li>
+                <li class="dashboard-item">
+                    <a href="javascript:void(0);" onclick="toggleSubmenu()">
+                        <span class="icon-menu"><i class="fa-solid fa-chart-pie"></i></span>
+                        <span class="titulo-link-menu">Dashboard </span> <i class="fa-solid setaMenu fa-sort-down"></i>
+                    </a>
+                </li>
+                <div class="submenu" onmouseenter="manterSubmenu()" onmouseleave="fecharSubmenu()">
+                    <li><a href="dashboard-individual/maikon-dashboard.html">Maikon</a></li>
+                    <li><a href="dashboard-individual/joao-dashboard.html">JP</a></li>
+                    <li><a href="dashboard-individual/fabio-dashboard.html">Fabio</a></li>
+                    <li><a href="dashboard-individual/kaua-dashboard.html">Kauâ</a></li>
+                    <li><a href="dashboard-individual/faria-dashboard.html">Gabriel</a></li>
+                </div>
             </ul>
 
-
             <div class="name-menu">
-                <a href="usuarioInfo.html">
+                <a href="../usuarioInfo.html">
                     <h2 id="nome_perfil_menu"></h2>
                 </a>
             </div>
-            <a class="buttonSair-menu" href="../index.html">
-                <h2 id="">Sair</h2>
+
+            <a class="buttonSair-menu" href="../../index.html">
+                <h2>Sair</h2>
             </a>
         </nav>
         <div class="conteudo">
@@ -77,6 +88,37 @@
 </html>
 
 <script>
+
+let submenuAberto = false;
+
+function toggleSubmenu() {
+    const submenu = document.querySelector('.submenu');
+    const seta = document.querySelector('.fa-sort-down');
+
+    submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+    submenuAberto = submenu.style.display === 'block';
+
+    if (submenuAberto) {
+        seta.classList.add("girarSeta");
+    } else {
+        seta.classList.remove("girarSeta");
+    }
+}
+
+function exibirMenu() {
+    const menuLateral = document.querySelector('.menu-lateral');
+    menuLateral.classList.add('menu-aberto');
+}
+
+function ocultarMenu() {
+    const submenu = document.querySelector('.submenu');
+    const seta = document.querySelector('.fa-sort-down');
+
+    // Fecha o submenu e redefine o ícone de seta quando o mouse sai do nav
+    submenu.style.display = 'none';
+    seta.classList.remove("girarSeta");
+    submenuAberto = false;
+}
 
     const menuLaterealHTML = document.getElementById('menuLateralBox')
     var sessTipoUsuario = sessionStorage.ID_TIPO_USUARIO
@@ -376,21 +418,21 @@
 
 
         graficoCpuInstance = new Chart(graficoCPU, {
-        type: 'bar',
-        data: {
-        labels: dadosCpu.labels,
-        datasets: [{
-          label: dadosCpu.datasets[0].label,
-          data: dadosCpu.datasets[0].data,
-          borderColor: 'blue',
-          backgroundColor: 'rgba(2, 255, 255, 0.5)',
-          fill: true,
-          pointBackgroundColor: 'white',
-          pointBorderColor: 'white',
-          pointRadius: 5,
-          tension: 0.1
-        }]
-      },
+            type: 'bar',
+            data: {
+                labels: dadosCpu.labels,
+                datasets: [{
+                    label: dadosCpu.datasets[0].label,
+                    data: dadosCpu.datasets[0].data,
+                    borderColor: 'blue',
+                    backgroundColor: 'rgba(2, 255, 255, 0.5)',
+                    fill: true,
+                    pointBackgroundColor: 'white',
+                    pointBorderColor: 'white',
+                    pointRadius: 5,
+                    tension: 0.1
+                }]
+            },
             options: {
                 scales: {
                     y: {
@@ -402,21 +444,21 @@
 
 
         graficoRamInstance = new Chart(graficoram, {
-        type: 'bar',
-        data: {
-        labels: dadosRam.labels,
-        datasets: [{
-          label: dadosRam.datasets[0].label,
-          data: dadosRam.datasets[0].data,
-          borderColor: 'blue',
-          backgroundColor: 'rgba(2, 255, 255, 0.5)',
-          fill: true,
-          pointBackgroundColor: 'white',
-          pointBorderColor: 'white',
-          pointRadius: 5,
-          tension: 0.1
-        }]
-      },
+            type: 'bar',
+            data: {
+                labels: dadosRam.labels,
+                datasets: [{
+                    label: dadosRam.datasets[0].label,
+                    data: dadosRam.datasets[0].data,
+                    borderColor: 'blue',
+                    backgroundColor: 'rgba(2, 255, 255, 0.5)',
+                    fill: true,
+                    pointBackgroundColor: 'white',
+                    pointBorderColor: 'white',
+                    pointRadius: 5,
+                    tension: 0.1
+                }]
+            },
             options: {
                 scales: {
                     y: {
@@ -427,21 +469,21 @@
         });
 
         graficoDiscoInstance = new Chart(graficodisk, {
-        type: 'bar',
-        data: {
-        labels: dadosDisco.labels,
-        datasets: [{
-          label: dadosDisco.datasets[0].label,
-          data: dadosDisco.datasets[0].data,
-          borderColor: 'blue',
-          backgroundColor: 'rgba(2, 255, 255, 0.5)',
-          fill: true,
-          pointBackgroundColor: 'white',
-          pointBorderColor: 'white',
-          pointRadius: 5,
-          tension: 0.1
-        }]
-      },
+            type: 'bar',
+            data: {
+                labels: dadosDisco.labels,
+                datasets: [{
+                    label: dadosDisco.datasets[0].label,
+                    data: dadosDisco.datasets[0].data,
+                    borderColor: 'blue',
+                    backgroundColor: 'rgba(2, 255, 255, 0.5)',
+                    fill: true,
+                    pointBackgroundColor: 'white',
+                    pointBorderColor: 'white',
+                    pointRadius: 5,
+                    tension: 0.1
+                }]
+            },
             options: {
                 scales: {
                     y: {
@@ -452,21 +494,21 @@
         });
 
         graficoRedeInstance = new Chart(graficoREDE, {
-        type: 'bar',
-        data: {
-        labels: dadosRede.labels,
-        datasets: [{
-          label: dadosRede.datasets[0].label,
-          data: dadosRede.datasets[0].data,
-          borderColor: 'blue',
-          backgroundColor: 'rgba(2, 255, 255, 0.5)',
-          fill: true,
-          pointBackgroundColor: 'white',
-          pointBorderColor: 'white',
-          pointRadius: 5,
-          tension: 0.1
-        }]
-      },
+            type: 'bar',
+            data: {
+                labels: dadosRede.labels,
+                datasets: [{
+                    label: dadosRede.datasets[0].label,
+                    data: dadosRede.datasets[0].data,
+                    borderColor: 'blue',
+                    backgroundColor: 'rgba(2, 255, 255, 0.5)',
+                    fill: true,
+                    pointBackgroundColor: 'white',
+                    pointBorderColor: 'white',
+                    pointRadius: 5,
+                    tension: 0.1
+                }]
+            },
             options: {
                 scales: {
                     y: {
