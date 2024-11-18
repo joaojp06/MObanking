@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="../../css/default.css" />
     <link rel="stylesheet" href="../../css/cardConfirmacao.css">
     <link rel="stylesheet" href="../../css/estilizacao-individual/maikon.css">
+    <!-- Link para a biblioteca jstat -->
+    <script src="https://cdn.jsdelivr.net/npm/jstat@latest/dist/jstat.min.js"></script>
     <!-- <link rel="stylesheet" href=" link do novo css "> -->
     <!-- scripts do Chart.js - 2022-1 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -147,13 +149,13 @@
 
                 <div id="picos_box" class="picos_box">
                     <span>Picos Ram</span>
-                    <div id="picoRam_box">
+                    <div class="picosDesc_box" id="picoRam_box">
                         <!-- <p>12/11/23 - 12:22:31 - 33%</p>
                         <p>12/11/23 - 12:22:31 - 33%</p>
                         <p>12/11/23 - 12:22:31 - 33%</p> -->
                     </div>
                     <span>Picos Cpu</span>
-                    <div id="picoCpu_box">
+                    <div class="picosDesc_box" id="picoCpu_box">
 
                     </div>
 
@@ -169,6 +171,15 @@
                         <span>Total Ram</span>
                         <p>16GB</p>
                     </div> -->
+                </div>
+                <div id="calculDesc_box" class="calculDesc_box">
+                    <span>Resultado</span>
+                    <span id="descCpuDemanda_box">
+                        <!-- <p>Upgrade Cpu: 1.2Ghz</p> -->
+                    </span>
+                    <span id="descRamDemanda_box">
+                        <p>Upgrade Ram: 12Gb</p>
+                    </span>
                 </div>
 
             </div>
@@ -264,6 +275,9 @@
             var statusCpuT = determinarStatusComponente(servidor.media_valor_cpu, servidor.desvio_padrao_cpu);
             var statusRamT = determinarStatusComponente(servidor.media_valor_ram, servidor.desvio_padrao_ram);
 
+            var statusCpuTipo = identificarTipoUp(servidor.media_valor_cpu, servidor.desvio_padrao_cpu);
+            var statusRamTipo = identificarTipoUp(servidor.media_valor_ram, servidor.desvio_padrao_ram);
+
             infoServidor_box.innerHTML = `
         <div>
             <span>Código</span>
@@ -293,6 +307,39 @@
             <p>${servidor.capacidade_total_ram}GB</p>
         </div>
         `;
+
+            if (statusCpuTipo == 1) {
+                descCpuDemanda_box.innerHTML = `
+                <p>Downgrade Cpu: 1.2Ghz</p>
+                `
+            } else if (statusCpuTipo == 2) {
+                var novoValorCpu = calculoValorUp(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.capacidade_total_cpu)
+                descCpuDemanda_box.innerHTML = `
+                <p>Nova cpu desejada: ${novoValorCpu[0]}Ghz</p>
+                <p>Probabilidade de ultrapassar 50% de uso: ${novoValorCpu[1]}%</p>
+                `
+            } else {
+                descCpuDemanda_box.innerHTML = `
+                O componentes cpu não precisa de mudanças
+                `
+            }
+
+            if (statusRamTipo == 1) {
+                descRamDemanda_box.innerHTML = `
+                <p>Upgrade ram: 1.2Ghz</p>
+                `
+            } else if (statusRamTipo == 2) {
+                descRamDemanda_box.innerHTML = `
+                <p>Downgrade ram: 1.2Ghz</p>
+                `
+            } else {
+                descRamDemanda_box.innerHTML = `
+                O componentes ram não precisa de mudanças
+                `
+            }
+
+
+
 
             if (statusCpu == statusRam) {
                 statusCpu = "#ff262615"
@@ -350,6 +397,28 @@
         const modal = document.getElementById("modalDemanda");
         modal.style.display = "block";
     }
+
+
+    // Funções de calculo da demanda
+    function calculoValorUp(meanAtual, stdDev, cpuAtual) {
+
+        console.log(`Executando função de calculo upgrade com os seguintes valores: ${meanAtual} - ${stdDev} - ${cpuAtual}`)
+
+        meanDesejada = 60
+        // Cálculo da nova RAM necessária
+        const usoAtualGhz = (meanAtual / 100) * cpuAtual; // Uso atual em GB
+        const novoValorCpu = usoAtualGhz / (meanDesejada / 100); // Nova capacidade de RAM
+
+        // Z-score
+        const zScore = (meanDesejada - meanAtual) / stdDev;
+
+        // Probabilidade cumulativa até o Z-score
+        const cdf = jStat.normal.cdf(zScore, 0, 1);
+
+        return [novoValorCpu.toFixed(2), cdf.toFixed(2)]
+
+    }
+
 
     function fecharModal() {
         const modal = document.getElementById("modalDemanda")
@@ -420,7 +489,7 @@
         const hours = String(date.getUTCHours()).padStart(2, '0');
         const minutes = String(date.getUTCMinutes()).padStart(2, '0');
         const seconds = String(date.getUTCSeconds()).padStart(2, '0');
-        
+
 
         // Formata a data no padrão desejado
         return `${day}/${month}/${year} - ${hours}:${minutes}:${seconds}`;
@@ -443,6 +512,7 @@
             return "#029602"; //OK estavel
         }
     }
+
     //Função para colorir os back do grafico 
     function determinarStatusComponenteCorGrafico(media, desvio) {
         if (media < 30 && desvio < 10) {
@@ -451,6 +521,22 @@
             return "rgba(199, 0, 0, 0.2)"; //Sobrecarga
         } else {
             return "rgb(2, 150, 2, 0.2)"; //OK estavel
+        }
+    }
+
+    function calculoValorDown() {
+        var valorDown = 0
+
+        return valorDown
+    }
+
+    function identificarTipoUp(media, desvio) {
+        if (media < 30 && desvio < 10) {
+            return 1; //ocioso
+        } else if (media > 70 || desvio > 20) {
+            return 2; //Sobrecarga
+        } else {
+            return 3; //OK estavel
         }
     }
 
