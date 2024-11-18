@@ -19,7 +19,7 @@
 
 </head>
 
-<body onload="listarServidores(),gerenciarModal()">
+<body onload="listarServidores()">
   <div id="frame" class="frame-aplicacao" style="display: flex">
     <nav class="menu-lateral" onmouseenter="exibirMenu()" onmouseleave="ocultarMenu()">
       <img src="../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
@@ -86,12 +86,12 @@
     <i onclick="fecharModal()" id="closeModal" class="fa-solid fa-x"></i>
 
     <div class="modal-buttons">
-      <button onclick="exbirTempoReal()" class="modal-button" data-page="modalGraficos">Dados em tempo real</button>
-      <button onclick="exibirTendenciaUso()" class="modal-button" data-page="tendenciaUso"> Tendência de uso </button>
-      <button onclick="exibirConfiguracoes()" class="modal-button" data-page="configuracoes"> Configurações </button>
+      <button onclick="exbirTempoReal()" class="modal-button" id="modalGraficosButton">Dados em tempo real</button>
+      <button onclick="exibirTendenciaUso()" class="modal-button" id="tendenciaUsoButton"> Tendência de uso </button>
+      <button onclick="exibirConfiguracoes()" class="modal-button" id="configuracoesButton"> Configurações </button>
     </div>
 
-    <div id="modalGraficos" class="pagina">
+    <div id="modalGraficos" style="display: grid;" class="modalGraficos pagina">
       <!-- Essa parte recebe de forma dinâmica(fkPlano) os gráficos que são exibidos em tempo real -->
     </div>
 
@@ -102,7 +102,7 @@
       A <br>
       A <br>
       A <br>
-      
+
     </div>
 
     <div id="configuracoes" class="pagina" style="display: none;">
@@ -437,19 +437,6 @@
     const frame = document.getElementById("frame");
     frame.classList.add("blur-grid");
 
-    // Selecionar automaticamente a primeira página e botão
-    const buttons = document.querySelectorAll('.modal-button');
-    const pages = document.querySelectorAll('.pagina');
-
-    if (buttons.length > 0 && pages.length > 0) {
-      // Desmarcar todos os botões e ocultar todas as páginas
-      buttons.forEach(button => button.classList.remove('active'));
-      pages.forEach(page => page.style.display = 'none');
-
-      // Marcar o primeiro botão como ativo e exibir a primeira página
-      buttons[0].classList.add('active');
-      pages[0].style.display = 'block';
-    }
 
   }
 
@@ -1239,38 +1226,57 @@
     }, "7000");
   }
 
-  function gerenciarModal() {
-    // Seleciona todos os botões
-    const buttons = document.querySelectorAll('.modal-button');
-    // Adiciona um evento de clique para cada botão
-    buttons.forEach(button => {
-      button.addEventListener('click', () => {
-        // Esconde todas as páginas
-        document.querySelectorAll('.pagina').forEach(page => page.style.display = 'none');
-        document.querySelectorAll('.modal-button').forEach(btn => btn.classList.remove('active'));
-        // Mostra a página correspondente ao botão clicado
-        const pageId = button.getAttribute('data-page');
-        document.getElementById(pageId).style.display = 'block';
-        // Adiciona a classe 'active' ao botão clicado
-        button.classList.add('active');
-      });
-    });
-  }
+  // function gerenciarModal() {
+  //   // Seleciona todos os botões
+  //   const buttons = document.querySelectorAll('.modal-button');
+  //   // Adiciona um evento de clique para cada botão
+  //   buttons.forEach(button => {
+  //     button.addEventListener('click', () => {
+  //       // Esconde todas as páginas
+  //       document.querySelectorAll('.pagina').forEach(page => page.style.display = 'none');
+  //       document.querySelectorAll('.modal-button').forEach(btn => btn.classList.remove('active'));
+  //       // Mostra a página correspondente ao botão clicado
+  //       const pageId = button.getAttribute('data-page');
+  //       document.getElementById(pageId).style.display = 'block';
+  //       // Adiciona a classe 'active' ao botão clicado
+  //       button.classList.add('active');
+  //     });
+  //   });
+  // }
 
 
   function exibirTendenciaUso() {
-    modalGraficos.innerHTML = ``;
-    configuracoes.innerHTML = ``;
+    configuracoes.style.display = "none"
+    modalGraficos.classList.add("desaparecerModalJS")
+    tendenciaUso.style.display = "block"
+
+    tendenciaUsoButton.classList.add("modal-buttonActive")
+    modalGraficosButton.classList.remove("modal-buttonActive")
+    configuracoesButton.classList.remove("modal-buttonActive")
+
   }
 
   function exibirConfiguracoes() {
-    modalGraficos.innerHTML = ``;
-    tendenciaUso.innerHTML = ``;
+    modalGraficos.classList.add("desaparecerModalJS")
+    tendenciaUso.style.display = "none"
+    configuracoes.style.display = "block"
+
+    tendenciaUsoButton.classList.remove("modal-buttonActive")
+    modalGraficosButton.classList.remove("modal-buttonActive")
+    configuracoesButton.classList.add("modal-buttonActive")
+
+    
   }
 
   function exbirTempoReal() {
-    configuracoes.innerHTML = ``;
-    tendenciaUso.innerHTML = ``;
+    configuracoes.style.display = "none"
+    tendenciaUso.style.display = "none"
+    modalGraficos.classList.remove("desaparecerModalJS")
+
+    tendenciaUsoButton.classList.remove("modal-buttonActive")
+    configuracoesButton.classList.remove("modal-buttonActive")
+    modalGraficosButton.classList.add("modal-buttonActive")
+
   }
 
 </script>
