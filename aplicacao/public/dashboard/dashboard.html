@@ -19,7 +19,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body onload="obterDadosGrafico(idEmpresa)">
+<body>
     <div class="frame-aplicacao" style="display: flex;">
         <nav class="menu-lateral">
             <img src="../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
@@ -80,6 +80,7 @@
 
     const menuLaterealHTML = document.getElementById('menuLateralBox')
     var sessTipoUsuario = sessionStorage.ID_TIPO_USUARIO
+    var idEmpresa = sessionStorage.ID_EMPRESA;
     if (sessTipoUsuario == 1) {
         menuLaterealHTML.innerHTML += `
      <li>
@@ -102,7 +103,7 @@
 
                 <input id="cpuInput2" type="date" class="input2 custom-date">
 
-                <button class="pesquisarButton" onclick="obterDadosGrafico()">Pesquisar</button>
+                <button class="pesquisarButton" onclick="obterDadosGraficoCPU()">Pesquisar</button>
 
                 <canvas id="graficoCPU-box"></canvas>
             </div>
@@ -111,12 +112,12 @@
                 <!-- Seção da Memória -->
                 <span class="tituloGraficos">Memória</span>
 
-                <input type="date" class="input1 custom-date" id>
+                <input type="date" class="input1 custom-date" id="ramInput1">
 
                 <span>a</span>
 
-                <input type="date" class="input2 custom-date">
-                <button class="pesquisarButton" onclick="obterDadosGrafico()">Pesquisar</button>
+                <input type="date" class="input2 custom-date" id="ramInput2">
+                <button class="pesquisarButton" onclick="obterDadosGraficoRAM()">Pesquisar</button>
                 <canvas id="graficoRAM-box">GRÁFICOS</canvas>
             </div>
             
@@ -135,7 +136,7 @@
 
                 <input id="cpuInput2" type="date" class="input2 custom-date">
 
-                <button class="pesquisarButton">Pesquisar</button>
+                <button class="pesquisarButton" onclick="obterDadosGraficoCPU()">Pesquisar</button>
 
                 <canvas id="graficoCPU-box"></canvas>
             </div>
@@ -144,24 +145,24 @@
                 <!-- Seção da Memória -->
                 <span class="tituloGraficos">Memória</span>
 
-                <input type="date" class="input1 custom-date">
+                <input type="date" class="input1 custom-date" id="ramInput1">
 
                 <span>a</span>
 
-                <input type="date" class="input2 custom-date">
-                <button class="pesquisarButton">Pesquisar</button>
+                <input type="date" class="input2 custom-date" id="ramInput2">
+                <button class="pesquisarButton" onclick="obterDadosGraficoRAM()">Pesquisar</button>
                 <canvas id="graficoRAM-box">GRÁFICOS</canvas>
             </div>
             <div class= "container">
                 <!-- Seção da Disco -->
                 <span class="tituloGraficos">Disco</span>
 
-                <input type="date" class="input1 custom-date">
+                <input type="date" class="input1 custom-date" id="discoInput1">
 
                 <span>a</span>
 
-                <input type="date" class="input2 custom-date">
-                <button class="pesquisarButton">Pesquisar</button>
+                <input type="date" class="input2 custom-date" id="discoInput2">
+                <button class="pesquisarButton" onclick="obterDadosGraficoDISCO()>Pesquisar</button>
                 <canvas id="graficoDISCO-box"></canvas>
 
             </div>
@@ -180,7 +181,7 @@
 
                 <input id="cpuInput2" type="date" class="input2 custom-date">
 
-                <button class="pesquisarButton">Pesquisar</button>
+                <button class="pesquisarButton" onclick="obterDadosGraficoCPU()">Pesquisar</button>
 
                 <canvas id="graficoCPU-box"></canvas>
                 </div>
@@ -190,12 +191,12 @@
                 <div class= "container">
                 <span class="tituloGraficos">Memória</span>
 
-                <input type="date" class="input1 custom-date">
+                <input type="date" class="input1 custom-date" id="ramInput1">
 
                 <span>a</span>
 
-                <input type="date" class="input2 custom-date">
-                <button class="pesquisarButton">Pesquisar</button>
+                <input type="date" class="input2 custom-date" id="ramInput2">
+                <button class="pesquisarButton" onclick="obterDadosGraficoRAM()">Pesquisar</button>
                 <canvas id="graficoRAM-box">GRÁFICOS</canvas>
                 </div>
 
@@ -203,12 +204,12 @@
                 <div class= "container">
                 <span class="tituloGraficos">Disco</span>
 
-                <input type="date" class="input1 custom-date">
+                <input type="date" class="input1 custom-date" id="discoInput1">
 
                 <span>a</span>
 
-                <input type="date" class="input2 custom-date">
-                <button class="pesquisarButton">Pesquisar</button>
+                <input type="date" class="input2 custom-date" id="discoInput2">
+                <button class="pesquisarButton" onclick="obterDadosGraficoDISCO()">Pesquisar</button>
                 <canvas id="graficoDISCO-box"></canvas>
                 </div>
 
@@ -216,12 +217,12 @@
                 <div class= "container">
                 <span class="tituloGraficos">Rede</span>
 
-                <input type="date" class="input1 custom-date">
+                <input type="date" class="input1 custom-date" id="redeInput1">
 
                 <span>a</span>
 
-                <input type="date" class="input2 custom-date">
-                <button class="pesquisarButton">Pesquisar</button>
+                <input type="date" class="input2 custom-date" id="redeInput2">
+                <button class="pesquisarButton" onclick="obterDadosGraficoREDE()">Pesquisar</button>
                 <canvas id="graficoREDE-box"></canvas>
                 </div>
         `
@@ -229,19 +230,83 @@
 
     nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
 
-    let idEmpresa;
 
-    function obterDadosGrafico(idEmpresaFun) {
-
-        idEmpresa = idEmpresaFun;
-
-        fetch(`/medidas/servidorMedia/${idEmpresa}`, { cache: 'no-store' }).then(function (response) {
+    function obterDadosGraficoCPU() {
+        let inpCPU1 = cpuInput1.value;
+        let inpCPU2 = cpuInput2.value;
+        fetch(`/medidas/servidorMediaCPU/${idEmpresa}/${inpCPU1}/${inpCPU2},`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
 
-                    plotarGrafico(resposta);
+                    plotarGraficoCPU(resposta);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function obterDadosGraficoRAM() {
+        let inpRAM1 = ramInput1.value;
+        let inpRAM2 = ramInput2.value;
+        fetch(`/medidas/servidorMediaRAM/${idEmpresa}/${inpRAM1}/${inpRAM2},`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGraficoRAM(resposta);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function obterDadosGraficoDISCO() {
+        let inpDISCO1 = discoInput1.value;
+        let inpDISCO2 = discoInput2.value;
+        fetch(`/medidas/servidorMediaDISCO/${idEmpresa}/${inpDISCO1}/${inpDISCO2},`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGraficoDISCO(resposta);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function obterDadosGraficoREDE() {
+        let inpREDE1 = redeInput1.value;
+        let inpREDE2 = redeInput2.value;
+        fetch(`/medidas/servidorMediaREDE/${idEmpresa}/${inpREDE1}/${inpREDE2},`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGraficoREDE(resposta);
 
                 });
             } else {
@@ -260,29 +325,13 @@
     let graficoDiscoInstance = null;
     let graficoRedeInstance = null;
 
-    function plotarGrafico(resposta) {
+    function plotarGraficoCPU(resposta) {
 
 
         console.log('iniciando plotagem do gráfico...');
 
-        if (graficoCpuInstance) {
-            graficoCpuInstance.destroy();
-        }
-        if (graficoRamInstance) {
-            graficoRamInstance.destroy();
-        }
-        if (graficoDiscoInstance) {
-            graficoDiscoInstance.destroy();
-        }
-        if (graficoRedeInstance) {
-            graficoRedeInstance.destroy();
-        }
-
         // Criando estrutura para plotar gráfico - labels
         let labelsCpu = [];
-        let labelsRam = [];
-        let labelsDisco = [];
-        let labelsRede = [];
 
         // Criando estrutura para plotar gráfico - dados
         let dadosCpu = {
@@ -294,6 +343,82 @@
 
         };
 
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (let i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+
+            // Obtém e formata a data
+            let data = new Date(registro.data_dia);
+            let dataFormatada = data.toLocaleDateString('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+
+            // Obtém e formata o horário (caso seja necessário)
+            let horario = data.toLocaleTimeString('pt-BR', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+
+            // Adiciona a data formatada no array
+            labelsCpu.push(dataFormatada);
+
+            // Adiciona o valor médio
+            dadosCpu.datasets[0].data.push(registro.valor_medio);
+        }
+
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log('dadosCpu:')
+        console.log(dadosCpu.datasets)
+        console.log('----------------------------------------------')
+
+
+        const graficoCPU = document.getElementById('graficoCPU-box');
+
+        graficoCpuInstance = new Chart(graficoCPU, {
+            type: 'line',
+            data: {
+                labels: dadosCpu.labels,
+                datasets: [{
+                    label: dadosCpu.datasets[0].label,
+                    data: dadosCpu.datasets[0].data,
+                    borderColor: 'blue',
+                    backgroundColor: 'rgba(2, 255, 255, 0.5)',
+                    fill: true,
+                    pointBackgroundColor: 'white',
+                    pointBorderColor: 'white',
+                    pointRadius: 5,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    function plotarGraficoRAM(resposta) {
+
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labelsRam = [];
+
+        // Criando estrutura para plotar gráfico - dados
         let dadosRam = {
             labels: labelsRam,
             datasets: [{
@@ -303,6 +428,82 @@
 
         };
 
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (let i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+
+            // Obtém e formata a data
+            let data = new Date(registro.data_dia);
+            let dataFormatada = data.toLocaleDateString('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+
+            // Obtém e formata o horário (caso seja necessário)
+            let horario = data.toLocaleTimeString('pt-BR', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+
+            // Adiciona a data formatada no array
+            labelsRam.push(dataFormatada);
+
+            // Adiciona o valor médio
+            dadosRam.datasets[0].data.push(registro.valor_medio);
+        }
+
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log('dadosRam:')
+        console.log(dadosRam.datasets)
+        console.log('----------------------------------------------')
+
+
+        const graficoRAM = document.getElementById('graficoRAM-box');
+
+        graficoRamInstance = new Chart(graficoRAM, {
+            type: 'line',
+            data: {
+                labels: dadosRam.labels,
+                datasets: [{
+                    label: dadosRam.datasets[0].label,
+                    data: dadosRam.datasets[0].data,
+                    borderColor: 'blue',
+                    backgroundColor: 'rgba(2, 255, 255, 0.5)',
+                    fill: true,
+                    pointBackgroundColor: 'white',
+                    pointBorderColor: 'white',
+                    pointRadius: 5,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    function plotarGraficoDISCO(resposta) {
+
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labelsDisco = [];
+
+        // Criando estrutura para plotar gráfico - dados
         let dadosDisco = {
             labels: labelsDisco,
             datasets: [{
@@ -312,6 +513,82 @@
 
         };
 
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (let i = 0; i < resposta.length; i++) {
+            var registro = resposta[i];
+
+            // Obtém e formata a data
+            let data = new Date(registro.data_dia);
+            let dataFormatada = data.toLocaleDateString('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+
+            // Obtém e formata o horário (caso seja necessário)
+            let horario = data.toLocaleTimeString('pt-BR', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+
+            // Adiciona a data formatada no array
+            labelsDisco.push(dataFormatada);
+
+            // Adiciona o valor médio
+            dadosDisco.datasets[0].data.push(registro.valor_medio);
+        }
+
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log('dadosDisco:')
+        console.log(dadosDisco.datasets)
+        console.log('----------------------------------------------')
+
+
+        const graficoDISCO = document.getElementById('graficoDISCO-box');
+
+        graficoDiscoInstance = new Chart(graficoDISCO, {
+            type: 'line',
+            data: {
+                labels: dadosDisco.labels,
+                datasets: [{
+                    label: dadosDisco.datasets[0].label,
+                    data: dadosDisco.datasets[0].data,
+                    borderColor: 'blue',
+                    backgroundColor: 'rgba(2, 255, 255, 0.5)',
+                    fill: true,
+                    pointBackgroundColor: 'white',
+                    pointBorderColor: 'white',
+                    pointRadius: 5,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    function plotarGraficoREDE(resposta) {
+
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labelsRede = [];
+
+        // Criando estrutura para plotar gráfico - dados
         let dadosRede = {
             labels: labelsRede,
             datasets: [{
@@ -326,147 +603,58 @@
         console.log(resposta)
 
         // Inserindo valores recebidos em estrutura para plotar o gráfico
-        for (i = 0; i < resposta.length; i++) {
+        for (let i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
 
-            let data = registro.data;
-            let horario = new Date(data).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            // Obtém e formata a data
+            let data = new Date(registro.data_dia);
+            let dataFormatada = data.toLocaleDateString('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
 
-            if (registro.servico_nome == "cpu") {
-                labelsCpu.push(registro.data_dia);
-                dadosCpu.datasets[0].data.push(registro.valor_medio);
-            }
+            // Obtém e formata o horário (caso seja necessário)
+            let horario = data.toLocaleTimeString('pt-BR', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
 
-            if (registro.servico_nome == "ram") {
-                labelsRam.push(registro.data_dia);
-                dadosRam.datasets[0].data.push(registro.valor_medio);
-            }
+            // Adiciona a data formatada no array
+            labelsRede.push(dataFormatada);
 
-            if (registro.servico_nome == "disco") {
-                labelsDisco.push(registro.data_dia);
-                dadosDisco.datasets[0].data.push(registro.valor_medio);
-            }
-
-            if (registro.servico_nome == "rede") {
-                labelsRede.push(registro.data_dia);
-                dadosRede.datasets[0].data.push(registro.valor_medio);
-            }
-
+            // Adiciona o valor médio
+            dadosRede.datasets[0].data.push(registro.valor_medio);
         }
+
 
         console.log('----------------------------------------------')
         console.log('O gráfico será plotado com os respectivos valores:')
         console.log('Labels:')
-        console.log('dadosCpu:')
-        console.log(dadosCpu.datasets)
-        console.log('dadosRam:')
-        console.log(dadosRam.datasets)
-        console.log('dadosDisco:')
-        console.log(dadosDisco.datasets)
         console.log('dadosRede:')
         console.log(dadosRede.datasets)
         console.log('----------------------------------------------')
 
 
-        const graficoCPU = document.getElementById('graficoCPU-box');
-        const graficoram = document.getElementById('graficoRAM-box');
-        const graficodisk = document.getElementById('graficoDISCO-box');
         const graficoREDE = document.getElementById('graficoREDE-box');
 
-
-
-        graficoCpuInstance = new Chart(graficoCPU, {
-        type: 'bar',
-        data: {
-        labels: dadosCpu.labels,
-        datasets: [{
-          label: dadosCpu.datasets[0].label,
-          data: dadosCpu.datasets[0].data,
-          borderColor: 'blue',
-          backgroundColor: 'rgba(2, 255, 255, 0.5)',
-          fill: true,
-          pointBackgroundColor: 'white',
-          pointBorderColor: 'white',
-          pointRadius: 5,
-          tension: 0.1
-        }]
-      },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-
-
-        graficoRamInstance = new Chart(graficoram, {
-        type: 'bar',
-        data: {
-        labels: dadosRam.labels,
-        datasets: [{
-          label: dadosRam.datasets[0].label,
-          data: dadosRam.datasets[0].data,
-          borderColor: 'blue',
-          backgroundColor: 'rgba(2, 255, 255, 0.5)',
-          fill: true,
-          pointBackgroundColor: 'white',
-          pointBorderColor: 'white',
-          pointRadius: 5,
-          tension: 0.1
-        }]
-      },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-
-        graficoDiscoInstance = new Chart(graficodisk, {
-        type: 'bar',
-        data: {
-        labels: dadosDisco.labels,
-        datasets: [{
-          label: dadosDisco.datasets[0].label,
-          data: dadosDisco.datasets[0].data,
-          borderColor: 'blue',
-          backgroundColor: 'rgba(2, 255, 255, 0.5)',
-          fill: true,
-          pointBackgroundColor: 'white',
-          pointBorderColor: 'white',
-          pointRadius: 5,
-          tension: 0.1
-        }]
-      },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-
         graficoRedeInstance = new Chart(graficoREDE, {
-        type: 'bar',
-        data: {
-        labels: dadosRede.labels,
-        datasets: [{
-          label: dadosRede.datasets[0].label,
-          data: dadosRede.datasets[0].data,
-          borderColor: 'blue',
-          backgroundColor: 'rgba(2, 255, 255, 0.5)',
-          fill: true,
-          pointBackgroundColor: 'white',
-          pointBorderColor: 'white',
-          pointRadius: 5,
-          tension: 0.1
-        }]
-      },
+            type: 'line',
+            data: {
+                labels: dadosRede.labels,
+                datasets: [{
+                    label: dadosRede.datasets[0].label,
+                    data: dadosRede.datasets[0].data,
+                    borderColor: 'blue',
+                    backgroundColor: 'rgba(2, 255, 255, 0.5)',
+                    fill: true,
+                    pointBackgroundColor: 'white',
+                    pointBorderColor: 'white',
+                    pointRadius: 5,
+                    tension: 0.1
+                }]
+            },
             options: {
                 scales: {
                     y: {
