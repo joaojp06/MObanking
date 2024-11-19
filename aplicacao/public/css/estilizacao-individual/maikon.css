@@ -21,7 +21,6 @@
 .info_box {
     display: flex;
     align-items: center;
-    width: 80%;
 
     & label {
         font-size: 1rem;
@@ -35,22 +34,99 @@
         border: 1px solid;
     }
 
-    & i {
+    & .simboloPesquisa {
         margin-left: 3%;
-        font-size: 1.3rem;
         cursor: pointer;
+    }
+
+    & .simboloPesquisa:hover {
+        margin-bottom: .3rem;
+    }
+
+    & i {
+        font-size: 1.3rem;
         color: #07374d;
         transition: all 0.3s;
     }
 
-    & i:hover{
-        margin-bottom: .3rem;
+
+}
+
+
+/* TOOLTIP */
+/* From Uiverse.io by BishalSaini */
+.custom-tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+.custom-tooltip-btn {
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.custom-tooltip-btn:hover {
+    background-color: #0056b3;
+}
+
+.custom-tooltip-content {
+    position: absolute;
+    bottom: 140%;
+    left: 50%;
+    transform: translateX(-50%);
+    visibility: hidden;
+    opacity: 0;
+    width: 20vw !important;
+    background: linear-gradient(135deg, #007bff 0%, #00c6ff 100%);
+    color: #fff;
+    text-align: center;
+    padding: 8% 4% !important;
+    font-size: 14px;
+    border-radius: 15px;
+    transition: all 0.4s ease;
+    z-index: 1;
+    
+}
+
+.custom-tooltip-container:hover .custom-tooltip-content {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(-10px);
+}
+
+.custom-tooltip-arrow {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -10px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #21516b;
+}
+
+.custom-tooltip-text {
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+}
+
+.indicadoresPai_box {
+    display: flex;
+    flex-direction: column;
+    margin-left: 6%;
+
+    & h2 {
+        font-size: 1.3rem;
+        margin-bottom: 1.5%;
     }
 }
 
 .indicadores {
     display: flex;
-    margin-left: 7%;
     gap: 0px 40px;
 
     & div {
@@ -60,9 +136,9 @@
         gap: 7px 0px;
         border-radius: 15px;
         background-image: linear-gradient(to right, #30607D, #04344A);
-        box-shadow: -20px -4px 60px #bebebe, 20px 20px 60px #ffffff;
-        width: 24vh;
-        padding: 2% 7%;
+        /* box-shadow: 0px 20px 60px #bebebe, 20px 20px 60px #ffffff; */
+        width: 26vh;
+        padding: 2% 2%;
         color: #ffffff;
     }
 
@@ -144,7 +220,37 @@
     }
 
 }
+.legendaModal_box{
+    display: flex;
+    flex-direction: column;
 
+    & div{
+        display: flex;
+        align-items: center;
+    }
+}
+
+.infoDesvioPadrao_box{
+    width: 27vw;
+    margin-top: 5%;
+}
+
+.legendaBoxColor{
+    width: 1.5vw;
+    height: 2.5vh;
+    margin: 5px 2px;
+}
+.legendaBoxColor_sobre{
+    background: #c50000;
+
+}
+.legendaBoxColor_ocio{
+    background: #676767;
+
+}.legendaBoxColor_esta{
+    background: #029602;
+
+}
 .graficoEspec_box {
     display: flex;
     margin-top: 5%;
@@ -153,11 +259,12 @@
         width: 50%;
         display: flex;
         justify-content: center;
+        flex-direction: column;
     }
 
     & canvas {
-        width: 55vw !important;
-        height: 60vh !important;
+        width: 36vw !important;
+        height: 49vh !important;
     }
 
     & p {
@@ -194,11 +301,10 @@
 .picos_box {
     width: 27vw;
 
-    & span{
-    }
+    & span {}
 }
 
-.picosDesc_box{
+.picosDesc_box {
     margin: 5% 0%;
 }
 
@@ -209,8 +315,7 @@
 }
 
 /* Descrição do Upgrade ou downgrade */
-.calculDesc_box{
+.calculDesc_box {
     margin-top: 5%;
     width: 27vw;
 }
-

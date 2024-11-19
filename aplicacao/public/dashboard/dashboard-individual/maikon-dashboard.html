@@ -78,25 +78,64 @@
                     </label>
                     <div class="pesquisa_box_inp">
                         <input id="pesquisaCodigo" type="text" placeholder="Digite o código do servidor">
-                        <i onclick="listar()" class="fa-solid fa-magnifying-glass"></i>
+                        <i onclick="listar()" class="fa-solid simboloPesquisa fa-magnifying-glass"></i>
                     </div>
                 </div>
 
-                <div class="indicadores">
-                    <div>
-                        <i class="fa-solid fa-circle-exclamation" style="color: rgb(220, 142, 26);"></i>
-                        <p>Ociosos</p>
-                        <span id="spanOcioso_indicador">0</span>
-                    </div>
-                    <div>
-                        <i class="fa-solid fa-circle-exclamation" style="color: #c70000;"></i>
-                        <p>Sobrecarregados</p>
-                        <span id="spanSobrecarregado_indicador">0</span>
-                    </div>
-                    <div>
-                        <i class="fa-solid fa-circle-exclamation" style="color: #029602;"></i>
-                        <p>Estáveis</p>
-                        <span id="spanEstavel_indicador">0</span>
+                <div class="indicadoresPai_box">
+                    <h2>Indicadores de servidores </h2>
+                    <div class="indicadores">
+                        <div>
+
+                            <div class="custom-tooltip-container">
+                                <i class="fa-solid fa-circle-exclamation custom-tooltip-btn"
+                                    style="color: #676767;"></i>
+                                <div class="custom-tooltip-content">
+                                    <span class="custom-tooltip-arrow"></span>
+                                    <p class="custom-tooltip-text">
+                                        Uso médio < 30% e pouca variação (desvio padrão < 10), indicando recursos
+                                            subutilizados e custo operacional desnecessário. </p>
+                                </div>
+                            </div>
+
+                            <p>Ociosos</p>
+                            <span id="spanOcioso_indicador">0</span>
+                        </div>
+                        <div>
+
+                            <div class="custom-tooltip-container">
+                                <i class="fa-solid fa-circle-exclamation custom-tooltip-btn"
+                                    style="color: #c70000;"></i>
+                                <div class="custom-tooltip-content">
+                                    <span class="custom-tooltip-arrow"></span>
+                                    <p class="custom-tooltip-text">
+                                        Uso médio > 70% ou alta variação (desvio padrão > 20), sinal de demanda
+                                        excessiva, impactando o desempenho.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <p>Sobrecarregados</p>
+                            <span id="spanSobrecarregado_indicador">0</span>
+                        </div>
+                        <div>
+
+                            <div class="custom-tooltip-container">
+                                <i class="fa-solid fa-circle-exclamation custom-tooltip-btn"
+                                    style="color: #029602;"></i>
+                                <div class="custom-tooltip-content">
+                                    <span class="custom-tooltip-arrow"></span>
+                                    <p class="custom-tooltip-text">
+                                        Uso balanceado, garantindo eficiência e suporte adequado às operações do
+                                        negócio.
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <p>Estáveis</p>
+                            <span id="spanEstavel_indicador">0</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -144,7 +183,20 @@
         <div class="graficoEspec_box">
             <div class="grafico_box">
                 <canvas id="radarDemanda"></canvas>
+                <span>Legenda status</span>
+                <div class="legendaModal_box">
+                    <div>
+                        <div class="legendaBoxColor legendaBoxColor_ocio"></div><span>Ocioso</span>
+                    </div>
+                    <div>
+                        <div class="legendaBoxColor legendaBoxColor_sobre"></div><span>Sobrecarregado</span>
+                    </div>
+                    <div>
+                        <div class="legendaBoxColor legendaBoxColor_esta"></div><span>Estável</span>
+                    </div>
+                </div>
             </div>
+
             <div class="infoCalc_box">
 
                 <div id="picos_box" class="picos_box">
@@ -172,13 +224,17 @@
                         <p>16GB</p>
                     </div> -->
                 </div>
+                <div id="infoDesvioPadrao_box" class="infoDesvioPadrao_box">
+                    <!-- <span>Desvio padrão</span>
+                    <p>20%</p> -->
+                </div>
                 <div id="calculDesc_box" class="calculDesc_box">
-                    <span>Resultado</span>
+                    <span>Sugestão</span>
                     <span id="descCpuDemanda_box">
                         <!-- <p>Upgrade Cpu: 1.2Ghz</p> -->
                     </span>
                     <span id="descRamDemanda_box">
-                        <p>Upgrade Ram: 12Gb</p>
+                        <!-- <p>Upgrade Cpu: 1.2Ghz</p> -->
                     </span>
                 </div>
 
@@ -311,12 +367,12 @@
             if (statusCpuTipo == 1) {
                 var novoValorDown = calculoValorDown(servidor.media_valor_cpu, servidor.capacidade_total_cpu)
                 descCpuDemanda_box.innerHTML = `
-                <p>Downgrade Cpu: ${novoValorDown}Ghz</p>
+                <p>Nova Cpu: ${novoValorDown}Ghz</p>
                 `
             } else if (statusCpuTipo == 2) {
                 var novoValorUp = calculoValorUp(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.capacidade_total_cpu)
                 descCpuDemanda_box.innerHTML = `
-                <p>Nova cpu desejada: ${novoValorUp[0]}Ghz</p>
+                <p>Nova cpu: ${novoValorUp[0]}Ghz</p>
                 `
                 //<p>Probabilidade de ultrapassar 50% de uso: ${novoValorCpu[1]}%</p>
             } else {
@@ -328,12 +384,12 @@
             if (statusRamTipo == 1) {
                 var novoValorDown = calculoValorDown(servidor.media_valor_ram, servidor.capacidade_total_ram)
                 descRamDemanda_box.innerHTML = `
-                <p>Downgrade ram para: ${novoValorDown}Gb</p>
+                <p>Nova ram: ${novoValorDown}Gb</p>
                 `
             } else if (statusRamTipo == 2) {
                 var novoValorUp = calculoValorUp(servidor.media_valor_ram, servidor.desvio_padrao_ram, servidor.capacidade_total_ram)
                 descRamDemanda_box.innerHTML = `
-                <p>Nova ram desejada: ${novoValorUp}Gb</p>
+                <p>Nova ram: ${novoValorUp}Gb</p>
                 `
             } else {
                 descRamDemanda_box.innerHTML = `
@@ -341,6 +397,12 @@
                 
                 `
             }
+
+            infoDesvioPadrao_box.innerHTML = `
+            <span>Desvio padrão</span>
+                    <p>Cpu: ${servidor.desvio_padrao_cpu.toFixed(2)}%</p>
+                    <p>Ram: ${servidor.desvio_padrao_ram.toFixed(2)}%</p>
+            `
 
 
 
@@ -424,7 +486,7 @@
     function calculoValorDown(meanAtualDown, ramAtual) {
 
         const meanDesejada = 50; // Média desejada de uso em porcentagem
-        
+
         // Cálculo do uso atual em GB
         const usoAtualEmGb = (meanAtualDown / 100) * ramAtual; // Uso atual em GB
 
@@ -520,7 +582,7 @@
     // Função para colocar cor nos área de status
     function determinarStatusComponente(media, desvio) {
         if (media < 30 && desvio < 10) {
-            return "#dc8e1a"; //ocioso
+            return "#676767"; //ocioso
         } else if (media > 70 || desvio > 20) {
             return "#c70000"; //Sobrecarga
         } else {
@@ -531,7 +593,7 @@
     //Função para colorir os back do grafico 
     function determinarStatusComponenteCorGrafico(media, desvio) {
         if (media < 30 && desvio < 10) {
-            return "rgba(220, 142, 26, 0.2)"; //ocioso
+            return "rgba(103, 103, 103, 0.2)"; //ocioso
         } else if (media > 70 || desvio > 20) {
             return "rgba(199, 0, 0, 0.2)"; //Sobrecarga
         } else {
