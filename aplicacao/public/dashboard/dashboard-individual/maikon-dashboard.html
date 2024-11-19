@@ -309,32 +309,36 @@
         `;
 
             if (statusCpuTipo == 1) {
+                var novoValorDown = calculoValorDown(servidor.media_valor_cpu, servidor.capacidade_total_cpu)
                 descCpuDemanda_box.innerHTML = `
-                <p>Downgrade Cpu: 1.2Ghz</p>
+                <p>Downgrade Cpu: ${novoValorDown}Ghz</p>
                 `
             } else if (statusCpuTipo == 2) {
-                var novoValorCpu = calculoValorUp(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.capacidade_total_cpu)
+                var novoValorUp = calculoValorUp(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.capacidade_total_cpu)
                 descCpuDemanda_box.innerHTML = `
-                <p>Nova cpu desejada: ${novoValorCpu[0]}Ghz</p>
-                <p>Probabilidade de ultrapassar 50% de uso: ${novoValorCpu[1]}%</p>
+                <p>Nova cpu desejada: ${novoValorUp[0]}Ghz</p>
                 `
+                //<p>Probabilidade de ultrapassar 50% de uso: ${novoValorCpu[1]}%</p>
             } else {
                 descCpuDemanda_box.innerHTML = `
-                O componentes cpu não precisa de mudanças
+                <p>O componente cpu está estável</p>
                 `
             }
 
             if (statusRamTipo == 1) {
+                var novoValorDown = calculoValorDown(servidor.media_valor_ram, servidor.capacidade_total_ram)
                 descRamDemanda_box.innerHTML = `
-                <p>Upgrade ram: 1.2Ghz</p>
+                <p>Downgrade ram para: ${novoValorDown}Gb</p>
                 `
             } else if (statusRamTipo == 2) {
+                var novoValorUp = calculoValorUp(servidor.media_valor_ram, servidor.desvio_padrao_ram, servidor.capacidade_total_ram)
                 descRamDemanda_box.innerHTML = `
-                <p>Downgrade ram: 1.2Ghz</p>
+                <p>Nova ram desejada: ${novoValorUp}Gb</p>
                 `
             } else {
                 descRamDemanda_box.innerHTML = `
-                O componentes ram não precisa de mudanças
+                <p>O componente ram está estável</p>
+                
                 `
             }
 
@@ -399,15 +403,13 @@
     }
 
 
-    // Funções de calculo da demanda
+
+    // Funções de calculo da demanda CPU
     function calculoValorUp(meanAtual, stdDev, cpuAtual) {
-
-        console.log(`Executando função de calculo upgrade com os seguintes valores: ${meanAtual} - ${stdDev} - ${cpuAtual}`)
-
         meanDesejada = 60
         // Cálculo da nova RAM necessária
-        const usoAtualGhz = (meanAtual / 100) * cpuAtual; // Uso atual em GB
-        const novoValorCpu = usoAtualGhz / (meanDesejada / 100); // Nova capacidade de RAM
+        const usoAtual = (meanAtual / 100) * cpuAtual; // Uso atual em GB
+        const novoValor = usoAtual / (meanDesejada / 100); // Nova capacidade de RAM
 
         // Z-score
         const zScore = (meanDesejada - meanAtual) / stdDev;
@@ -415,8 +417,21 @@
         // Probabilidade cumulativa até o Z-score
         const cdf = jStat.normal.cdf(zScore, 0, 1);
 
-        return [novoValorCpu.toFixed(2), cdf.toFixed(2)]
+        return [novoValor.toFixed(1), cdf.toFixed(2)]
 
+    }
+
+    function calculoValorDown(meanAtualDown, ramAtual) {
+
+        const meanDesejada = 50; // Média desejada de uso em porcentagem
+        
+        // Cálculo do uso atual em GB
+        const usoAtualEmGb = (meanAtualDown / 100) * ramAtual; // Uso atual em GB
+
+        // Cálculo da nova RAM necessária
+        const novoValor = usoAtualEmGb / (meanDesejada / 100);
+
+        return novoValor.toFixed(0)
     }
 
 
@@ -524,11 +539,6 @@
         }
     }
 
-    function calculoValorDown() {
-        var valorDown = 0
-
-        return valorDown
-    }
 
     function identificarTipoUp(media, desvio) {
         if (media < 30 && desvio < 10) {
@@ -563,6 +573,9 @@
         })
             .then(function (resposta) {
                 if (resposta.status == 204) {
+                    spanEstavel_indicador.innerHTML = 0;
+                    spanOcioso_indicador.innerHTML = 0;
+                    spanSobrecarregado_indicador.innerHTML = 0;
                     listagem_cards.innerHTML = "Nenhum resultado encontrado.";
                     throw "Nenhum resultado encontrado!!";
                 }
