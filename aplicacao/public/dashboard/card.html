@@ -437,6 +437,13 @@
     const frame = document.getElementById("frame");
     frame.classList.add("blur-grid");
 
+    configuracoes.style.display = "none"
+    tendenciaUso.style.display = "none"
+    modalGraficos.classList.remove("desaparecerModalJS")
+
+    tendenciaUsoButton.classList.remove("modal-buttonActive")
+    configuracoesButton.classList.remove("modal-buttonActive")
+    modalGraficosButton.classList.add("modal-buttonActive")
 
   }
 
