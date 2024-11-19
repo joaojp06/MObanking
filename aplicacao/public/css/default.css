@@ -2,6 +2,7 @@
 
 body {
     font-family: "Allerta", sans-serif;
+    overflow: hidden;
 }
 
 
@@ -16,10 +17,21 @@ Copie a seção abaixo em todas as página da dash, user, config user, etc
 
 /* ----------- MENU ---------- */
 .logo-menu {
-    width: 50px; /* Ajuste o tamanho conforme necessário */
-    height: auto; /* Mantém a proporção da imagem */
+    width: 50px;
+    /* Ajuste o tamanho conforme necessário */
+    height: auto;
+    /* Mantém a proporção da imagem */
     display: block;
-    margin: 0 auto 10px; /* Centraliza a imagem e adiciona espaço abaixo */
+    margin: 0 auto 10px;
+    /* Centraliza a imagem e adiciona espaço abaixo */
+    position: absolute;
+    /* Torna a posição da imagem absoluta */
+    top: 7%;
+    /* Ajuste a posição vertical conforme necessário */
+    left: 2.8%;
+    /* Ajuste a posição horizontal conforme necessário */
+    z-index: 10;
+    /* Certifica-se de que a imagem fique acima de outros elementos */
 }
 
 .titulo-menu {
