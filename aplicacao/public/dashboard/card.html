@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="../css/card.css" />
   <link rel="stylesheet" href="../css/default.css" />
   <link rel="stylesheet" href="../css/cardConfirmacao.css">
+  <link rel="stylesheet" href="../css/estilizacao-individual/julia.css">
   <!-- scripts do Chart.js - 2022-1 -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -95,15 +96,47 @@
       <!-- Essa parte recebe de forma dinâmica(fkPlano) os gráficos que são exibidos em tempo real -->
     </div>
 
-    <div id="tendenciaUso" class="pagina" style="display: none;">
-      <!-- Essa parte tem que receber de forma dinamica e exibir em tempo real -->
-      `Contenúdo: Tendência de uso` <br>
-      A <br>
-      A <br>
-      A <br>
-      A <br>
+    <div id="tendenciaUso" style="display: grid;" class="tendenciaUso pagina">
+      <!-- TENDENCIA CPU -->
+      <div class="uso-box">
+        <div class="titulo">Uso de CPU</div>
+        <div class="grafico"></div>
+        <div class="uso-informacoes">
+          <div class="informacoes-texto">
+            <div class="informacao">Horário atual: 15:25</div>
+            <div class="informacao">Uso atual:</div>
+            <div class="informacaoUsoAtual">53%</div>
+          </div>
 
+          <div class="informacoes-texto">
+            <div class="informacao">Previsão em </div>
+            <div class="informacao"> 5 minutos:</div>
+            <div class="informacaoPrevisao">62%</div>
+            <div class="criticidade-indicador amarelo"></div>
+          </div>
+        </div>
+      </div>
+      <!-- TENDENCIA RAM -->
+      <div class="uso-box">
+        <div class="titulo">Uso de RAM</div>
+        <div class="grafico"></div>
+        <div class="uso-informacoes">
+          <div class="informacoes-texto">
+            <div class="informacao">Horário atual: 15:25</div>
+            <div class="informacao">Uso atual:</div>
+            <div class="informacaoUsoAtual">32%</div>
+          </div>
+
+          <div class="informacoes-texto">
+            <div class="informacao">Previsão em </div>
+            <div class="informacao"> 5 minutos:</div>
+            <div class="informacaoPrevisao">44%</div>
+            <div class="criticidade-indicador verde"></div>
+          </div>
+        </div>
+      </div>
     </div>
+
 
     <div id="configuracoes" class="pagina" style="display: none;">
       <div class="div-inp">
@@ -340,7 +373,8 @@
     modalGraficos.innerHTML += `
     <div class="grafico-box">
     <h2>Uso CPU </h2>
-    <canvas id="graficoCPU-box"></canvas>
+    <
+    canvas id="graficoCPU-box"></canvas>
   </div>
   <div class="grafico-box">
     <h2>Uso RAM </h2>
@@ -1272,7 +1306,7 @@
     modalGraficosButton.classList.remove("modal-buttonActive")
     configuracoesButton.classList.add("modal-buttonActive")
 
-    
+
   }
 
   function exbirTempoReal() {
