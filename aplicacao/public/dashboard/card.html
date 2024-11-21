@@ -493,143 +493,107 @@
   }
 
   var idEmpresa = sessionStorage.ID_EMPRESA;
-  function listarServidores() {
+  let servidoresAtuais = [];
 
-    listagemServidores.innerHTML = `` //Limpando a div para atualizar com maior fluidez
-    var status = selectListServidores.value
-    if (status == 'ativo') {
-      status = 1 // VERÁ SERVIDORES ATIVOS - MODIFICAÇÃO NA CONTROLLE
-    } else {
-      status = 2
-    }
+function listarServidores() {
+  var status = selectListServidores.value;
+  status = status === "ativo" ? 1 : 2;
 
-    fetch(`/aquarios/listarServidores/${idEmpresa}/${status}`, {
-      method: "GET",
+  fetch(`/aquarios/listarServidores/${idEmpresa}/${status}`, {
+    method: "GET",
+  })
+    .then((resposta) => {
+      if (resposta.status == 204) {
+        listagemServidores.innerHTML = "Nenhum resultado encontrado.";
+        servidoresAtuais = []; // Limpa os dados locais
+        throw "Nenhum resultado encontrado!";
+      }
+
+      return resposta.json();
     })
-      .then(function (resposta) {
-        if (resposta.status == 204) {
+    .then((novosServidores) => {
+      // Verifica se há mudanças nos servidores
+      const servidoresMudaram =
+        JSON.stringify(servidoresAtuais) !== JSON.stringify(novosServidores);
 
-          listagemServidores.innerHTML = "Nenhum resultado encontrado."
+      if (!servidoresMudaram) {
+        console.log("Nenhuma mudança nos servidores detectada.");
+        return;
+      }
 
-          throw "Nenhum resultado encontrado!!";
+      // Atualiza os dados locais
+      servidoresAtuais = novosServidores;
+
+      // Atualiza seletivamente a interface
+      listagemServidores.innerHTML = ""; // Limpa a div antes de renderizar
+
+      planoEmpresa = sessionStorage.ID_PLANO;
+
+      novosServidores.forEach((registro) => {
+        let cardHTML = `
+          <div onclick="abrirModal(${registro.id_servidor}, ${status}), AtualizarGraficos(${registro.id_servidor})" class="card">
+            <h2 id="apelido_card">${registro.apelido}</h2>
+            <h2 id="funcao_card">${registro.funcao}</h2>
+            <div class="back-image-card"></div>
+            <div class="indicadores-box">
+        `;
+
+        if (planoEmpresa >= 1) {
+          cardHTML += `
+            <div class="indicador-pai">
+              <img class="ax-mg-left" src="../imagens/icon-cpu.png" alt="" />
+              <div class="indicador-titulo">
+                <span>CPU - uso</span>
+                <p>${registro.valorCpu}% de ${registro.capacidade_total_cpu}Ghz</p>
+              </div>
+            </div>
+            <div class="indicador-pai">
+              <img src="../imagens/icon-ram.png" alt="" />
+              <div class="indicador-titulo">
+                <span>RAM - Uso</span>
+                <p>${registro.valorRam}% de ${registro.capacidade_total_ram}GB</p>
+              </div>
+            </div>`;
         }
-        resposta.json().then((servidores) => {
-          console.log(servidores); // Log da resposta da API com os dados do banco
-          planoEmpresa = sessionStorage.ID_PLANO
 
-          console.log(`Estou no HTML PLANO EMPRESA ${planoEmpresa}`)
+        if (planoEmpresa >= 2) {
+          cardHTML += `
+            <div class="indicador-pai">
+              <img class="ax-mg-left" src="../imagens/icon-disco.png" alt="" />
+              <div class="indicador-titulo">
+                <span>Disco - Uso</span>
+                <p>${registro.valorDisco}GB de ${registro.capacidade_total_disco}GB</p>
+              </div>
+            </div>`;
+        }
 
-          if (planoEmpresa == 1) {
-            servidores.forEach((registro) => {
-
-              listagemServidores.innerHTML +=
-                `<div onclick="abrirModal(${registro.id_servidor}, ${status}), AtualizarGraficos(${registro.id_servidor})" class="card">
-              <h2 id="apelido_card">${registro.apelido}</h2>
-              <h2 id="funcao_card">${registro.funcao}</h2>
-              <div class="back-image-card"></div>
-              <div class="indicadores-box">
-              <div class="indicador-pai">
-              <img class="ax-mg-left" src="../imagens/icon-cpu.png" alt="" />
-              <div class="indicador-titulo">
-              <span>CPU - uso</span>
-              <p>${registro.valorCpu}% de ${registro.capacidade_total_cpu}Ghz</p>
-              </div>
-              </div>
-              <div class="indicador-pai">
-              <img src="../imagens/icon-ram.png" alt="" />
-              <div class="indicador-titulo">
-              <span>RAM - Uso</span>
-              <p>${registro.valorRam}% de ${registro.capacidade_total_ram}GB</p>
-              </div>
-              </div>
-              </div>
-              </div>`;
-            });
-          } else if (planoEmpresa == 2) {
-            servidores.forEach((registro) => {
-              listagemServidores.innerHTML +=
-                `<div onclick="abrirModal(${registro.id_servidor}, ${status}), AtualizarGraficos(${registro.id_servidor})" class="card">
-              <h2 id="apelido_card">${registro.apelido}</h2>
-              <h2 id="funcao_card">${registro.funcao}</h2>
-              <div class="back-image-card"></div>
-              <div class="indicadores-box">
-              <div class="indicador-pai">
-              <img class="ax-mg-left" src="../imagens/icon-cpu.png" alt="" />
-              <div class="indicador-titulo">
-              <span>CPU - uso</span>
-              <p>${registro.valorCpu}% de ${registro.capacidade_total_cpu}Ghz</p>
-              </div>
-              </div>
-              <div class="indicador-pai">
-              <img src="../imagens/icon-ram.png" alt="" />
-              <div class="indicador-titulo">
-              <span>RAM - Uso</span>
-              <p>${registro.valorRam}% de ${registro.capacidade_total_ram}GB</p>
-              </div>
-              </div>
-              <div class="indicador-pai">
-              <img class="ax-mg-left"
-                src="../imagens/icon-disco.png"
-                alt=""
-              />
-              <div class="indicador-titulo">
-              <span>Disco - Uso</span>
-              <p>${registro.valorDisco}GB de ${registro.capacidade_total_disco}GB</p>
-              </div>
-              </div>
-              </div>
-              </div>`;
-            });
-          } else if (planoEmpresa == 3) {
-            servidores.forEach((registro) => {
-              listagemServidores.innerHTML +=
-                `<div onclick="abrirModal(${registro.id_servidor}, ${status}), AtualizarGraficos(${registro.id_servidor})" class="card">
-              <h2 id="apelido_card">${registro.apelido}</h2>
-              <h2 id="funcao_card">${registro.funcao}</h2>
-              <div class="back-image-card"></div>
-              <div class="indicadores-box">
-              <div class="indicador-pai"> 
+        if (planoEmpresa >= 3) {
+          cardHTML += `
+            <div class="indicador-pai">
               <img src="../imagens/icon-rede.png" alt="" />
               <div class="indicador-titulo">
-              <span>Rede - mb enviados</span>
-              <p>${registro.valorRede}MB</p>
+                <span>Rede - mb enviados</span>
+                <p>${registro.valorRede}MB</p>
               </div>
-              </div>
-              <div class="indicador-pai">
-              <img class="ax-mg-left" src="../imagens/icon-cpu.png" alt="" />
-              <div class="indicador-titulo">
-              <span>CPU - uso</span>
-              <p>${registro.valorCpu}% de ${registro.capacidade_total_cpu}Ghz</p>
-              </div>
-              </div>
-              <div class="indicador-pai">
-              <img src="../imagens/icon-ram.png" alt="" />
-              <div class="indicador-titulo">
-              <span>RAM - Uso</span>
-              <p>${registro.valorRam}% de ${registro.capacidade_total_ram}GB</p>
-              </div>
-              </div>
-              <div class="indicador-pai">
-              <img
-                class="ax-mg-left"
-                src="../imagens/icon-disco.png"
-                alt=""
-              />
-              <div class="indicador-titulo">
-              <span>Disco - Uso</span>
-              <p>${registro.valorDisco}GB de ${registro.capacidade_total_disco}GB</p>
-              </div>
-              </div>
-              </div>
-              </div>`;
-            });
-          }
-        });
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
+            </div>`;
+        }
+
+        cardHTML += `
+          </div>
+        </div>`;
+
+        listagemServidores.innerHTML += cardHTML;
       });
-  }
+    })
+    .catch((erro) => {
+      console.error("Erro:", erro);
+    });
+}
+
+// Executa a função listarServidores a cada 3 segundos
+setInterval(listarServidores, 3000);
+
+
 
   function desativarServidor() {
     var idServidor = idServidorPar
