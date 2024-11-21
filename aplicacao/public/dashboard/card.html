@@ -96,11 +96,14 @@
       <!-- Essa parte recebe de forma dinâmica(fkPlano) os gráficos que são exibidos em tempo real -->
     </div>
 
-    <div id="tendenciaUso" style="display: grid;" class="tendenciaUso pagina">
+
+    <div id="tendenciaUso" class="tendenciaUso pagina" style="display: none;">
       <!-- TENDENCIA CPU -->
-      <div class="uso-box">
+      <div class="usoBox">
         <div class="titulo">Uso de CPU</div>
-        <div class="grafico"></div>
+        <div class="graficoTendenciaUsoCPU">
+          <!-- Adicionado dinamicamente -->
+        </div>
         <div class="uso-informacoes">
           <div class="informacoes-texto">
             <div class="informacao">Horário atual: 15:25</div>
@@ -117,9 +120,11 @@
         </div>
       </div>
       <!-- TENDENCIA RAM -->
-      <div class="uso-box">
+      <div class="usoBox">
         <div class="titulo">Uso de RAM</div>
-        <div class="grafico"></div>
+        <div class="graficoTendenciaUsoRAM">
+          <!-- Adicionado dinamicamente -->
+        </div>
         <div class="uso-informacoes">
           <div class="informacoes-texto">
             <div class="informacao">Horário atual: 15:25</div>
@@ -136,7 +141,6 @@
         </div>
       </div>
     </div>
-
 
     <div id="configuracoes" class="pagina" style="display: none;">
       <div class="div-inp">
@@ -887,7 +891,9 @@
   function iniciarAtualizacaoAoVivo() {
     setInterval(() => {
       if (idServidorPar) { // Certifique-se de que o parâmetro está definido
-        obterDadosGrafico(idServidorPar); // Atualize o gráfico com o parâmetro atual
+        obterDadosGrafico(idServidorPar);
+        obterDadosGraficoTendenciaUso(idServidorPar);
+        // Atualize o gráfico com o parâmetro atual
       }
     }, 5000); // Intervalo de 3 segundos
   }
@@ -1319,5 +1325,270 @@
     modalGraficosButton.classList.add("modal-buttonActive")
 
   }
+
+  // ------ TENDENCIA DE USO -------
+
+  function obterDadosGraficoTendenciaUso(idServidorParFun) {
+    var idServidor = idServidorParFun;
+
+    fetch(`/julia/servidor/${idServidor}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+          resposta.reverse();
+
+          plotarGraficoTendenciaUso(resposta);
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    }).catch(function (error) {
+      console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+    });
+  }
+
+  function calcularRegressao(data) {
+    const n = data.length;
+    let sumX = 0, sumY = 0, sumXY = 0, sumXX = 0;
+
+    data.forEach(point => {
+      sumX += point.x;
+      sumY += point.y;
+      sumXY += point.x * point.y;
+      sumXX += point.x * point.x;
+    });
+
+    const slope = (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
+    const intercept = (sumY - slope * sumX) / n;
+
+    return { slope, intercept };
+  }
+
+  function plotarGraficoTendenciaUso(resposta) {
+    console.log('Iniciando plotagem do gráfico de Tendência de Uso...');
+
+    // Criando estrutura para plotar gráfico - labels
+    let labelsCpu = [];
+    let labelsRam = [];
+
+    // Criando estrutura para plotar gráfico - dados
+    let dadosCpu = {
+      labels: labelsCpu,
+      datasets: [{
+        label: '',
+        data: [],
+      }],
+    };
+
+    let dadosRam = {
+      labels: labelsRam,
+      datasets: [{
+        label: '',
+        data: [],
+      }],
+    };
+
+    console.log('----------------------------------------------');
+    console.log('Estes dados foram recebidos pela funcao "obterDadosGraficoTendenciaUso" e passados para "plotarGraficoTendenciaUso":');
+    console.log(resposta);
+
+    // Inserindo valores recebidos em estrutura para plotar o gráfico
+    for (let i = 0; i < resposta.length; i++) {
+      var registro = resposta[i];
+      let data = registro.data;
+      let horario = new Date(data).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
+      if (registro.fkServico == 1) {
+        labelsCpu.push(`${horario}`);
+        dadosCpu.datasets[0].data.push(registro.valor);
+      }
+
+      if (registro.fkServico == 2) {
+        labelsRam.push(`${horario}`);
+        dadosRam.datasets[0].data.push(registro.valor);
+      }
+    }
+
+    // Transformar dados para a regressão linear 
+    const scatterDataRam = dadosRam.datasets[0].data.map((valor, index) => ({ x: index, y: valor }));
+    const { slope: slopeRam, intercept: interceptRam } = calcularRegressao(scatterDataRam);
+    const scatterDataCpu = dadosCpu.datasets[0].data.map((valor, index) => ({ x: index, y: valor }));
+    const { slope: slopeCpu, intercept: interceptCpu } = calcularRegressao(scatterDataCpu);
+
+    // Gere os pontos da linha de regressão
+    const regressionLineCpu = scatterDataCpu.map(point => ({
+      x: point.x,
+      y: slopeCpu * point.x + interceptCpu
+    }));
+    const regressionLineRam = scatterDataRam.map(point => ({
+      x: point.x,
+      y: slopeRam * point.x + interceptRam
+    }));
+
+    // Pegar o último horário registrado 
+    const lastTimeStringCpu = labelsCpu[labelsCpu.length - 1];
+    const lastTimeCpu = new Date(`1970-01-01T${lastTimeStringCpu}:00`);
+    const lastTimeStringRam = labelsRam[labelsRam.length - 1];
+    const lastTimeRam = new Date(`1970-01-01T${lastTimeStringRam}:00`);
+
+    // Adicionar 5 minutos ao último horário registrado 
+    const nextTimeCpu = new Date(lastTimeCpu.getTime() + 5 * 60000).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    labelsCpu.push(nextTimeCpu);
+    const nextTimeRam = new Date(lastTimeRam.getTime() + 5 * 60000).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    labelsRam.push(nextTimeRam);
+
+    // Prever o próximo valor
+    const nextXCpu = scatterDataCpu.length;
+    const predictedValueCpu = slopeCpu * nextXCpu + interceptCpu;
+    dadosCpu.datasets[0].data.push
+    const nextXRam = scatterDataRam.length;
+    const predictedValueRam = slopeRam * nextXRam + interceptRam;
+    dadosRam.datasets[0].data.push
+
+    console.log('----------------------------------------------');
+    console.log('O gráfico de Tendência de Uso será plotado com os respectivos valores:');
+    console.log('Labels:');
+    console.log('dadosCpu:');
+    console.log(dadosCpu.datasets);
+    console.log('dadosRam:');
+    console.log(dadosRam.datasets);
+    console.log('----------------------------------------------');
+
+    document.querySelector('.graficoTendenciaUsoCPU').innerHTML = '<canvas id="graficoCPUTendenciaUso"></canvas>';
+    document.querySelector('.graficoTendenciaUsoRAM').innerHTML = '<canvas id="graficoRAMTendenciaUso"></canvas>';
+
+    let graficoCPUTendenciaUso = document.getElementById('graficoCPUTendenciaUso').getContext('2d');
+    let graficoRAMTendenciaUso = document.getElementById('graficoRAMTendenciaUso').getContext('2d');
+
+    // Criar ou atualizar gráficos
+    graficoCpuInstance = new Chart(graficoCPUTendenciaUso, {
+      type: 'line',
+      data: {
+        labels: dadosCpu.labels,
+        datasets: [{
+          label: dadosCpu.datasets[0].label,
+          data: dadosCpu.datasets[0].data,
+          borderColor: 'white',
+          backgroundColor: 'rgba(255, 255, 255, 0.5)',
+          fill: true,
+          pointBackgroundColor: 'white',
+          pointBorderColor: 'white',
+          pointRadius: 5,
+          tension: 0.1
+        }, {
+          label: 'Tendência de Uso', 
+          data: regressionLineCpu, 
+          type: 'line', 
+          borderColor: 'rgba(255, 99, 132, 0.8)', 
+          borderWidth: 2, 
+          fill: false, 
+          // pointRadius: 0 // Remove os pontos da linha de regressão
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            grid: {
+              display: false // Remove a grade vertical
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo X
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          },
+          y: {
+            grid: {
+              display: false // Remove a grade horizontal
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo Y
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false // Remove a legenda
+          }
+        },
+        elements: {
+          line: {
+            tension: 0.4 // Deixa as linhas mais suaves
+          }
+        }
+      }
+    });
+
+    graficoRamInstance = new Chart(graficoRAMTendenciaUso, {
+      type: 'line',
+      data: {
+        labels: dadosRam.labels,
+        datasets: [{
+          label: dadosRam.datasets[0].label,
+          data: dadosRam.datasets[0].data,
+          borderColor: 'rgb(75, 192, 192)',
+          backgroundColor: 'rgba(255, 255, 255, 0.5)',
+          fill: true,
+          pointBackgroundColor: 'white',
+          pointBorderColor: 'white',
+          pointRadius: 5,
+          tension: 0.1
+        }, {
+          label: 'Tendência de Uso',
+          data: regressionLineRam ,
+          type: 'line',
+          borderColor: 'rgba(255, 99, 132, 0.8)',
+          borderWidth: 2,
+          fill: false,
+          // pointRadius: 0  // Remove os pontos da linha de regressão
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            grid: {
+              display: false // Remove a grade vertical
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo X
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          },
+          y: {
+            grid: {
+              display: false // Remove a grade horizontal
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo Y
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false // Remove a legenda
+          }
+        },
+        elements: {
+          line: {
+            tension: 0.4 // Deixa as linhas mais suaves
+          }
+        }
+      }
+    });
+  }
+
+  // Chamada inicial para obter dados
+  setInterval(() => {
+    obterDadosGraficoTendenciaUso(idServidor);
+  }, 300000); // 300000 ms = 5 minutos
 
 </script>
