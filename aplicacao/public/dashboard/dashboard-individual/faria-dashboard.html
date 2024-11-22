@@ -25,9 +25,12 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
 
-  <body>
+  <body onload="plotarGrafico()">
     <div class="frame-aplicacao" style="display: flex">
-      <nav class="menu-lateral" onmouseenter="exibirMenu()" onmouseleave="ocultarMenu()"
+      <nav
+        class="menu-lateral"
+        onmouseenter="exibirMenu()"
+        onmouseleave="ocultarMenu()"
       >
         <img
           src="../../imagens/mobank-logo-menu-lateral.svg"
@@ -91,39 +94,34 @@
       </nav>
       <div class="conteudo">
         <div class="left">
-            <div class="top">
-                <div class="filtros">
-                    <span>Filtros:</span>
-                    <span> <input type="radio" name="option" value="1" checked> Média de uso</span>
-                    <span> <input type="radio" name="option" value="2"> Máximo</span>
-                    <span> <input type="radio" name="option" value="3"> Mínimo</span>
-                </div>
-                <div class="legenda">
-                    <div class="secao">
-                        <div class="boxcpu"></div>
-                        <span>CPU</span>
-                    </div>
-                    <div class="secao">
-                        <div class="boxram"></div>
-                        <span>RAM</span>
-                    </div>
-                    <div class="secao">
-                        <div class="boxdisco"></div>
-                        <span>Disco</span>
-                    </div>
-                    <div class="secao">
-                        <div class="boxrede"></div>
-                        <span>Rede</span>
-                    </div>
-                </div>
+          <div class="top">
+            <div class="filtros">
+              <span>Filtros:</span>
+              <span>
+                <input type="radio" name="option" value="1" checked /> Média de
+                uso</span
+              >
+              <span>
+                <input type="radio" name="option" value="2" /> Máximo</span
+              >
+              <span>
+                <input type="radio" name="option" value="3" /> Mínimo</span
+              >
             </div>
-            <div class="bottom"></div>
+          </div>
+          <div class="bottom">
+            <canvas id="myChartCanvas"></canvas>
+          </div>
         </div>
-        <hr>
+        <hr />
         <div class="rigth">
-            <div class="boxbobia">
-
+          <div class="boxBobIA">
+            <span class="tituloIA">Análise com IA</span>
+            <div class="chatBobIA">
+              <input type="text" id="pergunta">
+              <button>Send</button>
             </div>
+          </div>
         </div>
       </div>
     </div>
@@ -159,6 +157,75 @@
     } else {
       seta.classList.remove("girarSeta");
     }
+  }
+
+  function plotarGrafico() {
+    const labels = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
+    const cpu = ["10", "8", "5", "3", "6", "7", "9", "10", "4", "7", "2", "5"];
+    const ram = ["7", "3", "6", "8", "4", "5", "3", "6", "8", "2", "4", "10"];
+    const disco = ["4", "5", "8", "10", "8", "4", "6", "4", "2", "10", "5", "3"];
+    const rede = ["2", "10", "2", "5", "10", "2", "1", "8", "6", "5", "9", "8"];
+    const data = {
+      labels: labels,
+      datasets: [
+        {
+          label: "CPU",
+          data: cpu,
+          fill: false,
+          backgroundColor: "rgba(0, 10, 143, 0.85)"
+        },
+        {
+          label: "RAM",
+          data: ram,
+          backgroundColor: "rgba(32, 233, 255, 0.85)",
+        },
+        {
+          label: "Disco",
+          data: disco,
+          backgroundColor: "rgba(22, 10, 255, 0.85)",
+        },
+        {
+          label: "Rede",
+          data: rede,
+          backgroundColor: "rgba(167, 183, 255, 0.85)",
+        },
+      ],
+    };
+
+    const config = {
+      type: "bar",
+      data: data,
+      options: {
+        plugins: {
+          title: {
+            display: true,
+            text: "Panorama Anual",
+          },
+        },
+        responsive: true,
+        scales: {
+          x: {
+            ticks: {
+              color: "#000", // Cor do texto no eixo x
+            },
+            grid: {
+              color: "rgba(0, 0, 0, 0.05)", // Cor das linhas de grade no eixo x com 20% de opacidade
+            },
+          },
+          y: {
+            max: 12,
+            ticks: {
+              color: "#000", // Cor do texto no eixo y
+            },
+            grid: {
+              color: "rgba(0, 0, 0, 0.05)", // Cor das linhas de grade no eixo x com 20% de opacidade
+            },
+          }
+        },
+      },
+    };
+
+    let myChart = new Chart(document.getElementById(`myChartCanvas`), config);
   }
 
   const menuLaterealHTML = document.getElementById("menuLateralBox");
