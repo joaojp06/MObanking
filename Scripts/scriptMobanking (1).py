@@ -231,8 +231,8 @@ def verificar_maquina():
 def capturar_dados_pro():
     global idMaquina
     
-    ram = p.virtual_memory().percent
-    cpu = p.cpu_percent(interval=1)
+    ram = round(p.virtual_memory().percent)
+    cpu = round(p.cpu_percent(interval=1))
 
     servicoCpu = 1
     servicoRam = 2
@@ -274,8 +274,8 @@ def capturar_dados_pro():
     
 def capturar_dados_basico():
     global idMaquina
-    ram = p.virtual_memory().percent
-    cpu = p.cpu_percent(interval=1)
+    ram = round(p.virtual_memory().percent)
+    cpu = round(p.cpu_percent(interval=1))
     servicoCpu = 1
     servicoRam = 2
 

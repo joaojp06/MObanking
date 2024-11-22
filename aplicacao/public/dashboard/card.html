@@ -106,9 +106,9 @@
         </div>
         <div class="uso-informacoes">
           <div class="informacoes-texto">
-            <div class="informacao">Horário atual: 15:25</div>
+            <div id="ultimoHorarioCPU" class="informacao">Última atualização: </div>
             <div class="informacao">Uso atual:</div>
-            <div class="informacaoUsoAtual">53%</div>
+            <div id="ultimoValorCPU" class="informacaoUsoAtual"></div>
           </div>
 
           <div class="informacoes-texto">
@@ -127,9 +127,9 @@
         </div>
         <div class="uso-informacoes">
           <div class="informacoes-texto">
-            <div class="informacao">Horário atual: 15:25</div>
+            <div id="ultimoHorarioRAM" class="informacao"></div>
             <div class="informacao">Uso atual:</div>
-            <div class="informacaoUsoAtual">32%</div>
+            <div id="ultimoValorRAM" class="informacaoUsoAtual"></div>
           </div>
 
           <div class="informacoes-texto">
@@ -495,42 +495,42 @@
   var idEmpresa = sessionStorage.ID_EMPRESA;
   let servidoresAtuais = [];
 
-function listarServidores() {
-  var status = selectListServidores.value;
-  status = status === "ativo" ? 1 : 2;
+  function listarServidores() {
+    var status = selectListServidores.value;
+    status = status === "ativo" ? 1 : 2;
 
-  fetch(`/aquarios/listarServidores/${idEmpresa}/${status}`, {
-    method: "GET",
-  })
-    .then((resposta) => {
-      if (resposta.status == 204) {
-        listagemServidores.innerHTML = "Nenhum resultado encontrado.";
-        servidoresAtuais = []; // Limpa os dados locais
-        throw "Nenhum resultado encontrado!";
-      }
-
-      return resposta.json();
+    fetch(`/aquarios/listarServidores/${idEmpresa}/${status}`, {
+      method: "GET",
     })
-    .then((novosServidores) => {
-      // Verifica se há mudanças nos servidores
-      const servidoresMudaram =
-        JSON.stringify(servidoresAtuais) !== JSON.stringify(novosServidores);
+      .then((resposta) => {
+        if (resposta.status == 204) {
+          listagemServidores.innerHTML = "Nenhum resultado encontrado.";
+          servidoresAtuais = []; // Limpa os dados locais
+          throw "Nenhum resultado encontrado!";
+        }
 
-      if (!servidoresMudaram) {
-        console.log("Nenhuma mudança nos servidores detectada.");
-        return;
-      }
+        return resposta.json();
+      })
+      .then((novosServidores) => {
+        // Verifica se há mudanças nos servidores
+        const servidoresMudaram =
+          JSON.stringify(servidoresAtuais) !== JSON.stringify(novosServidores);
 
-      // Atualiza os dados locais
-      servidoresAtuais = novosServidores;
+        if (!servidoresMudaram) {
+          console.log("Nenhuma mudança nos servidores detectada.");
+          return;
+        }
 
-      // Atualiza seletivamente a interface
-      listagemServidores.innerHTML = ""; // Limpa a div antes de renderizar
+        // Atualiza os dados locais
+        servidoresAtuais = novosServidores;
 
-      planoEmpresa = sessionStorage.ID_PLANO;
+        // Atualiza seletivamente a interface
+        listagemServidores.innerHTML = ""; // Limpa a div antes de renderizar
 
-      novosServidores.forEach((registro) => {
-        let cardHTML = `
+        planoEmpresa = sessionStorage.ID_PLANO;
+
+        novosServidores.forEach((registro) => {
+          let cardHTML = `
           <div onclick="abrirModal(${registro.id_servidor}, ${status}), AtualizarGraficos(${registro.id_servidor})" class="card">
             <h2 id="apelido_card">${registro.apelido}</h2>
             <h2 id="funcao_card">${registro.funcao}</h2>
@@ -538,8 +538,8 @@ function listarServidores() {
             <div class="indicadores-box">
         `;
 
-        if (planoEmpresa >= 1) {
-          cardHTML += `
+          if (planoEmpresa >= 1) {
+            cardHTML += `
             <div class="indicador-pai">
               <img class="ax-mg-left" src="../imagens/icon-cpu.png" alt="" />
               <div class="indicador-titulo">
@@ -554,10 +554,10 @@ function listarServidores() {
                 <p>${registro.valorRam}% de ${registro.capacidade_total_ram}GB</p>
               </div>
             </div>`;
-        }
+          }
 
-        if (planoEmpresa >= 2) {
-          cardHTML += `
+          if (planoEmpresa >= 2) {
+            cardHTML += `
             <div class="indicador-pai">
               <img class="ax-mg-left" src="../imagens/icon-disco.png" alt="" />
               <div class="indicador-titulo">
@@ -565,10 +565,10 @@ function listarServidores() {
                 <p>${registro.valorDisco}GB de ${registro.capacidade_total_disco}GB</p>
               </div>
             </div>`;
-        }
+          }
 
-        if (planoEmpresa >= 3) {
-          cardHTML += `
+          if (planoEmpresa >= 3) {
+            cardHTML += `
             <div class="indicador-pai">
               <img src="../imagens/icon-rede.png" alt="" />
               <div class="indicador-titulo">
@@ -576,22 +576,22 @@ function listarServidores() {
                 <p>${registro.valorRede}MB</p>
               </div>
             </div>`;
-        }
+          }
 
-        cardHTML += `
+          cardHTML += `
           </div>
         </div>`;
 
-        listagemServidores.innerHTML += cardHTML;
+          listagemServidores.innerHTML += cardHTML;
+        });
+      })
+      .catch((erro) => {
+        console.error("Erro:", erro);
       });
-    })
-    .catch((erro) => {
-      console.error("Erro:", erro);
-    });
-}
+  }
 
-// Executa a função listarServidores a cada 3 segundos
-setInterval(listarServidores, 3000);
+  // Executa a função listarServidores a cada 3 segundos
+  setInterval(listarServidores, 3000);
 
 
 
@@ -1402,13 +1402,17 @@ setInterval(listarServidores, 3000);
       if (registro.fkServico == 1) {
         labelsCpu.push(`${horario}`);
         dadosCpu.datasets[0].data.push(registro.valor);
+        ultimoValorCPU.innerHTML = `${Math.round(registro.valor)}%`;
       }
 
       if (registro.fkServico == 2) {
         labelsRam.push(`${horario}`);
         dadosRam.datasets[0].data.push(registro.valor);
+        ultimoValorRAM.innerHTML = `${Math.round(registro.valor)}%`;
       }
     }
+
+
 
     // Transformar dados para a regressão linear 
     const scatterDataRam = dadosRam.datasets[0].data.map((valor, index) => ({ x: index, y: valor }));
@@ -1432,10 +1436,14 @@ setInterval(listarServidores, 3000);
     const lastTimeStringRam = labelsRam[labelsRam.length - 1];
     const lastTimeRam = new Date(`1970-01-01T${lastTimeStringRam}:00`);
 
+    ultimoHorarioCPU.innerHTML = `Última atualização: ${lastTimeStringCpu}`;
+    ultimoHorarioRAM.innerHTML = `Última atualização: ${lastTimeStringRam}`;
+
+
     // Adicionar 5 minutos ao último horário registrado 
-    // const nextTimeCpu = new Date(lastTimeCpu.getTime() + 5 * 60000).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    const nextTimeCpu = new Date(lastTimeCpu.getTime() + 5 * 60000).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
     // labelsCpu.push(nextTimeCpu);
-    // const nextTimeRam = new Date(lastTimeRam.getTime() + 5 * 60000).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    const nextTimeRam = new Date(lastTimeRam.getTime() + 5 * 60000).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
     // labelsRam.push(nextTimeRam);
 
     // Prever o próximo valor
@@ -1474,7 +1482,7 @@ setInterval(listarServidores, 3000);
       data: {
         labels: dadosCpu.labels,
         datasets: [{
-          label: dadosCpu.datasets[0].label,
+          label: "Uso CPU (%)",
           data: dadosCpu.datasets[0].data,
           borderColor: 'rgb(75, 192, 192)',
           backgroundColor: 'rgba(255, 255, 255, 0.5)',
@@ -1536,7 +1544,7 @@ setInterval(listarServidores, 3000);
       data: {
         labels: dadosRam.labels,
         datasets: [{
-          label: dadosRam.datasets[0].label,
+          label: "Uso de RAM (%)",
           data: dadosRam.datasets[0].data,
           borderColor: 'rgb(75, 192, 192)',
           backgroundColor: 'rgba(255, 255, 255, 0.5)',
@@ -1592,6 +1600,20 @@ setInterval(listarServidores, 3000);
         }
       }
     });
+
+    if (graficoRamTendenciaInstance.data.labels.length > 7) {
+      graficoRamTendenciaInstance.data.labels.shift();
+      graficoRamTendenciaInstance.data.datasets.forEach((dataset) =>
+        dataset.data.shift()
+      );
+    }
+
+    if (graficoCpuTendenciaInstance.data.labels.length > 7) {
+      graficoCpuTendenciaInstance.data.labels.shift();
+      graficoCpuTendenciaInstance.data.datasets.forEach((dataset) =>
+        dataset.data.shift()
+      );
+    }
   }
 
 
