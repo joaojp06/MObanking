@@ -50,11 +50,11 @@
                     </a>
                 </li>
                 <div class="submenu" onmouseenter="manterSubmenu()" onmouseleave="fecharSubmenu()">
-                    <li><a href="dashboard-individual/maikon-dashboard.html">Maikon</a></li>
-                    <li><a href="dashboard-individual/joao-dashboard.html">JP</a></li>
-                    <li><a href="dashboard-individual/fabio-dashboard.html">Fabio</a></li>
-                    <li><a href="dashboard-individual/kaua-dashboard.html">Kauâ</a></li>
-                    <li><a href="dashboard-individual/faria-dashboard.html">Gabriel</a></li>
+                    <li><a href="maikon-dashboard.html">Maikon</a></li>
+                    <li><a href="joao-dashboard.html">JP</a></li>
+                    <li><a href="fabio-dashboard.html">Fabio</a></li>
+                    <li><a href="kaua-dashboard.html">Kauâ</a></li>
+                    <li><a href="faria-dashboard.html">Gabriel</a></li>
                 </div>
             </ul>
 
@@ -282,7 +282,7 @@
     if (sessTipoUsuario == 1) {
         menuLaterealHTML.innerHTML += `
      <li>
-          <a href="funcionarios.html">
+          <a href="../funcionarios.html">
             <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
             <span class="titulo-link-menu">Funcionários</span>
           </a>
@@ -367,12 +367,12 @@
             if (statusCpuTipo == 1) {
                 var novoValorDown = calculoValorDown(servidor.media_valor_cpu, servidor.capacidade_total_cpu)
                 descCpuDemanda_box.innerHTML = `
-                <p>Nova Cpu: ${novoValorDown}Ghz</p>
+                <p>Nova Cpu: ${novoValorDown[0]} DownNecessário ${novoValorDown[1]}Ghz</p>
                 `
             } else if (statusCpuTipo == 2) {
-                var novoValorUp = calculoValorUp(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.capacidade_total_cpu)
+                var novoValorUp = calcularUpgradeDown(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.capacidade_total_cpu)
                 descCpuDemanda_box.innerHTML = `
-                <p>Nova cpu: ${novoValorUp[0]}Ghz</p>
+                <p>Nova cpu: ${novoValorUp[0]} upNecessário ${novoValorUp[1]}Ghz</p>
                 `
                 //<p>Probabilidade de ultrapassar 50% de uso: ${novoValorCpu[1]}%</p>
             } else {
@@ -382,14 +382,14 @@
             }
 
             if (statusRamTipo == 1) {
-                var novoValorDown = calculoValorDown(servidor.media_valor_ram, servidor.capacidade_total_ram)
+                var novoValorDown = calcularUpgradeDown(servidor.media_valor_ram, servidor.desvio_padrao_ram, servidor.capacidade_total_ram)
                 descRamDemanda_box.innerHTML = `
-                <p>Nova ram: ${novoValorDown}Gb</p>
+                <p>Nova ram: ${novoValorDown[0]} DownNecessário ${novoValorDown[1]}Gb</p>
                 `
             } else if (statusRamTipo == 2) {
-                var novoValorUp = calculoValorUp(servidor.media_valor_ram, servidor.desvio_padrao_ram, servidor.capacidade_total_ram)
+                var novoValorUp = calcularUpgradeDown(servidor.media_valor_ram, servidor.desvio_padrao_ram, servidor.capacidade_total_ram)
                 descRamDemanda_box.innerHTML = `
-                <p>Nova ram: ${novoValorUp}Gb</p>
+                <p>Nova ram: ${novoValorUp[0]} upNecessário ${novoValorUp[1]}Gb</p>
                 `
             } else {
                 descRamDemanda_box.innerHTML = `
@@ -465,6 +465,29 @@
     }
 
 
+    function calcularUpgradeDown(meanAtual, stdDev ,capacidadeAtual) {
+        var meanDesejada = 50
+        // Cálculo do uso atual em GB
+        var usoAtualEmGb = (meanAtual / 100) * capacidadeAtual;
+
+        // Cálculo da nova capacidade de RAM necessária
+        var novoValorTotal = usoAtualEmGb / (meanDesejada / 100);
+
+        //Falta padronizar metodo que coloca um servidor ocioso, estavel e sobrecarregado
+        if (meanAtual > 70 || (meanAtual > 60 && stdDev > 20)) {
+            var upgradeNecessario = novoValorTotal - capacidadeAtual;
+
+            novoValorTotals = novoValorTotal + upgradeNecessario
+
+            return [novoValorTotal, upgradeNecessario]
+        } else if(meanAtual < 30 && stdDev < 10){
+            var serReduzida = capacidadeAtual - novoValorTotal;
+
+            serReduzida = novoValorTotal - serReduzida
+
+            return [novoValorTotal, serReduzida]
+        }
+    }
 
     // Funções de calculo da demanda CPU
     function calculoValorUp(meanAtual, stdDev, cpuAtual) {
@@ -583,7 +606,7 @@
     function determinarStatusComponente(media, desvio) {
         if (media < 30 && desvio < 10) {
             return "#676767"; //ocioso
-        } else if (media > 70 || desvio > 20) {
+        } else if (media > 70 || (media > 60 && desvio > 20)) {
             return "#c70000"; //Sobrecarga
         } else {
             return "#029602"; //OK estavel
@@ -594,7 +617,7 @@
     function determinarStatusComponenteCorGrafico(media, desvio) {
         if (media < 30 && desvio < 10) {
             return "rgba(103, 103, 103, 0.2)"; //ocioso
-        } else if (media > 70 || desvio > 20) {
+        } else if (media > 70 || (media > 60 && desvio > 20)) {
             return "rgba(199, 0, 0, 0.2)"; //Sobrecarga
         } else {
             return "rgb(2, 150, 2, 0.2)"; //OK estavel
@@ -605,7 +628,7 @@
     function identificarTipoUp(media, desvio) {
         if (media < 30 && desvio < 10) {
             return 1; //ocioso
-        } else if (media > 70 || desvio > 20) {
+        } else if (media > 70 || (media > 60 && desvio > 20)) {
             return 2; //Sobrecarga
         } else {
             return 3; //OK estavel

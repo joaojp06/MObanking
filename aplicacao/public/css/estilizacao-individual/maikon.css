@@ -64,11 +64,6 @@
     font-weight: bold;
     border: none;
     border-radius: 8px;
-    cursor: pointer;
-}
-
-.custom-tooltip-btn:hover {
-    background-color: #0056b3;
 }
 
 .custom-tooltip-content {
