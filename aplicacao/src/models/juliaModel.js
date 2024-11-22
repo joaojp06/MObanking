@@ -9,7 +9,6 @@ function buscarMedidasServidor(idServidor) {
   WHERE fkServidor = ${idServidor}
 ) sub
 WHERE row_num <= 1;
-
   `;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);

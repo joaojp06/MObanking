@@ -100,7 +100,7 @@
     <div id="tendenciaUso" class="tendenciaUso pagina" style="display: none;">
       <!-- TENDENCIA CPU -->
       <div class="usoBox">
-        <div class="titulo">Uso de CPU</div>
+        <div class="titulo">Uso de CPU (%) </div>
         <div class="graficoTendenciaUsoCPU">
           <!-- Adicionado dinamicamente -->
         </div>
@@ -114,14 +114,14 @@
           <div class="informacoes-texto">
             <div class="informacao">Previsão em </div>
             <div class="informacao"> 5 minutos:</div>
-            <div class="informacaoPrevisao">62%</div>
+            <div id="previsaoCPU" class="informacaoPrevisao">62%</div>
             <div class="criticidade-indicador amarelo"></div>
           </div>
         </div>
       </div>
       <!-- TENDENCIA RAM -->
       <div class="usoBox">
-        <div class="titulo">Uso de RAM</div>
+        <div class="titulo">Uso de RAM (%) </div>
         <div class="graficoTendenciaUsoRAM">
           <!-- Adicionado dinamicamente -->
         </div>
@@ -135,7 +135,7 @@
           <div class="informacoes-texto">
             <div class="informacao">Previsão em </div>
             <div class="informacao"> 5 minutos:</div>
-            <div class="informacaoPrevisao">44%</div>
+            <div id="previsaoRAM" class="informacaoPrevisao">44%</div>
             <div class="criticidade-indicador verde"></div>
           </div>
         </div>
@@ -885,17 +885,26 @@
 
   function AtualizarGraficos(idServidor) {
     obterDadosGrafico(idServidor);
+    obterDadosGraficoTendenciaUso(idServidorPar);
     iniciarAtualizacaoAoVivo();
+    iniciarAtualizacaoTendenciaUsoAoVivo();
   }
 
   function iniciarAtualizacaoAoVivo() {
     setInterval(() => {
       if (idServidorPar) { // Certifique-se de que o parâmetro está definido
         obterDadosGrafico(idServidorPar);
-        obterDadosGraficoTendenciaUso(idServidorPar);
         // Atualize o gráfico com o parâmetro atual
       }
     }, 5000); // Intervalo de 3 segundos
+  }
+
+  function iniciarAtualizacaoTendenciaUsoAoVivo() {
+    setInterval(() => {
+      if (idServidorPar) {
+        obterDadosGraficoTendenciaUso(idServidorPar);
+      }
+    }, 60000); // Intervalo de 3 segundos
   }
 
   let graficoCpuInstance = null;
@@ -1364,29 +1373,57 @@
     return { slope, intercept };
   }
 
+  let graficoCpuTendenciaInstance = null;
+  let graficoRamTendenciaInstance = null;
+
+  // Definindo variáveis GLOBAIS (antes eram recriadas toda vez na função, agora são persistentes)
+  let labelsCpu = []; // Guarda os horários no eixo X do gráfico de CPU
+  let labelsRam = []; // Guarda os horários no eixo X do gráfico de RAM
+  let dadosCpu = {
+    labels: labelsCpu, // Usa as labels globais
+    datasets: [{
+      label: 'Uso de CPU (%)',
+      data: [], // Inicialmente vazio, irá armazenar os valores de CPU
+    }],
+  };
+  let dadosRam = {
+    labels: labelsRam, // Usa as labels globais
+    datasets: [{
+      label: 'Uso de RAM (%)',
+      data: [], // Inicialmente vazio, irá armazenar os valores de RAM
+    }],
+  };
+
   function plotarGraficoTendenciaUso(resposta) {
     console.log('Iniciando plotagem do gráfico de Tendência de Uso...');
 
-    // Criando estrutura para plotar gráfico - labels
-    let labelsCpu = [];
-    let labelsRam = [];
+    if (graficoCpuTendenciaInstance) {
+      graficoCpuTendenciaInstance.destroy();
+    }
+    if (graficoRamTendenciaInstance) {
+      graficoRamTendenciaInstance.destroy();
+    }
 
-    // Criando estrutura para plotar gráfico - dados
-    let dadosCpu = {
-      labels: labelsCpu,
-      datasets: [{
-        label: '',
-        data: [],
-      }],
-    };
+    // // Criando estrutura para plotar gráfico - labels
+    // let labelsCpu = [];
+    // let labelsRam = [];
 
-    let dadosRam = {
-      labels: labelsRam,
-      datasets: [{
-        label: '',
-        data: [],
-      }],
-    };
+    // // Criando estrutura para plotar gráfico - dados
+    // let dadosCpu = {
+    //   labels: labelsCpu,
+    //   datasets: [{
+    //     label: '',
+    //     data: [],
+    //   }],
+    // };
+
+    // let dadosRam = {
+    //   labels: labelsRam,
+    //   datasets: [{
+    //     label: '',
+    //     data: [],
+    //   }],
+    // };
 
     console.log('----------------------------------------------');
     console.log('Estes dados foram recebidos pela funcao "obterDadosGraficoTendenciaUso" e passados para "plotarGraficoTendenciaUso":');
@@ -1432,18 +1469,21 @@
     const lastTimeRam = new Date(`1970-01-01T${lastTimeStringRam}:00`);
 
     // Adicionar 5 minutos ao último horário registrado 
-    const nextTimeCpu = new Date(lastTimeCpu.getTime() + 5 * 60000).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-    labelsCpu.push(nextTimeCpu);
-    const nextTimeRam = new Date(lastTimeRam.getTime() + 5 * 60000).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-    labelsRam.push(nextTimeRam);
+    // const nextTimeCpu = new Date(lastTimeCpu.getTime() + 5 * 60000).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    // labelsCpu.push(nextTimeCpu);
+    // const nextTimeRam = new Date(lastTimeRam.getTime() + 5 * 60000).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    // labelsRam.push(nextTimeRam);
 
     // Prever o próximo valor
     const nextXCpu = scatterDataCpu.length;
-    const predictedValueCpu = slopeCpu * nextXCpu + interceptCpu;
+    const predictedValueCpu = Math.round(slopeCpu * nextXCpu + interceptCpu);
     dadosCpu.datasets[0].data.push
     const nextXRam = scatterDataRam.length;
-    const predictedValueRam = slopeRam * nextXRam + interceptRam;
+    const predictedValueRam = Math.round(slopeRam * nextXRam + interceptRam);
     dadosRam.datasets[0].data.push
+
+    previsaoCPU.innerHTML = `${predictedValueCpu}%`;
+    previsaoRAM.innerHTML = `${predictedValueRam}%`;
 
     console.log('----------------------------------------------');
     console.log('O gráfico de Tendência de Uso será plotado com os respectivos valores:');
@@ -1452,6 +1492,10 @@
     console.log(dadosCpu.datasets);
     console.log('dadosRam:');
     console.log(dadosRam.datasets);
+    console.log("Valor previsto CPU:");
+    console.log(predictedValueCpu);
+    console.log("Valor previsto RAM:");
+    console.log(predictedValueRam);
     console.log('----------------------------------------------');
 
     document.querySelector('.graficoTendenciaUsoCPU').innerHTML = '<canvas id="graficoCPUTendenciaUso"></canvas>';
@@ -1461,28 +1505,28 @@
     let graficoRAMTendenciaUso = document.getElementById('graficoRAMTendenciaUso').getContext('2d');
 
     // Criar ou atualizar gráficos
-    graficoCpuInstance = new Chart(graficoCPUTendenciaUso, {
+    graficoCpuTendenciaInstance = new Chart(graficoCPUTendenciaUso, {
       type: 'line',
       data: {
         labels: dadosCpu.labels,
         datasets: [{
           label: dadosCpu.datasets[0].label,
           data: dadosCpu.datasets[0].data,
-          borderColor: 'white',
+          borderColor: 'rgb(75, 192, 192)',
           backgroundColor: 'rgba(255, 255, 255, 0.5)',
-          fill: true,
+          fill: false,
           pointBackgroundColor: 'white',
           pointBorderColor: 'white',
           pointRadius: 5,
           tension: 0.1
         }, {
-          label: 'Tendência de Uso', 
-          data: regressionLineCpu, 
-          type: 'line', 
-          borderColor: 'rgba(255, 99, 132, 0.8)', 
-          borderWidth: 2, 
-          fill: false, 
-          // pointRadius: 0 // Remove os pontos da linha de regressão
+          label: 'Tendência de Uso',
+          data: regressionLineCpu,
+          type: 'line',
+          borderColor: 'rgba(255, 99, 132, 0.8)',
+          borderWidth: 2,
+          fill: false,
+          pointRadius: 0 // Remove os pontos da linha de regressão
         }]
       },
       options: {
@@ -1523,7 +1567,7 @@
       }
     });
 
-    graficoRamInstance = new Chart(graficoRAMTendenciaUso, {
+    graficoRamTendenciaInstance = new Chart(graficoRAMTendenciaUso, {
       type: 'line',
       data: {
         labels: dadosRam.labels,
@@ -1532,19 +1576,19 @@
           data: dadosRam.datasets[0].data,
           borderColor: 'rgb(75, 192, 192)',
           backgroundColor: 'rgba(255, 255, 255, 0.5)',
-          fill: true,
+          fill: false,
           pointBackgroundColor: 'white',
           pointBorderColor: 'white',
           pointRadius: 5,
           tension: 0.1
         }, {
           label: 'Tendência de Uso',
-          data: regressionLineRam ,
+          data: regressionLineRam,
           type: 'line',
           borderColor: 'rgba(255, 99, 132, 0.8)',
           borderWidth: 2,
           fill: false,
-          // pointRadius: 0  // Remove os pontos da linha de regressão
+          pointRadius: 0 // Remove os pontos da linha de regressão
         }]
       },
       options: {
@@ -1586,9 +1630,6 @@
     });
   }
 
-  // Chamada inicial para obter dados
-  setInterval(() => {
-    obterDadosGraficoTendenciaUso(idServidor);
-  }, 300000); // 300000 ms = 5 minutos
+
 
 </script>
