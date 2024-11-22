@@ -1,0 +1,111 @@
+/* ---------- Configuração conteudo ---------- */
+
+/* Remove a rolagem vertical e horizontal de toda a página */
+
+.conteudo h1 {
+    font-size: 45px;
+    padding-bottom: 2%;
+    font-family: "Allerta", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.container {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding: 0.6%;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    background: linear-gradient(to left, #214154, #021923);
+    color: white;
+    margin-bottom: 1%;
+}
+
+.listaPicos {
+    overflow-y: hidden; /* Remove a rolagem vertical */
+    min-width: fit-content;
+    
+    height: 81%;
+    background: linear-gradient(to bottom, #4C7387, #28353D);
+    border-radius: 20px;
+    padding: 2%;
+}
+
+.infos {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.infos img {
+    height: 70%;
+}
+
+.infos select {
+    text-align: center;
+    margin-top: 2%; /* Ajuste o espaçamento superior */
+    height: 40px; /* Tamanho do select */
+    width: 35%;  /* Ajuste a largura */
+    background-color: #093048;
+    color: white;
+    font-size: 1.2em; /* Tamanho da fonte */
+    font-family: 'Arial', sans-serif;
+    border: none;
+    border-radius: 15px; /* Bordas arredondadas */
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Adiciona efeito ao passar o mouse */
+.infos select:hover {
+    background-color: #0c4061; /* Cor de fundo mais clara */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra suave */
+}
+
+/* Filtro selecionado (quando clicado) */
+.infos select:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(31, 125, 159, 0.6); /* Efeito de foco */
+}
+
+.div-filtro {
+    height: 30%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.div-filtro p {
+    margin-top: 7%;
+    color: white;
+    font-size: 1.4em;
+    font-weight: 200; /* Mais destacado */
+    font-family: "Allerta", sans-serif;
+}
+
+/* Estilos para a setinha do select */
+.infos select::-ms-expand {
+    display: none; /* Ocultar a seta no IE */
+}
+
+.infos select {
+    -webkit-appearance: none;  /* Remove a seta do Chrome/Safari */
+    -moz-appearance: none; /* Remove a seta do Firefox */
+    appearance: none; /* Remove a seta do padrão */
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="white"%3E%3Cpath fill-rule="evenodd" d="M5.293 7.293a1 1 0 0 1 1.414 0L10 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 0-1.414z" clip-rule="evenodd" /%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 22px;
+}
+
+.icone_informacao {
+    position: absolute;
+    bottom: 10%;
+    right: 7.5%;
+    width: 3.5%;
+}

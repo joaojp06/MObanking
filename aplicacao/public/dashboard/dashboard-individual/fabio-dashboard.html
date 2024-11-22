@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ptbr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOBANKING</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" href="../../imagens/logo.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../../css/reset.css" />
+    <link rel="stylesheet" href="../../css/default.css" />
+    <link rel="stylesheet" href="../../css/estilizacao-individual/fabio.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+<div id="frame" class="frame-aplicacao" style="display: flex;">
+    <nav class="menu-lateral" onmouseenter="exibirMenu()" onmouseleave="ocultarMenu()">
+        <img src="../../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
+        <ul id="menuLateralBox">
+            <li>
+                <a href="../card.html">
+                    <span class="icon-menu"><i class="fa-solid fa-server"></i></span>
+                    <span class="titulo-link-menu">Máquinas</span>
+                </a>
+            </li>
+            <li>
+                <a href="../dashboard.html">
+                    <span class="icon-menu"><i class="fa-solid fa-chart-simple"></i></span>
+                    <span class="titulo-link-menu">Gráficos</span>
+                </a>
+            </li>
+            <li>
+                <a href="../alertas.html">
+                    <span class="icon-menu"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                    <span class="titulo-link-menu">Alertas</span>
+                </a>
+            </li>
+            <li class="dashboard-item">
+                <a href="javascript:void(0);" onclick="toggleSubmenu()">
+                    <span class="icon-menu"><i class="fa-solid fa-chart-pie"></i></span>
+                    <span class="titulo-link-menu">Dashboard </span> <i class="fa-solid setaMenu fa-sort-down"></i>
+                </a>
+            </li>
+            <div class="submenu" onmouseenter="manterSubmenu()" onmouseleave="fecharSubmenu()">
+                <li><a href="../dashboard-individual/maikon-dashboard.html">Maikon</a></li>
+                <li><a href="../dashboard-individual/joao-dashboard.html">JP</a></li>
+                <li><a href="../dashboard-individual/fabio-dashboard.html">Fabio</a></li>
+                <li><a href="../dashboard-individual/kaua-dashboard.html">Kauâ</a></li>
+                <li><a href="../dashboard-individual/faria-dashboard.html">Gabriel</a></li>
+            </div>
+        </ul>
+
+        <div class="name-menu">
+            <a href="../usuarioInfo.html">
+                <h2 id="nome_perfil_menu"></h2>
+            </a>
+        </div>
+
+        <a class="buttonSair-menu" href="../../index.html">
+            <h2>Sair</h2>
+        </a>
+    </nav>
+    <div class="conteudo">
+        <h1>Picos de Horário</h1>
+        <div id="listagemPicos" class="listaPicos">
+            <div class="infos">
+                <div class="div-filtro">
+                    <p>Filtro</p>
+                    <select id="filtro-horas">
+                        <option selected value="12-23">12h - 23h59</option>
+                        <option value="00-12">00h - 11h59</option>
+                    </select>
+                </div>
+                <img src="../../imagens/legenda_individual_atualizada_2.svg" alt="">
+            </div>
+            <div class="div-grafico-pico">
+                <button class="icone_informacao" style="background: none; border: none; padding: 0; cursor: pointer;">
+                    <img src="../../imagens/icone_informacao.svg" alt="Botão" style="width: 100%; height: auto;">
+                  </button>
+
+                <div class="chart" id="chart">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+
+    function toggleSubmenu() {
+        const submenu = document.querySelector('.submenu');
+        const seta = document.querySelector('.fa-sort-down');
+
+        submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+        submenuAberto = submenu.style.display === 'block';
+
+        if (submenuAberto) {
+            seta.classList.add("girarSeta");
+        } else {
+            seta.classList.remove("girarSeta");
+        }
+    }
+
+    function exibirMenu() {
+        const menuLateral = document.querySelector('.menu-lateral');
+        menuLateral.classList.add('menu-aberto');
+    }
+
+    function ocultarMenu() {
+        const submenu = document.querySelector('.submenu');
+        const seta = document.querySelector('.fa-sort-down');
+
+        // Fecha o submenu e redefine o ícone de seta quando o mouse sai do nav
+        submenu.style.display = 'none';
+        seta.classList.remove("girarSeta");
+        submenuAberto = false;
+    }
+
+    function confirmarDesativar() {
+
+        confirmarModalDesativar.style.top = '0'
+        const frame = document.getElementById('frame');
+        frame.classList.add('blur-grid')
+
+    }
+
+    function fecharDesativar() {
+
+        const frame = document.getElementById('frame');
+        frame.classList.remove('blur-grid')
+        confirmarModalDesativar.style.top = '-20%'
+    }
+
+    function confirmarAtivar() {
+
+        confirmarModalAtivar.style.top = '0'
+        const frame = document.getElementById('frame');
+        frame.classList.add('blur-grid')
+
+    }
+
+    function fecharAtivar() {
+
+        const frame = document.getElementById('frame');
+        frame.classList.remove('blur-grid')
+        confirmarModalAtivar.style.top = '-20%'
+    }
+
+
+
+
+    function alertaEstatico() {
+        const card = document.getElementById("alertCardEstatico");
+
+        card.classList.add("alertCardEstaticoUsar");
+        setTimeout(() => {
+            card.classList.remove("alertCardEstaticoUsar");
+        }, "7000");
+
+    }
+
+    const menuLaterealHTML = document.getElementById('menuLateralBox')
+    var sessTipoUsuario = sessionStorage.ID_TIPO_USUARIO
+    if (sessTipoUsuario == 1) {
+        menuLaterealHTML.innerHTML += `
+     <li>
+          <a href="funcionarios.html">
+            <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
+            <span class="titulo-link-menu">Funcionários</span>
+          </a>
+        </li>
+    `
+    }
+
+    // Função para gerar valor aleatório
+    function gerarValorAleatorio(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    // Função para gerar dados aleatórios para um intervalo específico de horas
+    function generateData(startHour, endHour) {
+        let data = [];
+        for (let hour = startHour; hour <= endHour; hour++) {
+            let time = (hour < 10 ? '0' : '') + hour + ':00';
+            data.push({ x: time, y: gerarValorAleatorio(10, 100) });
+        }
+        return data;
+    }
+
+    // Definindo as opções do gráfico
+    var options = {
+        chart: {
+            type: 'heatmap',
+            height: 400,
+            width: 1000,
+        },
+        plotOptions: {
+            heatmap: {
+                shadeIntensity: 0.2,
+                colorScale: {
+                    ranges: [
+                        { from: 0, to: 20, color: '#54A5BA', name: '(20%)' },
+                        { from: 21, to: 40, color: '#3E8AA2', name: '(21% - 40%)' },
+                        { from: 41, to: 60, color: '#2C6C84', name: '(41% - 60%)' },
+                        { from: 61, to: 80, color: '#1B4E66', name: '(61% - 80%)' },
+                        { from: 81, to: 100, color: '#093048', name: '(100%)' }
+                    ]
+                }
+            }
+        },
+        dataLabels: {
+            enabled: false,
+            style: {
+                colors: ['#fff']
+            },
+        },
+        series: [
+            {
+                name: 'Sábado',
+                data: generateData(12, 23)
+            },
+            {
+                name: 'Sexta',
+                data: generateData(12, 23)
+            },
+            {
+                name: 'Quinta',
+                data: generateData(12, 23)
+            },
+            {
+                name: 'Quarta',
+                data: generateData(12, 23)
+            },
+            {
+                name: 'Terça',
+                data: generateData(12, 23)
+            },
+            {
+                name: 'Segunda',
+                data: generateData(12, 23)
+            },
+            {
+                name: 'Domingo',
+                data: generateData(12, 23)
+            }
+        ],
+        xaxis: {
+            type: 'category',
+            title: {
+                text: 'Hora',
+                style: {
+                    color: '#fff',
+                }
+            },
+            labels: {
+                style: {
+                    colors: '#fff'
+                }
+            }
+        },
+        yaxis: {
+            type: 'category',
+            title: {
+                text: 'Dia',
+                style: {
+                    color: '#fff',
+                }
+            },
+            labels: {
+                style: {
+                    colors: '#fff'
+                }
+            }
+        },
+        title: {
+            text: 'Uso da CPU (%) - 12h a 23h59',
+            align: 'center',
+            style: {
+                color: '#fff',
+                fontSize: '20px',
+                fontWeight: 'bold',
+            }
+        },
+        grid: {
+            borderColor: '#3B5461'
+        },
+        legend: {
+            labels: {
+                colors: '#fff',
+            }
+        }
+    };
+
+    // Inicializa o gráfico
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+
+    // Adiciona o evento para o filtro
+    document.getElementById('filtro-horas').addEventListener('change', function () {
+        let filtro = this.value;
+        let startHour, endHour, title;
+
+        if (filtro === '00-12') {
+            startHour = 0;
+            endHour = 11;
+            title = 'Uso da CPU (%) - 00h a 12h59';
+        } else {
+            startHour = 12;
+            endHour = 23;
+            title = 'Uso da CPU (%) - 12h a 23h59';
+        }
+
+        // Atualizar os dados das séries com base no filtro
+        options.series = options.series.map(series => {
+            series.data = generateData(startHour, endHour);
+            return series;
+        });
+
+        options.title.text = title;
+        chart.updateOptions(options);
+    });
+</script>
+
+</body>
+
+</html>
