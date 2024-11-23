@@ -2,6 +2,27 @@
 
 /* Remove a rolagem vertical e horizontal de toda a página */
 
+/* Barra de rolagem global */
+::-webkit-scrollbar {
+    width: 12px !important; /* Largura da barra */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3A6B8C !important; /* Cor do polegar */
+    border-radius: 6px !important; /* Bordas arredondadas */
+    border: 3px solid #074661 !important; /* Borda ao redor do polegar */
+}
+
+::-webkit-scrollbar-track {
+    background: #074661 !important; /* Cor de fundo da barra */
+    border-radius: 6px !important; /* Bordas arredondadas */
+}
+
+::-webkit-scrollbar-button {
+    display: none !important; /* Remover as setas */
+}
+
+
 .conteudo h1 {
     font-size: 45px;
     padding-bottom: 2%;
@@ -108,4 +129,166 @@
     bottom: 10%;
     right: 7.5%;
     width: 3.5%;
+    opacity: 1; /* Garantir que o botão está visível */
+    transition: opacity 0.4s ease-in-out, box-shadow 0.4s ease-in-out; /* Suavidade */
+    pointer-events: auto; /* Ativar interação */
+    border-radius: 50%; /* Garantir que segue o formato circular */
 }
+
+.icone_informacao:hover {
+    box-shadow: 0px 0px 10px 5px #455f6e; /* Sombra azul clara circular */
+    transform: scale(1.02); /* Leve aumento no tamanho para destaque */
+}
+
+.ocultar {
+    opacity: 0; /* Totalmente invisível */
+    pointer-events: none; /* Impede a interação quando invisível */
+}
+
+.legenda_dias {
+    position: absolute;
+    right: 38.6%;
+    bottom: 40.3%;
+    width: 24%;
+    opacity: 1; /* Inicialmente visível */
+    transition: opacity 1s ease-in-out; /* Suavidade na opacidade */
+    pointer-events: auto; /* Permite interação */
+}
+
+.legenda_dias.ocultar {
+    opacity: 0; /* Tornar invisível */
+    pointer-events: none; /* Desativar interação enquanto invisível */
+}
+
+/* Estilo do Modal */
+/* Estilo do Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+}
+
+/* Conteúdo do Modal */
+.modal-content {
+    color: white;
+    background: radial-gradient(circle at top right, #3A6B8C, #124760);
+    margin: 2% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 650px;
+    border-radius: 10px;
+    position: relative;
+    max-height: 70vh; /* Define uma altura máxima para o conteúdo dentro do modal */
+    overflow-y: auto; /* Habilita a rolagem dentro do modal */
+}
+
+/* Botão de Fechar */
+.close {
+    color: #ffffff;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Tabs do Modal */
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Espaçamento horizontal entre os botões */
+    margin-bottom: 20px; /* Espaçamento abaixo dos botões */
+}
+
+.tabs .tab {
+    background: radial-gradient(circle at top right, #3A6B8C, #124760); /* Degradê radial */
+    border: 1px solid #fff; /* Borda branca */
+    border-radius: 15px; /* Bordas arredondadas */
+    color: #fff; /* Cor do texto */
+    padding: 12px 30px; /* Espaçamento interno */
+    text-align: center; /* Centralizar o texto */
+    cursor: pointer; /* Cursor de ponteiro */
+    transition: all 0.3s ease; /* Transição suave */
+    margin: 0 10px; /* Espaçamento entre os botões */
+}
+
+.tabs .tab:hover {
+    background: radial-gradient(circle at top right, #3e7497, #14506b); /* Inverte o degradê no hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Efeito de sombra */
+}
+
+.tabs .tab.active {
+    background: radial-gradient(circle at top right, #3e7497, #14506b); /* Degradê amarelo claro */
+    border: 2px solid #14506b; /* Borda dourada */
+    color: #ffffff; /* Texto azul escuro para contraste */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3); /* Sombra mais forte */
+}
+
+/* Sessões */
+.sessao {
+    display: none;
+}
+
+.sessao:first-child {
+    display: block;
+}
+
+.titulo_modal {
+    font-size: 170%;
+    font-family: 'Poppins', sans-serif; /* Define a fonte */
+    font-weight: 600; /* Define o peso para uma aparência mais marcante */
+    color: #ffffff; /* Cor branca para um bom contraste */
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+.p_modal {
+    font-family: 'Roboto', sans-serif; /* Define a fonte */
+    font-size: 100%; /* Tamanho padrão para leitura */
+    line-height: 1.6; /* Espaçamento entre linhas para facilitar a leitura */
+    color: #ffffff; /* Cor do */
+}
+
+/* Conteúdo rolável */
+#conteudo-metrica {
+    max-height: 300px; /* Limita a altura do conteúdo */
+    overflow-y: scroll !important; /* Garante que a rolagem apareça */
+    padding-right: 10px; /* Adiciona espaço para a barra de rolagem */
+}
+
+/* Personalização da barra de rolagem */
+#conteudo-metrica::-webkit-scrollbar {
+    width: 12px !important; /* Largura da barra */
+}
+
+/* Personalização do "polegar" da barra */
+#conteudo-metrica::-webkit-scrollbar-thumb {
+    background: #3A6B8C !important; /* Cor do polegar */
+    border-radius: 6px !important; /* Bordas arredondadas */
+    border: 3px solid #021923 !important; /* Borda ao redor do polegar */
+}
+
+/* Estilo de fundo da barra de rolagem */
+#conteudo-metrica::-webkit-scrollbar-track {
+    background: #021923 !important; /* Cor de fundo da barra */
+    border-radius: 6px !important; /* Bordas arredondadas */
+}
+
+/* Remover setas da barra de rolagem */
+#conteudo-metrica::-webkit-scrollbar-button {
+    display: none !important; /* Remover as setas */
+}
+
+/* Para Firefox */
+#conteudo-metrica {
+    scrollbar-width: thin !important; /* Barra fina */
+    scrollbar-color: #3A6B8C #021923 !important; /* Cor do polegar e do fundo */
+}
+

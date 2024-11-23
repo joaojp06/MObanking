@@ -74,13 +74,134 @@
                         <option selected value="12-23">12h - 23h59</option>
                         <option value="00-12">00h - 11h59</option>
                     </select>
+                    <img class="legenda_dias" src="../../imagens/legenda_dias.svg" alt="">
                 </div>
-                <img src="../../imagens/legenda_individual_atualizada_2.svg" alt="">
+                <img src="../../imagens/legenda_cores_atualizada_final.svg" alt="">
             </div>
             <div class="div-grafico-pico">
-                <button class="icone_informacao" style="background: none; border: none; padding: 0; cursor: pointer;">
+                <button class="icone_informacao" id="btnModal"
+                    style="background: none; border: none; padding: 0; cursor: pointer;">
                     <img src="../../imagens/icone_informacao.svg" alt="Botão" style="width: 100%; height: auto;">
-                  </button>
+                </button>
+
+                <!-- Modal -->
+                <div id="modalExplicacao" class="modal">
+                    <div class="modal-content">
+                        <span class="close" id="closeModal">&times;</span>
+                        <div class="tabs">
+                            <button class="tab active" onclick="mostrarSessao('sessao1')">Filtro</button>
+                            <button class="tab" onclick="mostrarSessao('sessao2')">Legenda Dias</button>
+                            <button class="tab" onclick="mostrarSessao('sessao3')">Legenda Cores</button>
+                            <button class="tab" onclick="mostrarSessao('sessao4')">Gráfico</button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="sessao1" class="sessao">
+                                <h2 class="titulo_modal">Filtro de Horários</h2>
+                                <br>
+                                <p class="p_modal">A funcionalidade de filtro de horários oferece
+                                    duas janelas de análise de dados:
+                                    <br>
+                                    <br>
+                                    •12h - 23h59
+                                    <br>
+                                    •00h - 11h59
+                                    <br>
+                                    <br>
+                                    Com essa ferramenta, é possível
+                                    ampliar ou direcionar o intervalo temporal
+                                    exibido no gráfico, permitindo uma análise
+                                    mais precisa do comportamento da CPU ao longo
+                                    de diferentes períodos do dia.
+                                </p>
+                            </div>
+                            <div id="sessao2" class="sessao" style="display: none;">
+                                <h2 class="titulo_modal">Legenda de Dias</h2>
+                                <br>
+                                <p class="p_modal">A legenda dos dias é composta
+                                    por dois blocos de cores que facilitam a interpretação
+                                    rápida do gráfico. O bloco "azul claro - esquerdo" indica o dia e a
+                                    porcentagem de menor uso da CPU, enquanto o bloco "azul
+                                    escuro - direito" aponta o dia e a porcentagem de maior uso da CPU.
+                                    Essa legenda é dinâmica e interage com o filtro de horários.
+                                    <br>
+                                    Ao alterar o intervalo de horário, os dias e porcentagens
+                                    apresentados na legenda são automaticamente atualizados,
+                                    refletindo os menores e maiores usos dentro do novo intervalo
+                                    selecionado.
+                                </p>
+                            </div>
+                            <div id="sessao3" class="sessao" style="display: none;">
+                                <h2 class="titulo_modal">Legenda das Cores</h2>
+                                <br>
+                                <p class="p_modal">A legenda de cores apresenta
+                                    uma escala representativa do uso da CPU,
+                                    com intervalos claros para facilitar a interpretação:
+                                    <br>
+                                    <br>
+                                    •0% a 20%: Indica o menor uso da CPU.
+                                    <br>
+                                    •21% a 40%: Representa um uso moderado.
+                                    <br>
+                                    •41% a 60%: Uso elevado, porém ainda dentro de um nível aceitável.
+                                    <br>
+                                    •61% a 80%: Alerta de atenção; é importante monitorar para evitar aumentos maiores.
+                                    <br>
+                                    •81% a 100%: Uso crítico, com alto risco de travamentos ou falhas nos servidores.
+                                    <br>
+                                    <br>
+                                    Essa escala está diretamente vinculada ao
+                                    gráfico e ao comportamento dos blocos,
+                                    que variam de tons mais claros para uso
+                                    baixo a tons mais escuros para uso crítico.
+                                </p>
+                            </div>
+                            <div id="sessao4" class="sessao" style="display: none;">
+                                <h2 class="titulo_modal">Gráfico Mapa de Calor</h2>
+                                <br>
+                                <p class="p_modal">O gráfico central da dashboard
+                                    é estruturado para fornecer uma visão clara
+                                    e detalhada do uso da CPU.
+                                    <br>
+                                    <br>
+                                    Eixo X: Representa os horários do dia e é
+                                    ajustável pelo filtro de horários, abrangendo duas
+                                    janelas temporais:
+                                    <br>
+                                    <br>
+                                    •12h - 23h59
+                                    <br>
+                                    •00h - 11h59
+                                    <br>
+                                    <br>
+                                    Eixo Y: Exibe os dias da semana, de domingo a sábado.
+                                    <br>
+                                    A métrica utilizada para preencher o gráfico
+                                    é baseada na média do uso total da CPU nos
+                                    seus servidores de Mobile Banking. Por exemplo, em um
+                                    cenário com 10 servidores sendo monitorados,
+                                    o gráfico refletirá os horários e dias em que
+                                    ao menos 30% dos seus servidores começam a apresentar
+                                    uso elevado de CPU. Isso facilita a identificação
+                                    de picos e padrões de comportamento ao longo do tempo.
+                                    <br>
+                                    <br>
+                                    O gráfico é desenhado no formato de um mapa
+                                    de calor. Os blocos escuros indicam maior uso
+                                    da CPU em horários e dias específicos, conforme
+                                    definido pela legenda de cores, enquanto os blocos
+                                    claros mostram os períodos de menor utilização.
+                                    <br>
+                                    É importante observar que o uso da CPU entra em
+                                    estado de alerta no intervalo de 70% a 85%
+                                    demandando assim uma maior atenção para evitar
+                                    sobrecargas e se tornando crítico a partir de
+                                    85%, havendo possibilidade de travamentos / lentidão e até
+                                    mesmo queda em seus servidores
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="chart" id="chart">
 
@@ -92,6 +213,20 @@
 </div>
 
 <script>
+
+    // Seleciona todos os botões com a classe .tab
+    const tabs = document.querySelectorAll('.tabs .tab');
+
+    // Itera sobre os botões e adiciona um evento de clique
+    tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+            // Remove a classe 'active' de todos os botões
+            tabs.forEach((t) => t.classList.remove('active'));
+            // Adiciona a classe 'active' ao botão clicado
+            tab.classList.add('active');
+        });
+    });
+
 
     function toggleSubmenu() {
         const submenu = document.querySelector('.submenu');
@@ -109,18 +244,29 @@
 
     function exibirMenu() {
         const menuLateral = document.querySelector('.menu-lateral');
+        const botaoDica = document.querySelector('.icone_informacao'); // Seleciona o botão de dica
+        const legendaDia = document.querySelector('.legenda_dias'); // Seleciona a legenda
+
         menuLateral.classList.add('menu-aberto');
+        botaoDica.classList.add('ocultar'); // Oculta o botão de dica
+        legendaDia.classList.add('ocultar'); // Oculta a legenda
     }
 
     function ocultarMenu() {
+        const menuLateral = document.querySelector('.menu-lateral');
         const submenu = document.querySelector('.submenu');
         const seta = document.querySelector('.fa-sort-down');
+        const botaoDica = document.querySelector('.icone_informacao'); // Seleciona o botão de dica
+        const legendaDia = document.querySelector('.legenda_dias'); // Seleciona a legenda
 
-        // Fecha o submenu e redefine o ícone de seta quando o mouse sai do nav
+        menuLateral.classList.remove('menu-aberto');
         submenu.style.display = 'none';
-        seta.classList.remove("girarSeta");
-        submenuAberto = false;
+        seta.classList.remove('girarSeta');
+        botaoDica.classList.remove('ocultar'); // Mostra o botão de dica
+        legendaDia.classList.remove('ocultar'); // Mostra a legenda
     }
+
+
 
     function confirmarDesativar() {
 
@@ -325,6 +471,39 @@
         options.title.text = title;
         chart.updateOptions(options);
     });
+
+    // Abrir o modal
+    document.getElementById('btnModal').onclick = function () {
+        document.getElementById('modalExplicacao').style.display = "block";
+    }
+
+    // Fechar o modal
+    document.getElementById('closeModal').onclick = function () {
+        document.getElementById('modalExplicacao').style.display = "none";
+    }
+
+    // Função para mostrar a sessão correspondente
+    function mostrarSessao(sessaoId) {
+        const sessoes = document.querySelectorAll('.sessao');
+        const tabs = document.querySelectorAll('.tab');
+
+        // Esconde todas as sessões
+        sessoes.forEach(sessao => {
+            sessao.style.display = 'none';
+        });
+
+        // Exibe a sessão correspondente
+        document.getElementById(sessaoId).style.display = 'block';
+
+        // Destaca a aba clicada
+        tabs.forEach(tab => {
+            tab.style.backgroundColor = '#f1f1f1'; // Cor padrão
+        });
+
+        const clickedTab = Array.from(tabs).find(tab => tab.textContent.toLowerCase().includes(sessaoId.split('sessao')[1]));
+        clickedTab.style.backgroundColor = '#ccc'; // Cor quando a aba está selecionada
+    }
+
 </script>
 
 </body>
