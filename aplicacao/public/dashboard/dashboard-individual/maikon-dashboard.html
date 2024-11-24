@@ -228,7 +228,7 @@
                     <!-- <span>Desvio padrão</span>
                     <p>20%</p> -->
                 </div>
-                <div id="calculDesc_box" class="calculDesc_box">
+                <div id="calculoDesc_box" class="calculDesc_box">
                     <span>Sugestão</span>
                     <span id="descCpuDemanda_box">
                         <!-- <p>Upgrade Cpu: 1.2Ghz</p> -->
@@ -308,6 +308,16 @@
     let chartInstance; // Variável global para armazenar a instância do gráfico
 
     function abrirModal(idServidor) {
+
+        calculoDesc_box.innerHTML = `
+            <span>Sugestão</span>
+                    <span id="descCpuDemanda_box">
+                        <!-- <p>Upgrade Cpu: 1.2Ghz</p> -->
+                    </span>
+                    <span id="descRamDemanda_box">
+                        <!-- <p>Upgrade Cpu: 1.2Ghz</p> -->
+                    </span>
+        `
         const frame = document.getElementById("frame");
         frame.classList.add("blur-grid");
 
@@ -325,14 +335,18 @@
         listarLimites()
 
         if (servidor) {
-            var statusCpu = determinarStatusComponenteCorGrafico(servidor.media_valor_cpu, servidor.desvio_padrao_cpu);
-            var statusRam = determinarStatusComponenteCorGrafico(servidor.media_valor_ram, servidor.desvio_padrao_ram);
+            var statusCpu = determinarStatusComponenteCorGrafico(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.maior_valor_cpu_ultimo_mes);
+            var statusRam = determinarStatusComponenteCorGrafico(servidor.media_valor_ram, servidor.desvio_padrao_ram, servidor.maior_valor_ram_ultimo_mes);
 
-            var statusCpuT = determinarStatusComponente(servidor.media_valor_cpu, servidor.desvio_padrao_cpu);
-            var statusRamT = determinarStatusComponente(servidor.media_valor_ram, servidor.desvio_padrao_ram);
+            var statusCpuT = determinarStatusComponente(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.maior_valor_cpu_ultimo_mes);
+            var statusRamT = determinarStatusComponente(servidor.media_valor_ram, servidor.desvio_padrao_ram, servidor.maior_valor_ram_ultimo_mes);
 
-            var statusCpuTipo = identificarTipoUp(servidor.media_valor_cpu, servidor.desvio_padrao_cpu);
-            var statusRamTipo = identificarTipoUp(servidor.media_valor_ram, servidor.desvio_padrao_ram);
+            var statusCpuTipo = identificarTipoUp(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.maior_valor_cpu_ultimo_mes);
+            var statusRamTipo = identificarTipoUp(servidor.media_valor_ram, servidor.desvio_padrao_ram, servidor.maior_valor_ram_ultimo_mes);
+
+
+            var novoValorCpu = calcularUpgradeDown(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.capacidade_total_cpu, servidor.maior_valor_cpu_ultimo_mes)
+            var novoValorRam = calcularUpgradeDown(servidor.media_valor_ram, servidor.desvio_padrao_ram, servidor.capacidade_total_ram, servidor.maior_valor_ram_ultimo_mes)
 
             infoServidor_box.innerHTML = `
         <div>
@@ -364,39 +378,63 @@
         </div>
         `;
 
-            if (statusCpuTipo == 1) {
-                var novoValorDown = calculoValorDown(servidor.media_valor_cpu, servidor.capacidade_total_cpu)
+
+            if (statusCpuTipo == 3 && statusRamTipo == 3) {
                 descCpuDemanda_box.innerHTML = `
-                <p>Nova Cpu: ${novoValorDown[0]} DownNecessário ${novoValorDown[1]}Ghz</p>
-                `
-            } else if (statusCpuTipo == 2) {
-                var novoValorUp = calcularUpgradeDown(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.capacidade_total_cpu)
-                descCpuDemanda_box.innerHTML = `
-                <p>Nova cpu: ${novoValorUp[0]} upNecessário ${novoValorUp[1]}Ghz</p>
-                `
-                //<p>Probabilidade de ultrapassar 50% de uso: ${novoValorCpu[1]}%</p>
+            <p>Sem sugestão</p>
+            `
             } else {
-                descCpuDemanda_box.innerHTML = `
-                <p>O componente cpu está estável</p>
-                `
+
+                if (statusCpuTipo < 3) {
+                    descCpuDemanda_box.innerHTML = `
+                    <p>Nova Cpu: ${novoValorCpu[0].toFixed(2)}Ghz</p>
+                    `
+                }
+
+                if (statusRamTipo < 3) {
+                    descRamDemanda_box.innerHTML = `
+                    <p>Nova Ram: ${novoValorRam[0].toFixed(2)}gb</p>
+                    `
+                }
+
+
             }
 
-            if (statusRamTipo == 1) {
-                var novoValorDown = calcularUpgradeDown(servidor.media_valor_ram, servidor.desvio_padrao_ram, servidor.capacidade_total_ram)
-                descRamDemanda_box.innerHTML = `
-                <p>Nova ram: ${novoValorDown[0]} DownNecessário ${novoValorDown[1]}Gb</p>
-                `
-            } else if (statusRamTipo == 2) {
-                var novoValorUp = calcularUpgradeDown(servidor.media_valor_ram, servidor.desvio_padrao_ram, servidor.capacidade_total_ram)
-                descRamDemanda_box.innerHTML = `
-                <p>Nova ram: ${novoValorUp[0]} upNecessário ${novoValorUp[1]}Gb</p>
-                `
-            } else {
-                descRamDemanda_box.innerHTML = `
-                <p>O componente ram está estável</p>
-                
-                `
-            }
+
+            // if (statusCpuTipo == 1) {
+            //     var novoValorDown = calcularUpgradeDown(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.capacidade_total_cpu, servidor.maior_valor_cpu_ultimo_mes)
+            //     descCpuDemanda_box.innerHTML = `
+            //     <p>Nova Cpu: ${novoValorDown[0].toFixed(2)}Ghz</p>
+            //     `
+            // } else if (statusCpuTipo == 2) {
+            //     var novoValorUp = calcularUpgradeDown(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.capacidade_total_cpu, servidor.maior_valor_cpu_ultimo_mes)
+            //     descCpuDemanda_box.innerHTML = `
+            //     <p>Nova cpu: ${novoValorUp[0].toFixed(2)}Ghz</p>
+            //     `
+            //     //<p>Probabilidade de ultrapassar 50% de uso: ${novoValorCpu[1]}%</p>
+            // } else {
+            //     descCpuDemanda_box.innerHTML = `
+            //      Sem sugestões
+            //     `
+            // }
+
+            // if (statusRamTipo == 1) {
+            //     var novoValorDown = calcularUpgradeDown(servidor.media_valor_ram, servidor.desvio_padrao_ram, servidor.capacidade_total_ram, servidor.maior_valor_ram_ultimo_mes)
+            //     descRamDemanda_box.innerHTML = `
+            //     <p>Nova ram: ${novoValorDown[0].toFixed(2)}Gb</p>
+            //     `
+            // } else if (statusRamTipo == 2) {
+            //     var novoValorUp = calcularUpgradeDown(servidor.media_valor_ram, servidor.desvio_padrao_ram, servidor.capacidade_total_ram, servidor.maior_valor_ram_ultimo_mes)
+            //     descRamDemanda_box.innerHTML = `
+            //     <p>Nova ram: ${novoValorUp[0].toFixed(2)}Gb</p>
+            //     `
+            // } else {
+            //     descCpuDemanda_box.innerHTML = `
+            //      Sem sugestões
+            //     `
+            // }
+
+
 
             infoDesvioPadrao_box.innerHTML = `
             <span>Desvio padrão</span>
@@ -407,13 +445,19 @@
 
 
 
-            if (statusCpu == statusRam) {
+            if (statusCpuTipo == 1 && statusRamTipo == 1) {
                 statusCpu = "#ff262615"
                 statusRam = "#86000030"
             }
+
+            if (statusCpuTipo == 3 && statusRamTipo == 3) {
+                statusCpu = "#00ff0040"
+                statusRam = "#02960240"
+            }
+
             // Gráfico
             const data = {
-                labels: ['Min', 'Média', 'Max'],
+                labels: ['Mínimo', 'Média', 'Máximo'],
                 datasets: [{
                     label: 'Ram',
                     data: [servidor.valor_minimo_ram, servidor.media_valor_ram, servidor.valor_maximo_ram],
@@ -445,9 +489,34 @@
                         line: {
                             borderWidth: 3
                         }
+                    },
+                    scales: {
+                        r: { // Configuração do eixo radial (r)
+                            ticks: {
+                                font: {
+                                    size: 16 // Tamanho da fonte das labels dos valores
+                                }
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 18 // Tamanho da fonte das labels das categorias (Min, Média, Max)
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                font: {
+                                    size: 16 // Tamanho da fonte das labels da legenda
+                                }
+                            }
+                        }
                     }
                 }
             };
+
+
 
             const ctx = document.getElementById('radarDemanda').getContext('2d');
 
@@ -465,27 +534,24 @@
     }
 
 
-    function calcularUpgradeDown(meanAtual, stdDev ,capacidadeAtual) {
+    function calcularUpgradeDown(meanAtual, stdDev, capacidadeAtual, max) {
         var meanDesejada = 50
-        // Cálculo do uso atual em GB
-        var usoAtualEmGb = (meanAtual / 100) * capacidadeAtual;
 
-        // Cálculo da nova capacidade de RAM necessária
-        var novoValorTotal = usoAtualEmGb / (meanDesejada / 100);
+        var novoValorTotal = capacidadeAtual * (meanAtual / meanDesejada)
 
-        //Falta padronizar metodo que coloca um servidor ocioso, estavel e sobrecarregado
-        if (meanAtual > 70 || (meanAtual > 60 && stdDev > 20)) {
-            var upgradeNecessario = novoValorTotal - capacidadeAtual;
+        var probabilidade = 1
 
-            novoValorTotals = novoValorTotal + upgradeNecessario
+        if (meanAtual > 70 || (meanAtual > 60 && stdDev > 10) || max > 90) {
 
-            return [novoValorTotal, upgradeNecessario]
-        } else if(meanAtual < 30 && stdDev < 10){
+            var upNecessário = novoValorTotal - capacidadeAtual
+
+            return [novoValorTotal, probabilidade]
+
+        } else if (meanAtual < 20 && stdDev < 10) {
+
             var serReduzida = capacidadeAtual - novoValorTotal;
 
-            serReduzida = novoValorTotal - serReduzida
-
-            return [novoValorTotal, serReduzida]
+            return [novoValorTotal, probabilidade]
         }
     }
 
@@ -603,10 +669,10 @@
 
 
     // Função para colocar cor nos área de status
-    function determinarStatusComponente(media, desvio) {
-        if (media < 30 && desvio < 10) {
+    function determinarStatusComponente(media, desvio, max) {
+        if (media < 20 && desvio < 10) {
             return "#676767"; //ocioso
-        } else if (media > 70 || (media > 60 && desvio > 20)) {
+        } else if (media > 70 || (media > 60 && desvio > 10) || max > 90) {
             return "#c70000"; //Sobrecarga
         } else {
             return "#029602"; //OK estavel
@@ -614,10 +680,10 @@
     }
 
     //Função para colorir os back do grafico 
-    function determinarStatusComponenteCorGrafico(media, desvio) {
-        if (media < 30 && desvio < 10) {
+    function determinarStatusComponenteCorGrafico(media, desvio, max) {
+        if (media < 20 && desvio < 10) {
             return "rgba(103, 103, 103, 0.2)"; //ocioso
-        } else if (media > 70 || (media > 60 && desvio > 20)) {
+        } else if (media > 70 || (media > 60 && desvio > 10) || max > 90) {
             return "rgba(199, 0, 0, 0.2)"; //Sobrecarga
         } else {
             return "rgb(2, 150, 2, 0.2)"; //OK estavel
@@ -625,10 +691,10 @@
     }
 
 
-    function identificarTipoUp(media, desvio) {
-        if (media < 30 && desvio < 10) {
+    function identificarTipoUp(media, desvio, max) {
+        if (media < 20 && desvio < 10) {
             return 1; //ocioso
-        } else if (media > 70 || (media > 60 && desvio > 20)) {
+        } else if (media > 70 || (media > 60 && desvio > 10) || max > 90) {
             return 2; //Sobrecarga
         } else {
             return 3; //OK estavel
@@ -671,8 +737,8 @@
                 servidoresGlobal = servidores; // Armazenando os dados na variável global
 
                 servidores.forEach((registro) => {
-                    var statusCpu = determinarStatusComponente(registro.media_valor_cpu, registro.desvio_padrao_cpu);
-                    var statusRam = determinarStatusComponente(registro.media_valor_ram, registro.desvio_padrao_ram);
+                    var statusCpu = determinarStatusComponente(registro.media_valor_cpu, registro.desvio_padrao_cpu, registro.maior_valor_cpu_ultimo_mes);
+                    var statusRam = determinarStatusComponente(registro.media_valor_ram, registro.desvio_padrao_ram, registro.maior_valor_ram_ultimo_mes);
 
                     if (registro.statusCpu === "sobrecarga" || registro.statusRam === "sobrecarga") {
                         qtdSobrecarregado += 1;
