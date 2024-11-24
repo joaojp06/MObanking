@@ -332,7 +332,9 @@
         infoServidor_box.innerHTML = '';
         infoServidorDemandaEspc_box.innerHTML = '';
 
-        listarLimites()
+        //listarLimites()
+        listarLimiteCpu()
+        listarLimiteRam()
 
         if (servidor) {
             var statusCpu = determinarStatusComponenteCorGrafico(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.maior_valor_cpu_ultimo_mes);
@@ -600,12 +602,12 @@
         }
     }
 
-    function listarLimites() {
+
+    function listarLimiteCpu() {
 
         picoCpu_box.innerHTML = ``; // Limpando a div para atualizar com maior fluidez
-        picoRam_box.innerHTML = ``; // Limpando a div para atualizar com maior fluidez
 
-        fetch(`/maikon/listarLimites/${idServidorPar}`, {
+        fetch(`/maikon/listarLimiteCpu/${idServidorPar}`, {
             method: "GET"
         })
             .then(function (resposta) {
@@ -620,16 +622,43 @@
 
                 picos.forEach((registro) => {
 
-                    var dataFormatadaCpu = formatarData(registro.data_cpu)
-                    var dataFormatadaRam = formatarData(registro.data_ram)
-
+                    var dataFormatada = formatarData(registro.data_completa)
 
                     picoCpu_box.innerHTML += `
-                        <p>${dataFormatadaRam} - ${registro.valor_cpu}%</p>
-                    
+                        <p>${dataFormatada} - ${registro.maior_valor}%</p>
                     `;
+                    
+                });
+
+
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+    function listarLimiteRam() {
+        picoRam_box.innerHTML = ``; // Limpando a div para atualizar com maior fluidez
+
+        fetch(`/maikon/listarLimiteRam/${idServidorPar}`, {
+            method: "GET"
+        })
+            .then(function (resposta) {
+                if (resposta.status == 204) {
+                    picos_box.innerHTML = "Nenhum resultado encontrado.";
+                    throw "Nenhum resultado encontrado!!";
+                }
+                return resposta.json();
+            })
+            .then((picos) => {
+                console.log(picos); // Log da resposta da API com os dados do banco
+
+                picos.forEach((registro) => {
+
+                    var dataFormatada = formatarData(registro.data_completa)
+
                     picoRam_box.innerHTML += `
-                        <p>${dataFormatadaCpu} - ${registro.valor_ram}%</p>
+                    <p>${dataFormatada} - ${registro.maior_valor}%</p>
 
                     `;
                 });
