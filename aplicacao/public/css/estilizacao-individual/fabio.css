@@ -160,6 +160,17 @@
     pointer-events: none; /* Desativar interação enquanto invisível */
 }
 
+.dia_1, .dia_2, .uso_1, .uso_2 {
+    opacity: 1; /* Inicialmente visíveis */
+    transition: opacity 1s ease-in-out; /* Adicionando transição de opacidade */
+}
+
+.dia_1.ocultar, .dia_2.ocultar, .uso_1.ocultar, .uso_2.ocultar {
+    opacity: 0; /* Tornar invisível */
+    pointer-events: none; /* Impedir interação quando invisível */
+}
+
+
 /* Estilo do Modal */
 /* Estilo do Modal */
 .modal {
@@ -290,5 +301,37 @@
 #conteudo-metrica {
     scrollbar-width: thin !important; /* Barra fina */
     scrollbar-color: #3A6B8C #021923 !important; /* Cor do polegar e do fundo */
+}
+
+.dia_1 {
+    position: absolute;
+    right: 55.3%;
+    top: 23%;
+    font-size: 120%;
+    color: white;
+}
+
+.dia_2 {
+    position: absolute;
+    right: 42.7%;
+    top: 23%;
+    font-size: 120%;
+    color: white;
+}
+
+.uso_1 {
+    position: absolute;
+    right: 55.1%;
+    top: 29%;
+    font-size: 120%;
+    color: white;
+}
+
+.uso_2 {
+    position: absolute;
+    right: 42.5%;
+    top: 29%;
+    font-size: 120%;
+    color: white;
 }
 
