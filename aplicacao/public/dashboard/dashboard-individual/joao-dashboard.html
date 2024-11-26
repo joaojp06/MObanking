@@ -20,7 +20,7 @@
 
 </head>
 
-<body onload="listarServidores()">
+<body onload="listarPrevisoes(), atualizarKpi()">
   <div id="frame" class="frame-aplicacao" style="display: flex">
     <nav class="menu-lateral" onmouseenter="exibirMenu()" onmouseleave="ocultarMenu()">
       <img src="../../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
@@ -70,12 +70,33 @@
     </nav>
     <div class="conteudo">
       <div style="display: flex; justify-content: space-between;">
-        <h1 onclick="alertaEstatico()">Máquinas</h1>
+        <h1>Previsão de Alertas</h1>
         <select class="selectListarServidores" onchange="listarServidores()" id="selectListServidores">
           <option value="ativo">Servidores ativos</option>
           <option value="desativado">Servidores desativados</option>
         </select>
       </div>
+      <div class="container-kpis">
+        <div class="kpi-verde">
+          <div><img src="../../imagens/Alert triangle.svg"></div>
+          <div class="qtd-alerta"><b id="qtdAlertaVerde"></b></div>
+          <a href="" style="color: aliceblue;">Ver mais</a>
+        </div>
+
+        <div class="kpi-amarelo">
+          <div><img src="../../imagens/Alert triangle.svg"></div>
+          <div class="qtd-alerta"><b id="qtdAlertaAmarelo"></b></div>
+          <a href="" style="color: aliceblue;">Ver mais</a>
+        </div>
+
+        <div class="kpi-vermelho">
+          <div><img src="../../imagens/Alert triangle.svg"></div>
+          <div class="qtd-alerta"><b id="qtdAlertaVermelho"></b></div>
+          <a href="" style="color: aliceblue;">Ver mais</a>
+        </div>
+
+      </div>
+
       <div id="listagemServidores" class="card-grid-pai">
 
       </div>
@@ -269,17 +290,6 @@
 
 
 
-
-  function alertaEstatico() {
-    const card = document.getElementById("alertCardEstatico");
-
-    card.classList.add("alertCardEstaticoUsar");
-    setTimeout(() => {
-      card.classList.remove("alertCardEstaticoUsar");
-    }, "7000");
-
-  }
-
   const menuLaterealHTML = document.getElementById('menuLateralBox')
   var sessTipoUsuario = sessionStorage.ID_TIPO_USUARIO
   if (sessTipoUsuario == 1) {
@@ -407,6 +417,169 @@
   }
 
   var idEmpresa = sessionStorage.ID_EMPRESA;
+
+  function listarVerde() {
+    if (status == 'ativo') {
+      status = 1 // VERÁ SERVIDORES ATIVOS - MODIFICAÇÃO NA CONTROLLE
+    } else {
+      status = 2
+    }
+    fetch(`/joao/listarVerde/${idEmpresa}/${status}`, {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        if (resposta.status == 204) {
+
+          listagemServidores.innerHTML = "Nenhum resultado encontrado."
+
+          throw "Nenhum resultado encontrado!!";
+        } else if (resposta.status == 500) {
+          alert("Deu ruim")
+        }
+        resposta.json().then((servidores) => {
+          console.log(servidores); // Log da resposta da API com os dados do banco
+          planoEmpresa = sessionStorage.ID_PLANO
+
+          console.log(`Estou no HTML PLANO EMPRESA ${planoEmpresa}`)
+
+          servidores.forEach((registro) => {
+
+            var qtdAlerta = registro.quantidade
+
+            qtdAlertaVerde.innerHTML = `${qtdAlerta}` ;
+
+          });
+
+        });
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
+
+  function listarAmarelo(params) {
+    if (status == 'ativo') {
+      status = 1 // VERÁ SERVIDORES ATIVOS - MODIFICAÇÃO NA CONTROLLE
+    } else {
+      status = 2
+    }
+    fetch(`/joao/listarVerde/${idEmpresa}/${status}`, {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        if (resposta.status == 204) {
+
+          listagemServidores.innerHTML = "Nenhum resultado encontrado."
+
+          throw "Nenhum resultado encontrado!!";
+        } else if (resposta.status == 500) {
+          alert("Deu ruim")
+        }
+        resposta.json().then((servidores) => {
+          console.log(servidores); // Log da resposta da API com os dados do banco
+          planoEmpresa = sessionStorage.ID_PLANO
+
+          console.log(`Estou no HTML PLANO EMPRESA ${planoEmpresa}`)
+
+          servidores.forEach((registro) => {
+
+            var qtdAlerta = registro.quantidade
+
+            qtdAlertaVerde.innerHTML = `${qtdAlerta}` ;
+
+          });
+
+        });
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
+
+  function listarAmarelo(params) {
+    if (status == 'ativo') {
+      status = 1 // VERÁ SERVIDORES ATIVOS - MODIFICAÇÃO NA CONTROLLE
+    } else {
+      status = 2
+    }
+    fetch(`/joao/listarAmarelo/${idEmpresa}/${status}`, {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        if (resposta.status == 204) {
+
+          listagemServidores.innerHTML = "Nenhum resultado encontrado."
+
+          throw "Nenhum resultado encontrado!!";
+        } else if (resposta.status == 500) {
+          alert("Deu ruim")
+        }
+        resposta.json().then((servidores) => {
+          console.log(servidores); // Log da resposta da API com os dados do banco
+          planoEmpresa = sessionStorage.ID_PLANO
+
+          console.log(`Estou no HTML PLANO EMPRESA ${planoEmpresa}`)
+
+          servidores.forEach((registro) => {
+
+            var qtdAlerta = registro.quantidade
+
+            qtdAlertaAmarelo.innerHTML = `${qtdAlerta}` ;
+
+          });
+
+        });
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
+
+  function listarVermelho(params) {
+    if (status == 'ativo') {
+      status = 1 // VERÁ SERVIDORES ATIVOS - MODIFICAÇÃO NA CONTROLLE
+    } else {
+      status = 2
+    }
+    fetch(`/joao/listarVermelho/${idEmpresa}/${status}`, {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        if (resposta.status == 204) {
+
+          listagemServidores.innerHTML = "Nenhum resultado encontrado."
+
+          throw "Nenhum resultado encontrado!!";
+        } else if (resposta.status == 500) {
+          alert("Deu ruim")
+        }
+        resposta.json().then((servidores) => {
+          console.log(servidores); // Log da resposta da API com os dados do banco
+          planoEmpresa = sessionStorage.ID_PLANO
+
+          console.log(`Estou no HTML PLANO EMPRESA ${planoEmpresa}`)
+
+          servidores.forEach((registro) => {
+
+            var qtdAlerta = registro.quantidade
+            qtdAlertaVermelho.innerHTML = `${qtdAlerta}` ;
+
+          });
+
+        });
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
+
+
+  function atualizarKpi() {
+    listarVerde()
+    listarAmarelo()
+    listarVermelho()
+  }
+
   function listarServidores() {
 
     listagemServidores.innerHTML = `` //Limpando a div para atualizar com maior fluidez
@@ -450,6 +623,84 @@
             </div>
         
           </div>`;
+          });
+
+        });
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
+
+  function listarPrevisoes() {
+
+    listagemServidores.innerHTML = `` //Limpando a div para atualizar com maior fluidez
+    var status = selectListServidores.value
+    if (status == 'ativo') {
+      status = 1 // VERÁ SERVIDORES ATIVOS - MODIFICAÇÃO NA CONTROLLE
+    } else {
+      status = 2
+    }
+
+    fetch(`/joao/listarPrevisoes/${idEmpresa}/${status}`, {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        if (resposta.status == 204) {
+
+          listagemServidores.innerHTML = "Nenhum resultado encontrado."
+
+          throw "Nenhum resultado encontrado!!";
+        }
+        resposta.json().then((servidores) => {
+          console.log(servidores); // Log da resposta da API com os dados do banco
+          planoEmpresa = sessionStorage.ID_PLANO
+
+          console.log(`Estou no HTML PLANO EMPRESA ${planoEmpresa}`)
+
+
+          servidores.forEach((registro) => {
+
+            var corAlerta = registro.fkAlertaPrevisao
+            var textoAlerta
+
+            if (corAlerta == 1) {
+              textoAlerta = `
+              Bom desempenho! Estamos operando com uma quantidade de processos dentro da capacidade ideal.`
+            } else if (corAlerta == 2) {
+              textoAlerta = `
+              Processos próximos ao limite, é hora de verificar a carga. Evite executar novos processos`
+            } else if (corAlerta == 3) {
+              textoAlerta = `
+              <span style="color: red;">Atenção máxima!</span> O limite de processos foi ultrapassado, feche imediatamente processos desnecessários.`
+            }
+
+            if (corAlerta == 1) {
+              corAlerta = 'green'
+            } else if (corAlerta == 2) {
+              corAlerta = 'yellow'
+            } else if (corAlerta == 3) {
+              corAlerta = 'red'
+            }
+
+            listagemServidores.innerHTML +=
+              `
+      <div class="card">
+        <h2 id="apelido_card">${registro.apelido}</h2>
+        <h2 id="funcao_card">${registro.funcao}</h2>
+        <div class="div-msg-alerta"><b>${textoAlerta}</b></div>
+
+        <div class="container">
+          <div class="processos">
+          <p>${registro.valor}</p>
+          <b>Processos</b>
+          </div>
+        <div class="div-alerta"> 
+          <div class="simbolo-alerta" ><img src="../../imagens/Alert triangle.svg"></div>
+          <div class="cor-alerta" style="background-color: ${corAlerta};"></div>
+        </div>
+      </div>
+      </div>`;
           });
 
         });
