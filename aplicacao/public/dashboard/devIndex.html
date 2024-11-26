@@ -1,643 +1,724 @@
 <!DOCTYPE html>
 <html lang="ptbr">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DEV - MOBANKING</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="shortcut icon" href="../imagens/logo.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../css/reset.css">
-    <link rel="stylesheet" href="../css/default.css">
-    <link rel="stylesheet" href="../css/mensagemCard.css">
-    <link rel="stylesheet" href="../css/devIndex.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-    <link rel="stylesheet" href="../css/cardConfirmacao.css">
-</head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="shortcut icon" href="../imagens/logo.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/default.css" />
+    <link rel="stylesheet" href="../css/mensagemCard.css" />
+    <link rel="stylesheet" href="../css/devIndex.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <link rel="stylesheet" href="../css/cardConfirmacao.css" />
+  </head>
 
-<body onload="listarEmpresas(),listarTipoLogradouro(), listarTipoPlanos()">
+  <body onload="listarEmpresas(),listarTipoLogradouro(), listarTipoPlanos()">
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
 
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-
-
-    <div id="frame" class="frame-aplicacao" style="display: flex;">
-
-        <div class="conteudo">
+    <div id="frame" class="frame-aplicacao" style="display: flex">
+      <div class="conteudo">
+        <div class="top">
+          <div class="top_left">
+            <img src="../imagens/V3 1.svg" alt="" />
+            <hr />
             <h1>Empresas</h1>
-            <div class="button-box">
-                <button onclick="modalAddUser()" class="botao-adicionar"> <img src="../imagens/Plus.svg" alt="">
-                    <p>Adicionar</p>
-                </button>
-
-                <button onclick="sair()" class="botao-adicionar">
-                    <p>Sair</p>
-                </button>
-            </div>
-            <div id="listagemEmpresas" class="lista">
-
-
-
-
-            </div>
-
+          </div>
+          <button onclick="modalAddUser()" class="botao-adicionar">
+            <img src="../imagens/Plus.svg" alt="" />
+            <p>Adicionar</p>
+          </button>
         </div>
+        <div id="listagemEmpresas" class="lista"></div>
+        <button onclick="sair()" class="botao-voltar">
+          <img src="../imagens/btn_voltar_devindex.svg" alt="" />
+          <p>Sair</p>
+        </button>
+      </div>
     </div>
     <div class="modalAddUser" id="modalAddUser">
-        <div class="title-box">
-            <h2>Adicionar empresa</h2>
-            <i onclick="fecharModalAddUser()" id="closeModal" class="fa-solid fa-x"></i>
+      <div class="title-box">
+        <h2>Adicionar empresa</h2>
+        <i
+          onclick="fecharModalAddUser()"
+          id="closeModal"
+          class="fa-solid fa-x"
+        ></i>
+      </div>
+      <div class="form-box-pai">
+        <div class="form">
+          <form action="">
+            <label for="">
+              Nome da Empresa:
+              <input
+                type="text"
+                id="razao_social_input"
+                placeholder="Razão Social..."
+              />
+            </label>
+
+            <label for="">
+              CNPJ:
+              <input
+                type="number"
+                id="cnpj_input"
+                placeholder="XX. XXX. XXX/0001-XX"
+              />
+            </label>
+
+            <label for="">
+              Nome logradouro:
+              <input
+                type="text"
+                id="nome_logradouro_input"
+                placeholder="Logradouro..."
+              />
+            </label>
+
+            <label for="">
+              Tipo logradouro
+              <select name="" id="tipo_logradouro_select"></select>
+            </label>
+
+            <label for="">
+              Bairro:
+              <input type="text" id="bairro_input" placeholder="Bairro..." />
+            </label>
+
+            <label for="">
+              Cidade:
+              <input type="text" id="cidade_input" placeholder="Cidade..." />
+            </label>
+
+            <label for="">
+              Estado:
+              <select id="estado_input_select">
+                <option selected disabled>Selecione um estado</option>
+                <option>Acre</option>
+                <option>Alagoas</option>
+                <option>Amapá</option>
+                <option>Amazonas</option>
+                <option>Bahia</option>
+                <option>Ceará</option>
+                <option>Distrito Federal</option>
+                <option>Espírito Santo</option>
+                <option>Goiás</option>
+                <option>Maranhão</option>
+                <option>Mato Grosso</option>
+                <option>Mato Grosso do Sul</option>
+                <option>Minas Gerais</option>
+                <option>Pará</option>
+                <option>Paraíba</option>
+                <option>Paraná</option>
+                <option>Pernambuco</option>
+                <option>Piauí</option>
+                <option>Rio de Janeiro</option>
+                <option>Rio Grande do Norte</option>
+                <option>Rio Grande do Sul</option>
+                <option>Rondônia</option>
+                <option>Roraima</option>
+                <option>Santa Catarina</option>
+                <option>São Paulo</option>
+                <option>Sergipe</option>
+                <option>Tocantins</option>
+              </select>
+            </label>
+
+            <label for="">
+              Número:
+              <input
+                type="text"
+                id="numero_logradouro_input"
+                placeholder="Número..."
+              />
+            </label>
+
+            <label for="">
+              Cep:
+              <input
+                type="number"
+                id="cep_logradouro_input"
+                placeholder="XXXXX-XXX"
+              />
+            </label>
+
+            <label for="">
+              Complemento:
+              <input
+                type="text"
+                id="complemento_logradouro_input"
+                placeholder="Complemento..."
+              />
+            </label>
+
+            <label for="">
+              Planos
+              <select name="" id="tipo_planos_select"></select>
+            </label>
+          </form>
         </div>
-        <div class="form-box-pai">
-
-            <div class="form">
-
-                <form action="">
-                    <label for="">
-                        Nome da Empresa:
-                        <input type="text" id="razao_social_input" placeholder="Razão Social...">
-                    </label>
-
-                    <label for="">
-                        CNPJ:
-                        <input type="number" id="cnpj_input" placeholder="XX. XXX. XXX/0001-XX">
-                    </label>
-
-                    <label for="">
-                        Nome logradouro:
-                        <input type="text" id="nome_logradouro_input" placeholder="Logradouro...">
-                    </label>
-
-                    <label for="">
-                        Tipo logradouro
-                        <select name="" id="tipo_logradouro_select">
-
-                        </select>
-                    </label>
-
-                    <label for="">
-                        Bairro:
-                        <input type="text" id="bairro_input" placeholder="Bairro...">
-                    </label>
-
-                    <label for="">
-                        Cidade:
-                        <input type="text" id="cidade_input" placeholder="Cidade...">
-                    </label>
-
-                    <label for="">
-                        Estado:
-                        <select id="estado_input_select">
-                            <option>Acre</option>
-                            <option>Alagoas</option>
-                            <option>Amapá</option>
-                            <option>Amazonas</option>
-                            <option>Bahia</option>
-                            <option>Ceará</option>
-                            <option>Distrito Federal</option>
-                            <option>Espírito Santo</option>
-                            <option>Goiás</option>
-                            <option>Maranhão</option>
-                            <option>Mato Grosso</option>
-                            <option>Mato Grosso do Sul</option>
-                            <option>Minas Gerais</option>
-                            <option>Pará</option>
-                            <option>Paraíba</option>
-                            <option>Paraná</option>
-                            <option>Pernambuco</option>
-                            <option>Piauí</option>
-                            <option>Rio de Janeiro</option>
-                            <option>Rio Grande do Norte</option>
-                            <option>Rio Grande do Sul</option>
-                            <option>Rondônia</option>
-                            <option>Roraima</option>
-                            <option>Santa Catarina</option>
-                            <option>São Paulo</option>
-                            <option>Sergipe</option>
-                            <option>Tocantins</option>
-                        </select>
-                    </label>
-
-                    <label for="">
-                        Número:
-                        <input type="text" id="numero_logradouro_input" placeholder="Número...">
-                    </label>
-
-                    <label for="">
-                        Cep:
-                        <input type="number" id="cep_logradouro_input" placeholder="XXXXX-XXX">
-                    </label>
-
-                    <label for="">
-                        Complemento:
-                        <input type="text" id="complemento_logradouro_input" placeholder="Complemento...">
-                    </label>
-
-                    <label for="">
-                        Planos
-                        <select name="" id="tipo_planos_select">
-
-                        </select>
-                    </label>
-
-                </form>
-
-            </div>
-            <div>
-                <button onclick="adicionarEmpresa()">Adicionar</button>
-            </div>
+        <div>
+          <button onclick="adicionarEmpresa()">Adicionar</button>
         </div>
+      </div>
     </div>
 
-    <div style="display: none !important;" class="modalAddUser" id="modalEditarEmpresa">
-        <div class="title-box">
-            <h2>Editar Empresa</h2>
-            <i onclick="fecharModalAddUser()" id="closeModal" class="fa-solid fa-x"></i>
+    <div
+      style="display: none !important"
+      class="modalAddUser"
+      id="modalEditarEmpresa"
+    >
+      <div class="title-box">
+        <h2>Editar Empresa</h2>
+        <i
+          onclick="fecharModalAddUser()"
+          id="closeModal"
+          class="fa-solid fa-x"
+        ></i>
+      </div>
+      <div class="form-box-pai">
+        <div class="form">
+          <form action="">
+            <label for="">
+              Nome da Empresa:
+              <input
+                type="text"
+                id="razao_social_input_editar"
+                placeholder="Razão Social..."
+              />
+            </label>
+
+            <label for="">
+              CNPJ:
+              <input
+                type="number"
+                id="cnpj_input_editar"
+                placeholder="XX. XXX. XXX/0001-XX"
+              />
+            </label>
+
+            <label for="">
+              Nome logradouro:
+              <input
+                type="text"
+                id="nome_logradouro_input_editar"
+                placeholder="Logradouro..."
+              />
+            </label>
+
+            <label for="">
+              Tipo logradouro
+              <select id="tipo_logradouro_select_editar"></select>
+            </label>
+
+            <label for="">
+              Bairro:
+              <input
+                type="text"
+                id="bairro_input_editar"
+                placeholder="Bairro..."
+              />
+            </label>
+
+            <label for="">
+              Cidade:
+              <input
+                type="text"
+                id="cidade_input_editar"
+                placeholder="Cidade..."
+              />
+            </label>
+
+            <label for="">
+              Estado:
+              <select id="estado_input_select_editar">
+                <option>Acre</option>
+                <option>Alagoas</option>
+                <option>Amapá</option>
+                <option>Amazonas</option>
+                <option>Bahia</option>
+                <option>Ceará</option>
+                <option>Distrito Federal</option>
+                <option>Espírito Santo</option>
+                <option>Goiás</option>
+                <option>Maranhão</option>
+                <option>Mato Grosso</option>
+                <option>Mato Grosso do Sul</option>
+                <option>Minas Gerais</option>
+                <option>Pará</option>
+                <option>Paraíba</option>
+                <option>Paraná</option>
+                <option>Pernambuco</option>
+                <option>Piauí</option>
+                <option>Rio de Janeiro</option>
+                <option>Rio Grande do Norte</option>
+                <option>Rio Grande do Sul</option>
+                <option>Rondônia</option>
+                <option>Roraima</option>
+                <option>Santa Catarina</option>
+                <option>São Paulo</option>
+                <option>Sergipe</option>
+                <option>Tocantins</option>
+              </select>
+            </label>
+
+            <label for="">
+              Número:
+              <input
+                type="text"
+                id="numero_logradouro_input_editar"
+                placeholder="Número..."
+              />
+            </label>
+
+            <label for="">
+              Cep:
+              <input
+                type="number"
+                id="cep_logradouro_input_editar"
+                placeholder="XXXXX-XXX"
+              />
+            </label>
+
+            <label for="">
+              Complemento:
+              <input
+                type="text"
+                id="complemento_logradouro_input_editar"
+                placeholder="Complemento..."
+              />
+            </label>
+
+            <label for="">
+              Plano:
+              <select id="tipo_planos_select_editar"></select>
+            </label>
+          </form>
         </div>
-        <div class="form-box-pai">
-
-            <div class="form">
-
-                <form action="">
-                    <label for="">
-                        Nome da Empresa:
-                        <input type="text" id="razao_social_input_editar" placeholder="Razão Social...">
-                    </label>
-
-                    <label for="">
-                        CNPJ:
-                        <input type="number" id="cnpj_input_editar" placeholder="XX. XXX. XXX/0001-XX">
-                    </label>
-
-                    <label for="">
-                        Nome logradouro:
-                        <input type="text" id="nome_logradouro_input_editar" placeholder="Logradouro...">
-                    </label>
-
-                    <label for="">
-                        Tipo logradouro
-                        <select id="tipo_logradouro_select_editar">
-
-                        </select>
-                    </label>
-
-                    <label for="">
-                        Bairro:
-                        <input type="text" id="bairro_input_editar" placeholder="Bairro...">
-                    </label>
-
-                    <label for="">
-                        Cidade:
-                        <input type="text" id="cidade_input_editar" placeholder="Cidade...">
-                    </label>
-
-                    <label for="">
-                        Estado:
-                        <select id="estado_input_select_editar">
-                            <option>Acre</option>
-                            <option>Alagoas</option>
-                            <option>Amapá</option>
-                            <option>Amazonas</option>
-                            <option>Bahia</option>
-                            <option>Ceará</option>
-                            <option>Distrito Federal</option>
-                            <option>Espírito Santo</option>
-                            <option>Goiás</option>
-                            <option>Maranhão</option>
-                            <option>Mato Grosso</option>
-                            <option>Mato Grosso do Sul</option>
-                            <option>Minas Gerais</option>
-                            <option>Pará</option>
-                            <option>Paraíba</option>
-                            <option>Paraná</option>
-                            <option>Pernambuco</option>
-                            <option>Piauí</option>
-                            <option>Rio de Janeiro</option>
-                            <option>Rio Grande do Norte</option>
-                            <option>Rio Grande do Sul</option>
-                            <option>Rondônia</option>
-                            <option>Roraima</option>
-                            <option>Santa Catarina</option>
-                            <option>São Paulo</option>
-                            <option>Sergipe</option>
-                            <option>Tocantins</option>
-                        </select>
-                    </label>
-
-                    <label for="">
-                        Número:
-                        <input type="text" id="numero_logradouro_input_editar" placeholder="Número...">
-                    </label>
-
-                    <label for="">
-                        Cep:
-                        <input type="number" id="cep_logradouro_input_editar" placeholder="XXXXX-XXX">
-                    </label>
-
-                    <label for="">
-                        Complemento:
-                        <input type="text" id="complemento_logradouro_input_editar" placeholder="Complemento...">
-                    </label>
-
-                    <label for="">
-                        Plano:
-                        <select id="tipo_planos_select_editar">
-
-                        </select>
-                    </label>
-                </form>
-
-            </div>
-            <div>
-                <button id="editar_button" onclick="editarEmpresa(idEmpresa, fkEndereco)">Editar</button>
-            </div>
+        <div>
+          <button
+            id="editar_button"
+            onclick="editarEmpresa(idEmpresa, fkEndereco)"
+          >
+            Editar
+          </button>
         </div>
+      </div>
     </div>
-
 
     <!-- CARD DE SUCESSO -->
 
     <div id="cardSucessoMsg" class="cardMensagem fecharCardMensagem">
-        <svg class="wave" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
-            <path
-                d="M0,256L11.4,240C22.9,224,46,192,69,192C91.4,192,114,224,137,234.7C160,245,183,235,206,213.3C228.6,192,251,160,274,149.3C297.1,139,320,149,343,181.3C365.7,213,389,267,411,282.7C434.3,299,457,277,480,250.7C502.9,224,526,192,549,181.3C571.4,171,594,181,617,208C640,235,663,277,686,256C708.6,235,731,149,754,122.7C777.1,96,800,128,823,165.3C845.7,203,869,245,891,224C914.3,203,937,117,960,112C982.9,107,1006,181,1029,197.3C1051.4,213,1074,171,1097,144C1120,117,1143,107,1166,133.3C1188.6,160,1211,224,1234,218.7C1257.1,213,1280,139,1303,133.3C1325.7,128,1349,192,1371,192C1394.3,192,1417,128,1429,96L1440,64L1440,320L1428.6,320C1417.1,320,1394,320,1371,320C1348.6,320,1326,320,1303,320C1280,320,1257,320,1234,320C1211.4,320,1189,320,1166,320C1142.9,320,1120,320,1097,320C1074.3,320,1051,320,1029,320C1005.7,320,983,320,960,320C937.1,320,914,320,891,320C868.6,320,846,320,823,320C800,320,777,320,754,320C731.4,320,709,320,686,320C662.9,320,640,320,617,320C594.3,320,571,320,549,320C525.7,320,503,320,480,320C457.1,320,434,320,411,320C388.6,320,366,320,343,320C320,320,297,320,274,320C251.4,320,229,320,206,320C182.9,320,160,320,137,320C114.3,320,91,320,69,320C45.7,320,23,320,11,320L0,320Z"
-                fill-opacity="1"></path>
-        </svg>
+      <svg
+        class="wave"
+        viewBox="0 0 1440 320"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0,256L11.4,240C22.9,224,46,192,69,192C91.4,192,114,224,137,234.7C160,245,183,235,206,213.3C228.6,192,251,160,274,149.3C297.1,139,320,149,343,181.3C365.7,213,389,267,411,282.7C434.3,299,457,277,480,250.7C502.9,224,526,192,549,181.3C571.4,171,594,181,617,208C640,235,663,277,686,256C708.6,235,731,149,754,122.7C777.1,96,800,128,823,165.3C845.7,203,869,245,891,224C914.3,203,937,117,960,112C982.9,107,1006,181,1029,197.3C1051.4,213,1074,171,1097,144C1120,117,1143,107,1166,133.3C1188.6,160,1211,224,1234,218.7C1257.1,213,1280,139,1303,133.3C1325.7,128,1349,192,1371,192C1394.3,192,1417,128,1429,96L1440,64L1440,320L1428.6,320C1417.1,320,1394,320,1371,320C1348.6,320,1326,320,1303,320C1280,320,1257,320,1234,320C1211.4,320,1189,320,1166,320C1142.9,320,1120,320,1097,320C1074.3,320,1051,320,1029,320C1005.7,320,983,320,960,320C937.1,320,914,320,891,320C868.6,320,846,320,823,320C800,320,777,320,754,320C731.4,320,709,320,686,320C662.9,320,640,320,617,320C594.3,320,571,320,549,320C525.7,320,503,320,480,320C457.1,320,434,320,411,320C388.6,320,366,320,343,320C320,320,297,320,274,320C251.4,320,229,320,206,320C182.9,320,160,320,137,320C114.3,320,91,320,69,320C45.7,320,23,320,11,320L0,320Z"
+          fill-opacity="1"
+        ></path>
+      </svg>
 
-        <div class="icon-container">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-width="0" fill="currentColor"
-                stroke="currentColor" class="icon">
-                <path
-                    d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z">
-                </path>
-            </svg>
-        </div>
-        <div class="message-text-container">
-            <p class="message-text">Mensagem de sucesso</p>
-            <p class="sub-text" id="descCardSucesso"></p>
-        </div>
-        <svg onclick="fecharCardSucessoMensagem()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15"
-            stroke-width="0" fill="none" stroke="currentColor" class="cross-icon">
-            <path fill="currentColor"
-                d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z"
-                clip-rule="evenodd" fill-rule="evenodd"></path>
+      <div class="icon-container">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+          stroke-width="0"
+          fill="currentColor"
+          stroke="currentColor"
+          class="icon"
+        >
+          <path
+            d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z"
+          ></path>
         </svg>
+      </div>
+      <div class="message-text-container">
+        <p class="message-text">Mensagem de sucesso</p>
+        <p class="sub-text" id="descCardSucesso"></p>
+      </div>
+      <svg
+        onclick="fecharCardSucessoMensagem()"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 15 15"
+        stroke-width="0"
+        fill="none"
+        stroke="currentColor"
+        class="cross-icon"
+      >
+        <path
+          fill="currentColor"
+          d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z"
+          clip-rule="evenodd"
+          fill-rule="evenodd"
+        ></path>
+      </svg>
     </div>
 
     <!-- CARD DE ERRO -->
     <div id="cardErroMsg" class="cardMensagem fecharCardMensagem">
-        <svg class="waveErro" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
-            <path
-                d="M0,256L11.4,240C22.9,224,46,192,69,192C91.4,192,114,224,137,234.7C160,245,183,235,206,213.3C228.6,192,251,160,274,149.3C297.1,139,320,149,343,181.3C365.7,213,389,267,411,282.7C434.3,299,457,277,480,250.7C502.9,224,526,192,549,181.3C571.4,171,594,181,617,208C640,235,663,277,686,256C708.6,235,731,149,754,122.7C777.1,96,800,128,823,165.3C845.7,203,869,245,891,224C914.3,203,937,117,960,112C982.9,107,1006,181,1029,197.3C1051.4,213,1074,171,1097,144C1120,117,1143,107,1166,133.3C1188.6,160,1211,224,1234,218.7C1257.1,213,1280,139,1303,133.3C1325.7,128,1349,192,1371,192C1394.3,192,1417,128,1429,96L1440,64L1440,320L1428.6,320C1417.1,320,1394,320,1371,320C1348.6,320,1326,320,1303,320C1280,320,1257,320,1234,320C1211.4,320,1189,320,1166,320C1142.9,320,1120,320,1097,320C1074.3,320,1051,320,1029,320C1005.7,320,983,320,960,320C937.1,320,914,320,891,320C868.6,320,846,320,823,320C800,320,777,320,754,320C731.4,320,709,320,686,320C662.9,320,640,320,617,320C594.3,320,571,320,549,320C525.7,320,503,320,480,320C457.1,320,434,320,411,320C388.6,320,366,320,343,320C320,320,297,320,274,320C251.4,320,229,320,206,320C182.9,320,160,320,137,320C114.3,320,91,320,69,320C45.7,320,23,320,11,320L0,320Z"
-                fill-opacity="1"></path>
-        </svg>
+      <svg
+        class="waveErro"
+        viewBox="0 0 1440 320"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0,256L11.4,240C22.9,224,46,192,69,192C91.4,192,114,224,137,234.7C160,245,183,235,206,213.3C228.6,192,251,160,274,149.3C297.1,139,320,149,343,181.3C365.7,213,389,267,411,282.7C434.3,299,457,277,480,250.7C502.9,224,526,192,549,181.3C571.4,171,594,181,617,208C640,235,663,277,686,256C708.6,235,731,149,754,122.7C777.1,96,800,128,823,165.3C845.7,203,869,245,891,224C914.3,203,937,117,960,112C982.9,107,1006,181,1029,197.3C1051.4,213,1074,171,1097,144C1120,117,1143,107,1166,133.3C1188.6,160,1211,224,1234,218.7C1257.1,213,1280,139,1303,133.3C1325.7,128,1349,192,1371,192C1394.3,192,1417,128,1429,96L1440,64L1440,320L1428.6,320C1417.1,320,1394,320,1371,320C1348.6,320,1326,320,1303,320C1280,320,1257,320,1234,320C1211.4,320,1189,320,1166,320C1142.9,320,1120,320,1097,320C1074.3,320,1051,320,1029,320C1005.7,320,983,320,960,320C937.1,320,914,320,891,320C868.6,320,846,320,823,320C800,320,777,320,754,320C731.4,320,709,320,686,320C662.9,320,640,320,617,320C594.3,320,571,320,549,320C525.7,320,503,320,480,320C457.1,320,434,320,411,320C388.6,320,366,320,343,320C320,320,297,320,274,320C251.4,320,229,320,206,320C182.9,320,160,320,137,320C114.3,320,91,320,69,320C45.7,320,23,320,11,320L0,320Z"
+          fill-opacity="1"
+        ></path>
+      </svg>
 
-        <div class="icon-containerErro">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-width="0" fill="currentColor"
-                stroke="currentColor" class="iconErro">
-                <path
-                    d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z">
-                </path>
-            </svg>
-        </div>
-        <div class="message-text-container">
-            <p class="message-textErro">Mensagem de erro</p>
-            <p class="sub-text" id="descCardErro"></p>
-        </div>
-        <svg onclick="fecharCardErroMensagem()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15" stroke-width="0"
-            fill="none" stroke="currentColor" class="cross-icon">
-            <path fill="currentColor"
-                d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z"
-                clip-rule="evenodd" fill-rule="evenodd"></path>
+      <div class="icon-containerErro">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+          stroke-width="0"
+          fill="currentColor"
+          stroke="currentColor"
+          class="iconErro"
+        >
+          <path
+            d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z"
+          ></path>
         </svg>
+      </div>
+      <div class="message-text-container">
+        <p class="message-textErro">Mensagem de erro</p>
+        <p class="sub-text" id="descCardErro"></p>
+      </div>
+      <svg
+        onclick="fecharCardErroMensagem()"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 15 15"
+        stroke-width="0"
+        fill="none"
+        stroke="currentColor"
+        class="cross-icon"
+      >
+        <path
+          fill="currentColor"
+          d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z"
+          clip-rule="evenodd"
+          fill-rule="evenodd"
+        ></path>
+      </svg>
     </div>
-
 
     <div class="confirmarModal" id="confirmarModalDesativar">
-        <h2>Deseja realmente deletar essa empresa ?</h2>
-        <div>
-            <button onclick="fecharDesativar(), removerEmpresa(idEmpresaDelete)" class="simButon">Sim</button>
-            <button onclick="fecharDesativar()" class="naoButon">Não</button>
-        </div>
+      <h2>Deseja realmente deletar essa empresa ?</h2>
+      <div>
+        <button
+          onclick="fecharDesativar(), removerEmpresa(idEmpresaDelete)"
+          class="simButon"
+        >
+          Sim
+        </button>
+        <button onclick="fecharDesativar()" class="naoButon">Não</button>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>
 
 <script>
+  let idEmpresaDelete;
+  function confirmarDesativar(idEmpresa) {
+    idEmpresaDelete = idEmpresa;
+    confirmarModalDesativar.style.top = "0";
+    const frame = document.getElementById("frame");
+    frame.classList.add("blur-grid");
+  }
 
-    let idEmpresaDelete;
-    function confirmarDesativar(idEmpresa) {
-        idEmpresaDelete = idEmpresa
-        confirmarModalDesativar.style.top = '0'
-        const frame = document.getElementById('frame');
-        frame.classList.add('blur-grid')
+  function fecharDesativar() {
+    const frame = document.getElementById("frame");
+    frame.classList.remove("blur-grid");
+    confirmarModalDesativar.style.top = "-20%";
+  }
 
-    }
+  function sair() {
+    window.location = "../index.html";
+  }
 
-    function fecharDesativar() {
+  let idEmpresa; // Declare fora das funções
+  let fkEndereco;
 
-        const frame = document.getElementById('frame');
-        frame.classList.remove('blur-grid')
-        confirmarModalDesativar.style.top = '-20%'
-    }
+  function modalEditarEmpresa() {
+    const modal = document.getElementById("modalEditarEmpresa");
 
+    modal.style.display = "block";
+    const frame = document.getElementById("frame");
+    frame.classList.add("blur-grid");
+  }
 
-    function sair() {
-        window.location = "../index.html"
-    }
+  let cnpjRegex = /^\d{14}$/;
+  let cepRegex = /^\d{8}$/;
 
-    let idEmpresa; // Declare fora das funções
-    let fkEndereco;
+  function editarEmpresa(fkEnd, id) {
+    idEmpresa = id;
+    fkEndereco = fkEnd;
 
-    function modalEditarEmpresa() {
+    console.log(`ESTOU NA FUNÇÃO - IDENDEREÇO -> ${fkEndereco}`);
 
-        const modal = document.getElementById('modalEditarEmpresa')
+    // var fkEndereco = fkEndereco
+    // var idEmpresa = idEmpresa
 
-        modal.style.display = 'block'
-        const frame = document.getElementById('frame');
-        frame.classList.add('blur-grid')
+    var razaoSocialVar = razao_social_input_editar.value;
+    var cnpjVar = cnpj_input_editar.value;
+    var nomeLogradouroVar = nome_logradouro_input_editar.value;
+    var tipoLogradouroVar = tipo_logradouro_select_editar.value;
+    var numeroVar = numero_logradouro_input_editar.value;
+    var cepVar = cep_logradouro_input_editar.value;
+    var complementoVar = complemento_logradouro_input_editar.value;
+    var bairroVar = bairro_input_editar.value;
+    var cidadeVar = cidade_input_editar.value;
+    var estadoVar = estado_input_select_editar.value;
+    var planoVar = tipo_planos_select_editar.value;
 
-    }
+    if (
+      razaoSocialVar == "" ||
+      cnpjVar == "" ||
+      nomeLogradouroVar == "" ||
+      tipoLogradouroVar == "" ||
+      numeroVar == "" ||
+      cepVar == "" ||
+      complementoVar == "" ||
+      bairroVar == "" ||
+      cidadeVar == "" ||
+      estadoVar == "" ||
+      planoVar == ""
+    ) {
+      descCardErro.innerHTML = "Preencha todos os campos";
+      usoCardMensagemErro();
+    } else if (!cnpjRegex.test(cnpjVar)) {
+      descCardErro.innerHTML = "Insira um CNPJ válido com 14 dígitos.";
+      usoCardMensagemErro();
+    } else if (!cepRegex.test(cepVar)) {
+      descCardErro.innerHTML = "Insira um CEP válido com 8 dígitos.";
+      usoCardMensagemErro();
+    } else {
+      fetch(`/empresas/editarEndereco/${fkEndereco}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nomeLogradouroServer: nomeLogradouroVar,
+          tipoLogradouroServer: tipoLogradouroVar,
+          numeroServer: numeroVar,
+          cepServer: cepVar,
+          complementoServer: complementoVar,
+          bairroServer: bairroVar,
+          cidadeServer: cidadeVar,
+          estadoServer: estadoVar,
+        }),
+      })
+        .then(function (resposta) {
+          console.log("resposta: ", resposta);
 
-    let cnpjRegex = /^\d{14}$/;
-    let cepRegex = /^\d{8}$/;
+          if (resposta.ok) {
+            resposta.json().then((json) => {
+              console.log(json);
 
-    function editarEmpresa(fkEnd, id) {
+              console.log(
+                `${razaoSocialVar} -- ${cnpjVar} -- ${planoVar} -- ${idEmpresa}`
+              );
 
-        idEmpresa = id
-        fkEndereco = fkEnd
-
-
-        console.log(`ESTOU NA FUNÇÃO - IDENDEREÇO -> ${fkEndereco}`)
-
-        // var fkEndereco = fkEndereco
-        // var idEmpresa = idEmpresa
-
-        var razaoSocialVar = razao_social_input_editar.value;
-        var cnpjVar = cnpj_input_editar.value;
-        var nomeLogradouroVar = nome_logradouro_input_editar.value;
-        var tipoLogradouroVar = tipo_logradouro_select_editar.value;
-        var numeroVar = numero_logradouro_input_editar.value;
-        var cepVar = cep_logradouro_input_editar.value;
-        var complementoVar = complemento_logradouro_input_editar.value;
-        var bairroVar = bairro_input_editar.value;
-        var cidadeVar = cidade_input_editar.value;
-        var estadoVar = estado_input_select_editar.value;
-        var planoVar = tipo_planos_select_editar.value;
-
-        if (razaoSocialVar == "" ||
-            cnpjVar == "" ||
-            nomeLogradouroVar == "" ||
-            tipoLogradouroVar == "" ||
-            numeroVar == "" ||
-            cepVar == "" ||
-            complementoVar == "" ||
-            bairroVar == "" ||
-            cidadeVar == "" ||
-            estadoVar == "" ||
-            planoVar == ""
-        ) {
-            descCardErro.innerHTML = "Preencha todos os campos"
-            usoCardMensagemErro()
-        } else if (!cnpjRegex.test(cnpjVar)) {
-            descCardErro.innerHTML = "Insira um CNPJ válido com 14 dígitos."
-            usoCardMensagemErro()
-        } else if (!cepRegex.test(cepVar)) {
-            descCardErro.innerHTML = "Insira um CEP válido com 8 dígitos."
-            usoCardMensagemErro()
-        } else {
-            fetch(`/empresas/editarEndereco/${fkEndereco}`, {
+              fetch(`/empresas/editar/${idEmpresa}`, {
                 method: "PUT",
                 headers: {
-                    "Content-Type": "application/json",
+                  "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    nomeLogradouroServer: nomeLogradouroVar,
-                    tipoLogradouroServer: tipoLogradouroVar,
-                    numeroServer: numeroVar,
-                    cepServer: cepVar,
-                    complementoServer: complementoVar,
-                    bairroServer: bairroVar,
-                    cidadeServer: cidadeVar,
-                    estadoServer: estadoVar
+                  razaoSocialServer: razaoSocialVar,
+                  cnpjServer: cnpjVar,
+                  planoServer: planoVar,
                 }),
-            }).then(function (resposta) {
-                console.log("resposta: ", resposta);
+              })
+                .then(function (resposta) {
+                  if (resposta.ok) {
+                    usoCardMensagemSucesso();
+                    descCardSucesso.innerHTML = `Edição realizada com sucesso.`;
 
-                if (resposta.ok) {
+                    listagemEmpresas.innerHTML = " ";
+                    listarEmpresas();
 
-                    resposta.json()
-                        .then(json => {
-                            
-                            console.log(json);
-                           
-
-                            console.log(`${razaoSocialVar} -- ${cnpjVar} -- ${planoVar} -- ${idEmpresa}`)
-
-                            fetch(`/empresas/editar/${idEmpresa}`, {
-                                method: "PUT",
-                                headers: {
-                                    "Content-Type": "application/json",
-                                },
-                                body: JSON.stringify({
-                                    razaoSocialServer: razaoSocialVar,
-                                    cnpjServer: cnpjVar,
-                                    planoServer: planoVar
-                                }),
-                            }).then(function (resposta) {
-                                if (resposta.ok) {
-                                    usoCardMensagemSucesso()
-                                    descCardSucesso.innerHTML = `Edição realizada com sucesso.`
-
-                                    listagemEmpresas.innerHTML = " "
-                                    listarEmpresas()
-
-                                    setTimeout(() => {
-                                        fecharModalAddUser();
-                                    }, "1000");
-                                } else {
-                                    console.log(resposta);
-                                    throw "Houve um erro ao tentar realizar a edição - dados empresa!";
-                                }
-                            }).catch(function (resposta) {
-                                console.log(`#ERRO: ${resposta}`);
-                                return false;
-                            });
-
-                        });
-
-
-
-
-                } else {
+                    setTimeout(() => {
+                      fecharModalAddUser();
+                    }, "1000");
+                  } else {
                     console.log(resposta);
-                    throw "Houve um erro ao tentar realizar a edição - Endereço empresa!";
-                }
-            }).catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-                return false;
+                    throw "Houve um erro ao tentar realizar a edição - dados empresa!";
+                  }
+                })
+                .catch(function (resposta) {
+                  console.log(`#ERRO: ${resposta}`);
+                  return false;
+                });
             });
-        }
-    }
-
-    function modalAddUser() {
-
-        const modal = document.getElementById('modalAddUser')
-
-        modal.style.display = 'block'
-        const frame = document.getElementById('frame');
-        frame.classList.add('blur-grid')
-
-    }
-
-    function fecharModalAddUser() {
-
-        const modal = document.getElementById('modalAddUser')
-        const modalEdit = document.getElementById('modalEditarEmpresa')
-
-
-        modal.style.display = 'none'
-        modalEdit.style.display = 'none'
-        const frame = document.getElementById('frame');
-        frame.classList.remove('blur-grid')
-    }
-
-
-    function adicionarEmpresa() {
-
-        var razaoSocialVar = razao_social_input.value
-        var cnpjVar = cnpj_input.value
-        var nomeLogradouroVar = nome_logradouro_input.value
-        var tipoLogradouroVar = tipo_logradouro_select.value
-        var numeroVar = numero_logradouro_input.value
-        var cepVar = cep_logradouro_input.value
-        var complementoVar = complemento_logradouro_input.value
-        var bairroVar = bairro_input.value;
-        var cidadeVar = cidade_input.value;
-        var estadoVar = estado_input_select.value;
-        var planoVar = tipo_planos_select.value;
-
-        if (razaoSocialVar == "" ||
-            cnpjVar == "" ||
-            nomeLogradouroVar == "" ||
-            tipoLogradouroVar == "" ||
-            numeroVar == "" ||
-            cepVar == "" ||
-            complementoVar == "" ||
-            bairroVar == "" ||
-            cidadeVar == "" ||
-            estadoVar == "" ||
-            planoVar == ""
-        ) {
-            descCardErro.innerHTML = "Preencha todos os campos"
-            usoCardMensagemErro()
-
-            return false
-
-        } else if (!cnpjRegex.test(cnpjVar)) {
-            descCardErro.innerHTML = "Insira um CNPJ válido com 14 dígitos."
-            usoCardMensagemErro()
-
-            return false
-
-        } else if (!cepRegex.test(cepVar)) {
-            descCardErro.innerHTML = "Insira um CEP válido com 8 dígitos."
-            usoCardMensagemErro()
-
-            return false
-
-        } else {
-            if (tipoLogradouroVar == "rua") {
-                tipoLogradouroVar = 1;
-            } else {
-                tipoLogradouroVar = 2;
-            }
-        }
-
-        fetch("/empresas/cadastrarEndereco", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                nomeLogradouroServer: nomeLogradouroVar,
-                tipoLogradouroServer: tipoLogradouroVar,
-                numeroServer: numeroVar,
-                cepServer: cepVar,
-                complementoServer: complementoVar,
-                bairroServer: bairroVar,
-                cidadeServer: cidadeVar,
-                estadoServer: estadoVar
-            }),
-        }).then(function (resposta) {
-            console.log("resposta: ", resposta);
-
-            if (resposta.ok) {
-
-                resposta.json()
-                    .then(json => {
-                        console.log("\n\n\n\n\nALEATÓRIO PARA VER A RESPOSTA");
-                        console.log(json);
-                        var idInserido = json.insertId;
-                        console.log(idInserido);
-
-                        sessionStorage.ID_ENDERECO = idInserido;
-
-                        fetch("/empresas/cadastrar", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify({
-                                idEnderecoServer: idInserido,
-                                razaoSocialServer: razaoSocialVar,
-                                cnpjServer: cnpjVar,
-                                planoServer: planoVar
-                            }),
-                        }).then(function (resposta) {
-                            usoCardMensagemSucesso()
-                            descCardSucesso.innerHTML = `Cadastro realizado` //Descrição para o card
-
-                            listagemEmpresas.innerHTML = " "
-                            listarEmpresas()
-
-                            setTimeout(() => {
-                                fecharModalAddUser();
-                            }, "1000");
-                        }).catch()
-
-
-
-                    });
-
-
-
-
-
-            } else {
-                console.log(resposta);
-                throw "Houve um erro ao tentar realizar o cadastro!";
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-            return false;
-        });
-
-    }
-
-
-    function listarEmpresas() {
-        fetch(`/empresas/listarEmpresas`, {
-            method: "GET",
+          } else {
+            console.log(resposta);
+            throw "Houve um erro ao tentar realizar a edição - Endereço empresa!";
+          }
         })
-            .then(function (resposta) {
-                resposta.json().then((empresas) => {
-                    empresas.forEach((registro) => {
+        .catch(function (resposta) {
+          console.log(`#ERRO: ${resposta}`);
+          return false;
+        });
+    }
+  }
 
-                        listagemEmpresas.innerHTML +=
-                            `
+  function modalAddUser() {
+    const modal = document.getElementById("modalAddUser");
+
+    modal.style.display = "block";
+    const frame = document.getElementById("frame");
+    frame.classList.add("blur-grid");
+  }
+
+  function fecharModalAddUser() {
+    const modal = document.getElementById("modalAddUser");
+    const modalEdit = document.getElementById("modalEditarEmpresa");
+
+    modal.style.display = "none";
+    modalEdit.style.display = "none";
+    const frame = document.getElementById("frame");
+    frame.classList.remove("blur-grid");
+  }
+
+  function adicionarEmpresa() {
+    var razaoSocialVar = razao_social_input.value;
+    var cnpjVar = cnpj_input.value;
+    var nomeLogradouroVar = nome_logradouro_input.value;
+    var tipoLogradouroVar = tipo_logradouro_select.value;
+    var numeroVar = numero_logradouro_input.value;
+    var cepVar = cep_logradouro_input.value;
+    var complementoVar = complemento_logradouro_input.value;
+    var bairroVar = bairro_input.value;
+    var cidadeVar = cidade_input.value;
+    var estadoVar = estado_input_select.value;
+    var planoVar = tipo_planos_select.value;
+
+    if (
+      razaoSocialVar == "" ||
+      cnpjVar == "" ||
+      nomeLogradouroVar == "" ||
+      tipoLogradouroVar == "" ||
+      numeroVar == "" ||
+      cepVar == "" ||
+      complementoVar == "" ||
+      bairroVar == "" ||
+      cidadeVar == "" ||
+      estadoVar == "" ||
+      planoVar == ""
+    ) {
+      descCardErro.innerHTML = "Preencha todos os campos";
+      usoCardMensagemErro();
+
+      return false;
+    } else if (!cnpjRegex.test(cnpjVar)) {
+      descCardErro.innerHTML = "Insira um CNPJ válido com 14 dígitos.";
+      usoCardMensagemErro();
+
+      return false;
+    } else if (!cepRegex.test(cepVar)) {
+      descCardErro.innerHTML = "Insira um CEP válido com 8 dígitos.";
+      usoCardMensagemErro();
+
+      return false;
+    } else {
+      if (tipoLogradouroVar == "rua") {
+        tipoLogradouroVar = 1;
+      } else {
+        tipoLogradouroVar = 2;
+      }
+    }
+
+    fetch("/empresas/cadastrarEndereco", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nomeLogradouroServer: nomeLogradouroVar,
+        tipoLogradouroServer: tipoLogradouroVar,
+        numeroServer: numeroVar,
+        cepServer: cepVar,
+        complementoServer: complementoVar,
+        bairroServer: bairroVar,
+        cidadeServer: cidadeVar,
+        estadoServer: estadoVar,
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          resposta.json().then((json) => {
+            console.log("\n\n\n\n\nALEATÓRIO PARA VER A RESPOSTA");
+            console.log(json);
+            var idInserido = json.insertId;
+            console.log(idInserido);
+
+            sessionStorage.ID_ENDERECO = idInserido;
+
+            fetch("/empresas/cadastrar", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                idEnderecoServer: idInserido,
+                razaoSocialServer: razaoSocialVar,
+                cnpjServer: cnpjVar,
+                planoServer: planoVar,
+              }),
+            })
+              .then(function (resposta) {
+                usoCardMensagemSucesso();
+                descCardSucesso.innerHTML = `Cadastro realizado`; //Descrição para o card
+
+                listagemEmpresas.innerHTML = " ";
+                listarEmpresas();
+
+                setTimeout(() => {
+                  fecharModalAddUser();
+                }, "1000");
+              })
+              .catch();
+          });
+        } else {
+          console.log(resposta);
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        return false;
+      });
+  }
+
+  function listarEmpresas() {
+    fetch(`/empresas/listarEmpresas`, {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        resposta.json().then((empresas) => {
+          empresas.forEach((registro) => {
+            listagemEmpresas.innerHTML += `
                             <div class="container">
 
                             <div class="nome">
@@ -658,180 +739,170 @@
 
                             </div>
             `;
-                    });
-                });
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
-    }
-
-    function listarEmpresasPorId(id, fkEnd) {
-        idEmpresa = id
-        fkEndereco = fkEnd
-        modalEditarEmpresa();
-
-        fetch(`/empresas/listarEmpresasPorId/${idEmpresa}`, {
-            method: "GET",
-        })
-            .then(function (resposta) {
-                return resposta.json(); // Retorne o JSON diretamente
-            })
-            .then((empresas) => {
-                console.log(empresas);
-
-                // Se empresas for um array, use forEach
-                empresas.forEach((empresa) => {
-                    var idEmpresa = empresa.empresa_id;
-                    var fkEndereco = empresa.endereco_id;
-                    var ax = empresa.tipo_logradouro
-
-                    razao_social_input_editar.value = empresa.razaoSocial;
-                    cnpj_input_editar.value = empresa.cnpj;
-                    nome_logradouro_input_editar.value = empresa.nomeLogradouro;
-                    bairro_input_editar.value = empresa.bairro;
-                    cidade_input_editar.value = empresa.cidade
-                    cep_logradouro_input_editar.value = empresa.cep;
-                    numero_logradouro_input_editar.value = empresa.numLogradouro;
-                    complemento_logradouro_input_editar.value = empresa.complemento;
-
-                    tipo_logradouro_select_editar.value = empresa.id_logradouro;
-                    tipo_planos_select_editar.value = empresa.fkPlano
-                    estado_input_select_editar.value = empresa.estado
-                });
-
-                // Passar os parâmetros corretamente
-                console.log(ax)
-                document.getElementById('editar_button').onclick = function () {
-                    editarEmpresa(fkEndereco, idEmpresa);
-                };
-            })
-            .catch(function (erro) {
-                console.log(`#ERRO: ${erro}`);
-            });
-    }
-
-    function removerEmpresa(idEmpresa) {
-        console.log(idEmpresa);
-        fetch(`/empresas/removerEmpresa/${idEmpresa}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            }
-        }).then(function (resposta) {
-            console.log("resposta: ", resposta);
-            if (resposta.ok) {
-                listagemEmpresas.innerHTML = ""
-                listarEmpresas();
-                usoCardMensagemSucesso()
-                descCardSucesso.innerHTML = `Empresa removida`
-            } else {
-                console.log(resposta);
-                throw "Houve um erro ao tentar desativar a empresa!";
-            }
-        }).catch(function (resposta) {
-            console.log(`#ERRO: ${resposta}`);
-            return false;
+          });
         });
-    }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
 
+  function listarEmpresasPorId(id, fkEnd) {
+    idEmpresa = id;
+    fkEndereco = fkEnd;
+    modalEditarEmpresa();
 
-    function listarTipoPlanos() {
-        fetch(`/empresas/listarTipoPlanos`, {
-            method: "GET",
-        })
-            .then(function (resposta) {
-                resposta.json().then((tipo) => {
+    fetch(`/empresas/listarEmpresasPorId/${idEmpresa}`, {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        return resposta.json(); // Retorne o JSON diretamente
+      })
+      .then((empresas) => {
+        console.log(empresas);
 
-                    tipo.forEach((registro) => {
+        // Se empresas for um array, use forEach
+        empresas.forEach((empresa) => {
+          var idEmpresa = empresa.empresa_id;
+          var fkEndereco = empresa.endereco_id;
+          var ax = empresa.tipo_logradouro;
 
-                        tipo_planos_select.innerHTML += `
+          razao_social_input_editar.value = empresa.razaoSocial;
+          cnpj_input_editar.value = empresa.cnpj;
+          nome_logradouro_input_editar.value = empresa.nomeLogradouro;
+          bairro_input_editar.value = empresa.bairro;
+          cidade_input_editar.value = empresa.cidade;
+          cep_logradouro_input_editar.value = empresa.cep;
+          numero_logradouro_input_editar.value = empresa.numLogradouro;
+          complemento_logradouro_input_editar.value = empresa.complemento;
+
+          tipo_logradouro_select_editar.value = empresa.id_logradouro;
+          tipo_planos_select_editar.value = empresa.fkPlano;
+          estado_input_select_editar.value = empresa.estado;
+        });
+
+        // Passar os parâmetros corretamente
+        console.log(ax);
+        document.getElementById("editar_button").onclick = function () {
+          editarEmpresa(fkEndereco, idEmpresa);
+        };
+      })
+      .catch(function (erro) {
+        console.log(`#ERRO: ${erro}`);
+      });
+  }
+
+  function removerEmpresa(idEmpresa) {
+    console.log(idEmpresa);
+    fetch(`/empresas/removerEmpresa/${idEmpresa}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+        if (resposta.ok) {
+          listagemEmpresas.innerHTML = "";
+          listarEmpresas();
+          usoCardMensagemSucesso();
+          descCardSucesso.innerHTML = `Empresa removida`;
+        } else {
+          console.log(resposta);
+          throw "Houve um erro ao tentar desativar a empresa!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        return false;
+      });
+  }
+
+  function listarTipoPlanos() {
+    fetch(`/empresas/listarTipoPlanos`, {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        resposta.json().then((tipo) => {
+          tipo.forEach((registro) => {
+            tipo_planos_select.innerHTML += `
                 
                 <option value="${registro.id}">${registro.nome}</option>
             
             `;
-                        tipo_planos_select_editar.innerHTML += `
+            tipo_planos_select_editar.innerHTML += `
                 
                 <option value="${registro.id}">${registro.nome}</option>
             
             `;
+          });
+        });
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
 
-                    });
-                });
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
-    }
-
-
-    function listarTipoLogradouro() {
-        fetch(`/empresas/listarTipoLogradouro`, {
-            method: "GET",
-        })
-            .then(function (resposta) {
-                resposta.json().then((tipo) => {
-
-                    tipo.forEach((registro) => {
-
-                        tipo_logradouro_select.innerHTML += `
+  function listarTipoLogradouro() {
+    fetch(`/empresas/listarTipoLogradouro`, {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        resposta.json().then((tipo) => {
+          tipo.forEach((registro) => {
+            tipo_logradouro_select.innerHTML += `
                 <option value="" selected hidden>Selecione um tipo de logradouro</option>
                 <option value="${registro.id}">${registro.tipo}</option>
             
             `;
 
-                        tipo_logradouro_select_editar.innerHTML += `
+            tipo_logradouro_select_editar.innerHTML += `
                         
                 <option value="${registro.id}">${registro.tipo}</option>
                     
             `;
+          });
+        });
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
 
-                    });
-                });
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
-    }
+  // Funções de card de alerta
 
-
-
-    // Funções de card de alerta
-
-    // esse é o id = descCardSucesso para innerHTML a mensagem de sucesso
-    function abrirCardSucesoMensagem() {
-
-        const card = document.getElementById("cardSucessoMsg");
-        card.classList.remove("fecharCardMensagem");
-        card.classList.add("abriCardMensagem");
-    }
-    function fecharCardSucessoMensagem() {
-        const card = document.getElementById("cardSucessoMsg");
-        card.classList.remove("abriCardMensagem");
-        card.classList.add("fecharCardMensagem");
-    }
-    // esse é o id = descCardErro para innerHTML a mensagem de sucesso
-    function fecharCardErroMensagem() {
-        const card = document.getElementById("cardErroMsg");
-        card.classList.remove("abriCardMensagem");
-        card.classList.add("fecharCardMensagem");
-    }
-    function abrirCardErroMensagem() {
-        const card = document.getElementById("cardErroMsg");
-        card.classList.remove("fecharCardMensagem");
-        card.classList.add("abriCardMensagem");
-    }
-    function usoCardMensagemErro() {
-        abrirCardErroMensagem();
-        setTimeout(() => {
-            fecharCardErroMensagem();
-        }, "7000");
-    }
-    function usoCardMensagemSucesso() {
-        abrirCardSucesoMensagem();
-        setTimeout(() => {
-            fecharCardSucessoMensagem();
-        }, "7000");
-    }
-
+  // esse é o id = descCardSucesso para innerHTML a mensagem de sucesso
+  function abrirCardSucesoMensagem() {
+    const card = document.getElementById("cardSucessoMsg");
+    card.classList.remove("fecharCardMensagem");
+    card.classList.add("abriCardMensagem");
+  }
+  function fecharCardSucessoMensagem() {
+    const card = document.getElementById("cardSucessoMsg");
+    card.classList.remove("abriCardMensagem");
+    card.classList.add("fecharCardMensagem");
+  }
+  // esse é o id = descCardErro para innerHTML a mensagem de sucesso
+  function fecharCardErroMensagem() {
+    const card = document.getElementById("cardErroMsg");
+    card.classList.remove("abriCardMensagem");
+    card.classList.add("fecharCardMensagem");
+  }
+  function abrirCardErroMensagem() {
+    const card = document.getElementById("cardErroMsg");
+    card.classList.remove("fecharCardMensagem");
+    card.classList.add("abriCardMensagem");
+  }
+  function usoCardMensagemErro() {
+    abrirCardErroMensagem();
+    setTimeout(() => {
+      fecharCardErroMensagem();
+    }, "7000");
+  }
+  function usoCardMensagemSucesso() {
+    abrirCardSucesoMensagem();
+    setTimeout(() => {
+      fecharCardSucessoMensagem();
+    }, "7000");
+  }
 </script>

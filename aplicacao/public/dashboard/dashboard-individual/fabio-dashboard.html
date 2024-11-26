@@ -74,6 +74,10 @@
                         <option selected value="12-23">12h - 23h59</option>
                         <option value="00-12">00h - 11h59</option>
                     </select>
+                    <h3 class="dia_1">Dia1</h3>
+                    <h3 class="dia_2">Dia2</h3>
+                    <h3 class="uso_1">Uso1</h3>
+                    <h3 class="uso_2">Uso2</h3>
                     <img class="legenda_dias" src="../../imagens/legenda_dias.svg" alt="">
                 </div>
                 <img src="../../imagens/legenda_cores_atualizada_final.svg" alt="">
@@ -246,10 +250,18 @@
         const menuLateral = document.querySelector('.menu-lateral');
         const botaoDica = document.querySelector('.icone_informacao'); // Seleciona o botão de dica
         const legendaDia = document.querySelector('.legenda_dias'); // Seleciona a legenda
+        const dia1 = document.querySelector('.dia_1'); // Seleciona o Dia1
+        const dia2 = document.querySelector('.dia_2'); // Seleciona o Dia2
+        const uso1 = document.querySelector('.uso_1'); // Seleciona o Uso1
+        const uso2 = document.querySelector('.uso_2'); // Seleciona o Uso2
 
         menuLateral.classList.add('menu-aberto');
         botaoDica.classList.add('ocultar'); // Oculta o botão de dica
         legendaDia.classList.add('ocultar'); // Oculta a legenda
+        dia1.classList.add('ocultar'); // Oculta o Dia1
+        dia2.classList.add('ocultar'); // Oculta o Dia2
+        uso1.classList.add('ocultar'); // Oculta o Uso1
+        uso2.classList.add('ocultar'); // Oculta o Uso2
     }
 
     function ocultarMenu() {
@@ -258,13 +270,22 @@
         const seta = document.querySelector('.fa-sort-down');
         const botaoDica = document.querySelector('.icone_informacao'); // Seleciona o botão de dica
         const legendaDia = document.querySelector('.legenda_dias'); // Seleciona a legenda
+        const dia1 = document.querySelector('.dia_1'); // Seleciona o Dia1
+        const dia2 = document.querySelector('.dia_2'); // Seleciona o Dia2
+        const uso1 = document.querySelector('.uso_1'); // Seleciona o Uso1
+        const uso2 = document.querySelector('.uso_2'); // Seleciona o Uso2
 
         menuLateral.classList.remove('menu-aberto');
         submenu.style.display = 'none';
         seta.classList.remove('girarSeta');
         botaoDica.classList.remove('ocultar'); // Mostra o botão de dica
         legendaDia.classList.remove('ocultar'); // Mostra a legenda
+        dia1.classList.remove('ocultar'); // Mostra o Dia1
+        dia2.classList.remove('ocultar'); // Mostra o Dia2
+        uso1.classList.remove('ocultar'); // Mostra o Uso1
+        uso2.classList.remove('ocultar'); // Mostra o Uso2
     }
+
 
 
 
