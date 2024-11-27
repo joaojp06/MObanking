@@ -299,6 +299,62 @@
     nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
 
 
+    window.onload = function () {
+        // Função para formatar a data como YYYY-MM-DD
+        function formatDate(date) {
+            let day = date.getDate();
+            let month = date.getMonth() + 1; // Janeiro é 0
+            let year = date.getFullYear();
+
+            // Adiciona zero à esquerda se o dia ou mês for menor que 10
+            if (day < 10) day = '0' + day;
+            if (month < 10) month = '0' + month;
+
+            return `${year}-${month}-${day}`;
+        }
+
+        // Obtém a data atual
+        const currentDate = new Date();
+
+        // Calcula a data de 7 dias atrás
+        const date7DaysAgo = new Date();
+        date7DaysAgo.setDate(currentDate.getDate() - 6);
+
+        // Formata as datas para o formato YYYY-MM-DD
+        const formattedCurrentDate = formatDate(currentDate);
+        const formattedDate7DaysAgo = formatDate(date7DaysAgo);
+
+        if (sessionStorage.ID_PLANO >= 1) {
+            document.getElementById('cpuInput1').value = formattedDate7DaysAgo;
+            document.getElementById('cpuInput2').value = formattedCurrentDate;
+
+            document.getElementById('ramInput1').value = formattedDate7DaysAgo;
+            document.getElementById('ramInput2').value = formattedCurrentDate;
+
+            obterDadosGraficoCPU()
+            obterDadosGraficoRAM()
+        }
+
+        if (sessionStorage.ID_PLANO >= 2) {
+            document.getElementById('discoInput1').value = formattedDate7DaysAgo;
+            document.getElementById('discoInput2').value = formattedCurrentDate;
+            obterDadosGraficoDISCO()
+        }
+
+        if (sessionStorage.ID_PLANO == 3) {
+            document.getElementById('redeInput1').value = formattedDate7DaysAgo;
+            document.getElementById('redeInput2').value = formattedCurrentDate;
+            obterDadosGraficoREDE()
+        }
+
+        // Define os valores nas inputs
+
+
+
+
+
+    };
+
 
     function obterDadosGraficoCPU() {
         let inpCPU1 = cpuInput1.value;
@@ -571,6 +627,7 @@
 
         if (graficoRamInstance) {
             graficoRamInstance.destroy();
+            graficoRamInstance = null
             console.log('Gráfico anterior destruído.');
         }
 
@@ -578,11 +635,11 @@
         console.log('iniciando plotagem do gráfico...');
 
         // Criando estrutura para plotar gráfico - labels
-        let labelsCpu = [];
+        let labelsRam = [];
 
         // Criando estrutura para plotar gráfico - dados
         let dadosRam = {
-            labels: labelsCpu,
+            labels: labelsRam,
             datasets: [{
                 label: '',
                 data: [],
@@ -614,7 +671,7 @@
             });
 
             // Adiciona a data formatada no array
-            labelsCpu.push(dataFormatada);
+            labelsRam.push(dataFormatada);
 
             // Adiciona o valor médio
             dadosRam.datasets[0].data.push(registro.valor_medio);
@@ -631,7 +688,7 @@
 
         const graficoRAM = document.getElementById('graficoRAM-box');
 
-        graficoRAMInstance = new Chart(graficoRAM, {
+        graficoRamInstance = new Chart(graficoRAM, {
             type: 'bar',
             data: {
                 labels: dadosRam.labels,
