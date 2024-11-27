@@ -227,7 +227,7 @@
 
 .infoDesvioPadrao_box{
     width: 27vw;
-    margin-top: 5%;
+    margin: 1% 0%;
 }
 
 .legendaBoxColor{
@@ -295,12 +295,12 @@
 
 .picos_box {
     width: 27vw;
-
-    & span {}
+    margin: 1% 0%;
+    
 }
 
 .picosDesc_box {
-    margin: 5% 0%;
+   
 }
 
 .statusModal_box {
@@ -311,6 +311,6 @@
 
 /* Descrição do Upgrade ou downgrade */
 .calculDesc_box {
-    margin-top: 5%;
     width: 27vw;
+    margin: 1% 0%;
 }

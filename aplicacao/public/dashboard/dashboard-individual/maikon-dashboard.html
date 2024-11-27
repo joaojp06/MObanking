@@ -93,7 +93,7 @@
                                 <div class="custom-tooltip-content">
                                     <span class="custom-tooltip-arrow"></span>
                                     <p class="custom-tooltip-text">
-                                        Uso médio < 30% e pouca variação (desvio padrão < 10), indicando recursos
+                                        Uso médio < 20% e pouca variação (desvio padrão < 10), indicando recursos
                                             subutilizados e custo operacional desnecessário. </p>
                                 </div>
                             </div>
@@ -109,7 +109,7 @@
                                 <div class="custom-tooltip-content">
                                     <span class="custom-tooltip-arrow"></span>
                                     <p class="custom-tooltip-text">
-                                        Uso médio > 70% ou alta variação (desvio padrão > 20), sinal de demanda
+                                        Uso médio > 70%, alta variação com máximo superando os 90% ou a soma do desvio com média supere 70%, sinal de demanda
                                         excessiva, impactando o desempenho.
                                     </p>
                                 </div>
@@ -198,15 +198,30 @@
             </div>
 
             <div class="infoCalc_box">
-
+                <div id="calculoDesc_box" class="calculDesc_box">
+                    <div>
+                        <span>Sugestão</span>
+                    </div>
+                    <span id="descCpuDemanda_box">
+                        <!-- <p>Upgrade Cpu: 1.2Ghz</p> -->
+                    </span>
+                    <span id="descRamDemanda_box">
+                        <!-- <p>Upgrade Cpu: 1.2Ghz</p> -->
+                    </span>
+                </div>
                 <div id="picos_box" class="picos_box">
-                    <span>Picos Ram</span>
+                    <div>
+                        <span>Picos Ram</span>
+                    </div>
                     <div class="picosDesc_box" id="picoRam_box">
                         <!-- <p>12/11/23 - 12:22:31 - 33%</p>
                         <p>12/11/23 - 12:22:31 - 33%</p>
                         <p>12/11/23 - 12:22:31 - 33%</p> -->
                     </div>
-                    <span>Picos Cpu</span>
+                    <div>
+
+                        <span>Picos Cpu</span>
+                    </div>
                     <div class="picosDesc_box" id="picoCpu_box">
 
                     </div>
@@ -228,15 +243,7 @@
                     <!-- <span>Desvio padrão</span>
                     <p>20%</p> -->
                 </div>
-                <div id="calculoDesc_box" class="calculDesc_box">
-                    <span>Sugestão</span>
-                    <span id="descCpuDemanda_box">
-                        <!-- <p>Upgrade Cpu: 1.2Ghz</p> -->
-                    </span>
-                    <span id="descRamDemanda_box">
-                        <!-- <p>Upgrade Cpu: 1.2Ghz</p> -->
-                    </span>
-                </div>
+
 
             </div>
         </div>
@@ -619,15 +626,15 @@
             })
             .then((picos) => {
                 console.log(picos); // Log da resposta da API com os dados do banco
-
+                var i = 0
                 picos.forEach((registro) => {
 
                     var dataFormatada = formatarData(registro.data_completa)
-
+                    i++
                     picoCpu_box.innerHTML += `
-                        <p>${dataFormatada} - ${registro.maior_valor}%</p>
+                        <p>${i}°  ${dataFormatada} - ${registro.maior_valor}%</p>
                     `;
-                    
+
                 });
 
 
@@ -652,13 +659,13 @@
             })
             .then((picos) => {
                 console.log(picos); // Log da resposta da API com os dados do banco
-
+                var i = 0
                 picos.forEach((registro) => {
 
                     var dataFormatada = formatarData(registro.data_completa)
-
+                    i++
                     picoRam_box.innerHTML += `
-                    <p>${dataFormatada} - ${registro.maior_valor}%</p>
+                    <p>${i}°  ${dataFormatada} - ${registro.maior_valor}%</p>
 
                     `;
                 });
@@ -701,7 +708,7 @@
     function determinarStatusComponente(media, desvio, max) {
         if (media < 20 && desvio < 10) {
             return "#676767"; //ocioso
-        } else if (media > 70 || (media > 60 && desvio > 10) || max > 90) {
+        } else if (media > 70 || (media + desvio) > 70 || max > 90) {
             return "#c70000"; //Sobrecarga
         } else {
             return "#029602"; //OK estavel
@@ -712,7 +719,7 @@
     function determinarStatusComponenteCorGrafico(media, desvio, max) {
         if (media < 20 && desvio < 10) {
             return "rgba(103, 103, 103, 0.2)"; //ocioso
-        } else if (media > 70 || (media > 60 && desvio > 10) || max > 90) {
+        } else if (media > 70 || (media + desvio) > 70 || max > 90) {
             return "rgba(199, 0, 0, 0.2)"; //Sobrecarga
         } else {
             return "rgb(2, 150, 2, 0.2)"; //OK estavel
@@ -723,7 +730,7 @@
     function identificarTipoUp(media, desvio, max) {
         if (media < 20 && desvio < 10) {
             return 1; //ocioso
-        } else if (media > 70 || (media > 60 && desvio > 10) || max > 90) {
+        } else if (media > 70 || (media + desvio) > 70 || max > 90) {
             return 2; //Sobrecarga
         } else {
             return 3; //OK estavel
