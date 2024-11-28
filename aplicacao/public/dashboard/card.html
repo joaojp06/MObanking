@@ -97,7 +97,7 @@
     </div>
 
 
-    <div id="tendenciaUso" class="tendenciaUso pagina" style="display: none;">
+    <div id="tendenciaUso" class="tendenciaUso pagina" >
       <!-- TENDENCIA CPU -->
       <div class="usoBox">
         <div class="titulo">Uso de CPU (%) </div>
@@ -1267,8 +1267,12 @@
 
   function exibirTendenciaUso() {
     configuracoes.style.display = "none"
+    tendenciaUso.style.display = "flex"
     modalGraficos.classList.add("desaparecerModalJS")
-    tendenciaUso.style.display = "block"
+
+    tendenciaUso.classList.remove("desaparecerModalJS")
+    tendenciaUso.classList.add("aparecerModalJS")
+
 
     tendenciaUsoButton.classList.add("modal-buttonActive")
     modalGraficosButton.classList.remove("modal-buttonActive")
@@ -1278,6 +1282,7 @@
 
   function exibirConfiguracoes() {
     modalGraficos.classList.add("desaparecerModalJS")
+    tendenciaUso.classList.remove("desaparecerModalJS")
     tendenciaUso.style.display = "none"
     configuracoes.style.display = "block"
 
@@ -1291,11 +1296,13 @@
   function exbirTempoReal() {
     configuracoes.style.display = "none"
     tendenciaUso.style.display = "none"
+    tendenciaUso.classList.add("desaparecerModalJS")
     modalGraficos.classList.remove("desaparecerModalJS")
 
     tendenciaUsoButton.classList.remove("modal-buttonActive")
     configuracoesButton.classList.remove("modal-buttonActive")
     modalGraficosButton.classList.add("modal-buttonActive")
+
 
   }
 
