@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Allerta&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: "Nunito Sans", sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Allerta", sans-serif;
+  overflow: hidden;
+}
+
+.conteudo {
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+        font-size: 36px;
+        padding-bottom: 2%;
+    }
+
+    .board {
+        width: 100%;
+        height: 90%;
+        padding: 1%;
+        border-radius: 30px;
+        background-color: #2C6C84;
+        display: flex;
+        flex-direction: column;
+        color: #ffff;
+
+        img {
+            width: 45px;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-evenly;
+            width: 100%;
+            height: 100px;
+            margin-bottom: 70px;
+        }
+
+        .midle {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            width: 100%;
+            height: 100px;
+            margin-bottom: 70px;
+        }
+
+        .bottom {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            width: 100%;
+            height: 100px;
+        }
+
+        .content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-evenly
+        }
+    }
+}

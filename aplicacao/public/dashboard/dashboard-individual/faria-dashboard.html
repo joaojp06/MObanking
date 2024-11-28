@@ -94,23 +94,23 @@
       </nav>
       <div class="conteudo">
         <div class="left">
+          <h1>Panorama anual</h1>
           <div class="top">
-            <div class="filtros">
-              <span>Filtros:</span>
-              <span>
-                <input type="radio" name="option" value="1" checked /> Média de
-                uso</span
-              >
-              <span>
-                <input type="radio" name="option" value="2" /> Máximo</span
-              >
-              <span>
-                <input type="radio" name="option" value="3" /> Mínimo</span
-              >
-            </div>
+            <canvas id="myChartCanvas"></canvas>
           </div>
           <div class="bottom">
-            <canvas id="myChartCanvas"></canvas>
+            <div class="filtros">
+              <span>Filtrar por:</span>
+              <span>
+                <input type="radio" name="option" value="1" checked /> Picos de uso
+              </span>
+                <span>
+                  <input type="radio" name="option" value="2" /> Média de uso
+                </span>
+                  <span>
+                <input type="radio" name="option" value="3" /> Uso mínimo</span>
+            </div>
+            <button>Visualizar histórico de atividade</button>
           </div>
         </div>
         <hr />
@@ -199,7 +199,6 @@
         plugins: {
           title: {
             display: true,
-            text: "Panorama Anual",
           },
         },
         responsive: true,

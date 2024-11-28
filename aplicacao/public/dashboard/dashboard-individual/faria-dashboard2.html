@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ptbr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOBANKING</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" href="../../imagens/logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../../css/estilizacao-individual/faria2.css">
+    <link rel="stylesheet" href="../../css/reset.css">
+    <link rel="stylesheet" href="../../css/default.css" />
+    <link rel="stylesheet" href="../../css/cardConfirmacao.css">
+    <!-- <link rel="stylesheet" href=" link do novo css "> -->
+    <!-- scripts do Chart.js - 2022-1 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="frame-aplicacao" style="display: flex;">
+        <nav class="menu-lateral" onmouseenter="exibirMenu()" onmouseleave="ocultarMenu()">
+            <img src="../../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
+            <ul id="menuLateralBox">
+                <li>
+                    <a href="../card.html">
+                        <span class="icon-menu"><i class="fa-solid fa-server"></i></span>
+                        <span class="titulo-link-menu">Máquinas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../dashboard.html">
+                        <span class="icon-menu"><i class="fa-solid fa-chart-simple"></i></span>
+                        <span class="titulo-link-menu">Gráficos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../alertas.html">
+                        <span class="icon-menu"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                        <span class="titulo-link-menu">Alertas</span>
+                    </a>
+                </li>
+                <li class="dashboard-item">
+                    <a href="javascript:void(0);" onclick="toggleSubmenu()">
+                        <span class="icon-menu"><i class="fa-solid fa-chart-pie"></i></span>
+                        <span class="titulo-link-menu">Dashboard </span> <i class="fa-solid setaMenu fa-sort-down"></i>
+                    </a>
+                </li>
+                <div class="submenu" onmouseenter="manterSubmenu()" onmouseleave="fecharSubmenu()">
+                    <li><a href="dashboard-individual/maikon-dashboard.html">Maikon</a></li>
+                    <li><a href="dashboard-individual/joao-dashboard.html">JP</a></li>
+                    <li><a href="dashboard-individual/fabio-dashboard.html">Fabio</a></li>
+                    <li><a href="dashboard-individual/kaua-dashboard.html">Kauâ</a></li>
+                    <li><a href="dashboard-individual/faria-dashboard.html">Gabriel</a></li>
+                </div>
+            </ul>
+
+            <div class="name-menu">
+                <a href="../usuarioInfo.html">
+                    <h2 id="nome_perfil_menu"></h2>
+                </a>
+            </div>
+
+            <a class="buttonSair-menu" href="../../index.html">
+                <h2>Sair</h2>
+            </a>
+        </nav>
+        <div class="conteudo">
+            <h1>Histórico de atividade</h1>
+            <div class="board">
+                <a href=""><img src="../../imagens/Faria-individual-seta.svg" alt=""></a>
+                <div class="top">
+                    <div class="servidores">
+                        <h2>IMAGEM-Servidor</h2>
+                        <span>Mais gerou alertas:</span>
+                        <span>Menos gerou alertas:</span>
+                    </div>
+                    <hr>
+                    <div class="componentes">
+                        <h2>IMAGEM-Componentes</h2>
+                        <span>Mais causou alertas:</span>
+                        <span>Menos causou alertas:</span>
+                    </div>
+                </div>
+                <hr>
+                <div class="midle">
+                    <div class="title">
+                        <span>Servidores que mais geraram alertas por componente:</span>
+                    </div>
+                    <div class="content">
+                        <div class="componente">
+                            <h2>IMAGEM-CPU:</h2> <span id=""></span>
+                        </div>
+                        <hr>
+                        <div class="componente">
+                            <h2>IMAGEM-RAM:</h2> <span id=""></span>
+                        </div>
+                        <hr>
+                        <div class="componente">
+                            <h2>IMAGEM-Disco:</h2> <span id=""></span>
+                        </div>
+                        <hr>
+                        <div class="componente">
+                            <h2>IMAGEM-Rede:</h2> <span id=""></span>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="bottom">
+                    <div class="title">
+                        <span>Servidores que menos geraram alertas por componente:</span>
+                    </div>
+                    <div class="content">
+                        <div class="componente">
+                            <h2>IMAGEM-CPU:</h2> <span id=""></span>
+                        </div>
+                        <hr>
+                        <div class="componente">
+                            <h2>IMAGEM-RAM:</h2> <span id=""></span>
+                        </div>
+                        <hr>
+                        <div class="componente">
+                            <h2>IMAGEM-Disco:</h2> <span id=""></span>
+                        </div>
+                        <hr>
+                        <div class="componente">
+                            <h2>IMAGEM-Rede:</h2> <span id=""></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+
+    function exibirMenu() {
+        const menuLateral = document.querySelector('.menu-lateral');
+        menuLateral.classList.add('menu-aberto');
+    }
+
+    function ocultarMenu() {
+        const submenu = document.querySelector('.submenu');
+        const seta = document.querySelector('.fa-sort-down');
+
+        // Fecha o submenu e redefine o ícone de seta quando o mouse sai do nav
+        submenu.style.display = 'none';
+        seta.classList.remove("girarSeta");
+        submenuAberto = false;
+    }
+
+    function toggleSubmenu() {
+        const submenu = document.querySelector('.submenu');
+        const seta = document.querySelector('.fa-sort-down');
+
+        submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+        submenuAberto = submenu.style.display === 'block';
+
+        if (submenuAberto) {
+            seta.classList.add("girarSeta");
+        } else {
+            seta.classList.remove("girarSeta");
+        }
+    }
+
+    const menuLaterealHTML = document.getElementById('menuLateralBox')
+    var sessTipoUsuario = sessionStorage.ID_TIPO_USUARIO
+    if (sessTipoUsuario == 1) {
+        menuLaterealHTML.innerHTML += `
+     <li>
+          <a href="../funcionarios.html">
+            <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
+            <span class="titulo-link-menu">Funcionários</span>
+          </a>
+        </li>
+    `
+    }
+
+    nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
+
+
+</script>
