@@ -96,21 +96,18 @@
         <div class="left">
           <h1>Panorama anual</h1>
           <div class="top">
-            <canvas id="myChartCanvas"></canvas>
-          </div>
-          <div class="bottom">
             <div class="filtros">
               <span>Filtrar por:</span>
-              <span>
-                <input type="radio" name="option" value="1" checked /> Picos de uso
-              </span>
-                <span>
-                  <input type="radio" name="option" value="2" /> Média de uso
-                </span>
-                  <span>
-                <input type="radio" name="option" value="3" /> Uso mínimo</span>
+              <select id="filtro">
+                <option selected value="1">Picos de uso</option>
+                <option value="2">Média de uso</option>
+                <option value="3">Uso mínimo</option>
+              </select>
             </div>
-            <button>Visualizar histórico de atividade</button>
+            <a href="faria-dashboard2.html">Visualizar histórico de atividade</a>
+          </div>
+          <div class="bottom">
+            <canvas id="myChartCanvas"></canvas>
           </div>
         </div>
         <hr />
