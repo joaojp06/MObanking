@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOBANKING</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" href="../../imagens/logo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../../css/estilizacao-individual/kaua.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div id="frame" class="frame-aplicacao" style="display: flex;">
+        <nav class="menu-lateral" onmouseenter="exibirMenu()" onmouseleave="ocultarMenu()">
+            <img src="../../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
+            <ul id="menuLateralBox">
+                <li>
+                    <a href="../card.html">
+                        <span class="icon-menu"><i class="fa-solid fa-server"></i></span>
+                        <span class="titulo-link-menu">Máquinas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../dashboard.html">
+                        <span class="icon-menu"><i class="fa-solid fa-chart-simple"></i></span>
+                        <span class="titulo-link-menu">Gráficos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../alertas.html">
+                        <span class="icon-menu"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                        <span class="titulo-link-menu">Alertas</span>
+                    </a>
+                </li>
+                <li class="dashboard-item">
+                    <a href="javascript:void(0);" onclick="toggleSubmenu()">
+                        <span class="icon-menu"><i class="fa-solid fa-chart-pie"></i></span>
+                        <span class="titulo-link-menu">Dashboard</span>
+                        <i class="fa-solid setaMenu fa-sort-down"></i>
+                    </a>
+                    <ul class="submenu" onmouseenter="manterSubmenu()" onmouseleave="fecharSubmenu()">
+                        <li><a href="dashboard-individual/maikon-dashboard.html">Maikon</a></li>
+                        <li><a href="dashboard-individual/joao-dashboard.html">JP</a></li>
+                        <li><a href="dashboard-individual/fabio-dashboard.html">Fabio</a></li>
+                        <li><a href="dashboard-individual/kaua-dashboard.html">Kauâ</a></li>
+                        <li><a href="dashboard-individual/faria-dashboard.html">Gabriel</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="name-menu">
+                <a href="../usuarioInfo.html">
+                    <h2 id="nome_perfil_menu"></h2>
+                </a>
+            </div>
+            <a class="buttonSair-menu" href="../../index.html">
+                <h2>Sair</h2>
+            </a>
+        </nav>
+    </div>
+    <div class="father-listagem-servidores">
+        <div class="divFiltro">
+            <img src="../../imagens/iconCallendary.png" alt="">
+            <select id="selectMesServi" class="selectMesServ">
+                <option value="1">Janeiro</option>
+                <option value="2">Fevereiro</option>
+                <option value="3">Março</option>
+                <option value="4">Abril</option>
+                <option value="5">Maio</option>
+                <option value="6">Junho</option>
+                <option value="7">Julho</option>
+                <option value="8">Agosto</option>
+                <option value="9">Setembro</option>
+                <option value="10">Outubro</option>
+                <option value="11">Novembro</option>
+                <option value="12">Dezembro</option>
+            </select>
+            <button class="botaoSelecao" onclick="pesquisarServidores()">Selecionar</button>
+        </div>
+        <div id="listagemServidores" class="card-list-servers">
+            <div class="indiceServs">
+                <h2>Função</h2>
+                <h2>Apelido</h2>
+                <h2>Alertas</h2>
+                <h2>Status</h2>
+            </div>`
+        </div>
+    </div>
+
+</body>
+
+<script>
+    let submenuAberto = false;
+    const idEmpresa = sessionStorage.ID_EMPRESA || null;
+
+    function toggleSubmenu() {
+        const submenu = document.querySelector('.submenu');
+        const seta = document.querySelector('.fa-sort-down');
+        submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+        submenuAberto = submenu.style.display === 'block';
+        seta.classList.toggle("girarSeta", submenuAberto);
+    }
+
+    function exibirMenu() {
+        document.querySelector('.menu-lateral').classList.add('menu-aberto');
+    }
+
+    function ocultarMenu() {
+        const submenu = document.querySelector('.submenu');
+        const seta = document.querySelector('.fa-sort-down');
+        submenu.style.display = 'none';
+        seta.classList.remove("girarSeta");
+        submenuAberto = false;
+    }
+
+    const menuLateralHTML = document.getElementById('menuLateralBox');
+    if (sessionStorage.ID_TIPO_USUARIO == 1) {
+        menuLateralHTML.innerHTML += `
+            <li>
+                <a href="funcionarios.html">
+                    <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
+                    <span class="titulo-link-menu">Funcionários</span>
+                </a>
+            </li>`;
+    }
+
+    document.getElementById('nome_perfil_menu').innerHTML = sessionStorage.NOME_USUARIO || "Usuário";
+
+    
+    function pesquisarServidores() {
+        
+        var mes = document.getElementById('selectMesServi').value;
+        fetch(`/kaua/listarServidores/${idEmpresa}/${mes}`, {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                if (resposta.status == 204) {
+
+                    listagemServidores.innerHTML = "Nenhum resultado encontrado."
+
+                    throw "Nenhum resultado encontrado!!";
+                }
+                resposta.json().then((servidores) => {
+                    console.log(servidores); // Log da resposta da API com os dados do banco
+                    console.log("idEmpresa:", idEmpresa, "mes:", mes); 
+                    servidores.forEach((registro) => {
+
+                        if (registro.qtdAlertas <= 2) {
+                            listagemServidores.innerHTML +=
+                                `<div class="divServ">
+                                    <h2>${registro.Funcao}</h2>
+                                    <h2>${registro.Apelido}</h2>
+                                    <h2>${registro.qtdAlertas}</h2>
+                                    <img src="../../imagens/statusGreen.png" alt="statusGreen" class="statusColor">
+                                </div>`;
+                        } else {
+                            listagemServidores.innerHTML +=
+                                `<div class="divServ">
+                                    <h2>${registro.Funcao}</h2>
+                                    <h2>${registro.Apelido}</h2>
+                                    <h2>${registro.qtdAlertas}</h2>
+                                    <img src="../../imagens/statusRed.png" alt="statusRed" class="statusColor">
+                                </div>`;
+                        }
+
+                    });
+                })
+            })
+    }
+</script>
+
+</html>

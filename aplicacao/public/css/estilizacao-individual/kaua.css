@@ -1,0 +1,341 @@
+@import url('https://fonts.googleapis.com/css2?family=Allerta&display=swap');
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    font-family: "Allerta", sans-serif;
+    line-height: 1;
+    padding: 15px;  
+}
+
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.selectMesServ {
+    text-align: center;
+    margin-top: 2%; 
+    width: 40%;
+    height: 60%;
+    border-radius: 17px;
+    color: white; /* Texto com cor sólida */
+    background: rgba(255, 255, 255, 0.5); /* Fundo translúcido */
+    font-family: "Allerta", sans-serif;
+    font-size: 10px; /* Tamanho do texto */
+    padding: 10px; /* Espaçamento interno */
+    appearance: none; /* Remove o estilo padrão do navegador */
+    -webkit-appearance: none; /* Para navegadores baseados em Webkit */
+    -moz-appearance: none; /* Para navegadores baseados em Mozilla */
+    position: relative;
+    border: 2px solid transparent; /* Adicionando borda inicial para evitar mudanças no layout */
+    transition: all 0.3s ease; /* Suaviza as alterações */
+}
+
+.botaoSelecao {
+    text-align: center;
+    margin-top: 2%;
+    width: 30%;
+    height: 60%;
+    margin-left: 6%;
+    border-radius: 17px;
+    color: white; /* Texto com cor sólida */
+    background: rgba(255, 255, 255, 0.5); /* Fundo translúcido */
+    font-family: "Allerta", sans-serif;
+    font-size: 10px; /* Tamanho do texto */
+    padding: 10px; /* Espaçamento interno */
+    border: 2px solid #04344A; /* Borda estilizada */
+    cursor: pointer; /* Indicador de interatividade */
+    transition: all 0.3s ease; /* Animação suave */
+}
+
+/* Estilo para o hover */
+.botaoSelecao:hover {
+    background: #04344A; /* Fundo sólido no hover */
+    color: #FFFFFF; /* Texto branco para contraste */
+    transform: scale(1.05); /* Leve aumento no tamanho */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Sombra ao passar o mouse */
+}
+
+.selectMesServ:hover {
+    background: #04344A; /* Fundo sólido no hover */
+    color: #FFFFFF; /* Texto branco para contraste */
+    transform: scale(1.05); /* Leve aumento no tamanho */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Sombra ao passar o mouse */
+}
+
+
+/* Adicionando estilo para a setinha */
+.selectMesServ::after {
+    content: "▼"; /* Ícone de dropdown */
+    font-size: 13px;
+    color: #04344A; /* Cor da setinha */
+    position: absolute;
+    right: 10px; /* Ajusta a posição horizontal */
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* Garante que não interfira na interação */
+}
+
+.father-listagem-servidores {
+    width: calc(98% - 7vw);
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0px 32px;
+}
+
+.divFiltro {
+    background: linear-gradient(158deg, #254960, #032535);
+    width: 39%;
+    height: 10%;
+    border-radius: 35px;
+    display: flex;
+}
+
+.card-list-servers {
+    background: linear-gradient(158deg, #254960, #032535);
+    width: 100%;
+    height: 100%;
+    border-radius: 35px;
+}
+
+.indiceServs {
+    background-color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 35px;
+    width: 90%;
+    height: 6%;
+    margin-top: 4%;
+    margin-left: 5%;
+    font-size: 20px;
+}
+
+.divServ {
+    background-color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 35px;
+    width: 90%;
+    height: 10%;
+    margin-top: 4%;
+    margin-left: 5%;
+    font-size: 20px;
+}
+
+.divServ, h2 {
+    color: white;
+}
+
+.statusColor {
+    width: 3%;
+    height: 60%;
+}
+
+.logo-menu {
+    width: 50px; /* Ajuste o tamanho conforme necessário */
+    height: auto; /* Mantém a proporção da imagem */
+    display: block;
+    margin: 0 auto 10px; /* Centraliza a imagem e adiciona espaço abaixo */
+}
+
+.titulo-menu {
+    align-self: flex-start;
+    font-size: 15px;
+    font-weight: 100;
+    padding: 5% 13%;
+    margin-top: 24%;
+    color: white;
+}
+
+.menu-lateral {
+    width: 7vw;
+    background-image: linear-gradient(to bottom, #30607D, #04344A);
+    height: 92vh;
+    margin: 2% 1%;
+    border-radius: 35px;
+    display: flex;
+    transition: all 0.8s;
+    flex-direction: column;
+
+    & .submenu{
+        display: none;
+    }
+}
+
+.girarSeta{
+    transform: rotate(180deg);
+}
+
+.setaMenu{
+    transition: all 0.3s;
+    opacity: 0;
+}
+
+.menu-lateral ul li {
+    transition: all 0.5s;
+    width: 35%;
+    cursor: pointer;
+}
+
+.menu-lateral ul {
+    position: absolute;
+    top: 14%;
+    left: 3%;
+}
+
+.menu-aberto:hover .menu-lateral ul {
+    width: auto;
+}
+
+.menu-aberto:hover .setaMenu {
+    opacity: 1;
+}
+
+.menu-aberto:hover li:hover {
+    background-image: linear-gradient(158deg, #254960, #032535);
+    border: 1px solid white;
+    border-radius: 15px;
+    width: 100%;
+    padding: 5% 6%;
+}
+
+.titulo-link-menu {
+    transition: all 0.3s ease-in-out;
+}
+
+.name-menu {
+    transition: all 0.3s ease-in-out;
+}
+.buttonSair-menu{
+    opacity: 0;
+    padding: 13% 0%;
+    align-self: center;
+    color: #ffffffb8;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 100;
+}
+
+.menu-lateral .titulo-link-menu {
+    opacity: 0;
+    display: none;
+}
+
+.titulo-menu {
+    opacity: 0;
+    transition: all 0.1s;
+}
+
+.menu-lateral .name-menu {
+    transition: all 0.1s;
+    justify-content: center;
+    opacity: 0;
+}
+
+.menu-aberto:hover .titulo-link-menu {
+    display: block;
+    opacity: 1;
+}
+
+.menu-aberto:hover .titulo-menu {
+    opacity: 1;
+    transition: all 1s;
+}
+
+.menu-aberto:hover .name-menu,
+.menu-aberto:hover .buttonSair-menu {
+    opacity: 1;
+}
+
+.menu-aberto:hover {
+    width: 20vw;
+    
+}
+
+.menu-lateral li a {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    color: white;
+    text-decoration: none;
+}
+
+.menu-lateral li {
+    margin-bottom: 20px;
+}
+
+
+.icon-menu i {
+    font-size: 35px;
+    color: white;
+}
+
+.titulo-link-menu {
+    font-size: 18px;
+    color: white;
+}
+
+.name-menu {
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+}
+
+.name-menu a{
+    text-decoration: none;
+}
+
+.name-menu h2 {
+    color: white;
+}
+
+.conteudo{
+    height: 92vh;
+    width: 85vw;
+    margin: 2% 2%;
+}

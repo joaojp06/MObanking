@@ -2,7 +2,7 @@
 /* ---------- Estilização da seção "Tendência de Uso" do Modal dos Cards dos Servidores ---------- */
 
 .tendenciaUso {
-    display: flex !important;
+    display: flex;
     flex-direction: row!;
     gap: 20px;
     padding: 20px;
