@@ -20,7 +20,7 @@
 
 </head>
 
-<body onload="listarPrevisoes(), atualizarKpi()">
+<body onload="listarPrevisoes() ,atualizarKpi()">
   <div id="frame" class="frame-aplicacao" style="display: flex">
     <nav class="menu-lateral" onmouseenter="exibirMenu()" onmouseleave="ocultarMenu()">
       <img src="../../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
@@ -71,28 +71,22 @@
     <div class="conteudo">
       <div style="display: flex; justify-content: space-between;">
         <h1>Previsão de Alertas</h1>
-        <select class="selectListarServidores" onchange="listarServidores()" id="selectListServidores">
-          <option value="ativo">Servidores ativos</option>
-          <option value="desativado">Servidores desativados</option>
-        </select>
+
       </div>
       <div class="container-kpis">
         <div class="kpi-verde">
-          <div><img src="../../imagens/Alert triangle.svg"></div>
+          <div><img src="../../imagens/Alert triangle-verde.svg"></div>
           <div class="qtd-alerta"><b id="qtdAlertaVerde"></b></div>
-          <a href="" style="color: aliceblue;">Ver mais</a>
         </div>
 
         <div class="kpi-amarelo">
-          <div><img src="../../imagens/Alert triangle.svg"></div>
+          <div><img src="../../imagens/Alert triangle-amarelo.svg"></div>
           <div class="qtd-alerta"><b id="qtdAlertaAmarelo"></b></div>
-          <a href="" style="color: aliceblue;">Ver mais</a>
         </div>
 
         <div class="kpi-vermelho">
-          <div><img src="../../imagens/Alert triangle.svg"></div>
+          <div><img src="../../imagens/Alert triangle-vermelho.svg"></div>
           <div class="qtd-alerta"><b id="qtdAlertaVermelho"></b></div>
-          <a href="" style="color: aliceblue;">Ver mais</a>
         </div>
 
       </div>
@@ -446,7 +440,7 @@
 
             var qtdAlerta = registro.quantidade
 
-            qtdAlertaVerde.innerHTML = `${qtdAlerta}` ;
+            qtdAlertaVerde.innerHTML = `${qtdAlerta}`;
 
           });
 
@@ -485,7 +479,7 @@
 
             var qtdAlerta = registro.quantidade
 
-            qtdAlertaVerde.innerHTML = `${qtdAlerta}` ;
+            qtdAlertaVerde.innerHTML = `${qtdAlerta}`;
 
           });
 
@@ -524,7 +518,7 @@
 
             var qtdAlerta = registro.quantidade
 
-            qtdAlertaAmarelo.innerHTML = `${qtdAlerta}` ;
+            qtdAlertaAmarelo.innerHTML = `${qtdAlerta}`;
 
           });
 
@@ -562,7 +556,7 @@
           servidores.forEach((registro) => {
 
             var qtdAlerta = registro.quantidade
-            qtdAlertaVermelho.innerHTML = `${qtdAlerta}` ;
+            qtdAlertaVermelho.innerHTML = `${qtdAlerta}`;
 
           });
 
@@ -579,6 +573,9 @@
     listarAmarelo()
     listarVermelho()
   }
+
+  setInterval(atualizarKpi, 5000);
+
 
   function listarServidores() {
 
@@ -632,83 +629,108 @@
       });
   }
 
+  // Função que atualiza a listagem de previsões
   function listarPrevisoes() {
+    const container = listagemServidores; // Referência ao container onde os servidores serão listados
+    const servidoresExistentes = container.querySelectorAll(".card"); // Seleciona os cards já existentes
 
-    listagemServidores.innerHTML = `` //Limpando a div para atualizar com maior fluidez
-    var status = selectListServidores.value
     if (status == 'ativo') {
-      status = 1 // VERÁ SERVIDORES ATIVOS - MODIFICAÇÃO NA CONTROLLE
+        status = 1; // SERVIDORES ATIVOS
     } else {
-      status = 2
+        status = 2;
     }
 
     fetch(`/joao/listarPrevisoes/${idEmpresa}/${status}`, {
-      method: "GET",
+        method: "GET",
     })
-      .then(function (resposta) {
+    .then(function (resposta) {
         if (resposta.status == 204) {
-
-          listagemServidores.innerHTML = "Nenhum resultado encontrado."
-
-          throw "Nenhum resultado encontrado!!";
+            container.innerHTML = "Nenhum resultado encontrado.";
+            throw "Nenhum resultado encontrado!!";
         }
+
         resposta.json().then((servidores) => {
-          console.log(servidores); // Log da resposta da API com os dados do banco
-          planoEmpresa = sessionStorage.ID_PLANO
+            console.log(servidores); // Log da resposta da API com os dados do banco
 
-          console.log(`Estou no HTML PLANO EMPRESA ${planoEmpresa}`)
+            // Itera sobre cada servidor para atualizar ou adicionar os dados
+            servidores.forEach((registro) => {
+                let cardExistente = false;
+                let cardParaAtualizar;
 
+                // Verifica se o card do servidor já existe
+                servidoresExistentes.forEach((card) => {
+                    const apelidoCard = card.querySelector("#apelido_card").innerText;
+                    if (apelidoCard === registro.apelido) {
+                        cardExistente = true;
+                        cardParaAtualizar = card; // Armazena o card a ser atualizado
+                    }
+                });
 
-          servidores.forEach((registro) => {
-
-            var corAlerta = registro.fkAlertaPrevisao
-            var textoAlerta
-
-            if (corAlerta == 1) {
-              textoAlerta = `
-              Bom desempenho! Estamos operando com uma quantidade de processos dentro da capacidade ideal.`
-            } else if (corAlerta == 2) {
-              textoAlerta = `
-              Processos próximos ao limite, é hora de verificar a carga. Evite executar novos processos`
-            } else if (corAlerta == 3) {
-              textoAlerta = `
-              <span style="color: red;">Atenção máxima!</span> O limite de processos foi ultrapassado, feche imediatamente processos desnecessários.`
-            }
-
-            if (corAlerta == 1) {
-              corAlerta = 'green'
-            } else if (corAlerta == 2) {
-              corAlerta = 'yellow'
-            } else if (corAlerta == 3) {
-              corAlerta = 'red'
-            }
-
-            listagemServidores.innerHTML +=
-              `
-      <div class="card">
-        <h2 id="apelido_card">${registro.apelido}</h2>
-        <h2 id="funcao_card">${registro.funcao}</h2>
-        <div class="div-msg-alerta"><b>${textoAlerta}</b></div>
-
-        <div class="container">
-          <div class="processos">
-          <p>${registro.valor}</p>
-          <b>Processos</b>
-          </div>
-        <div class="div-alerta"> 
-          <div class="simbolo-alerta" ><img src="../../imagens/Alert triangle.svg"></div>
-          <div class="cor-alerta" style="background-color: ${corAlerta};"></div>
-        </div>
-      </div>
-      </div>`;
-          });
-
+                if (cardExistente) {
+                    // Atualiza o card existente com os novos valores
+                    cardParaAtualizar.querySelector("#funcao_card").innerText = registro.funcao;
+                    cardParaAtualizar.querySelector(".processos p").innerText = registro.valor;
+                    cardParaAtualizar.querySelector(".div-msg-alerta b").innerHTML = getTextoAlerta(registro.fkAlertaPrevisao);
+                    cardParaAtualizar.querySelector(".cor-alerta").style.backgroundColor = getCorAlerta(registro.fkAlertaPrevisao);
+                } else {
+                    // Adiciona um novo card para o servidor se não existir
+                    container.innerHTML += `
+                        <div class="card">
+                            <h2 id="apelido_card">${registro.apelido}</h2>
+                            <h2 id="funcao_card">${registro.funcao}</h2>
+                            <div class="div-msg-alerta"><b>${getTextoAlerta(registro.fkAlertaPrevisao)}</b></div>
+                            <div class="container">
+                                <div class="processos">
+                                    <p>${registro.valor}</p>
+                                    <b>Processos</b>
+                                </div>
+                                <div class="div-alerta">
+                                    <div class="simbolo-alerta"><img src="../../imagens/Alert triangle.svg"></div>
+                                    <div class="cor-alerta" style="background-color: ${getCorAlerta(registro.fkAlertaPrevisao)};"></div>
+                                </div>
+                            </div>
+                        </div>`;
+                }
+            });
         });
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
-  }
+    })
+    .catch(function (erro) {
+        console.log(`#ERRO: ${erro}`);
+    });
+}
+
+// Função para obter o texto do alerta baseado no código
+function getTextoAlerta(corAlerta) {
+    switch (corAlerta) {
+        case 1:
+            return "Bom desempenho! Estamos operando com uma quantidade de processos dentro da capacidade ideal.";
+        case 2:
+            return "Processos próximos ao limite, é hora de verificar a carga. Evite executar novos processos.";
+        case 3:
+            return `<span style="color: red;">Atenção máxima!</span> O limite de processos foi ultrapassado, feche imediatamente processos desnecessários.`;
+        default:
+            return "";
+    }
+}
+
+// Função para obter a cor de alerta baseada no código
+function getCorAlerta(corAlerta) {
+    switch (corAlerta) {
+        case 1:
+            return 'green';
+        case 2:
+            return 'yellow';
+        case 3:
+            return 'red';
+        default:
+            return 'gray';
+    }
+}
+
+// Inicia a execução da função listarPrevisoes a cada 5 segundos
+setInterval(listarPrevisoes, 5000);
+
+
 
 
   function desativarServidor() {

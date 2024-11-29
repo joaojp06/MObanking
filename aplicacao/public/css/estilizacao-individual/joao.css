@@ -7,36 +7,64 @@
 
 .kpi-verde {
     width: 10vw;
-    height: 14vh;
-    background-color: rgb(9, 237, 9);
+    height: 13vh;
+    background: linear-gradient(to right, #30607D, #04344A);
     border-radius: 15px;
     display: block;
     justify-content: center;
     align-items: center;
     text-align: center;
+    padding-top: 0.4%;
     
+    & b {
+        color: white;
+    }
 }
 
 .kpi-amarelo {
     width: 10vw;
-    height: 14vh;
-    background-color: yellow;
+    height: 13vh;
+    background: linear-gradient(to right, #30607D, #04344A);
     border-radius: 15px;
     display: block;
     justify-content: center;
     align-items: center;
     text-align: center;
+    padding-top: 0.4%;
+
+    & b {
+        color: white;
+    }
 }
 
 .kpi-vermelho {
     width: 10vw;
-    height: 14vh;
-    background-color: red;
+    height: 13vh;
+    background: linear-gradient(to right, #30607D, #04344A);
     border-radius: 15px;
     display: block;
     justify-content: center;
     align-items: center;
     text-align: center;
+    padding-top: 0.4%;
+    
+    & b {
+        color: white;
+    }
+}
+
+.qtd-alerta{
+    padding-top: 1%;
+}
+
+.card-grid-pai {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-height: 85vh;
+    overflow: auto;
+    max-width: 85vw;
+    height: 70%;
 }
 
 /* .qtd-alerta{
