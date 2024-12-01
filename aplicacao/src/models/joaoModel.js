@@ -8,11 +8,14 @@ function listarPrevisoes(idEmpresa, status) {
   s.apelido,
   s.funcao,
   r.valor,
-  r.fkAlertaPrevisao
+  r.fkAlertaPrevisao,
+  lsm.valor AS limite_valor
 FROM 
   servidor s
 JOIN 
   registro r ON r.fkServidor = s.id
+LEFT JOIN 
+  limite_servico_monitorado lsm ON lsm.fkServidor = s.id AND lsm.fkServico = 2
 WHERE 
   r.fkServico = 5 
   AND s.fkEmpresa = ${idEmpresa}
@@ -22,8 +25,8 @@ WHERE
       WHERE r2.fkServidor = s.id
         AND r2.fkServico = 5
   )
-  ORDER BY 
-  r.valor DESC;`;
+ORDER BY 
+  r.fkAlertaPrevisao DESC;`;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
 }

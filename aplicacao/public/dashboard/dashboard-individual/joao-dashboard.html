@@ -24,13 +24,22 @@
   <div id="frame" class="frame-aplicacao" style="display: flex">
     <nav class="menu-lateral" onmouseenter="exibirMenu()" onmouseleave="ocultarMenu()">
       <img src="../../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
+
       <ul id="menuLateralBox">
-        <li>
-          <a href="../card.html">
+
+        <li class="dashboard-item">
+          <a href="javascript:void(0);" onclick="toggleSubmenuServidores()">
             <span class="icon-menu"><i class="fa-solid fa-server"></i></span>
-            <span class="titulo-link-menu">Máquinas</span>
+            <span class="titulo-link-menu">Servidores </span> <i class="fa-solid setaMenuServidores fa-sort-down"></i>
           </a>
         </li>
+
+        <div class="submenuServidores" onmouseenter="manterSubmenu()" onmouseleave="fecharSubmenu()">
+          <li><a href="../card.html">Máquinas</a></li>
+          <li><a href="../dashboard-individual/maikon-dashboard.html">Status hardware</a></li>
+          <li><a href="../dashboard-individual/joao-dashboard.html">Previsão de Alertas</a></li>
+        </div>
+
         <li>
           <a href="../dashboard.html">
             <span class="icon-menu"><i class="fa-solid fa-chart-simple"></i></span>
@@ -68,9 +77,12 @@
         <h2>Sair</h2>
       </a>
     </nav>
+
+    <!-- CONTEÚDO -->
     <div class="conteudo">
-      <div style="display: flex; justify-content: space-between;">
-        <h1>Previsão de Alertas</h1>
+      <div class="titulo" style="display: flex;">
+        <h1>Previsão de Alertas de RAM </h1>
+        <div class="info"><img onclick="" src="../../imagens/jp-individual-icone-info.svg" alt=""></div>
 
       </div>
       <div class="container-kpis">
@@ -225,7 +237,7 @@
 
   function toggleSubmenu() {
     const submenu = document.querySelector('.submenu');
-    const seta = document.querySelector('.fa-sort-down');
+    const seta = document.querySelector('.setaMenu');
 
     submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
     submenuAberto = submenu.style.display === 'block';
@@ -237,6 +249,20 @@
     }
   }
 
+  function toggleSubmenuServidores() {
+    const submenu = document.querySelector('.submenuServidores');
+    const setaServidores = document.querySelector('.setaMenuServidores');
+
+    submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+    submenuAberto = submenu.style.display === 'block';
+
+    if (submenuAberto) {
+      setaServidores.classList.add("girarSetaServidores");
+    } else {
+      setaServidores.classList.remove("girarSetaServidores");
+    }
+  }
+
   function exibirMenu() {
     const menuLateral = document.querySelector('.menu-lateral');
     menuLateral.classList.add('menu-aberto');
@@ -244,12 +270,17 @@
 
   function ocultarMenu() {
     const submenu = document.querySelector('.submenu');
-    const seta = document.querySelector('.fa-sort-down');
+    const submenuServidores = document.querySelector('.submenuServidores');
+    const seta = document.querySelector('.setaMenu');
+    const setaServidores = document.querySelector('.setaMenuServidores');
 
     // Fecha o submenu e redefine o ícone de seta quando o mouse sai do nav
     submenu.style.display = 'none';
+    submenuServidores.style.display = 'none';
     seta.classList.remove("girarSeta");
+    setaServidores.classList.remove("girarSetaServidores");
     submenuAberto = false;
+    submenuServidoresAberto = false;
   }
 
   function confirmarDesativar() {
@@ -635,50 +666,50 @@
     const servidoresExistentes = container.querySelectorAll(".card"); // Seleciona os cards já existentes
 
     if (status == 'ativo') {
-        status = 1; // SERVIDORES ATIVOS
+      status = 1; // SERVIDORES ATIVOS
     } else {
-        status = 2;
+      status = 2;
     }
 
     fetch(`/joao/listarPrevisoes/${idEmpresa}/${status}`, {
-        method: "GET",
+      method: "GET",
     })
-    .then(function (resposta) {
+      .then(function (resposta) {
         if (resposta.status == 204) {
-            container.innerHTML = "Nenhum resultado encontrado.";
-            throw "Nenhum resultado encontrado!!";
+          container.innerHTML = "Nenhum resultado encontrado.";
+          throw "Nenhum resultado encontrado!!";
         }
 
         resposta.json().then((servidores) => {
-            console.log(servidores); // Log da resposta da API com os dados do banco
+          console.log(servidores); // Log da resposta da API com os dados do banco
 
-            // Itera sobre cada servidor para atualizar ou adicionar os dados
-            servidores.forEach((registro) => {
-                let cardExistente = false;
-                let cardParaAtualizar;
+          // Itera sobre cada servidor para atualizar ou adicionar os dados
+          servidores.forEach((registro) => {
+            let cardExistente = false;
+            let cardParaAtualizar;
 
-                // Verifica se o card do servidor já existe
-                servidoresExistentes.forEach((card) => {
-                    const apelidoCard = card.querySelector("#apelido_card").innerText;
-                    if (apelidoCard === registro.apelido) {
-                        cardExistente = true;
-                        cardParaAtualizar = card; // Armazena o card a ser atualizado
-                    }
-                });
+            // Verifica se o card do servidor já existe
+            servidoresExistentes.forEach((card) => {
+              const apelidoCard = card.querySelector("#apelido_card").innerText;
+              if (apelidoCard === registro.apelido) {
+                cardExistente = true;
+                cardParaAtualizar = card; // Armazena o card a ser atualizado
+              }
+            });
 
-                if (cardExistente) {
-                    // Atualiza o card existente com os novos valores
-                    cardParaAtualizar.querySelector("#funcao_card").innerText = registro.funcao;
-                    cardParaAtualizar.querySelector(".processos p").innerText = registro.valor;
-                    cardParaAtualizar.querySelector(".div-msg-alerta b").innerHTML = getTextoAlerta(registro.fkAlertaPrevisao);
-                    cardParaAtualizar.querySelector(".cor-alerta").style.backgroundColor = getCorAlerta(registro.fkAlertaPrevisao);
-                } else {
-                    // Adiciona um novo card para o servidor se não existir
-                    container.innerHTML += `
+            if (cardExistente) {
+              // Atualiza o card existente com os novos valores
+              cardParaAtualizar.querySelector("#funcao_card").innerText = registro.funcao;
+              cardParaAtualizar.querySelector(".processos p").innerText = registro.valor;
+              cardParaAtualizar.querySelector(".div-msg-alerta b").innerHTML = getTextoAlerta(registro.fkAlertaPrevisao, registro.limite_valor);
+              cardParaAtualizar.querySelector(".cor-alerta").style.backgroundColor = getCorAlerta(registro.fkAlertaPrevisao);
+            } else {
+              // Adiciona um novo card para o servidor se não existir
+              container.innerHTML += `
                         <div class="card">
                             <h2 id="apelido_card">${registro.apelido}</h2>
                             <h2 id="funcao_card">${registro.funcao}</h2>
-                            <div class="div-msg-alerta"><b>${getTextoAlerta(registro.fkAlertaPrevisao)}</b></div>
+                            <div class="div-msg-alerta"><b>${getTextoAlerta(registro.fkAlertaPrevisao, registro.limite_valor)}</b></div>
                             <div class="container">
                                 <div class="processos">
                                     <p>${registro.valor}</p>
@@ -686,49 +717,50 @@
                                 </div>
                                 <div class="div-alerta">
                                     <div class="simbolo-alerta"><img src="../../imagens/Alert triangle.svg"></div>
-                                    <div class="cor-alerta" style="background-color: ${getCorAlerta(registro.fkAlertaPrevisao)};"></div>
+                                    <div class="cor-alerta" style="background-color: ${getCorAlerta(registro.fkAlertaPrevisao, registro.limite_valor)};"></div>
                                 </div>
                             </div>
                         </div>`;
-                }
-            });
+            }
+          });
         });
-    })
-    .catch(function (erro) {
+      })
+      .catch(function (erro) {
         console.log(`#ERRO: ${erro}`);
-    });
-}
+      });
+  }
 
-// Função para obter o texto do alerta baseado no código
-function getTextoAlerta(corAlerta) {
+  // Função para obter o texto do alerta baseado no código
+  function getTextoAlerta(corAlerta, limite) {
+    console.log(`Esse é o limite ${limite}`)
     switch (corAlerta) {
-        case 1:
-            return "Bom desempenho! Estamos operando com uma quantidade de processos dentro da capacidade ideal.";
-        case 2:
-            return "Processos próximos ao limite, é hora de verificar a carga. Evite executar novos processos.";
-        case 3:
-            return `<span style="color: red;">Atenção máxima!</span> O limite de processos foi ultrapassado, feche imediatamente processos desnecessários.`;
-        default:
-            return "";
+      case 1:
+        return "Bom desempenho! A operação está com uma quantidade de processos dentro da capacidade ideal.";
+      case 2:
+        return `Processos próximos ao limite, é hora de verificar a carga para que a RAM não atinja o limite de ${limite}. Evite executar novos processos.`;
+      case 3:
+        return `<span style="color: red;">Atenção máxima!</span> O limite de processos está prestes a ser atingido e a RAM corre um grande risco de atingir o limite de ${limite}%.`;
+      default:
+        return "";
     }
-}
+  }
 
-// Função para obter a cor de alerta baseada no código
-function getCorAlerta(corAlerta) {
+  // Função para obter a cor de alerta baseada no código
+  function getCorAlerta(corAlerta) {
     switch (corAlerta) {
-        case 1:
-            return 'green';
-        case 2:
-            return 'yellow';
-        case 3:
-            return 'red';
-        default:
-            return 'gray';
+      case 1:
+        return 'green';
+      case 2:
+        return 'yellow';
+      case 3:
+        return 'red';
+      default:
+        return 'gray';
     }
-}
+  }
 
-// Inicia a execução da função listarPrevisoes a cada 5 segundos
-setInterval(listarPrevisoes, 5000);
+  // Inicia a execução da função listarPrevisoes a cada 5 segundos
+  setInterval(listarPrevisoes, 5000);
 
 
 
