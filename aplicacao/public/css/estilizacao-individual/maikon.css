@@ -319,8 +319,10 @@
 /* Tooltip confiablidade */
 
 .custom-tooltipModal-container {
-    position: relative;
+    position: absolute;
     display: inline-block;
+    top: 23%;
+    left: 74%;
 }
 
 .custom-tooltipModal-btn {
