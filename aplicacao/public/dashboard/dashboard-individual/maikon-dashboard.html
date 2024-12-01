@@ -446,7 +446,7 @@
                     }
 
                     txtConfiabilidade.innerHTML = `
-                    Chance do servidor ${servidor.apelido} voltar a ficar sobrecarregado após aplicada a sugestão é de ${probabilidadeSobrecarregado}%
+                    Chance do servidor ${servidor.apelido} voltar a ficar sobrecarregado após aplicada a sugestão é de ${(probabilidadeSobrecarregado * 100).toFixed(2)}%
                     baseada no desvio padrão e média
                 `
 
@@ -466,7 +466,7 @@
                     <p>Nova Cpu: ${newDadosComConfCpu[0].toFixed(2)}gb</p>
                     `
 
-                    } else if (statusCpuTipo == 3) {
+                    } else if (statusCpuTipo == 1) {
                         var confOcioso = calculoConfiabilidadeOcioso(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.capacidade_total_cpu, servidor.maior_valor_cpu_ultimo_mes)
                         probabilidadeOcioso = confOcioso
                         
@@ -474,18 +474,17 @@
                     <p>Nova Cpu: ${newDadosComConfCpu[0].toFixed(2)}gb</p>
                     `
 
-                    } else if (statusRamTipo == 3) {
+                    } else if (statusRamTipo == 1) {
                         var confOcioso = calculoConfiabilidadeOcioso(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.capacidade_total_cpu, servidor.maior_valor_cpu_ultimo_mes)
                         probabilidadeOcioso = confOcioso
 
                         descRamDemanda_box.innerHTML = `
                     <p>Nova Ram: ${newDadosComConfRam[0].toFixed(2)}gb</p>
                     `
-
                     }
-
+                    
                     txtConfiabilidade.innerHTML = `
-                    Chance do servidor ${servidor.apelido} voltar a ficar ocioso após aplicada a sugestão é de ${probabilidadeOcioso}%
+                    Chance do servidor ${servidor.apelido} voltar a ficar ocioso após aplicada a sugestão é de ${(probabilidadeOcioso[0] * 100).toFixed(2)}%
                     baseada no desvio padrão e média
                 `
                 }
@@ -641,10 +640,11 @@
             novoValorTotal += 0.05; // Incrementa em pequenos passos (0.01 GHz)
 
             var novaMedia = (meanAtual * capacidadeAtual) / novoValorTotal;
-            var zScore = (meanDesejada - novaMedia) / stdDev;
+            var zScore = (70 - novaMedia) / stdDev;
 
             probabilidade = 1 - jStat.normal.cdf(zScore, 0, 1);
         }
+
         if (meanAtual > 70 || (meanAtual > 60 && stdDev > 10) || max > 90) {
 
             var upNecessário = novoValorTotal - capacidadeAtual
