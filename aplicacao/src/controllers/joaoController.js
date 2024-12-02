@@ -12,7 +12,7 @@ function listarPrevisoes(req, res) {
 
   console.log(`ESSE É MEU STATUS: ${status} CONTROLLER`)
 
-  joaoModel.listarPrevisoes(idEmpresa, status).then(function (resultado) {
+  joaoModel.listarPrevisoes(idEmpresa).then(function (resultado) {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {
@@ -29,15 +29,8 @@ function listarPrevisoes(req, res) {
 
 function listarVerde(req, res) {
   var idEmpresa = req.params.idEmpresa;
-  var status = req.params.status;
 
-  if (status == 1) {
-    status = 'ativo'
-  } else {
-    status = 'desativado'
-  }
-
-  joaoModel.listarVerde(idEmpresa, status).then(function (resultado) {
+  joaoModel.listarVerde(idEmpresa).then(function (resultado) {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {
@@ -52,15 +45,9 @@ function listarVerde(req, res) {
 
 function listarAmarelo(req, res) {
   var idEmpresa = req.params.idEmpresa;
-  var status = req.params.status;
 
-  if (status == 1) {
-    status = 'ativo'
-  } else {
-    status = 'desativado'
-  }
 
-  joaoModel.listarAmarelo(idEmpresa, status).then(function (resultado) {
+  joaoModel.listarAmarelo(idEmpresa).then(function (resultado) {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {
@@ -75,15 +62,8 @@ function listarAmarelo(req, res) {
 
 function listarVermelho(req, res) {
   var idEmpresa = req.params.idEmpresa;
-  var status = req.params.status;
 
-  if (status == 1) {
-    status = 'ativo'
-  } else {
-    status = 'desativado'
-  }
-
-  joaoModel.listarVermelho(idEmpresa, status).then(function (resultado) {
+  joaoModel.listarVermelho(idEmpresa).then(function (resultado) {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {

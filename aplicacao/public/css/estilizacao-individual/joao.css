@@ -12,10 +12,11 @@
     & img {
         width: 2.3vw;
         cursor: pointer;
-        transition: width 0.3s ease; /* Suaviza a troca de cor ao passar o mouse */
+        transition: width 0.3s ease;
+        /* Suaviza a troca de cor ao passar o mouse */
     }
 
-    & img:hover{
+    & img:hover {
         width: 2.5vw;
     }
 
@@ -23,51 +24,44 @@
 
 /* MODAL */
 .modal {
-    display: none; /* Inicialmente oculto */
-    position: fixed; /* Fixo na tela */
+    color: white;
+    width: 40vw;
+    background: linear-gradient(155deg, #407fa6, #084f70, #042e41);
+    position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Centraliza o modal */
-    background-color: white;
-    padding: 20px;
-    max-width: 80%; /* Largura máxima do modal */
-    max-height: 80%; /* Altura máxima do modal */
-    overflow-y: auto; /* Para rolagem interna, caso o conteúdo seja grande */
-    border-radius: 8px; /* Bordas arredondadas */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
-    z-index: 9999; /* Garante que o modal fique sobre outros elementos */
-  }
-  
-  .modal-overlay {
-    display: none; /* Inicialmente oculto */
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Escurece o fundo */
-    z-index: 9998; /* Um nível abaixo do modal */
-  }
-  
-  /* Modal aberto */
-  .modal.show, .modal-overlay.show {
-    display: block;
-  }
-  
-  /* Botão de fechar */
-  .modal-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    cursor: pointer;
-    color: #888;
-  }
-  
-  .modal-close:hover {
-    color: #333;
-  }
-  
+    transform: translate(-50%, -50%);
+    border-radius: 12px;
+    padding: 2%;
+    height: 80vh;
+
+    & i {
+        position: fixed;
+        right: 2%;
+        top: 3%;
+        font-size: 30px;
+        color: rgb(255, 255, 255);
+        cursor: pointer;
+
+    }
+
+    & h1 {
+        padding: 0% 5%;
+        font-size: 35px;
+    }
+
+    & h2 {
+        margin-bottom: 5%;
+        text-align: center;
+        font-size: 20px;
+    }
+
+    & b{
+        text-align: justify;
+    }
+
+}
+
 
 /* CONTEÚDO */
 
