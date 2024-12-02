@@ -1,16 +1,16 @@
-
 /* ---------- Estilização da seção "Tendência de Uso" do Modal dos Cards dos Servidores ---------- */
 
 .tendenciaUso {
     display: flex !important;
-    flex-direction: row!;
+    flex-direction: row !;
     gap: 20px;
     padding: 20px;
-    background-color: #084f7099;;
+    background-color: #ffffff05;
+    ;
     /* background-color: #084f70; */
     border-radius: 12px;
     color: white;
-    justify-content: space-evenly;
+    justify-content: center;
     height: 85%;
 }
 
@@ -43,14 +43,20 @@
 }
 
 .graficoTendenciaUsoCPU {
-    max-width: 98vw;
-    height: 38vh;
-    background: #16151A;
-    border-radius: 8px;
     margin-bottom: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+
+.canvasTendenciaUso {
+    width: 41vw !important;
+    height: 38vh !important;
+    background-color: #16151A;
+    padding: 7%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .uso-informacoes {
@@ -64,7 +70,7 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    background-color:#3A6B8C;
+    background-color: #3A6B8C;
     width: 50%;
     border-radius: 8px;
     margin-bottom: 15px;
@@ -76,8 +82,9 @@
 .informacao {
     font-size: 18px;
     line-height: 1.5;
-    
+
 }
+
 .informacaoUsoAtual {
     font-size: 35px;
     line-height: 1.5;
@@ -100,12 +107,10 @@
 .criticidade-indicador.amarelo {
     background-color: yellow;
     box-shadow: 0 0 8px rgba(255, 255, 0, 0.8);
-    
+
 }
 
 .criticidade-indicador.vermelho {
     background-color: red;
     box-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
 }
-
-

@@ -868,7 +868,7 @@
       if (idServidorPar) {
         obterDadosGraficoTendenciaUso(idServidorPar);
       }
-    }, 60000); // Intervalo de 3 segundos
+    }, 30000);
   }
 
   let graficoCpuInstance = null;
@@ -1470,8 +1470,8 @@
     console.log(predictedValueRam);
     console.log('----------------------------------------------');
 
-    document.querySelector('.graficoTendenciaUsoCPU').innerHTML = '<canvas id="graficoCPUTendenciaUso"></canvas>';
-    document.querySelector('.graficoTendenciaUsoRAM').innerHTML = '<canvas id="graficoRAMTendenciaUso"></canvas>';
+    document.querySelector('.graficoTendenciaUsoCPU').innerHTML = '<canvas class="canvasTendenciaUso" id="graficoCPUTendenciaUso"></canvas>';
+    document.querySelector('.graficoTendenciaUsoRAM').innerHTML = '<canvas class="canvasTendenciaUso" id="graficoRAMTendenciaUso"></canvas>';
 
     let graficoCPUTendenciaUso = document.getElementById('graficoCPUTendenciaUso').getContext('2d');
     let graficoRAMTendenciaUso = document.getElementById('graficoRAMTendenciaUso').getContext('2d');
@@ -1485,18 +1485,18 @@
           label: "Uso CPU (%)",
           data: dadosCpu.datasets[0].data,
           borderColor: 'rgb(75, 192, 192)',
-          backgroundColor: 'rgba(255, 255, 255, 0.5)',
           fill: false,
           pointBackgroundColor: 'white',
-          pointBorderColor: 'white',
-          pointRadius: 5,
-          tension: 0.1
+          pointBorderColor: 'rgb(75, 192, 192)',
+          borderWidth: 2,
+          pointRadius: 6,
+          tension: 0.3
         }, {
           label: 'Tendência de Uso',
           data: regressionLineCpu,
           type: 'line',
           borderColor: 'rgba(255, 99, 132, 0.8)',
-          borderWidth: 2,
+          borderWidth: 3,
           fill: false,
           pointRadius: 0 // Remove os pontos da linha de regressão
         }]
@@ -1505,7 +1505,8 @@
         scales: {
           x: {
             grid: {
-              display: false // Remove a grade vertical
+              display: false,
+              color: 'white'
             },
             ticks: {
               color: 'white', // Cor dos rótulos do eixo X
@@ -1515,8 +1516,11 @@
             }
           },
           y: {
+            // beginAtZero: true,
+            // max: 100,
             grid: {
-              display: false // Remove a grade horizontal
+              display: false,
+              color: 'white',
             },
             ticks: {
               color: 'white', // Cor dos rótulos do eixo Y
@@ -1528,12 +1532,12 @@
         },
         plugins: {
           legend: {
-            display: false // Remove a legenda
+            display: false,
           }
         },
         elements: {
           line: {
-            tension: 0.4 // Deixa as linhas mais suaves
+            tension: 0.1
           }
         }
       }
@@ -1547,18 +1551,18 @@
           label: "Uso de RAM (%)",
           data: dadosRam.datasets[0].data,
           borderColor: 'rgb(75, 192, 192)',
-          backgroundColor: 'rgba(255, 255, 255, 0.5)',
           fill: false,
           pointBackgroundColor: 'white',
-          pointBorderColor: 'white',
-          pointRadius: 5,
-          tension: 0.1
+          pointBorderColor: 'rgb(75, 192, 192)',
+          borderWidth: 2,
+          pointRadius: 6,
+          tension: 0.3
         }, {
           label: 'Tendência de Uso',
           data: regressionLineRam,
           type: 'line',
           borderColor: 'rgba(255, 99, 132, 0.8)',
-          borderWidth: 2,
+          borderWidth: 3,
           fill: false,
           pointRadius: 0 // Remove os pontos da linha de regressão
         }]
@@ -1567,7 +1571,8 @@
         scales: {
           x: {
             grid: {
-              display: false // Remove a grade vertical
+              display: false,
+              color: 'white'
             },
             ticks: {
               color: 'white', // Cor dos rótulos do eixo X
@@ -1577,8 +1582,11 @@
             }
           },
           y: {
+            // beginAtZero: true,
+            // max: 100,
             grid: {
-              display: false // Remove a grade horizontal
+              display: false,
+              color: 'white',
             },
             ticks: {
               color: 'white', // Cor dos rótulos do eixo Y
@@ -1595,12 +1603,13 @@
         },
         elements: {
           line: {
-            tension: 0.4 // Deixa as linhas mais suaves
+            tension: 0.1 // Deixa as linhas mais suaves
           }
         }
       }
     });
 
+    //Limitar a quantidade de labels no gráfico
     if (graficoRamTendenciaInstance.data.labels.length > 7) {
       graficoRamTendenciaInstance.data.labels.shift();
       graficoRamTendenciaInstance.data.datasets.forEach((dataset) =>
