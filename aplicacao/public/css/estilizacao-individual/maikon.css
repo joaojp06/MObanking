@@ -147,7 +147,8 @@
 
 .listagem_cards {
     margin-top: 4%;
-
+    max-height: 60vh;
+    overflow: auto;
 
     & div {
         display: flex;

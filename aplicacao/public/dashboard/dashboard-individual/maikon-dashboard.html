@@ -370,8 +370,9 @@
             var statusRamTipo = identificarTipoUp(servidor.media_valor_ram, servidor.desvio_padrao_ram, servidor.maior_valor_ram_ultimo_mes);
 
 
-            var novoValorCpu = calcularUpgradeDown(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.capacidade_total_cpu, servidor.maior_valor_cpu_ultimo_mes)
-            var novoValorRam = calcularUpgradeDown(servidor.media_valor_ram, servidor.desvio_padrao_ram, servidor.capacidade_total_ram, servidor.maior_valor_ram_ultimo_mes)
+            const novoValorRam = calcularUpgradeDown(servidor.media_valor_ram, servidor.desvio_padrao_ram, servidor.capacidade_total_ram, servidor.maior_valor_ram_ultimo_mes)
+            const novoValorCpu = calcularUpgradeDown(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.capacidade_total_cpu, servidor.maior_valor_cpu_ultimo_mes)
+            //var novoValorRam = calcularUpgradeDown(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.capacidade_total_cpu, servidor.maior_valor_cpu_ultimo_mes)
 
             infoServidor_box.innerHTML = `
         <div>
@@ -404,12 +405,15 @@
         `;
 
             if (statusCpuTipo < 3) {
+                //var novoValorCpu = calcularUpgradeDown(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.capacidade_total_cpu, servidor.maior_valor_cpu_ultimo_mes)
+
                 descCpuDemanda_box.innerHTML = `
                     <p>Nova Cpu: ${novoValorCpu[0].toFixed(2)}Ghz</p>
                     `
             }
 
             if (statusRamTipo < 3) {
+                //var novoValorRam = calcularUpgradeDown(servidor.media_valor_ram, servidor.desvio_padrao_ram, servidor.capacidade_total_ram, servidor.maior_valor_ram_ultimo_mes)
                 descRamDemanda_box.innerHTML = `
                     <p>Nova Ram: ${novoValorRam[0].toFixed(2)}gb</p>
                     `
@@ -427,6 +431,79 @@
 
                 console.log(`${statusCpuTipo} STATUS CPU`)
 
+                if (servidor.statusCpu === "ocioso" || servidor.statusRam === "ocioso") {
+                    let probabilidadeOcioso
+
+                    var newDadosComConfCpu = calculoConfiabilidadeOcioso(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.capacidade_total_cpu, servidor.maior_valor_cpu_ultimo_mes)
+                    var newDadosComConfRam = calculoConfiabilidadeOcioso(servidor.media_valor_ram, servidor.desvio_padrao_ram, servidor.capacidade_total_ram, servidor.maior_valor_ram_ultimo_mes)
+
+                    if (statusCpuTipo == 1 && statusRamTipo == 1) {
+                        probabilidadeOcioso = (newDadosComConfCpu[0] + newDadosComConfRam[0]) / 2
+                        descRamDemanda_box.innerHTML = `
+                    <p>Nova Ram: ${newDadosComConfRam[0].toFixed(2)}gb</p>
+                    `
+                        descCpuDemanda_box.innerHTML = `
+                    <p>Nova Cpu: ${newDadosComConfCpu[0].toFixed(2)}gb</p>
+                    `
+                    if((probabilidadeOcioso * 100) < 0){
+                        txtConfiabilidade.innerHTML = `
+                    O servidor ${servidor.apelido} tem pouco dados registrado no banco, com isso, taxa de confiabilidade está desalinhada com o normal, aguarde pelo menos uma semana para
+                        obter uma taxa precisa
+                    `
+                    }else{
+
+                        txtConfiabilidade.innerHTML = `
+                        Chance do servidor ${servidor.apelido} voltar a ficar ocioso após aplicada a sugestão é de ${(probabilidadeOcioso).toFixed(2)}%
+                        baseada no desvio padrão e média
+                        `
+                    }
+
+                    } else if (statusCpuTipo == 1) {
+                        var confOcioso = calculoConfiabilidadeOcioso(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.capacidade_total_cpu, servidor.maior_valor_cpu_ultimo_mes)
+                        probabilidadeOcioso = confOcioso
+
+                        descCpuDemanda_box.innerHTML = `
+                    <p>Nova Cpu: ${newDadosComConfCpu[0].toFixed(2)}gb</p>
+                    `
+
+                    if((probabilidadeOcioso * 100) < 0){
+                        txtConfiabilidade.innerHTML = `
+                    O servidor ${servidor.apelido} tem pouco dados registrado no banco, com isso, taxa de confiabilidade está desalinhada com o normal, aguarde pelo menos uma semana para
+                        obter uma taxa precisa
+                    `
+                    }else{
+
+                        txtConfiabilidade.innerHTML = `
+                        Chance do servidor ${servidor.apelido} voltar a ficar ocioso após aplicada a sugestão é de ${(probabilidadeOcioso[0] * 100).toFixed(2)}%
+                        baseada no desvio padrão e média
+                        `
+                    }
+
+                    } else if (statusRamTipo == 1) {
+                        var confOcioso = calculoConfiabilidadeOcioso(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.capacidade_total_cpu, servidor.maior_valor_cpu_ultimo_mes)
+                        probabilidadeOcioso = confOcioso
+
+                        descRamDemanda_box.innerHTML = `
+                    <p>Nova Ram: ${newDadosComConfRam[0].toFixed(2)}gb</p>
+                    `
+
+                    if((probabilidadeOcioso * 100) < 0){
+                        txtConfiabilidade.innerHTML = `
+                    O servidor ${servidor.apelido} tem pouco dados registrado no banco, com isso, taxa de confiabilidade está desalinhada com o normal, aguarde pelo menos uma semana para
+                        obter uma taxa precisa
+                    `
+                    }else{
+
+                        txtConfiabilidade.innerHTML = `
+                        Chance do servidor ${servidor.apelido} voltar a ficar ocioso após aplicada a sugestão é de ${(probabilidadeOcioso[0] * 100).toFixed(2)}%
+                        baseada no desvio padrão e média
+                        `
+                    }
+                    }
+
+                    
+                }
+
                 if (servidor.statusCpu === "sobrecarga" || servidor.statusRam === "sobrecarga") {
 
                     let probabilidadeSobrecarregado
@@ -434,6 +511,7 @@
                     //var novoValorCpu = calcularUpgradeDown(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.capacidade_total_cpu, servidor.maior_valor_cpu_ultimo_mes)
 
                     if (statusCpuTipo == 2 && statusRamTipo == 2) {
+
                         probabilidadeSobrecarregado = (novoValorCpu[1] + novoValorRam[1]) / 2
 
                     } else if (statusCpuTipo == 2) {
@@ -445,49 +523,23 @@
 
                     }
 
-                    txtConfiabilidade.innerHTML = `
-                    Chance do servidor ${servidor.apelido} voltar a ficar sobrecarregado após aplicada a sugestão é de ${(probabilidadeSobrecarregado * 100).toFixed(2)}%
-                    baseada no desvio padrão e média
-                `
-
-
-                } else if (servidor.statusCpu === "ocioso" || servidor.statusRam === "ocioso") {
-                    let probabilidadeOcioso
-
-                    var newDadosComConfCpu = calculoConfiabilidadeOcioso(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.capacidade_total_cpu, servidor.maior_valor_cpu_ultimo_mes)
-                    var newDadosComConfRam = calculoConfiabilidadeOcioso(servidor.media_valor_ram, servidor.desvio_padrao_ram, servidor.capacidade_total_ram, servidor.maior_valor_ram_ultimo_mes)
-
-                    if (statusCpuTipo == 3 && statusRamTipo == 3) {
-                        probabilidadeOcioso = (newDadosComConfCpu[1] + newDadosComConfRam[1]) / 2
-                        descRamDemanda_box.innerHTML = `
-                    <p>Nova Ram: ${newDadosComConfRam[0].toFixed(2)}gb</p>
+                    if ((probabilidadeSobrecarregado * 100) < 1) {
+                        txtConfiabilidade.innerHTML = `
+                        O servidor ${servidor.apelido} tem pouco dados registrado no banco, com isso, taxa de confiabilidade está desalinhada com o normal, aguarde pelo menos uma semana para
+                        obter uma taxa precisa
                     `
-                    descCpuDemanda_box.innerHTML = `
-                    <p>Nova Cpu: ${newDadosComConfCpu[0].toFixed(2)}gb</p>
-                    `
-
-                    } else if (statusCpuTipo == 1) {
-                        var confOcioso = calculoConfiabilidadeOcioso(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.capacidade_total_cpu, servidor.maior_valor_cpu_ultimo_mes)
-                        probabilidadeOcioso = confOcioso
-                        
-                    descCpuDemanda_box.innerHTML = `
-                    <p>Nova Cpu: ${newDadosComConfCpu[0].toFixed(2)}gb</p>
-                    `
-
-                    } else if (statusRamTipo == 1) {
-                        var confOcioso = calculoConfiabilidadeOcioso(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.capacidade_total_cpu, servidor.maior_valor_cpu_ultimo_mes)
-                        probabilidadeOcioso = confOcioso
-
-                        descRamDemanda_box.innerHTML = `
-                    <p>Nova Ram: ${newDadosComConfRam[0].toFixed(2)}gb</p>
+                    } else {
+                        txtConfiabilidade.innerHTML = `
+                        Chance do servidor ${servidor.apelido} voltar a ficar sobrecarregado após aplicada a sugestão é de ${(probabilidadeSobrecarregado * 100).toFixed(2)}%
+                        baseada no desvio padrão e média
                     `
                     }
-                    
-                    txtConfiabilidade.innerHTML = `
-                    Chance do servidor ${servidor.apelido} voltar a ficar ocioso após aplicada a sugestão é de ${(probabilidadeOcioso[0] * 100).toFixed(2)}%
-                    baseada no desvio padrão e média
-                `
+
+
                 }
+
+
+
 
 
 
@@ -512,8 +564,13 @@
 
 
             if (statusCpuTipo == 1 && statusRamTipo == 1) {
-                statusCpu = "#ff262615"
-                statusRam = "#86000030"
+                statusCpu = "#6767672b"
+                statusRam = "#271b1b69"
+            }
+
+            if (statusCpuTipo == 2 && statusRamTipo == 2) {
+                statusCpu = "#c5000036"
+                statusRam = "#2e000047"
             }
 
             if (statusCpuTipo == 3 && statusRamTipo == 3) {
@@ -645,7 +702,7 @@
             probabilidade = 1 - jStat.normal.cdf(zScore, 0, 1);
         }
 
-        if (meanAtual > 70 || (meanAtual > 60 && stdDev > 10) || max > 90) {
+        if (meanAtual > 70 || (meanAtual + stdDev) > 70 || max > 90) {
 
             var upNecessário = novoValorTotal - capacidadeAtual
 
@@ -658,6 +715,9 @@
             return [novoValorTotal, probabilidade]
         }
     }
+
+
+
 
     // Funções de calculo da demanda CPU
 

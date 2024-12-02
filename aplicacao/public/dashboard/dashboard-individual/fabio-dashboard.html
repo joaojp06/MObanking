@@ -72,12 +72,12 @@
                     <p>Filtro</p>
                     <select id="filtro-horas">
                         <option selected value="12-23">12h - 23h59</option>
-                        <option value="00-12">00h - 11h59</option>
+                        <option value="00-11">00h - 11h59</option>
                     </select>
-                    <h3 class="dia_1">Dia1</h3>
-                    <h3 class="dia_2">Dia2</h3>
-                    <h3 class="uso_1">Uso1</h3>
-                    <h3 class="uso_2">Uso2</h3>
+                    <h3 id="dia_1" class="dia_1"></h3>
+                    <h3 id="dia_2" class="dia_2"></h3>
+                    <h3 id="uso_1" class="uso_1"></h3>
+                    <h3 id="uso_2" class="uso_2"></h3>
                     <img class="legenda_dias" src="../../imagens/legenda_dias.svg" alt="">
                 </div>
                 <img src="../../imagens/legenda_cores_atualizada_final.svg" alt="">
@@ -345,27 +345,108 @@
     `
     }
 
-    // Função para gerar valor aleatório
-    function gerarValorAleatorio(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
+    document.getElementById('filtro-horas').addEventListener('change', function () {
+        let filtro = this.value;
+        let startHour, endHour;
 
-    // Função para gerar dados aleatórios para um intervalo específico de horas
-    function generateData(startHour, endHour) {
-        let data = [];
-        for (let hour = startHour; hour <= endHour; hour++) {
-            let time = (hour < 10 ? '0' : '') + hour + ':00';
-            data.push({ x: time, y: gerarValorAleatorio(10, 100) });
+        if (filtro === '00-12') {
+            startHour = '00:00';
+            endHour = '11:00';
+        } else {
+            startHour = '12:00';
+            endHour = '23:00';
         }
-        return data;
-    }
 
-    // Definindo as opções do gráfico
+        const idEmpresa = sessionStorage.getItem('ID_EMPRESA'); 
+
+    obterDadosGrafico1(startHour, endHour, idEmpresa);
+    obterDados1(startHour, endHour, idEmpresa);
+    obterDados2(startHour, endHour, idEmpresa);
+})
+
+function obterDadosGrafico1(inicio, fim, idEmpresa) {
+
+
+    const url = `/fabio/grafico?inicio=${inicio}&fim=${fim}&empresa=${idEmpresa}`;
+
+    console.log(url)
+
+    fetch(url, { cache: 'no-store' })
+        .then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    // resposta.reverse(); // Reverter para garantir a ordem correta, se necessário
+
+                    plotarGrafico1(resposta, inicio, fim);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+}
+
+function traduzirDiaSemana(diaIngles) {
+    const dias = {
+        Sunday: "Domingo",
+        Monday: "Segunda",
+        Tuesday: "Terça",
+        Wednesday: "Quarta",
+        Thursday: "Quinta",
+        Friday: "Sexta",
+        Saturday: "Sábado"
+    };
+    return dias[diaIngles] || diaIngles; 
+}
+
+function plotarGrafico1(resposta, inicio, fim) {
+    console.log('Iniciando plotagem do gráfico...');
+
+    
+    let seriesData = [];
+    let dias = []; 
+
+    resposta.forEach((registro) => {
+        const { dia_semana, hora, media_valor } = registro;
+
+        
+        const diaSemanaTraduzido = traduzirDiaSemana(dia_semana);
+
+       
+        let diaIndex = dias.indexOf(diaSemanaTraduzido);
+        if (diaIndex === -1) {
+            diaIndex = dias.length;
+            dias.push(diaSemanaTraduzido);
+            seriesData.push({
+                name: diaSemanaTraduzido,
+                data: []
+            });
+        }
+
+        seriesData[diaIndex].data.push({
+            x: hora,
+            y: Math.round(media_valor)
+        });
+    });
+
+    seriesData.forEach(dia => {
+        dia.data.sort((a, b) => a.x - b.x); 
+    });
+
+    console.log('----------------------------------------------');
+    console.log('Dados formatados para o gráfico de heatmap:');
+    console.log(seriesData);
+    console.log('----------------------------------------------');
+
+  
     var options = {
         chart: {
             type: 'heatmap',
-            height: 400,
-            width: 1000,
+            height: 380,
+            width: 1000
         },
         plotOptions: {
             heatmap: {
@@ -382,41 +463,9 @@
             }
         },
         dataLabels: {
-            enabled: false,
-            style: {
-                colors: ['#fff']
-            },
+            enabled: false
         },
-        series: [
-            {
-                name: 'Sábado',
-                data: generateData(12, 23)
-            },
-            {
-                name: 'Sexta',
-                data: generateData(12, 23)
-            },
-            {
-                name: 'Quinta',
-                data: generateData(12, 23)
-            },
-            {
-                name: 'Quarta',
-                data: generateData(12, 23)
-            },
-            {
-                name: 'Terça',
-                data: generateData(12, 23)
-            },
-            {
-                name: 'Segunda',
-                data: generateData(12, 23)
-            },
-            {
-                name: 'Domingo',
-                data: generateData(12, 23)
-            }
-        ],
+        series: seriesData,
         xaxis: {
             type: 'category',
             title: {
@@ -446,7 +495,7 @@
             }
         },
         title: {
-            text: 'Uso da CPU (%) - 12h a 23h59',
+            text: `Uso da CPU (%) - ${inicio} - ${fim}`,
             align: 'center',
             style: {
                 color: '#fff',
@@ -464,34 +513,111 @@
         }
     };
 
-    // Inicializa o gráfico
+    // Renderizando o gráfico
     var chart = new ApexCharts(document.querySelector("#chart"), options);
     chart.render();
+}        
 
-    // Adiciona o evento para o filtro
-    document.getElementById('filtro-horas').addEventListener('change', function () {
-        let filtro = this.value;
-        let startHour, endHour, title;
+function obterDados1(inicio, fim, idEmpresa) {
 
-        if (filtro === '00-12') {
-            startHour = 0;
-            endHour = 11;
-            title = 'Uso da CPU (%) - 00h a 12h59';
+
+const url = `/fabio/KPI1?inicio=${inicio}&fim=${fim}&empresa=${idEmpresa}`;
+
+console.log(url)
+
+fetch(url, { cache: 'no-store' })
+    .then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                KPI1(resposta);
+            });
         } else {
-            startHour = 12;
-            endHour = 23;
-            title = 'Uso da CPU (%) - 12h a 23h59';
+            console.error('Nenhum dado encontrado ou erro na API');
         }
-
-        // Atualizar os dados das séries com base no filtro
-        options.series = options.series.map(series => {
-            series.data = generateData(startHour, endHour);
-            return series;
-        });
-
-        options.title.text = title;
-        chart.updateOptions(options);
+    })
+    .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ KPI: ${error.message}`);
     });
+}
+
+function obterDados2(inicio, fim, idEmpresa) {
+
+
+const url = `/fabio/KPI2?inicio=${inicio}&fim=${fim}&empresa=${idEmpresa}`;
+
+console.log(url)
+
+fetch(url, { cache: 'no-store' })
+    .then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                KPI2(resposta);
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+    .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ KPI: ${error.message}`);
+    });
+}
+
+function KPI1(resposta) {
+    console.log("Resposta recebida da API:", resposta); 
+
+    if (resposta.length > 0) {
+        const dados = resposta[0]; 
+        const dia = dados.dia_semana_traduzido || "Sem horário"; 
+        const maior = dados.maior_valor || "Sem valor"; 
+
+        const KPI_dia = document.getElementById('dia_2');
+        const KPI_uso = document.getElementById('uso_2');
+        if (KPI_dia) {
+            KPI_dia.innerHTML = `${dia}`;
+            KPI_uso.innerHTML = `${maior}%`;
+        } else {
+            console.error("Elemento 'KPI-dia' não encontrado no DOM.");
+        }
+    } else {
+        console.warn("Nenhum dado encontrado na resposta da API.");
+        const KPI_maior = document.getElementById('KPI-maior');
+        if (KPI_dia && KPI_uso) {
+            KPI_dia.innerText = "Sem dados disponíveis";
+            KPI_uso.innerText = "Sem dados disponíveis";
+        }
+    }
+}
+
+function KPI2(resposta) {
+    console.log("Resposta recebida da API:", resposta); 
+
+    if (resposta.length > 0) {
+        const dados = resposta[0]; 
+        const dia = dados.dia_semana_traduzido || "Sem horário"; 
+        const maior = dados.menor_valor || "Sem valor"; 
+
+        const KPI_dia = document.getElementById('dia_1');
+        const KPI_uso = document.getElementById('uso_1');
+        if (KPI_dia) {
+            KPI_dia.innerHTML = `${dia}`;
+            KPI_uso.innerHTML = `${maior}%`;
+        } else {
+            console.error("Elemento 'KPI-dia' não encontrado no DOM.");
+        }
+    } else {
+        console.warn("Nenhum dado encontrado na resposta da API.");
+        const KPI_maior = document.getElementById('KPI-menor');
+        if (KPI_dia && KPI_uso) {
+            KPI_dia.innerText = "Sem dados disponíveis";
+            KPI_uso.innerText = "Sem dados disponíveis";
+        }
+    }
+}
+
 
     // Abrir o modal
     document.getElementById('btnModal').onclick = function () {
