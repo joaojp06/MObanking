@@ -15,7 +15,8 @@ function dadosGrafico(req, res) {
 }
 
 function obterIndicadores(req, res) {
-  fariaModel.obterIndicadores().then(function (resultado) {
+    var empresa = req.params.empresa
+  fariaModel.obterIndicadores(empresa).then(function (resultado) {
       if (resultado.length > 0) {
           res.status(200).json(resultado);
       } else {

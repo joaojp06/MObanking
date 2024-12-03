@@ -53,6 +53,16 @@ body {
           background-color: #156492;
           color: #ffff;
         }
+
+        select:focus {
+          outline: none;
+          background-color: rgb(0, 47, 97);
+        }
+  
+        select:hover {
+          background-color: rgb(0, 47, 97);
+          box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+        }
       }
 
       a {
@@ -66,6 +76,16 @@ body {
         background-color: #156492;
         color: #ffff;
         border-radius: 5px;
+      }
+
+      a:focus {
+        outline: none;
+        background-color: rgb(0, 47, 97);
+      }
+
+      a:hover {
+        background-color: rgb(0, 47, 97);
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
       }
     }
 

@@ -7,7 +7,7 @@ router.get("/dadosGrafico", function (req, res) {
     fariaController.dadosGrafico(req, res);
 });
 
-router.get("/obterIndicadores", function (req, res) {
+router.get("/obterIndicadores/:empresa", function (req, res) {
     fariaController.obterIndicadores(req, res);
 });
 
