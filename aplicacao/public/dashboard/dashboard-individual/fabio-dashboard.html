@@ -71,9 +71,11 @@
                 <div class="div-filtro">
                     <p>Filtro</p>
                     <select id="filtro-horas">
-                        <option selected value="12-23">12h - 23h59</option>
-                        <option value="00-11">00h - 11h59</option>
+                        <option selected disabled>Selecione:</option>
+                        <option value="12-23">12h - 23h59</option>
+                        <option value="00-12">00h - 11h59</option>
                     </select>
+
                     <h3 id="dia_1" class="dia_1"></h3>
                     <h3 id="dia_2" class="dia_2"></h3>
                     <h3 id="uso_1" class="uso_1"></h3>
@@ -164,7 +166,7 @@
                                 <br>
                                 <p class="p_modal">O gráfico central da dashboard
                                     é estruturado para fornecer uma visão clara
-                                    e detalhada do uso da CPU.
+                                    e detalhada do uso médio da CPU.
                                     <br>
                                     <br>
                                     Eixo X: Representa os horários do dia e é
@@ -181,12 +183,10 @@
                                     <br>
                                     A métrica utilizada para preencher o gráfico
                                     é baseada na média do uso total da CPU nos
-                                    seus servidores de Mobile Banking. Por exemplo, em um
-                                    cenário com 10 servidores sendo monitorados,
-                                    o gráfico refletirá os horários e dias em que
-                                    ao menos 30% dos seus servidores começam a apresentar
-                                    uso elevado de CPU. Isso facilita a identificação
-                                    de picos e padrões de comportamento ao longo do tempo.
+                                    seus servidores de Mobile Banking. Isso facilita 
+                                    a identificação
+                                    de picos e padrões de comportamento ao longo 
+                                    do tempo.
                                     <br>
                                     <br>
                                     O gráfico é desenhado no formato de um mapa
@@ -345,6 +345,8 @@
     `
     }
 
+    let chart = null;
+
     document.getElementById('filtro-horas').addEventListener('change', function () {
         let filtro = this.value;
         let startHour, endHour;
@@ -357,266 +359,278 @@
             endHour = '23:00';
         }
 
-        const idEmpresa = sessionStorage.getItem('ID_EMPRESA'); 
+        const idEmpresa = sessionStorage.getItem('ID_EMPRESA');
 
-    obterDadosGrafico1(startHour, endHour, idEmpresa);
-    obterDados1(startHour, endHour, idEmpresa);
-    obterDados2(startHour, endHour, idEmpresa);
-})
+        if (chart) {
+            chart.destroy();
+            chart = null;
+        }
 
-function obterDadosGrafico1(inicio, fim, idEmpresa) {
+        obterDadosGrafico1(startHour, endHour, idEmpresa);
+        obterDados1(startHour, endHour, idEmpresa);
+        obterDados2(startHour, endHour, idEmpresa);
+    })
+
+    function obterDadosGrafico1(inicio, fim, idEmpresa) {
+
+        // var filtro = filtro - horas.value;
+
+        // if (filtro == "12-23") {
+
+        // }
 
 
-    const url = `/fabio/grafico?inicio=${inicio}&fim=${fim}&empresa=${idEmpresa}`;
+        const url = `/fabio/grafico?inicio=${inicio}&fim=${fim}&empresa=${idEmpresa}`;
 
-    console.log(url)
+        console.log(url)
 
-    fetch(url, { cache: 'no-store' })
-        .then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                    // resposta.reverse(); // Reverter para garantir a ordem correta, se necessário
 
-                    plotarGrafico1(resposta, inicio, fim);
+        fetch(url, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                        // resposta.reverse(); // Reverter para garantir a ordem correta, se necessário
+
+                        plotarGrafico1(resposta, inicio, fim);
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+    function traduzirDiaSemana(diaIngles) {
+        const dias = {
+            Sunday: "Domingo",
+            Monday: "Segunda",
+            Tuesday: "Terça",
+            Wednesday: "Quarta",
+            Thursday: "Quinta",
+            Friday: "Sexta",
+            Saturday: "Sábado"
+        };
+        return dias[diaIngles] || diaIngles;
+    }
+
+    function plotarGrafico1(resposta, inicio, fim) {
+        console.log('Iniciando plotagem do gráfico...');
+
+
+        let seriesData = [];
+        let dias = [];
+
+        resposta.forEach((registro) => {
+            const { dia_semana, hora, media_valor } = registro;
+
+
+            const diaSemanaTraduzido = traduzirDiaSemana(dia_semana);
+
+
+            let diaIndex = dias.indexOf(diaSemanaTraduzido);
+            if (diaIndex === -1) {
+                diaIndex = dias.length;
+                dias.push(diaSemanaTraduzido);
+                seriesData.push({
+                    name: diaSemanaTraduzido,
+                    data: []
                 });
+            }
+
+            seriesData[diaIndex].data.push({
+                x: hora,
+                y: Math.round(media_valor)
+            });
+        });
+
+        seriesData.forEach(dia => {
+            dia.data.sort((a, b) => a.x - b.x);
+        });
+
+        console.log('----------------------------------------------');
+        console.log('Dados formatados para o gráfico de heatmap:');
+        console.log(seriesData);
+        console.log('----------------------------------------------');
+
+
+        var options = {
+            chart: {
+                type: 'heatmap',
+                height: 380,
+                width: 1000
+            },
+            plotOptions: {
+                heatmap: {
+                    shadeIntensity: 0.2,
+                    colorScale: {
+                        ranges: [
+                            { from: 0, to: 20, color: '#54A5BA', name: '(20%)' },
+                            { from: 21, to: 40, color: '#3E8AA2', name: '(21% - 40%)' },
+                            { from: 41, to: 60, color: '#2C6C84', name: '(41% - 60%)' },
+                            { from: 61, to: 80, color: '#1B4E66', name: '(61% - 80%)' },
+                            { from: 81, to: 100, color: '#093048', name: '(100%)' }
+                        ]
+                    }
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            series: seriesData,
+            xaxis: {
+                type: 'category',
+                title: {
+                    text: 'Hora',
+                    style: {
+                        color: '#fff',
+                    }
+                },
+                labels: {
+                    style: {
+                        colors: '#fff'
+                    }
+                }
+            },
+            yaxis: {
+                type: 'category',
+                title: {
+                    text: 'Dia',
+                    style: {
+                        color: '#fff',
+                    }
+                },
+                labels: {
+                    style: {
+                        colors: '#fff'
+                    }
+                }
+            },
+            title: {
+                text: `Uso da CPU (%) - ${inicio} - ${fim}`,
+                align: 'center',
+                style: {
+                    color: '#fff',
+                    fontSize: '20px',
+                    fontWeight: 'bold',
+                }
+            },
+            grid: {
+                borderColor: '#3B5461'
+            },
+            legend: {
+                labels: {
+                    colors: '#fff',
+                }
+            }
+        };
+
+        // Renderizando o gráfico
+        chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+    }
+
+    function obterDados1(inicio, fim, idEmpresa) {
+
+
+        const url = `/fabio/KPI1?inicio=${inicio}&fim=${fim}&empresa=${idEmpresa}`;
+
+        console.log(url)
+
+        fetch(url, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                        KPI1(resposta);
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ KPI: ${error.message}`);
+            });
+    }
+
+    function obterDados2(inicio, fim, idEmpresa) {
+
+
+        const url = `/fabio/KPI2?inicio=${inicio}&fim=${fim}&empresa=${idEmpresa}`;
+
+        console.log(url)
+
+        fetch(url, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    response.json().then(function (resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                        KPI2(resposta);
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ KPI: ${error.message}`);
+            });
+    }
+
+    function KPI1(resposta) {
+        console.log("Resposta recebida da API:", resposta);
+
+        if (resposta.length > 0) {
+            const dados = resposta[0];
+            const dia = dados.dia_semana_traduzido || "Sem horário";
+            const maior = dados.maior_valor || "Sem valor";
+
+            const KPI_dia = document.getElementById('dia_2');
+            const KPI_uso = document.getElementById('uso_2');
+            if (KPI_dia) {
+                KPI_dia.innerHTML = `${dia}`;
+                KPI_uso.innerHTML = `${maior}%`;
             } else {
-                console.error('Nenhum dado encontrado ou erro na API');
+                console.error("Elemento 'KPI-dia' não encontrado no DOM.");
             }
-        })
-        .catch(function (error) {
-            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-        });
-}
-
-function traduzirDiaSemana(diaIngles) {
-    const dias = {
-        Sunday: "Domingo",
-        Monday: "Segunda",
-        Tuesday: "Terça",
-        Wednesday: "Quarta",
-        Thursday: "Quinta",
-        Friday: "Sexta",
-        Saturday: "Sábado"
-    };
-    return dias[diaIngles] || diaIngles; 
-}
-
-function plotarGrafico1(resposta, inicio, fim) {
-    console.log('Iniciando plotagem do gráfico...');
-
-    
-    let seriesData = [];
-    let dias = []; 
-
-    resposta.forEach((registro) => {
-        const { dia_semana, hora, media_valor } = registro;
-
-        
-        const diaSemanaTraduzido = traduzirDiaSemana(dia_semana);
-
-       
-        let diaIndex = dias.indexOf(diaSemanaTraduzido);
-        if (diaIndex === -1) {
-            diaIndex = dias.length;
-            dias.push(diaSemanaTraduzido);
-            seriesData.push({
-                name: diaSemanaTraduzido,
-                data: []
-            });
-        }
-
-        seriesData[diaIndex].data.push({
-            x: hora,
-            y: Math.round(media_valor)
-        });
-    });
-
-    seriesData.forEach(dia => {
-        dia.data.sort((a, b) => a.x - b.x); 
-    });
-
-    console.log('----------------------------------------------');
-    console.log('Dados formatados para o gráfico de heatmap:');
-    console.log(seriesData);
-    console.log('----------------------------------------------');
-
-  
-    var options = {
-        chart: {
-            type: 'heatmap',
-            height: 380,
-            width: 1000
-        },
-        plotOptions: {
-            heatmap: {
-                shadeIntensity: 0.2,
-                colorScale: {
-                    ranges: [
-                        { from: 0, to: 20, color: '#54A5BA', name: '(20%)' },
-                        { from: 21, to: 40, color: '#3E8AA2', name: '(21% - 40%)' },
-                        { from: 41, to: 60, color: '#2C6C84', name: '(41% - 60%)' },
-                        { from: 61, to: 80, color: '#1B4E66', name: '(61% - 80%)' },
-                        { from: 81, to: 100, color: '#093048', name: '(100%)' }
-                    ]
-                }
-            }
-        },
-        dataLabels: {
-            enabled: false
-        },
-        series: seriesData,
-        xaxis: {
-            type: 'category',
-            title: {
-                text: 'Hora',
-                style: {
-                    color: '#fff',
-                }
-            },
-            labels: {
-                style: {
-                    colors: '#fff'
-                }
-            }
-        },
-        yaxis: {
-            type: 'category',
-            title: {
-                text: 'Dia',
-                style: {
-                    color: '#fff',
-                }
-            },
-            labels: {
-                style: {
-                    colors: '#fff'
-                }
-            }
-        },
-        title: {
-            text: `Uso da CPU (%) - ${inicio} - ${fim}`,
-            align: 'center',
-            style: {
-                color: '#fff',
-                fontSize: '20px',
-                fontWeight: 'bold',
-            }
-        },
-        grid: {
-            borderColor: '#3B5461'
-        },
-        legend: {
-            labels: {
-                colors: '#fff',
-            }
-        }
-    };
-
-    // Renderizando o gráfico
-    var chart = new ApexCharts(document.querySelector("#chart"), options);
-    chart.render();
-}        
-
-function obterDados1(inicio, fim, idEmpresa) {
-
-
-const url = `/fabio/KPI1?inicio=${inicio}&fim=${fim}&empresa=${idEmpresa}`;
-
-console.log(url)
-
-fetch(url, { cache: 'no-store' })
-    .then(function (response) {
-        if (response.ok) {
-            response.json().then(function (resposta) {
-                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-
-                KPI1(resposta);
-            });
         } else {
-            console.error('Nenhum dado encontrado ou erro na API');
-        }
-    })
-    .catch(function (error) {
-        console.error(`Erro na obtenção dos dados p/ KPI: ${error.message}`);
-    });
-}
-
-function obterDados2(inicio, fim, idEmpresa) {
-
-
-const url = `/fabio/KPI2?inicio=${inicio}&fim=${fim}&empresa=${idEmpresa}`;
-
-console.log(url)
-
-fetch(url, { cache: 'no-store' })
-    .then(function (response) {
-        if (response.ok) {
-            response.json().then(function (resposta) {
-                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-
-                KPI2(resposta);
-            });
-        } else {
-            console.error('Nenhum dado encontrado ou erro na API');
-        }
-    })
-    .catch(function (error) {
-        console.error(`Erro na obtenção dos dados p/ KPI: ${error.message}`);
-    });
-}
-
-function KPI1(resposta) {
-    console.log("Resposta recebida da API:", resposta); 
-
-    if (resposta.length > 0) {
-        const dados = resposta[0]; 
-        const dia = dados.dia_semana_traduzido || "Sem horário"; 
-        const maior = dados.maior_valor || "Sem valor"; 
-
-        const KPI_dia = document.getElementById('dia_2');
-        const KPI_uso = document.getElementById('uso_2');
-        if (KPI_dia) {
-            KPI_dia.innerHTML = `${dia}`;
-            KPI_uso.innerHTML = `${maior}%`;
-        } else {
-            console.error("Elemento 'KPI-dia' não encontrado no DOM.");
-        }
-    } else {
-        console.warn("Nenhum dado encontrado na resposta da API.");
-        const KPI_maior = document.getElementById('KPI-maior');
-        if (KPI_dia && KPI_uso) {
-            KPI_dia.innerText = "Sem dados disponíveis";
-            KPI_uso.innerText = "Sem dados disponíveis";
+            console.warn("Nenhum dado encontrado na resposta da API.");
+            const KPI_maior = document.getElementById('KPI-maior');
+            if (KPI_dia && KPI_uso) {
+                KPI_dia.innerText = "Sem dados disponíveis";
+                KPI_uso.innerText = "Sem dados disponíveis";
+            }
         }
     }
-}
 
-function KPI2(resposta) {
-    console.log("Resposta recebida da API:", resposta); 
+    function KPI2(resposta) {
+        console.log("Resposta recebida da API:", resposta);
 
-    if (resposta.length > 0) {
-        const dados = resposta[0]; 
-        const dia = dados.dia_semana_traduzido || "Sem horário"; 
-        const maior = dados.menor_valor || "Sem valor"; 
+        if (resposta.length > 0) {
+            const dados = resposta[0];
+            const dia = dados.dia_semana_traduzido || "Sem horário";
+            const maior = dados.menor_valor || "Sem valor";
 
-        const KPI_dia = document.getElementById('dia_1');
-        const KPI_uso = document.getElementById('uso_1');
-        if (KPI_dia) {
-            KPI_dia.innerHTML = `${dia}`;
-            KPI_uso.innerHTML = `${maior}%`;
+            const KPI_dia = document.getElementById('dia_1');
+            const KPI_uso = document.getElementById('uso_1');
+            if (KPI_dia) {
+                KPI_dia.innerHTML = `${dia}`;
+                KPI_uso.innerHTML = `${maior}%`;
+            } else {
+                console.error("Elemento 'KPI-dia' não encontrado no DOM.");
+            }
         } else {
-            console.error("Elemento 'KPI-dia' não encontrado no DOM.");
-        }
-    } else {
-        console.warn("Nenhum dado encontrado na resposta da API.");
-        const KPI_maior = document.getElementById('KPI-menor');
-        if (KPI_dia && KPI_uso) {
-            KPI_dia.innerText = "Sem dados disponíveis";
-            KPI_uso.innerText = "Sem dados disponíveis";
+            console.warn("Nenhum dado encontrado na resposta da API.");
+            const KPI_maior = document.getElementById('KPI-menor');
+            if (KPI_dia && KPI_uso) {
+                KPI_dia.innerText = "Sem dados disponíveis";
+                KPI_uso.innerText = "Sem dados disponíveis";
+            }
         }
     }
-}
 
 
     // Abrir o modal
