@@ -117,9 +117,9 @@
             <div id="previsaoHorarioCPU" class="informacao">Previsão em: </div>
             <div class="informacao">Percentual de uso:</div>
             <div id="previsaoCPU" class="informacaoPrevisao">62%</div>
-            <div id="indicadorVerde" class="criticidade-indicador" style="display: none;"></div>
-            <div id="indicadorAmarelo" class="criticidade-indicador amarelo" style="display: none;"></div>
-            <div id="indicadorVermelho" class="criticidade-indicador vermelho" style="display: none;"></div>
+            <div id="indicadorVerde" class="criticidade-indicadorverde" style="display: none;"></div>
+            <div id="indicadorAmarelo" class="criticidade-indicadoamarelo" style="display: none;"></div>
+            <div id="indicadorVermelho" class="criticidade-indicadorvermelho" style="display: none;"></div>
           </div>
         </div>
       </div>
@@ -140,9 +140,9 @@
             <div id="previsaoHorarioRAM" class="informacao">Previsão em: </div>
             <div class="informacao"> Percentual de uso:</div>
             <div id="previsaoRAM" class="informacaoPrevisao">44%</div>
-            <div id="indicadorVerdeRAM" class="criticidade-indicador" style="display: none;"></div>
-            <div id="indicadorAmareloRAM" class="criticidade-indicador amarelo" style="display: none;"></div>
-            <div id="indicadorVermelhoRAM" class="criticidade-indicador vermelho" style="display: none;"></div>
+            <div id="indicadorVerdeRAM" class="criticidade-indicadorverde" style="display: none;"></div>
+            <div id="indicadorAmareloRAM" class="criticidade-indicadoramarelo" style="display: none;"></div>
+            <div id="indicadorVermelhoRAM" class="criticidade-indicadorvermelho" style="display: none;"></div>
 
           </div>
         </div>
@@ -814,6 +814,8 @@
         resposta.json().then((limite) => {
           limite.forEach((registro) => {
 
+            console.log("!!!!!!!!!!!!!!!!!!", safePredictedValueCpu, safePredictedValueRam)
+
             cpu_limite_input.value = registro.limite_valor_cpu
             ram_limite_input.value = registro.limite_valor_ram
 
@@ -821,36 +823,62 @@
             rede_limite_input.value = registro.limite_valor_rede
 
             // DEIXAR ALERTAS/CORES VISUAIS NO TENDÊNCIA DE USO DINÂMICO
-            if (safePredictedValueCpu >= registro.limite_valor_cpu) {
+            const cpuLimite = parseFloat(cpu_limite_input.value);
+            const ramLimite = parseFloat(ram_limite_input.value);
+            // CPU
+            if (safePredictedValueCpu >= cpuLimite) {
               indicadorVerde.style.display = "none"
               indicadorAmarelo.style.display = "none"
               indicadorVermelho.style.display = "block"
-            } else if (safePredictedValueCpu >= (registro.limite_valor_cpu * 0.95)) {
+            }else if(safePredictedValueCpu >= (cpuLimite * 0.90)){
               indicadorVerde.style.display = "none"
               indicadorAmarelo.style.display = "block"
               indicadorVermelho.style.display = "none"
-            } else {
+            }else{
               indicadorVerde.style.display = "block"
               indicadorAmarelo.style.display = "none"
               indicadorVermelho.style.display = "none"
             }
+            // else if ((safePredictedValueCpu >= (cpuLimite * 0.95)) & safePredictedValueCpu < cpuLimite) {
+            //   indicadorVerde.style.display = "none"
+            //   indicadorAmarelo.style.display = "block"
+            //   indicadorVermelho.style.display = "none"
+            // } else {
+            //   indicadorVerde.style.display = "none"
+            //   indicadorAmarelo.style.display = "none"
+            //   indicadorVermelho.style.display = "block"
+            // }
 
-            if (safePredictedValueRam >= registro.limite_valor_ram) {
+            // RAM
+            if (safePredictedValueRam >= ramLimite) {
               indicadorVerdeRAM.style.display = "none"
               indicadorAmareloRAM.style.display = "none"
               indicadorVermelhoRAM.style.display = "block"
-            } else if (safePredictedValueRam >= (registro.limite_valor_ram * 0.95)) {
+            }else if(safePredictedValueRam >= (ramLimite * 0.95)){
               indicadorVerdeRAM.style.display = "none"
               indicadorAmareloRAM.style.display = "block"
               indicadorVermelhoRAM.style.display = "none"
-            } else {
+            }else{
               indicadorVerdeRAM.style.display = "block"
               indicadorAmareloRAM.style.display = "none"
               indicadorVermelhoRAM.style.display = "none"
             }
+            // else if ((safePredictedValueRam >= (ramLimite * 0.95)){
+            //   indicadorVerdeRAM.style.display = "none"
+            //   indicadorAmareloRAM.style.display = "block"
+            //   indicadorVermelhoRAM.style.display = "none"
+            // } else {
+            //   indicadorVerdeRAM.style.display = "none"
+            //   indicadorAmareloRAM.style.display = "none"
+            //   indicadorVermelhoRAM.style.display = "block"
+            // }
+
+            console.log("--------", safePredictedValueCpu, safePredictedValueRam)
+
           });
 
         });
+
 
       })
       .catch(function (resposta) {
@@ -923,7 +951,7 @@
       if (idServidorPar) {
         obterDadosGraficoTendenciaUso(idServidorPar);
       }
-    }, 30000);
+    }, 60000);
   }
 
   let graficoCpuInstance = null;
@@ -1387,6 +1415,7 @@
     let sumX = 0, sumY = 0, sumXY = 0, sumXX = 0;
 
     data.forEach(point => {
+      listarLimite(idServidorPar)
       sumX += point.x;
       sumY += point.y;
       sumXY += point.x * point.y;
@@ -1463,7 +1492,7 @@
     for (let i = 0; i < resposta.length; i++) {
       var registro = resposta[i];
       let data = registro.data;
-      let horario = new Date(data).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+      let horario = new Date(data).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
       if (registro.fkServico == 1) {
         labelsCpu.push(`${horario}`);
@@ -1496,18 +1525,18 @@
 
     // Pegar o último horário registrado 
     const lastTimeStringCpu = labelsCpu[labelsCpu.length - 1];
-    const lastTimeCpu = new Date(`1970-01-01T${lastTimeStringCpu}:00`);
+    const lastTimeCpu = new Date(`1970-01-01T${lastTimeStringCpu}`);
     const lastTimeStringRam = labelsRam[labelsRam.length - 1];
-    const lastTimeRam = new Date(`1970-01-01T${lastTimeStringRam}:00`);
+    const lastTimeRam = new Date(`1970-01-01T${lastTimeStringRam}`);
 
     ultimoHorarioCPU.innerHTML = `Última atualização: ${lastTimeStringCpu}`;
     ultimoHorarioRAM.innerHTML = `Última atualização: ${lastTimeStringRam}`;
 
 
     // Adicionar 5 minutos ao último horário registrado 
-    const nextTimeCpu = new Date(lastTimeCpu.getTime() + 5 * 60000).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    const nextTimeCpu = new Date(lastTimeCpu.getTime() + 1 * 60000).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     // labelsCpu.push(nextTimeCpu);
-    const nextTimeRam = new Date(lastTimeRam.getTime() + 5 * 60000).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    const nextTimeRam = new Date(lastTimeRam.getTime() + 1 * 60000).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     // labelsRam.push(nextTimeRam);
 
     previsaoHorarioCPU.innerHTML = `Previsão para: ${nextTimeCpu}`;
@@ -1518,21 +1547,21 @@
     const nextXCpu = scatterDataCpu.length;
     const predictedValueCpu = Math.round(slopeCpu * nextXCpu + interceptCpu);
     dadosCpu.datasets[0].data.push
-    
-    if (predictedValueCpu < 0) { 
-      safePredictedValueCpu = 0; 
-    } else { 
-      safePredictedValueCpu = predictedValueCpu; 
+
+    if (predictedValueCpu < 0) {
+      safePredictedValueCpu = 0;
+    } else {
+      safePredictedValueCpu = predictedValueCpu;
     }
 
     const nextXRam = scatterDataRam.length;
     const predictedValueRam = Math.round(slopeRam * nextXRam + interceptRam);
     dadosRam.datasets[0].data.push
-     
-    if (predictedValueRam < 0) { 
-      safePredictedValueRam = 0; 
-    } else { 
-      safePredictedValueRam = predictedValueRam; 
+
+    if (predictedValueRam < 0) {
+      safePredictedValueRam = 0;
+    } else {
+      safePredictedValueRam = predictedValueRam;
     }
 
     previsaoCPU.innerHTML = `${safePredictedValueCpu}%`;
@@ -1549,6 +1578,10 @@
     console.log(predictedValueCpu);
     console.log("Valor previsto RAM:");
     console.log(predictedValueRam);
+    console.log("Valor previsto CPU safe:");
+    console.log(safePredictedValueCpu);
+    console.log("Valor previsto RAM safe:");
+    console.log(safePredictedValueRam);
     console.log('----------------------------------------------');
 
     document.querySelector('.graficoTendenciaUsoCPU').innerHTML = '<canvas class="canvasTendenciaUso" id="graficoCPUTendenciaUso"></canvas>';
@@ -1571,7 +1604,7 @@
           pointBorderColor: 'rgb(75, 192, 192)',
           borderWidth: 2,
           pointRadius: 6,
-          tension: 0.3
+          tension: 0.1
         }, {
           label: 'Tendência de Uso',
           data: regressionLineCpu,
@@ -1637,7 +1670,7 @@
           pointBorderColor: 'rgb(75, 192, 192)',
           borderWidth: 2,
           pointRadius: 6,
-          tension: 0.3
+          tension: 0.1
         }, {
           label: 'Tendência de Uso',
           data: regressionLineRam,
@@ -1691,14 +1724,14 @@
     });
 
     //Limitar a quantidade de labels no gráfico
-    if (graficoRamTendenciaInstance.data.labels.length > 6) {
+    if (graficoRamTendenciaInstance.data.labels.length > 8) {
       graficoRamTendenciaInstance.data.labels.shift();
       graficoRamTendenciaInstance.data.datasets.forEach((dataset) =>
         dataset.data.shift()
       );
     }
 
-    if (graficoCpuTendenciaInstance.data.labels.length > 6) {
+    if (graficoCpuTendenciaInstance.data.labels.length > 8) {
       graficoCpuTendenciaInstance.data.labels.shift();
       graficoCpuTendenciaInstance.data.datasets.forEach((dataset) =>
         dataset.data.shift()
