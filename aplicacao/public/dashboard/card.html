@@ -97,7 +97,7 @@
     </div>
 
 
-    <div id="tendenciaUso" class="tendenciaUso pagina" >
+    <div id="tendenciaUso" class="tendenciaUso pagina">
       <!-- TENDENCIA CPU -->
       <div class="usoBox">
         <div class="titulo">Uso de CPU (%) </div>
@@ -107,15 +107,17 @@
         <div class="uso-informacoes">
           <div class="informacoes-texto">
             <div id="ultimoHorarioCPU" class="informacao">Última atualização: </div>
-            <div class="informacao">Uso atual:</div>
+            <div class="informacao">Percentual de uso:</div>
             <div id="ultimoValorCPU" class="informacaoUsoAtual"></div>
           </div>
 
           <div class="informacoes-texto">
-            <div class="informacao">Previsão em </div>
-            <div class="informacao"> 5 minutos:</div>
+            <div id="previsaoHorarioCPU" class="informacao">Previsão em: </div>
+            <div class="informacao">Percentual de uso:</div>
             <div id="previsaoCPU" class="informacaoPrevisao">62%</div>
-            <div class="criticidade-indicador amarelo"></div>
+            <div id="indicadorVerde" class="criticidade-indicador" style="display: none;"></div>
+            <div id="indicadorAmarelo" class="criticidade-indicador amarelo" style="display: none;"></div>
+            <div id="indicadorVermelho" class="criticidade-indicador vermelho" style="display: none;"></div>
           </div>
         </div>
       </div>
@@ -128,15 +130,18 @@
         <div class="uso-informacoes">
           <div class="informacoes-texto">
             <div id="ultimoHorarioRAM" class="informacao"></div>
-            <div class="informacao">Uso atual:</div>
+            <div class="informacao">Percentual de uso:</div>
             <div id="ultimoValorRAM" class="informacaoUsoAtual"></div>
           </div>
 
           <div class="informacoes-texto">
-            <div class="informacao">Previsão em </div>
-            <div class="informacao"> 5 minutos:</div>
+            <div id="previsaoHorarioRAM" class="informacao">Previsão em: </div>
+            <div class="informacao"> Percentual de uso:</div>
             <div id="previsaoRAM" class="informacaoPrevisao">44%</div>
-            <div class="criticidade-indicador verde"></div>
+            <div id="indicadorVerdeRAM" class="criticidade-indicador" style="display: none;"></div>
+            <div id="indicadorAmareloRAM" class="criticidade-indicador amarelo" style="display: none;"></div>
+            <div id="indicadorVermelhoRAM" class="criticidade-indicador vermelho" style="display: none;"></div>
+
           </div>
         </div>
       </div>
@@ -794,7 +799,36 @@
             disco_limite_input.value = registro.limite_valor_disco
             rede_limite_input.value = registro.limite_valor_rede
 
+            // DEIXAR ALERTAS/CORES VISUAIS NO TENDÊNCIA DE USO DINÂMICO
+            if (safePredictedValueCpu >= registro.limite_valor_cpu) {
+              indicadorVerde.style.display = "none"
+              indicadorAmarelo.style.display = "none"
+              indicadorVermelho.style.display = "block"
+            } else if (safePredictedValueCpu >= (registro.limite_valor_cpu * 0.95)) {
+              indicadorVerde.style.display = "none"
+              indicadorAmarelo.style.display = "block"
+              indicadorVermelho.style.display = "none"
+            } else {
+              indicadorVerde.style.display = "block"
+              indicadorAmarelo.style.display = "none"
+              indicadorVermelho.style.display = "none"
+            }
+
+            if (safePredictedValueRam >= registro.limite_valor_ram) {
+              indicadorVerdeRAM.style.display = "none"
+              indicadorAmareloRAM.style.display = "none"
+              indicadorVermelhoRAM.style.display = "block"
+            } else if (safePredictedValueRam >= (registro.limite_valor_ram * 0.95)) {
+              indicadorVerdeRAM.style.display = "none"
+              indicadorAmareloRAM.style.display = "block"
+              indicadorVermelhoRAM.style.display = "none"
+            } else {
+              indicadorVerdeRAM.style.display = "block"
+              indicadorAmareloRAM.style.display = "none"
+              indicadorVermelhoRAM.style.display = "none"
+            }
           });
+
         });
 
       })
@@ -868,7 +902,7 @@
       if (idServidorPar) {
         obterDadosGraficoTendenciaUso(idServidorPar);
       }
-    }, 60000); // Intervalo de 3 segundos
+    }, 30000);
   }
 
   let graficoCpuInstance = null;
@@ -1365,6 +1399,10 @@
     }],
   };
 
+  let safePredictedValueRam;
+  let safePredictedValueCpu;
+
+
   function plotarGraficoTendenciaUso(resposta) {
     console.log('Iniciando plotagem do gráfico de Tendência de Uso...');
 
@@ -1419,8 +1457,6 @@
       }
     }
 
-
-
     // Transformar dados para a regressão linear 
     const scatterDataRam = dadosRam.datasets[0].data.map((valor, index) => ({ x: index, y: valor }));
     const { slope: slopeRam, intercept: interceptRam } = calcularRegressao(scatterDataRam);
@@ -1453,16 +1489,33 @@
     const nextTimeRam = new Date(lastTimeRam.getTime() + 5 * 60000).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
     // labelsRam.push(nextTimeRam);
 
+    previsaoHorarioCPU.innerHTML = `Previsão para: ${nextTimeCpu}`;
+    previsaoHorarioRAM.innerHTML = `Previsão para: ${nextTimeRam}`;
+
     // Prever o próximo valor
+    // Cores dinâmicas na linha 802
     const nextXCpu = scatterDataCpu.length;
     const predictedValueCpu = Math.round(slopeCpu * nextXCpu + interceptCpu);
     dadosCpu.datasets[0].data.push
+    
+    if (predictedValueCpu < 0) { 
+      safePredictedValueCpu = 0; 
+    } else { 
+      safePredictedValueCpu = predictedValueCpu; 
+    }
+
     const nextXRam = scatterDataRam.length;
     const predictedValueRam = Math.round(slopeRam * nextXRam + interceptRam);
     dadosRam.datasets[0].data.push
+     
+    if (predictedValueRam < 0) { 
+      safePredictedValueRam = 0; 
+    } else { 
+      safePredictedValueRam = predictedValueRam; 
+    }
 
-    previsaoCPU.innerHTML = `${predictedValueCpu}%`;
-    previsaoRAM.innerHTML = `${predictedValueRam}%`;
+    previsaoCPU.innerHTML = `${safePredictedValueCpu}%`;
+    previsaoRAM.innerHTML = `${safePredictedValueRam}%`;
 
     console.log('----------------------------------------------');
     console.log('O gráfico de Tendência de Uso será plotado com os respectivos valores:');
@@ -1477,8 +1530,8 @@
     console.log(predictedValueRam);
     console.log('----------------------------------------------');
 
-    document.querySelector('.graficoTendenciaUsoCPU').innerHTML = '<canvas id="graficoCPUTendenciaUso"></canvas>';
-    document.querySelector('.graficoTendenciaUsoRAM').innerHTML = '<canvas id="graficoRAMTendenciaUso"></canvas>';
+    document.querySelector('.graficoTendenciaUsoCPU').innerHTML = '<canvas class="canvasTendenciaUso" id="graficoCPUTendenciaUso"></canvas>';
+    document.querySelector('.graficoTendenciaUsoRAM').innerHTML = '<canvas class="canvasTendenciaUso" id="graficoRAMTendenciaUso"></canvas>';
 
     let graficoCPUTendenciaUso = document.getElementById('graficoCPUTendenciaUso').getContext('2d');
     let graficoRAMTendenciaUso = document.getElementById('graficoRAMTendenciaUso').getContext('2d');
@@ -1492,18 +1545,18 @@
           label: "Uso CPU (%)",
           data: dadosCpu.datasets[0].data,
           borderColor: 'rgb(75, 192, 192)',
-          backgroundColor: 'rgba(255, 255, 255, 0.5)',
           fill: false,
           pointBackgroundColor: 'white',
-          pointBorderColor: 'white',
-          pointRadius: 5,
-          tension: 0.1
+          pointBorderColor: 'rgb(75, 192, 192)',
+          borderWidth: 2,
+          pointRadius: 6,
+          tension: 0.3
         }, {
           label: 'Tendência de Uso',
           data: regressionLineCpu,
           type: 'line',
           borderColor: 'rgba(255, 99, 132, 0.8)',
-          borderWidth: 2,
+          borderWidth: 3,
           fill: false,
           pointRadius: 0 // Remove os pontos da linha de regressão
         }]
@@ -1512,7 +1565,8 @@
         scales: {
           x: {
             grid: {
-              display: false // Remove a grade vertical
+              display: false,
+              color: 'white'
             },
             ticks: {
               color: 'white', // Cor dos rótulos do eixo X
@@ -1522,8 +1576,11 @@
             }
           },
           y: {
+            // beginAtZero: true,
+            // max: 100,
             grid: {
-              display: false // Remove a grade horizontal
+              display: false,
+              color: 'white',
             },
             ticks: {
               color: 'white', // Cor dos rótulos do eixo Y
@@ -1535,12 +1592,12 @@
         },
         plugins: {
           legend: {
-            display: false // Remove a legenda
+            display: false,
           }
         },
         elements: {
           line: {
-            tension: 0.4 // Deixa as linhas mais suaves
+            tension: 0.1
           }
         }
       }
@@ -1554,18 +1611,18 @@
           label: "Uso de RAM (%)",
           data: dadosRam.datasets[0].data,
           borderColor: 'rgb(75, 192, 192)',
-          backgroundColor: 'rgba(255, 255, 255, 0.5)',
           fill: false,
           pointBackgroundColor: 'white',
-          pointBorderColor: 'white',
-          pointRadius: 5,
-          tension: 0.1
+          pointBorderColor: 'rgb(75, 192, 192)',
+          borderWidth: 2,
+          pointRadius: 6,
+          tension: 0.3
         }, {
           label: 'Tendência de Uso',
           data: regressionLineRam,
           type: 'line',
           borderColor: 'rgba(255, 99, 132, 0.8)',
-          borderWidth: 2,
+          borderWidth: 3,
           fill: false,
           pointRadius: 0 // Remove os pontos da linha de regressão
         }]
@@ -1574,7 +1631,8 @@
         scales: {
           x: {
             grid: {
-              display: false // Remove a grade vertical
+              display: false,
+              color: 'white'
             },
             ticks: {
               color: 'white', // Cor dos rótulos do eixo X
@@ -1584,8 +1642,11 @@
             }
           },
           y: {
+            // beginAtZero: true,
+            // max: 100,
             grid: {
-              display: false // Remove a grade horizontal
+              display: false,
+              color: 'white',
             },
             ticks: {
               color: 'white', // Cor dos rótulos do eixo Y
@@ -1602,20 +1663,21 @@
         },
         elements: {
           line: {
-            tension: 0.4 // Deixa as linhas mais suaves
+            tension: 0.1 // Deixa as linhas mais suaves
           }
         }
       }
     });
 
-    if (graficoRamTendenciaInstance.data.labels.length > 7) {
+    //Limitar a quantidade de labels no gráfico
+    if (graficoRamTendenciaInstance.data.labels.length > 6) {
       graficoRamTendenciaInstance.data.labels.shift();
       graficoRamTendenciaInstance.data.datasets.forEach((dataset) =>
         dataset.data.shift()
       );
     }
 
-    if (graficoCpuTendenciaInstance.data.labels.length > 7) {
+    if (graficoCpuTendenciaInstance.data.labels.length > 6) {
       graficoCpuTendenciaInstance.data.labels.shift();
       graficoCpuTendenciaInstance.data.datasets.forEach((dataset) =>
         dataset.data.shift()
