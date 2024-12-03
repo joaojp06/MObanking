@@ -56,9 +56,17 @@ Copie a seção abaixo em todas as página da dash, user, config user, etc
     & .submenu{
         display: none;
     }
+
+    & .submenuServidores{
+        display: none;
+    }
 }
 
 .girarSeta{
+    transform: rotate(180deg);
+}
+
+.girarSetaServidores{
     transform: rotate(180deg);
 }
 
@@ -67,9 +75,14 @@ Copie a seção abaixo em todas as página da dash, user, config user, etc
     opacity: 0;
 }
 
+.setaMenuServidores{
+    transition: all 0.3s;
+    opacity: 0;
+}
+
 .menu-lateral ul li {
     transition: all 0.5s;
-    width: 35%;
+    width: 90%;
     cursor: pointer;
 }
 
@@ -84,6 +97,10 @@ Copie a seção abaixo em todas as página da dash, user, config user, etc
 }
 
 .menu-aberto:hover .setaMenu {
+    opacity: 1;
+}
+
+.menu-aberto:hover .setaMenuServidores {
     opacity: 1;
 }
 

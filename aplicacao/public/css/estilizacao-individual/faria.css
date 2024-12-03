@@ -18,32 +18,62 @@ body {
   align-items: center;
 
   .left {
-    width: 57%;
+    width: 58%;
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
+
+    h1 {
+      font-size: 36px;
+    }
 
     .top {
       width: 100%;
-      height: 192.5px;
-      padding: 2%;
+      height: max-content;
+      font-size: 120%;
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
+      align-items: center;
       /* border: solid; */
 
       .filtros {
-        width: 30%;
-        height: 70%;
+        width: 50%;
+        height: 80%;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        /* justify-content: space-around; */
+
+        select {
+          margin: 10px 0 0 20px;
+          width: 40%;
+          height: 52px;
+          font-size: 90%;
+          border-radius: 5px;
+          background-color: #156492;
+          color: #ffff;
+        }
+      }
+
+      a {
+        padding: 1.2%;
+        width: 40%;
+        height: 36px;
+        margin-top: 25px;
+        font-size: 90%;
+        text-align: center;
+        text-decoration: none;
+        background-color: #156492;
+        color: #ffff;
+        border-radius: 5px;
       }
     }
 
     .bottom {
       width: 100%;
       height: 400px;
+      display: flex;
+      align-items: center;
       /* border: solid; */
     }
   }
@@ -57,20 +87,21 @@ body {
   }
 
   .rigth {
-    width: 37%;
+    width: 36%;
     height: 100%;
     display: flex;
     align-items: center;
 
     .boxBobIA {
       background: linear-gradient(to bottom, #0071B3, #003047);
-      width: 95%;
+      width: 100%;
       height: 590px;
-      border-radius: 13%;
+      border-radius: 50px;
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
       align-items: center;
+      box-shadow: #000 10px 10px 20px -8px;
 
       .tituloIA {
         color: #ffff;
@@ -82,21 +113,129 @@ body {
         height: 85%;
         padding: 10px;
         border-radius: 35px;
-        border: solid #1A7BB4;
+        border: solid #1a7bb4;
         display: flex;
-        align-items: flex-end;
-        justify-content: space-around;
-        
-        input {
-          width: 80%;
-          height: 40px;
-          border-radius: 20px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+
+        .conteiner_conversa {
+          width: 95%;
+          height: 85%;
+          display: flex;
+          flex-direction: column;
+          padding: 2%;
+          /* border: solid; */
+          overflow-y: auto;
+
+          .perguntaIA {
+            align-self: flex-end;
+            width: 80%;
+            height: max-content;
+            padding: 3%;
+            border-radius: 10px;
+            background-color: rgba(0, 123, 255, 0.3);
+            color: #ffff;
+          }
+
+          .respostaIA {
+            margin: 15px 0 15px 0;
+            align-self: flex-start;
+            width: 80%;
+            height: max-content;
+            padding: 3%;
+            border-radius: 10px;
+            background-color: rgba(0, 123, 255, 0.3);
+            color: #ffff;
+          }
         }
 
-        button {
-          width: 15%;
-          height: 40px;
-          border-radius: 20px;
+        .conteiner_conversa::-webkit-scrollbar {
+          width: 12px;
+          /* Largura da barra de rolagem */
+        }
+
+        .conteiner_conversa::-webkit-scrollbar-track {
+          background: #f1f1f1;
+          /* Cor do trilho da barra de rolagem */
+          border-radius: 10px;
+          /* Borda arredondada do trilho */
+        }
+
+        .conteiner_conversa::-webkit-scrollbar-thumb {
+          background-color: #04344a;
+          /* Cor do polegar da barra de rolagem */
+          border-radius: 10px;
+          /* Borda arredondada do polegar */
+        }
+
+        .conteiner_conversa::-webkit-scrollbar-thumb:hover {
+          background-color: #074c6c;
+          /* Cor do polegar ao passar o mouse */
+        }
+
+        .inputs {
+          width: 100%;
+          display: flex;
+          justify-content: space-around;
+
+          form {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+          }
+
+          input {
+            width: 80%;
+            height: 60px;
+            text-indent: 5px;
+            padding: 3%;
+            background-color: transparent;
+            border-style: none;
+            border: solid #007bff;
+            color: #ffff;
+            border-radius: 20px;
+            overflow: hidden;
+          }
+
+          input:hover {
+            background-color: rgba(0, 123, 255, 0.2);
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+          }
+
+          input::placeholder {
+            color: #fff;
+          }
+
+          input:focus {
+            outline: none;
+            background-color: rgba(0, 123, 255, 0.2);
+          }
+
+          button {
+            cursor: pointer;
+            width: 15%;
+            height: 60px;
+            border-radius: 50px;
+            background-color: transparent;
+            border-style: none;
+            border: solid #007bff;
+          }
+
+          button img {
+            width: 100%;
+            height: 100%;
+          }
+
+          button:focus {
+            outline: none;
+            background-color: rgba(0, 123, 255, 0.2);
+          }
+
+          button:hover {
+            background-color: rgba(0, 123, 255, 0.2);
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+          }
         }
       }
     }

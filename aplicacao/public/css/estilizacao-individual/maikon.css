@@ -74,7 +74,7 @@
     visibility: hidden;
     opacity: 0;
     width: 20vw !important;
-    background: linear-gradient(135deg, #007bff 0%, #00c6ff 100%);
+    background-image: linear-gradient(to right, #30607D, #04344A);
     color: #fff;
     text-align: center;
     padding: 8% 4% !important;
@@ -147,7 +147,8 @@
 
 .listagem_cards {
     margin-top: 4%;
-
+    max-height: 60vh;
+    overflow: auto;
 
     & div {
         display: flex;
@@ -227,7 +228,7 @@
 
 .infoDesvioPadrao_box{
     width: 27vw;
-    margin-top: 5%;
+    margin: 1% 0%;
 }
 
 .legendaBoxColor{
@@ -295,13 +296,14 @@
 
 .picos_box {
     width: 27vw;
-
-    & span {}
+    margin: 1% 0%;
+    
 }
 
-.picosDesc_box {
-    margin: 5% 0%;
-}
+/* .sugestao_box{
+    display: flex;
+    align-items: center;
+} */
 
 .statusModal_box {
     display: flex;
@@ -311,6 +313,99 @@
 
 /* Descrição do Upgrade ou downgrade */
 .calculDesc_box {
-    margin-top: 5%;
     width: 27vw;
+    margin: 1% 0%;
+}
+
+/* Tooltip confiablidade */
+
+.custom-tooltipModal-container {
+    position: absolute;
+    display: inline-block;
+    top: 23%;
+    left: 74%;
+}
+
+.custom-tooltipModal-btn {
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+}
+
+.custom-tooltipModal-content {
+    position: absolute;
+    bottom: 140%;
+    left: 50%;
+    transform: translateX(-50%);
+    visibility: hidden;
+    opacity: 0;
+    width: 20vw !important;
+    background-image: linear-gradient(to right, #30607D, #04344A);
+    color: #fff;
+    text-align: center;
+    padding: 8% 4% !important;
+    font-size: 14px;
+    border-radius: 15px;
+    transition: all 0.4s ease;
+    z-index: 1;
+
+   
+}
+
+.custom-tooltipModal-container:hover .custom-tooltipModal-content {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(-10px);
+}
+
+.custom-tooltipModal-arrow {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -10px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #21516b;
+}
+
+.custom-tooltipModal-text {
+    font-size: 1rem !important;
+    padding: 2% 2%;
+    line-height: 24px;
+}
+
+.indicadoresPai_box {
+    display: flex;
+    flex-direction: column;
+    margin-left: 6%;
+
+    & h2 {
+        font-size: 1.3rem;
+        margin-bottom: 1.5%;
+    }
+}
+
+.indicadores {
+    display: flex;
+    gap: 0px 40px;
+
+    & div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 7px 0px;
+        border-radius: 15px;
+        background-image: linear-gradient(to right, #30607D, #04344A);
+        /* box-shadow: 0px 20px 60px #bebebe, 20px 20px 60px #ffffff; */
+        width: 26vh;
+        padding: 2% 2%;
+        color: #ffffff;
+    }
+
+    & p,
+    & span {
+        font-size: 0.8rem;
+    }
 }

@@ -1,0 +1,122 @@
+@import url("https://fonts.googleapis.com/css2?family=Allerta&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: "Nunito Sans", sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Allerta", sans-serif;
+  /* overflow: hidden; */
+}
+
+.conteudo {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+
+    h1 {
+        font-size: 30px;
+        padding-bottom: 2%;
+    }
+
+    hr {
+        border-color: #6BC0D2;
+    }
+
+    .line {
+        align-self: center;
+        width: 95%;
+    }
+
+    .board {
+        align-self: center;
+        width: 90%;
+        height: 90%;
+        padding: 1%;
+        border-radius: 30px;
+        background-color: #1B4E66;
+        display: flex;
+        flex-direction: column;
+        color: #BAC8D3;
+        box-shadow: #000 10px 10px 25px -4px;
+
+        img {
+            width: 45px;
+            margin-right: 5px;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-evenly;
+            width: 100%;
+            height: 100px;
+            margin-bottom: 40px;
+
+            h1 {
+                padding: 1%;
+                display: flex;
+                align-items: center;
+            }
+
+            .info {
+                width: 25%;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: space-between;
+            }
+        }
+
+        .midle {
+            width: 100%;
+            height: 150px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .bottom {
+            width: 100%;
+            height: 150px;
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .content {
+            width: 100%;
+            height: 70%;
+            display: flex;
+            justify-content: space-evenly;
+            font-size: 120%;
+        }
+
+        .title {
+            display: flex;
+            font-size: 150%;
+        }
+
+        .componente {
+            display: flex;
+            align-items: center;
+
+            h2 {
+                display: flex;
+                align-items: center;
+                margin-right: 15px;
+            }
+        }
+
+        .retorno {
+            color: #ffff;
+        }
+    }
+}
