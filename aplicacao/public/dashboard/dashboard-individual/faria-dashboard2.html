@@ -231,7 +231,8 @@
 
 <script>
   function obterIndicadores() {
-    fetch(`/faria/obterIndicadores`, {
+    const empresa = sessionStorage.ID_EMPRESA
+    fetch(`/faria/obterIndicadores/${empresa}`, {
       method: "GET",
     })
       .then(function (resposta) {
