@@ -1,6 +1,6 @@
 var database = require("../database/config");
 
-function listarPrevisoes(idEmpresa, status) {
+function listarPrevisoes(idEmpresa) {
   console.log(
     "ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()"
   );
@@ -31,7 +31,7 @@ ORDER BY
   return database.executar(instrucaoSql);
 }
 
-function listarVerde(idEmpresa, status) {
+function listarVerde(idEmpresa) {
   console.log(
     "ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()"
   );
@@ -67,7 +67,7 @@ WHERE
   return database.executar(instrucaoSql);
 }
 
-function listarAmarelo(idEmpresa, status) {
+function listarAmarelo(idEmpresa) {
   console.log(
     "ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()"
   );
@@ -103,7 +103,7 @@ WHERE
   return database.executar(instrucaoSql);
 }
 
-function listarVermelho(idEmpresa, status) {
+function listarVermelho(idEmpresa) {
   console.log(
     "ACESSEI O AVISO  MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function listar()"
   );

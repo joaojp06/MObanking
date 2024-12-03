@@ -82,7 +82,7 @@
     <div class="conteudo">
       <div class="titulo" style="display: flex;">
         <h1>Previsão de Alertas de RAM </h1>
-        <div class="info"><img onclick="" src="../../imagens/jp-individual-icone-info.svg" alt=""></div>
+        <div class="info"><img onclick="abrirModal()" src="../../imagens/jp-individual-icone-info.svg" alt=""></div>
 
       </div>
       <div class="container-kpis">
@@ -109,44 +109,33 @@
     </div>
   </div>
 
+  <!-- MODAL  -->
+
   <!-- MODAL -->
 
   <div style="display: none" class="modal" id="modal">
+    <h2>Informações da página</h2>
     <i onclick="fecharModal()" id="closeModal" class="fa-solid fa-x"></i>
-
-    <div id="modalGraficos">
-      <!-- Essa parte recebe de forma dinâmica(fkPlano) os gráficos que são exibidos em tempo real -->
-    </div>
-
-    <div class="div-inp">
-      <h1> Informações do Servidor </h1>
+    <h3>A tela de previsão de alertas foi desenvolvida pensando em sanar uma das maiores dores e necessidades do
+      negócio, que é a falta de insights para antecipar problemas na infraestrutura. A funcionalidade é baseada no
+      dilema: Melhor do que identificar uma falha, é prevê-la.
       <br>
-      <label>
-        <b>Apelido: </b><input id="input_apelido" type="text">
-      </label>
-      <label>
-        <b>Função: </b><input id="input_funcao" type="text">
-      </label>
-      <button onclick="editarInfoServidor(idServidorPar)">Editar</button>
-    </div>
-
-    <h1>Limites dos componentes</h1>
-    <div class="mudarLimiteBox">
-      <div class="boxInputs" id="mudarLimiteBox">
-
-      </div>
-      <button onclick="editarLimiteServidor(idServidorPar)">Editar</button>
-    </div>
-
-    <button class="desativarServidorButton" id="buttonDesativarServidor" onclick="confirmarDesativar()">Desativar
-      servidor</button>
-    <button class="desativarServidorButton" id="buttonAtivarServidor" onclick="confirmarAtivar()">Ativar
-      servidor</button>
+      <b>A quantidade de processos em execução dos servidores afeta diretamente no uso da memória RAM. Contando com
+        isso, é possível prever o comportamento da Memória RAM em decorrência da quantidade de processos em execução.
+        <br>
+        O grupo de alertas são divididos por 3 cores diferentes:
+        <br><br>
+        <span style="color: rgb(19, 94, 19);">Verde: </span>Indica que o servidor em questão tem chances baxíssimas de
+        ter o limite da memória RAM atingido.
+        <br>
+        <span style="color: yellow;">Amarelo: </span> Serve para alertar o usuário de que o limite da memória RAM está
+        prestes a ser atingido
+        <br>
+        <span style="color: red;">Vermelho: </span> Aparece quando o servidor sofre grandes riscos de ter o limite da
+        memória RAM atingido ou já foi atingido.
+      </b>
+    </h3>
   </div>
-
-
-
-
 
   <!-- CARD DE SUCESSO -->
 
@@ -235,6 +224,9 @@
 
 <script>
 
+  nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
+  let idEmpresa = sessionStorage.ID_EMPRESA;
+
   function toggleSubmenu() {
     const submenu = document.querySelector('.submenu');
     const seta = document.querySelector('.setaMenu');
@@ -297,22 +289,6 @@
     frame.classList.remove('blur-grid')
     confirmarModalDesativar.style.top = '-20%'
   }
-
-  function confirmarAtivar() {
-
-    confirmarModalAtivar.style.top = '0'
-    const frame = document.getElementById('frame');
-    frame.classList.add('blur-grid')
-
-  }
-
-  function fecharAtivar() {
-
-    const frame = document.getElementById('frame');
-    frame.classList.remove('blur-grid')
-    confirmarModalAtivar.style.top = '-20%'
-  }
-
 
 
   const menuLaterealHTML = document.getElementById('menuLateralBox')
@@ -428,28 +404,34 @@
     `
   }
 
-  nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
+
 
   let idServidorPar;
 
 
+  function abrirModal() {
+
+    const modal = document.getElementById('modal')
+
+    modal.style.display = "block";
+    const frame = document.getElementById("frame");
+    frame.classList.add("blur-grid");
+
+  }
 
   function fecharModal() {
     modal.style.display = "none";
     const frame = document.getElementById("frame");
     frame.classList.remove("blur-grid");
-    listarServidores()
+    listarPrevisoes()
+    atualizarKpi()
   }
 
-  var idEmpresa = sessionStorage.ID_EMPRESA;
+
 
   function listarVerde() {
-    if (status == 'ativo') {
-      status = 1 // VERÁ SERVIDORES ATIVOS - MODIFICAÇÃO NA CONTROLLE
-    } else {
-      status = 2
-    }
-    fetch(`/joao/listarVerde/${idEmpresa}/${status}`, {
+
+    fetch(`/joao/listarVerde/${idEmpresa}`, {
       method: "GET",
     })
       .then(function (resposta) {
@@ -483,51 +465,8 @@
   }
 
   function listarAmarelo(params) {
-    if (status == 'ativo') {
-      status = 1 // VERÁ SERVIDORES ATIVOS - MODIFICAÇÃO NA CONTROLLE
-    } else {
-      status = 2
-    }
-    fetch(`/joao/listarVerde/${idEmpresa}/${status}`, {
-      method: "GET",
-    })
-      .then(function (resposta) {
-        if (resposta.status == 204) {
 
-          listagemServidores.innerHTML = "Nenhum resultado encontrado."
-
-          throw "Nenhum resultado encontrado!!";
-        } else if (resposta.status == 500) {
-          alert("Deu ruim")
-        }
-        resposta.json().then((servidores) => {
-          console.log(servidores); // Log da resposta da API com os dados do banco
-          planoEmpresa = sessionStorage.ID_PLANO
-
-          console.log(`Estou no HTML PLANO EMPRESA ${planoEmpresa}`)
-
-          servidores.forEach((registro) => {
-
-            var qtdAlerta = registro.quantidade
-
-            qtdAlertaVerde.innerHTML = `${qtdAlerta}`;
-
-          });
-
-        });
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
-  }
-
-  function listarAmarelo(params) {
-    if (status == 'ativo') {
-      status = 1 // VERÁ SERVIDORES ATIVOS - MODIFICAÇÃO NA CONTROLLE
-    } else {
-      status = 2
-    }
-    fetch(`/joao/listarAmarelo/${idEmpresa}/${status}`, {
+    fetch(`/joao/listarAmarelo/${idEmpresa}`, {
       method: "GET",
     })
       .then(function (resposta) {
@@ -560,13 +499,10 @@
       });
   }
 
+
   function listarVermelho(params) {
-    if (status == 'ativo') {
-      status = 1 // VERÁ SERVIDORES ATIVOS - MODIFICAÇÃO NA CONTROLLE
-    } else {
-      status = 2
-    }
-    fetch(`/joao/listarVermelho/${idEmpresa}/${status}`, {
+
+    fetch(`/joao/listarVermelho/${idEmpresa}`, {
       method: "GET",
     })
       .then(function (resposta) {
@@ -665,13 +601,8 @@
     const container = listagemServidores; // Referência ao container onde os servidores serão listados
     const servidoresExistentes = container.querySelectorAll(".card"); // Seleciona os cards já existentes
 
-    if (status == 'ativo') {
-      status = 1; // SERVIDORES ATIVOS
-    } else {
-      status = 2;
-    }
 
-    fetch(`/joao/listarPrevisoes/${idEmpresa}/${status}`, {
+    fetch(`/joao/listarPrevisoes/${idEmpresa}`, {
       method: "GET",
     })
       .then(function (resposta) {
