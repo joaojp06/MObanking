@@ -353,7 +353,7 @@
         "conteiner_conversa"
       ).innerHTML += `<div class="perguntaIA">${pergunta}</div>`;
 
-      const response = await fetch("http://localhost:3000/perguntar", {
+      const response = await fetch("http://3.225.6.11:3000/perguntar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
