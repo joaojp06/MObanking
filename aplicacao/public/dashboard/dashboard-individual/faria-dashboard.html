@@ -1,223 +1,189 @@
 <!DOCTYPE html>
 <html lang="ptbr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MOBANKING</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link
-      rel="shortcut icon"
-      href="../../imagens/logo.ico"
-      type="image/x-icon"
-    />
-    <link rel="stylesheet" href="../../css/estilizacao-individual/faria.css" />
-    <link rel="stylesheet" href="../../css/reset.css" />
-    <link rel="stylesheet" href="../../css/default.css" />
-    <link rel="stylesheet" href="../../css/cardConfirmacao.css" />
-    <link rel="stylesheet" href="../../css/mensagemCard.css" />
-    <!-- <link rel="stylesheet" href=" link do novo css "> -->
-    <!-- scripts do Chart.js - 2022-1 -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  </head>
 
-  <body onload="plotarGrafico()">
-    <div class="frame-aplicacao" style="display: flex">
-      <nav
-        class="menu-lateral"
-        onmouseenter="exibirMenu()"
-        onmouseleave="ocultarMenu()"
-      >
-        <img
-          src="../../imagens/mobank-logo-menu-lateral.svg"
-          alt="Logo"
-          class="logo-menu"
-        />
-        <ul id="menuLateralBox">
-          <li>
-            <a href="../card.html">
-              <span class="icon-menu"><i class="fa-solid fa-server"></i></span>
-              <span class="titulo-link-menu">Máquinas</span>
-            </a>
-          </li>
-          <li>
-            <a href="../dashboard.html">
-              <span class="icon-menu"
-                ><i class="fa-solid fa-chart-simple"></i
-              ></span>
-              <span class="titulo-link-menu">Gráficos</span>
-            </a>
-          </li>
-          <li>
-            <a href="../alertas.html">
-              <span class="icon-menu"
-                ><i class="fa-solid fa-triangle-exclamation"></i
-              ></span>
-              <span class="titulo-link-menu">Alertas</span>
-            </a>
-          </li>
-          <li class="dashboard-item">
-            <a href="javascript:void(0);" onclick="toggleSubmenu()">
-              <span class="icon-menu"
-                ><i class="fa-solid fa-chart-pie"></i
-              ></span>
-              <span class="titulo-link-menu">Dashboard </span>
-              <i class="fa-solid setaMenu fa-sort-down"></i>
-            </a>
-          </li>
-          <div
-            class="submenu"
-            onmouseenter="manterSubmenu()"
-            onmouseleave="fecharSubmenu()"
-          >
-            <li><a href="maikon-dashboard.html">Maikon</a></li>
-            <li><a href="joao-dashboard.html">JP</a></li>
-            <li><a href="fabio-dashboard.html">Fabio</a></li>
-            <li><a href="kaua-dashboard.html">Kauâ</a></li>
-            <li><a href="faria-dashboard.html">Gabriel</a></li>
-          </div>
-        </ul>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MOBANKING</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="shortcut icon" href="../../imagens/logo.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="../../css/estilizacao-individual/faria.css" />
+  <link rel="stylesheet" href="../../css/reset.css" />
+  <link rel="stylesheet" href="../../css/default.css" />
+  <link rel="stylesheet" href="../../css/cardConfirmacao.css" />
+  <link rel="stylesheet" href="../../css/mensagemCard.css" />
+  <!-- <link rel="stylesheet" href=" link do novo css "> -->
+  <!-- scripts do Chart.js - 2022-1 -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
 
-        <div class="name-menu">
-          <a href="../usuarioInfo.html">
-            <h2 id="nome_perfil_menu"></h2>
+<body onload="plotarGrafico()">
+  <div class="frame-aplicacao" style="display: flex">
+    <nav class="menu-lateral" onmouseenter="exibirMenu()" onmouseleave="ocultarMenu()">
+      <img src="../../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
+
+      <ul id="menuLateralBox">
+
+        <li class="dashboard-item">
+          <a href="javascript:void(0);" onclick="toggleSubmenuServidores()">
+            <span class="icon-menu"><i class="fa-solid fa-server"></i></span>
+            <span class="titulo-link-menu">Servidores </span> <i class="fa-solid setaMenuServidores fa-sort-down"></i>
           </a>
+        </li>
+
+        <div class="submenuServidores" onmouseenter="manterSubmenu()" onmouseleave="fecharSubmenu()">
+          <li><a href="../card.html">Máquinas</a></li>
+          <li><a href="../dashboard-individual/maikon-dashboard.html">Status hardware</a></li>
+          <li><a href="../dashboard-individual/joao-dashboard.html">Previsão de Alertas</a></li>
         </div>
 
-        <a class="buttonSair-menu" href="../../index.html">
-          <h2>Sair</h2>
+
+        <li>
+          <a href="../alertas.html" href="javascript:void(0);">
+            <span class="icon-menu"><i class="fa-solid fa-triangle-exclamation"></i></span>
+            <span class="titulo-link-menu">Alertas</span>
+          </a>
+        </li>
+        <li class="dashboard-item">
+          <a href="javascript:void(0);" onclick="toggleSubmenu()">
+            <span class="icon-menu"><i class="fa-solid fa-chart-pie"></i></span>
+            <span class="titulo-link-menu">Dashboard </span> <i class="fa-solid setaMenu fa-sort-down"></i>
+          </a>
+        </li>
+        <div class="submenu" onmouseenter="manterSubmenu()" onmouseleave="fecharSubmenu()">
+          <li><a href="../dashboard-individual/fabio-dashboard.html">Picos de Horário</a></li>
+          <li><a href="../dashboard-individual/kaua-dashboard.html">Alertas mensais</a></li>
+          <li><a href="../dashboard-individual/faria-dashboard.html">Panorama anual</a></li>
+          <li><a href="../dashboard.html">Média de uso</a></li>
+        </div>
+      </ul>
+
+      <div class="name-menu">
+        <a href="../usuarioInfo.html">
+          <h2 id="nome_perfil_menu"></h2>
         </a>
-      </nav>
-      <div class="conteudo">
-        <div class="left">
-          <h1>Panorama anual</h1>
-          <div class="top">
-            <div class="filtros">
-              <span>Filtrar por:</span>
-              <select id="slct_filtro" onchange="plotarGrafico()">
-                <option selected value="1">Picos de uso</option>
-                <option value="2">Média de uso</option>
-                <option value="3">Uso mínimo</option>
-              </select>
-            </div>
-            <a href="faria-dashboard2.html"
-              >Visualizar histórico de atividade</a
-            >
+      </div>
+
+      <a class="buttonSair-menu" href="../../index.html">
+        <h2>Sair</h2>
+      </a>
+    </nav>
+    <div class="conteudo">
+      <div class="left">
+        <h1>Panorama anual</h1>
+        <div class="top">
+          <div class="filtros">
+            <span>Filtrar por:</span>
+            <select id="slct_filtro" onchange="plotarGrafico()">
+              <option selected value="1">Picos de uso</option>
+              <option value="2">Média de uso</option>
+              <option value="3">Uso mínimo</option>
+            </select>
           </div>
-          <div class="bottom">
-            <canvas id="myChartCanvas"></canvas>
-          </div>
+          <a href="faria-dashboard2.html">Visualizar histórico de atividade</a>
         </div>
-        <hr />
-        <div class="rigth">
-          <div class="boxBobIA">
-            <span class="tituloIA">Análise com IA</span>
-            <div class="chatBobIA">
-              <div id="conteiner_conversa" class="conteiner_conversa"></div>
-              <div class="inputs">
-                <form>
-                  <input
-                    id="pergunta"
-                    type="text"
-                    placeholder="Digite a pergunta..."
-                  />
-                  <button type="submit" onclick="gerarResposta()">
-                    <img
-                      src="../../imagens/Faria-individual-setaIA.svg"
-                      alt=""
-                    />
-                  </button>
-                </form>
-              </div>
+        <div class="bottom">
+          <canvas id="myChartCanvas"></canvas>
+        </div>
+      </div>
+      <hr />
+      <div class="rigth">
+        <div class="boxBobIA">
+          <span class="tituloIA">Análise com IA</span>
+          <div class="chatBobIA">
+            <div id="conteiner_conversa" class="conteiner_conversa"></div>
+            <div class="inputs">
+              <form>
+                <input id="pergunta" type="text" placeholder="Digite a pergunta..." />
+                <button type="submit" onclick="gerarResposta()">
+                  <img src="../../imagens/Faria-individual-setaIA.svg" alt="" />
+                </button>
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <div id="cardErroMsg" class="cardMensagem fecharCardMensagem">
-      <svg
-        class="waveErro"
-        viewBox="0 0 1440 320"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M0,256L11.4,240C22.9,224,46,192,69,192C91.4,192,114,224,137,234.7C160,245,183,235,206,213.3C228.6,192,251,160,274,149.3C297.1,139,320,149,343,181.3C365.7,213,389,267,411,282.7C434.3,299,457,277,480,250.7C502.9,224,526,192,549,181.3C571.4,171,594,181,617,208C640,235,663,277,686,256C708.6,235,731,149,754,122.7C777.1,96,800,128,823,165.3C845.7,203,869,245,891,224C914.3,203,937,117,960,112C982.9,107,1006,181,1029,197.3C1051.4,213,1074,171,1097,144C1120,117,1143,107,1166,133.3C1188.6,160,1211,224,1234,218.7C1257.1,213,1280,139,1303,133.3C1325.7,128,1349,192,1371,192C1394.3,192,1417,128,1429,96L1440,64L1440,320L1428.6,320C1417.1,320,1394,320,1371,320C1348.6,320,1326,320,1303,320C1280,320,1257,320,1234,320C1211.4,320,1189,320,1166,320C1142.9,320,1120,320,1097,320C1074.3,320,1051,320,1029,320C1005.7,320,983,320,960,320C937.1,320,914,320,891,320C868.6,320,846,320,823,320C800,320,777,320,754,320C731.4,320,709,320,686,320C662.9,320,640,320,617,320C594.3,320,571,320,549,320C525.7,320,503,320,480,320C457.1,320,434,320,411,320C388.6,320,366,320,343,320C320,320,297,320,274,320C251.4,320,229,320,206,320C182.9,320,160,320,137,320C114.3,320,91,320,69,320C45.7,320,23,320,11,320L0,320Z"
-          fill-opacity="1"
-        ></path>
-      </svg>
+  <div id="cardErroMsg" class="cardMensagem fecharCardMensagem">
+    <svg class="waveErro" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M0,256L11.4,240C22.9,224,46,192,69,192C91.4,192,114,224,137,234.7C160,245,183,235,206,213.3C228.6,192,251,160,274,149.3C297.1,139,320,149,343,181.3C365.7,213,389,267,411,282.7C434.3,299,457,277,480,250.7C502.9,224,526,192,549,181.3C571.4,171,594,181,617,208C640,235,663,277,686,256C708.6,235,731,149,754,122.7C777.1,96,800,128,823,165.3C845.7,203,869,245,891,224C914.3,203,937,117,960,112C982.9,107,1006,181,1029,197.3C1051.4,213,1074,171,1097,144C1120,117,1143,107,1166,133.3C1188.6,160,1211,224,1234,218.7C1257.1,213,1280,139,1303,133.3C1325.7,128,1349,192,1371,192C1394.3,192,1417,128,1429,96L1440,64L1440,320L1428.6,320C1417.1,320,1394,320,1371,320C1348.6,320,1326,320,1303,320C1280,320,1257,320,1234,320C1211.4,320,1189,320,1166,320C1142.9,320,1120,320,1097,320C1074.3,320,1051,320,1029,320C1005.7,320,983,320,960,320C937.1,320,914,320,891,320C868.6,320,846,320,823,320C800,320,777,320,754,320C731.4,320,709,320,686,320C662.9,320,640,320,617,320C594.3,320,571,320,549,320C525.7,320,503,320,480,320C457.1,320,434,320,411,320C388.6,320,366,320,343,320C320,320,297,320,274,320C251.4,320,229,320,206,320C182.9,320,160,320,137,320C114.3,320,91,320,69,320C45.7,320,23,320,11,320L0,320Z"
+        fill-opacity="1"></path>
+    </svg>
 
-      <div class="icon-containerErro">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 512 512"
-          stroke-width="0"
-          fill="currentColor"
-          stroke="currentColor"
-          class="iconErro"
-        >
-          <path
-            d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM346.6 165.4c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0L256 222.1l-56.7-56.7c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9L222.1 256l-56.7 56.7c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0L256 289.9l56.7 56.7c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9L289.9 256l56.7-56.7z"
-          ></path>
-        </svg>
-      </div>
-      <div class="message-text-container">
-        <p class="message-textErro" id="descCardErro"></p>
-      </div>
-      <svg
-        onclick="fecharCardErroMensagem()"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 15 15"
-        stroke-width="0"
-        fill="none"
-        stroke="currentColor"
-        class="cross-icon"
-      >
+    <div class="icon-containerErro">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-width="0" fill="currentColor"
+        stroke="currentColor" class="iconErro">
         <path
-          fill="currentColor"
-          d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z"
-          clip-rule="evenodd"
-          fill-rule="evenodd"
-        ></path>
+          d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM346.6 165.4c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0L256 222.1l-56.7-56.7c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9L222.1 256l-56.7 56.7c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0L256 289.9l56.7 56.7c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9L289.9 256l56.7-56.7z">
+        </path>
       </svg>
     </div>
-  </body>
+    <div class="message-text-container">
+      <p class="message-textErro" id="descCardErro"></p>
+    </div>
+    <svg onclick="fecharCardErroMensagem()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15" stroke-width="0"
+      fill="none" stroke="currentColor" class="cross-icon">
+      <path fill="currentColor"
+        d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z"
+        clip-rule="evenodd" fill-rule="evenodd"></path>
+    </svg>
+  </div>
+</body>
+
 </html>
 
 <script>
-  function exibirMenu() {
-    const menuLateral = document.querySelector(".menu-lateral");
-    menuLateral.classList.add("menu-aberto");
-  }
-
-  function ocultarMenu() {
-    const submenu = document.querySelector(".submenu");
-    const seta = document.querySelector(".fa-sort-down");
-
-    // Fecha o submenu e redefine o ícone de seta quando o mouse sai do nav
-    submenu.style.display = "none";
-    seta.classList.remove("girarSeta");
-    submenuAberto = false;
-  }
-
   function toggleSubmenu() {
-    const submenu = document.querySelector(".submenu");
-    const seta = document.querySelector(".fa-sort-down");
+    const submenu = document.querySelector('.submenu');
+    const seta = document.querySelector('.setaMenu');
 
-    submenu.style.display =
-      submenu.style.display === "block" ? "none" : "block";
-    submenuAberto = submenu.style.display === "block";
+    submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+    submenuAberto = submenu.style.display === 'block';
 
     if (submenuAberto) {
       seta.classList.add("girarSeta");
     } else {
       seta.classList.remove("girarSeta");
     }
+  }
+
+  function toggleSubmenuServidores() {
+    const submenu = document.querySelector('.submenuServidores');
+    const setaServidores = document.querySelector('.setaMenuServidores');
+
+    submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+    submenuAberto = submenu.style.display === 'block';
+
+    if (submenuAberto) {
+      setaServidores.classList.add("girarSetaServidores");
+    } else {
+      setaServidores.classList.remove("girarSetaServidores");
+    }
+  }
+
+  function exibirMenu() {
+    const menuLateral = document.querySelector('.menu-lateral');
+    menuLateral.classList.add('menu-aberto');
+  }
+
+  function ocultarMenu() {
+    const submenu = document.querySelector('.submenu');
+    const submenuServidores = document.querySelector('.submenuServidores');
+    const seta = document.querySelector('.setaMenu');
+    const setaServidores = document.querySelector('.setaMenuServidores');
+
+    // Fecha o submenu e redefine o ícone de seta quando o mouse sai do nav
+    submenu.style.display = 'none';
+    submenuServidores.style.display = 'none';
+    seta.classList.remove("girarSeta");
+    setaServidores.classList.remove("girarSetaServidores");
+    submenuAberto = false;
+    submenuServidoresAberto = false;
   }
 
   function plotarGrafico() {
