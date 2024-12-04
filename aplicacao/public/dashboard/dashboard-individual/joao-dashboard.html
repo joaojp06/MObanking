@@ -21,6 +21,7 @@
 </head>
 
 <body onload="listarPrevisoes() ,atualizarKpi()">
+
   <div id="frame" class="frame-aplicacao" style="display: flex">
     <nav class="menu-lateral" onmouseenter="exibirMenu()" onmouseleave="ocultarMenu()">
       <img src="../../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
@@ -217,6 +218,9 @@
 </html>
 
 <script>
+
+  setInterval(listarPrevisoes, 5000);
+  setInterval(atualizarKpi, 5000);
 
   nome_perfil_menu.innerHTML = sessionStorage.NOME_USUARIO
   let idEmpresa = sessionStorage.ID_EMPRESA;
@@ -535,7 +539,7 @@
     listarVermelho()
   }
 
-  setInterval(atualizarKpi, 5000);
+
 
 
   function listarServidores() {
@@ -592,6 +596,7 @@
 
   // Função que atualiza a listagem de previsões
   function listarPrevisoes() {
+    console.log("FUNÇÃO LISTAR PREVISÕES CHAMADA")
     const container = listagemServidores; // Referência ao container onde os servidores serão listados
     const servidoresExistentes = container.querySelectorAll(".card"); // Seleciona os cards já existentes
 
@@ -685,7 +690,7 @@
   }
 
   // Inicia a execução da função listarPrevisoes a cada 5 segundos
-  setInterval(listarPrevisoes, 5000);
+
 
 
 
