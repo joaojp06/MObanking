@@ -191,7 +191,12 @@
   //let idServidorPar
 
   function pesquisarServidores() {
-    listagemServidores.innerHTML = ""
+    listagemServidores.innerHTML = `<div class="indiceServs">
+        <h2>Função</h2>
+        <h2>Apelido</h2>
+        <h2>Alertas</h2>
+        <h2>Status</h2>
+      </div>`
     var mes = document.getElementById('selectMesServi').value;
     fetch(`/kaua/listarServidores/${idEmpresa}/${mes}`, {
       method: "GET",
@@ -199,7 +204,12 @@
       .then(function (resposta) {
         if (resposta.status == 204) {
 
-          listagemServidores.innerHTML = "Nenhum resultado encontrado."
+          listagemServidores.innerHTML = `<div class="indiceServs">
+        <h2>Função</h2>
+        <h2>Apelido</h2>
+        <h2>Alertas</h2>
+        <h2>Status</h2>
+      </div>`
 
           throw "Nenhum resultado encontrado!!";
         }
@@ -210,6 +220,7 @@
 
             if (registro.qtdAlertas <= 2) {
               listagemServidores.innerHTML +=
+
                 `<div class="divServ" onclick="abrirModal(${registro.id})">
                                     <h2>${registro.Funcao}</h2>
                                     <h2>${registro.Apelido}</h2>
