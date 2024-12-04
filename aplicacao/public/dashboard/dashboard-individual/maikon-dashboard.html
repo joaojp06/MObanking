@@ -24,21 +24,26 @@
     <div id="frame" class="frame-aplicacao" style="display: flex;">
         <nav class="menu-lateral" onmouseenter="exibirMenu()" onmouseleave="ocultarMenu()">
             <img src="../../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
+
             <ul id="menuLateralBox">
-                <li>
-                    <a href="../card.html">
+
+                <li class="dashboard-item">
+                    <a href="javascript:void(0);" onclick="toggleSubmenuServidores()">
                         <span class="icon-menu"><i class="fa-solid fa-server"></i></span>
-                        <span class="titulo-link-menu">Máquinas</span>
+                        <span class="titulo-link-menu">Servidores </span> <i
+                            class="fa-solid setaMenuServidores fa-sort-down"></i>
                     </a>
                 </li>
+
+                <div class="submenuServidores" onmouseenter="manterSubmenu()" onmouseleave="fecharSubmenu()">
+                    <li><a href="../card.html">Máquinas</a></li>
+                    <li><a href="../dashboard-individual/maikon-dashboard.html">Status hardware</a></li>
+                    <li><a href="../dashboard-individual/joao-dashboard.html">Previsão de Alertas</a></li>
+                </div>
+
+
                 <li>
-                    <a href="../dashboard.html">
-                        <span class="icon-menu"><i class="fa-solid fa-chart-simple"></i></span>
-                        <span class="titulo-link-menu">Gráficos</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="../alertas.html">
+                    <a href="../alertas.html" href="javascript:void(0);">
                         <span class="icon-menu"><i class="fa-solid fa-triangle-exclamation"></i></span>
                         <span class="titulo-link-menu">Alertas</span>
                     </a>
@@ -50,11 +55,10 @@
                     </a>
                 </li>
                 <div class="submenu" onmouseenter="manterSubmenu()" onmouseleave="fecharSubmenu()">
-                    <li><a href="maikon-dashboard.html">Maikon</a></li>
-                    <li><a href="joao-dashboard.html">JP</a></li>
-                    <li><a href="fabio-dashboard.html">Fabio</a></li>
-                    <li><a href="kaua-dashboard.html">Kauâ</a></li>
-                    <li><a href="faria-dashboard.html">Gabriel</a></li>
+                    <li><a href="../dashboard-individual/fabio-dashboard.html">Picos de Horário</a></li>
+                    <li><a href="../dashboard-individual/kaua-dashboard.html">Alertas mensais</a></li>
+                    <li><a href="../dashboard-individual/faria-dashboard.html">Panorama anual</a></li>
+                    <li><a href="../dashboard.html">Média de uso</a></li>
                 </div>
             </ul>
 
@@ -269,36 +273,53 @@
 </html>
 
 <script>
-    let submenuAberto = false;
-
     function toggleSubmenu() {
-        const submenu = document.querySelector('.submenu');
-        const seta = document.querySelector('.fa-sort-down');
+    const submenu = document.querySelector('.submenu');
+    const seta = document.querySelector('.setaMenu');
 
-        submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
-        submenuAberto = submenu.style.display === 'block';
+    submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+    submenuAberto = submenu.style.display === 'block';
 
-        if (submenuAberto) {
-            seta.classList.add("girarSeta");
-        } else {
-            seta.classList.remove("girarSeta");
-        }
+    if (submenuAberto) {
+      seta.classList.add("girarSeta");
+    } else {
+      seta.classList.remove("girarSeta");
     }
+  }
 
-    function exibirMenu() {
-        const menuLateral = document.querySelector('.menu-lateral');
-        menuLateral.classList.add('menu-aberto');
+  function toggleSubmenuServidores() {
+    const submenu = document.querySelector('.submenuServidores');
+    const setaServidores = document.querySelector('.setaMenuServidores');
+
+    submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+    submenuAberto = submenu.style.display === 'block';
+
+    if (submenuAberto) {
+      setaServidores.classList.add("girarSetaServidores");
+    } else {
+      setaServidores.classList.remove("girarSetaServidores");
     }
+  }
 
-    function ocultarMenu() {
-        const submenu = document.querySelector('.submenu');
-        const seta = document.querySelector('.fa-sort-down');
+  function exibirMenu() {
+    const menuLateral = document.querySelector('.menu-lateral');
+    menuLateral.classList.add('menu-aberto');
+  }
 
-        // Fecha o submenu e redefine o ícone de seta quando o mouse sai do nav
-        submenu.style.display = 'none';
-        seta.classList.remove("girarSeta");
-        submenuAberto = false;
-    }
+  function ocultarMenu() {
+    const submenu = document.querySelector('.submenu');
+    const submenuServidores = document.querySelector('.submenuServidores');
+    const seta = document.querySelector('.setaMenu');
+    const setaServidores = document.querySelector('.setaMenuServidores');
+
+    // Fecha o submenu e redefine o ícone de seta quando o mouse sai do nav
+    submenu.style.display = 'none';
+    submenuServidores.style.display = 'none';
+    seta.classList.remove("girarSeta");
+    setaServidores.classList.remove("girarSetaServidores");
+    submenuAberto = false;
+    submenuServidoresAberto = false;
+  }
 
     const menuLaterealHTML = document.getElementById('menuLateralBox')
     var sessTipoUsuario = sessionStorage.ID_TIPO_USUARIO
@@ -445,18 +466,18 @@
                         descCpuDemanda_box.innerHTML = `
                     <p>Nova Cpu: ${newDadosComConfCpu[0].toFixed(2)}gb</p>
                     `
-                    if((probabilidadeOcioso * 100) < 0){
-                        txtConfiabilidade.innerHTML = `
+                        if ((probabilidadeOcioso * 100) < 0) {
+                            txtConfiabilidade.innerHTML = `
                     O servidor ${servidor.apelido} tem pouco dados registrado no banco, com isso, taxa de confiabilidade está desalinhada com o normal, aguarde pelo menos uma semana para
                         obter uma taxa precisa
                     `
-                    }else{
+                        } else {
 
-                        txtConfiabilidade.innerHTML = `
+                            txtConfiabilidade.innerHTML = `
                         Chance do servidor ${servidor.apelido} voltar a ficar ocioso após aplicada a sugestão é de ${(probabilidadeOcioso).toFixed(2)}%
                         baseada no desvio padrão e média
                         `
-                    }
+                        }
 
                     } else if (statusCpuTipo == 1) {
                         var confOcioso = calculoConfiabilidadeOcioso(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.capacidade_total_cpu, servidor.maior_valor_cpu_ultimo_mes)
@@ -466,18 +487,18 @@
                     <p>Nova Cpu: ${newDadosComConfCpu[0].toFixed(2)}gb</p>
                     `
 
-                    if((probabilidadeOcioso * 100) < 0){
-                        txtConfiabilidade.innerHTML = `
+                        if ((probabilidadeOcioso * 100) < 0) {
+                            txtConfiabilidade.innerHTML = `
                     O servidor ${servidor.apelido} tem pouco dados registrado no banco, com isso, taxa de confiabilidade está desalinhada com o normal, aguarde pelo menos uma semana para
                         obter uma taxa precisa
                     `
-                    }else{
+                        } else {
 
-                        txtConfiabilidade.innerHTML = `
+                            txtConfiabilidade.innerHTML = `
                         Chance do servidor ${servidor.apelido} voltar a ficar ocioso após aplicada a sugestão é de ${(probabilidadeOcioso[0] * 100).toFixed(2)}%
                         baseada no desvio padrão e média
                         `
-                    }
+                        }
 
                     } else if (statusRamTipo == 1) {
                         var confOcioso = calculoConfiabilidadeOcioso(servidor.media_valor_cpu, servidor.desvio_padrao_cpu, servidor.capacidade_total_cpu, servidor.maior_valor_cpu_ultimo_mes)
@@ -487,21 +508,21 @@
                     <p>Nova Ram: ${newDadosComConfRam[0].toFixed(2)}gb</p>
                     `
 
-                    if((probabilidadeOcioso * 100) < 0){
-                        txtConfiabilidade.innerHTML = `
+                        if ((probabilidadeOcioso * 100) < 0) {
+                            txtConfiabilidade.innerHTML = `
                     O servidor ${servidor.apelido} tem pouco dados registrado no banco, com isso, taxa de confiabilidade está desalinhada com o normal, aguarde pelo menos uma semana para
                         obter uma taxa precisa
                     `
-                    }else{
+                        } else {
 
-                        txtConfiabilidade.innerHTML = `
+                            txtConfiabilidade.innerHTML = `
                         Chance do servidor ${servidor.apelido} voltar a ficar ocioso após aplicada a sugestão é de ${(probabilidadeOcioso[0] * 100).toFixed(2)}%
                         baseada no desvio padrão e média
                         `
-                    }
+                        }
                     }
 
-                    
+
                 }
 
                 if (servidor.statusCpu === "sobrecarga" || servidor.statusRam === "sobrecarga") {

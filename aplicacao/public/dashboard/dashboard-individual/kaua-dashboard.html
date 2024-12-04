@@ -2,174 +2,831 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOBANKING</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="shortcut icon" href="../../imagens/logo.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../../css/estilizacao-individual/kaua.css" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MOBANKING</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="shortcut icon" href="../../imagens/logo.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../css/estilizacao-individual/kaua.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
-    <div id="frame" class="frame-aplicacao" style="display: flex;">
-        <nav class="menu-lateral" onmouseenter="exibirMenu()" onmouseleave="ocultarMenu()">
-            <img src="../../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
-            <ul id="menuLateralBox">
-                <li>
-                    <a href="../card.html">
-                        <span class="icon-menu"><i class="fa-solid fa-server"></i></span>
-                        <span class="titulo-link-menu">Máquinas</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="../dashboard.html">
-                        <span class="icon-menu"><i class="fa-solid fa-chart-simple"></i></span>
-                        <span class="titulo-link-menu">Gráficos</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="../alertas.html">
-                        <span class="icon-menu"><i class="fa-solid fa-triangle-exclamation"></i></span>
-                        <span class="titulo-link-menu">Alertas</span>
-                    </a>
-                </li>
-                <li class="dashboard-item">
-                    <a href="javascript:void(0);" onclick="toggleSubmenu()">
-                        <span class="icon-menu"><i class="fa-solid fa-chart-pie"></i></span>
-                        <span class="titulo-link-menu">Dashboard</span>
-                        <i class="fa-solid setaMenu fa-sort-down"></i>
-                    </a>
-                    <ul class="submenu" onmouseenter="manterSubmenu()" onmouseleave="fecharSubmenu()">
-                        <li><a href="dashboard-individual/maikon-dashboard.html">Maikon</a></li>
-                        <li><a href="dashboard-individual/joao-dashboard.html">JP</a></li>
-                        <li><a href="dashboard-individual/fabio-dashboard.html">Fabio</a></li>
-                        <li><a href="dashboard-individual/kaua-dashboard.html">Kauâ</a></li>
-                        <li><a href="dashboard-individual/faria-dashboard.html">Gabriel</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <div class="name-menu">
-                <a href="../usuarioInfo.html">
-                    <h2 id="nome_perfil_menu"></h2>
-                </a>
-            </div>
-            <a class="buttonSair-menu" href="../../index.html">
-                <h2>Sair</h2>
-            </a>
-        </nav>
-    </div>
-    <div class="father-listagem-servidores">
-        <div class="divFiltro">
-            <img src="../../imagens/iconCallendary.png" alt="">
-            <select id="selectMesServi" class="selectMesServ">
-                <option value="1">Janeiro</option>
-                <option value="2">Fevereiro</option>
-                <option value="3">Março</option>
-                <option value="4">Abril</option>
-                <option value="5">Maio</option>
-                <option value="6">Junho</option>
-                <option value="7">Julho</option>
-                <option value="8">Agosto</option>
-                <option value="9">Setembro</option>
-                <option value="10">Outubro</option>
-                <option value="11">Novembro</option>
-                <option value="12">Dezembro</option>
-            </select>
-            <button class="botaoSelecao" onclick="pesquisarServidores()">Selecionar</button>
+  <div id="frame" class="frame-aplicacao" style="display: flex;">
+    <nav class="menu-lateral" onmouseenter="exibirMenu()" onmouseleave="ocultarMenu()">
+      <img src="../../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
+
+      <ul id="menuLateralBox">
+
+        <li class="dashboard-item">
+          <a href="javascript:void(0);" onclick="toggleSubmenuServidores()">
+            <span class="icon-menu"><i class="fa-solid fa-server"></i></span>
+            <span class="titulo-link-menu">Servidores </span> <i class="fa-solid setaMenuServidores fa-sort-down"></i>
+          </a>
+        </li>
+
+        <div class="submenuServidores" onmouseenter="manterSubmenu()" onmouseleave="fecharSubmenu()">
+          <li><a href="../card.html">Máquinas</a></li>
+          <li><a href="../dashboard-individual/maikon-dashboard.html">Status hardware</a></li>
+          <li><a href="../dashboard-individual/joao-dashboard.html">Previsão de Alertas</a></li>
         </div>
-        <div id="listagemServidores" class="card-list-servers">
-            <div class="indiceServs">
-                <h2>Função</h2>
-                <h2>Apelido</h2>
-                <h2>Alertas</h2>
-                <h2>Status</h2>
-            </div>`
+
+
+        <li>
+          <a href="../alertas.html" href="javascript:void(0);">
+            <span class="icon-menu"><i class="fa-solid fa-triangle-exclamation"></i></span>
+            <span class="titulo-link-menu">Alertas</span>
+          </a>
+        </li>
+        <li class="dashboard-item">
+          <a href="javascript:void(0);" onclick="toggleSubmenu()">
+            <span class="icon-menu"><i class="fa-solid fa-chart-pie"></i></span>
+            <span class="titulo-link-menu">Dashboard </span> <i class="fa-solid setaMenu fa-sort-down"></i>
+          </a>
+        </li>
+        <div class="submenu" onmouseenter="manterSubmenu()" onmouseleave="fecharSubmenu()">
+          <li><a href="../dashboard-individual/fabio-dashboard.html">Picos de uso de CPU</a></li>
+          <li><a href="../dashboard-individual/kaua-dashboard.html">Alertas Mensais</a></li>
+          <li><a href="../dashboard-individual/faria-dashboard.html">Panorama anual</a></li>
+          <li><a href="../dashboard.html">Média de uso</a></li>
         </div>
+      </ul>
+
+      <div class="name-menu">
+        <a href="../usuarioInfo.html">
+          <h2 id="nome_perfil_menu"></h2>
+        </a>
+      </div>
+
+      <a class="buttonSair-menu" href="../../index.html">
+        <h2>Sair</h2>
+      </a>
+    </nav>
+  </div>
+  <div class="father-listagem-servidores">
+    <div class="divFiltro">
+      <img src="../../imagens/iconCallendary.png" alt="">
+      <select id="selectMesServi" class="selectMesServ">
+        <option value="1">Janeiro</option>
+        <option value="2">Fevereiro</option>
+        <option value="3">Março</option>
+        <option value="4">Abril</option>
+        <option value="5">Maio</option>
+        <option value="6">Junho</option>
+        <option value="7">Julho</option>
+        <option value="8">Agosto</option>
+        <option value="9">Setembro</option>
+        <option value="10">Outubro</option>
+        <option value="11">Novembro</option>
+        <option value="12">Dezembro</option>
+      </select>
+      <button class="botaoSelecao" onclick="pesquisarServidores()">Selecionar</button>
     </div>
+    <div id="listagemServidores" class="card-list-servers">
+      <div class="indiceServs">
+        <h2>Função</h2>
+        <h2>Apelido</h2>
+        <h2>Alertas</h2>
+        <h2>Status</h2>
+      </div>`
+    </div>
+  </div>
+  <div style="display: none" class="modal" id="modal">
+    <i onclick="fecharModal()" id="closeModal" class="fa-solid fa-x"></i>
+
+    <div class="divFiltro">
+      <img src="../../imagens/iconCallendary.png" alt="">
+      <select id="selectMes" class="selectMesServ">
+        <option value="1">Janeiro</option>
+        <option value="2">Fevereiro</option>
+        <option value="3">Março</option>
+        <option value="4">Abril</option>
+        <option value="5">Maio</option>
+        <option value="6">Junho</option>
+        <option value="7">Julho</option>
+        <option value="8">Agosto</option>
+        <option value="9">Setembro</option>
+        <option value="10">Outubro</option>
+        <option value="11">Novembro</option>
+        <option value="12">Dezembro</option>
+      </select>
+      <button class="botaoSelecao" onclick="plotarGraficos()">Selecionar</button>
+    </div>
+
+    <div id="modalGraficos" style="display: grid;" class="modalGraficos">
+      <!-- Essa parte recebe de forma dinâmica(fkPlano) os gráficos que são exibidos em tempo real -->
+    </div>
+  </div>
 
 </body>
 
 <script>
-    let submenuAberto = false;
-    const idEmpresa = sessionStorage.ID_EMPRESA || null;
+  let submenuAberto = false;
 
-    function toggleSubmenu() {
-        const submenu = document.querySelector('.submenu');
-        const seta = document.querySelector('.fa-sort-down');
-        submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
-        submenuAberto = submenu.style.display === 'block';
-        seta.classList.toggle("girarSeta", submenuAberto);
+  const idEmpresa = sessionStorage.ID_EMPRESA || null;
+
+  function toggleSubmenu() {
+    const submenu = document.querySelector('.submenu');
+    const seta = document.querySelector('.setaMenu');
+
+    submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+    submenuAberto = submenu.style.display === 'block';
+
+    if (submenuAberto) {
+      seta.classList.add("girarSeta");
+    } else {
+      seta.classList.remove("girarSeta");
     }
+  }
 
-    function exibirMenu() {
-        document.querySelector('.menu-lateral').classList.add('menu-aberto');
+  function toggleSubmenuServidores() {
+    const submenu = document.querySelector('.submenuServidores');
+    const setaServidores = document.querySelector('.setaMenuServidores');
+
+    submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+    submenuAberto = submenu.style.display === 'block';
+
+    if (submenuAberto) {
+      setaServidores.classList.add("girarSetaServidores");
+    } else {
+      setaServidores.classList.remove("girarSetaServidores");
     }
+  }
 
-    function ocultarMenu() {
-        const submenu = document.querySelector('.submenu');
-        const seta = document.querySelector('.fa-sort-down');
-        submenu.style.display = 'none';
-        seta.classList.remove("girarSeta");
-        submenuAberto = false;
-    }
+  function exibirMenu() {
+    const menuLateral = document.querySelector('.menu-lateral');
+    menuLateral.classList.add('menu-aberto');
+  }
 
-    const menuLateralHTML = document.getElementById('menuLateralBox');
-    if (sessionStorage.ID_TIPO_USUARIO == 1) {
-        menuLateralHTML.innerHTML += `
+  function ocultarMenu() {
+    const submenu = document.querySelector('.submenu');
+    const submenuServidores = document.querySelector('.submenuServidores');
+    const seta = document.querySelector('.setaMenu');
+    const setaServidores = document.querySelector('.setaMenuServidores');
+
+    // Fecha o submenu e redefine o ícone de seta quando o mouse sai do nav
+    submenu.style.display = 'none';
+    submenuServidores.style.display = 'none';
+    seta.classList.remove("girarSeta");
+    setaServidores.classList.remove("girarSetaServidores");
+    submenuAberto = false;
+    submenuServidoresAberto = false;
+  }
+
+  const menuLateralHTML = document.getElementById('menuLateralBox');
+  if (sessionStorage.ID_TIPO_USUARIO == 1) {
+    menuLateralHTML.innerHTML += `
             <li>
                 <a href="funcionarios.html">
                     <span class="icon-menu"><i class="fa-solid fa-user"></i></span>
                     <span class="titulo-link-menu">Funcionários</span>
                 </a>
             </li>`;
-    }
+  }
 
-    document.getElementById('nome_perfil_menu').innerHTML = sessionStorage.NOME_USUARIO || "Usuário";
+  document.getElementById('nome_perfil_menu').innerHTML = sessionStorage.NOME_USUARIO || "Usuário";
 
-    
-    function pesquisarServidores() {
-        
-        var mes = document.getElementById('selectMesServi').value;
-        fetch(`/kaua/listarServidores/${idEmpresa}/${mes}`, {
-            method: "GET",
-        })
-            .then(function (resposta) {
-                if (resposta.status == 204) {
+  //let idServidorPar
 
-                    listagemServidores.innerHTML = "Nenhum resultado encontrado."
+  function pesquisarServidores() {
+    listagemServidores.innerHTML = ""
+    var mes = document.getElementById('selectMesServi').value;
+    fetch(`/kaua/listarServidores/${idEmpresa}/${mes}`, {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        if (resposta.status == 204) {
 
-                    throw "Nenhum resultado encontrado!!";
-                }
-                resposta.json().then((servidores) => {
-                    console.log(servidores); // Log da resposta da API com os dados do banco
-                    console.log("idEmpresa:", idEmpresa, "mes:", mes); 
-                    servidores.forEach((registro) => {
+          listagemServidores.innerHTML = "Nenhum resultado encontrado."
 
-                        if (registro.qtdAlertas <= 2) {
-                            listagemServidores.innerHTML +=
-                                `<div class="divServ">
+          throw "Nenhum resultado encontrado!!";
+        }
+        resposta.json().then((servidores) => {
+          console.log(servidores); // Log da resposta da API com os dados do banco
+          console.log("idEmpresa:", idEmpresa, "mes:", mes);
+          servidores.forEach((registro) => {
+
+            if (registro.qtdAlertas <= 2) {
+              listagemServidores.innerHTML +=
+                `<div class="divServ" onclick="abrirModal(${registro.id})">
                                     <h2>${registro.Funcao}</h2>
                                     <h2>${registro.Apelido}</h2>
                                     <h2>${registro.qtdAlertas}</h2>
                                     <img src="../../imagens/statusGreen.png" alt="statusGreen" class="statusColor">
                                 </div>`;
-                        } else {
-                            listagemServidores.innerHTML +=
-                                `<div class="divServ">
+            } else {
+              listagemServidores.innerHTML +=
+                `<div class="divServ" onclick="abrirModal(${registro.id})">
                                     <h2>${registro.Funcao}</h2>
                                     <h2>${registro.Apelido}</h2>
                                     <h2>${registro.qtdAlertas}</h2>
                                     <img src="../../imagens/statusRed.png" alt="statusRed" class="statusColor">
                                 </div>`;
-                        }
+            }
 
-                    });
-                })
-            })
+          });
+        })
+      })
+  }
+
+
+
+  function abrirModal(idServidor) {
+    idServidorPar = idServidor
+    console.log(`${idServidor} SASASASAA`)
+    // modal.display = "block"
+    modal.style.display = "block";
+    const frame = document.getElementById("frame");
+    frame.classList.add("blur-grid");
+
+    if (sessionStorage.ID_PLANO == 1) {
+      modalGraficos.innerHTML = `
+    <div class="grafico-box">
+    <h2>Uso CPU </h2>
+    <canvas id="graficoCPU-box"></canvas>
+  </div>
+  <div class="grafico-box">
+    <h2>Uso RAM </h2>
+    <canvas id="graficoRAM-box"></canvas>
+  </div>
+  
+  `  
+    } else if (sessionStorage.ID_PLANO == 2) {
+      modalGraficos.innerHTML = `
+    <div class="grafico-box">
+        <h2>Uso CPU </h2>
+        <canvas id="graficoCPU-box"></canvas>
+    </div>
+    <div class="grafico-box">
+        <h2>Uso RAM </h2>
+        <canvas id="graficoRAM-box"></canvas>
+    </div>
+    <div class="grafico-box">
+        <h2> Uso - DISCO </h2>
+        <canvas id="graficoDISCO-box"></canvas>
+    </div>
+  `   
+    } else {
+      modalGraficos.innerHTML = `
+    <div class="grafico-box">
+        <h2>Uso CPU </h2>
+        <canvas id="graficoCPU-box"></canvas>
+    </div>
+    <div class="grafico-box">
+        <h2>Uso RAM </h2>
+        <canvas id="graficoRAM-box"></canvas>
+    </div>
+    <div class="grafico-box">
+        <h2> Uso - DISCO </h2>
+        <canvas id="graficoDISCO-box"></canvas>
+    </div>
+    <div class="grafico-box">
+        <h2> Uso - REDE </h2>
+        <canvas id="graficoREDE-box"></canvas>
+    </div>
+  `
     }
+
+  }
+
+  function fecharModal() {
+    modal.style.display = "none";
+    const frame = document.getElementById("frame");
+    frame.classList.remove("blur-grid");
+    pesquisarServidores()
+  }
+
+
+  function obterDadosGraficoCPU() {
+
+    var mes = document.getElementById('selectMes').value;
+
+
+    fetch(`/kaua/obterQtdAlertasCPU/${idServidorPar}/${mes}/${idEmpresa}`, { cache: 'no-store' }).then(function (response) {
+      console.log(response)
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${(resposta)}`);
+          //resposta.reverse();
+
+          plotarGraficoCPU(resposta);
+
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+  }
+
+  function obterDadosGraficoRAM() {
+
+    var mes = document.getElementById('selectMes').value;
+
+
+    fetch(`/kaua/obterQtdAlertasRAM/${idServidorPar}/${mes}/${idEmpresa}`, { cache: 'no-store' }).then(function (response) {
+      console.log(response)
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${(resposta)}`);
+          //resposta.reverse();
+
+          plotarGraficoRAM(resposta);
+
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+  }
+
+  function obterDadosGraficoDISCO() {
+
+    var mes = document.getElementById('selectMes').value;
+
+
+    fetch(`/kaua/obterQtdAlertasDISCO/${idServidorPar}/${mes}/${idEmpresa}`, { cache: 'no-store' }).then(function (response) {
+      console.log(response)
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${(resposta)}`);
+          //resposta.reverse();
+
+          plotarGraficoDISCO(resposta);
+
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+  }
+
+  function obterDadosGraficoREDE() {
+
+    var mes = document.getElementById('selectMes').value;
+
+
+    fetch(`/kaua/obterQtdAlertasREDE/${idServidorPar}/${mes}/${idEmpresa}`, { cache: 'no-store' }).then(function (response) {
+      console.log(response)
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${(resposta)}`);
+          //resposta.reverse();
+
+          plotarGraficoREDE(resposta);
+
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+  }
+
+  let graficoCpuInstance = null;
+  let graficoRamInstance = null;
+  let graficoDiscoInstance = null;
+  let graficoRedeInstance = null;
+
+  function plotarGraficoCPU(resposta) {
+
+    if (graficoCpuInstance) {
+      graficoCpuInstance.destroy();
+      console.log('Gráfico anterior destruído.');
+    }
+
+    console.log('iniciando plotagem do gráfico...');
+
+    // Criando estrutura para plotar gráfico - labels
+    let labelsCpu = [];
+
+    // Criando estrutura para plotar gráfico - dados
+    let dadosCpu = {
+      labels: labelsCpu,
+      datasets: [{
+        label: '',
+        data: [],
+      }],
+
+    };
+
+    console.log('----------------------------------------------')
+    console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+    console.log(resposta)
+
+    // Inserindo valores recebidos em estrutura para plotar o gráfico
+    for (let i = 0; i < resposta.length; i++) {
+      var registro = resposta[i];
+
+      // Adiciona a data formatada no array
+      labelsCpu.push(registro.semana);
+
+      // Adiciona o valor médio
+      dadosCpu.datasets[0].data.push(registro.qtd_alertas);
+    }
+
+
+    console.log('----------------------------------------------')
+    console.log('O gráfico será plotado com os respectivos valores:')
+    console.log('Labels:')
+    console.log('dadosCpu:')
+    console.log(dadosCpu.datasets)
+    console.log('----------------------------------------------')
+
+
+    const graficoCPU = document.getElementById('graficoCPU-box');
+
+    graficoCpuInstance = new Chart(graficoCPU, {
+      type: 'bar',
+      data: {
+        labels: dadosCpu.labels,
+        datasets: [{
+          label: dadosCpu.datasets[0].label,
+          data: dadosCpu.datasets[0].data,
+          borderColor: 'white',
+          backgroundColor: 'rgba(255, 255, 255, 0.5)',
+          fill: true,
+          pointBackgroundColor: 'white',
+          pointBorderColor: 'white',
+          pointRadius: 5,
+          tension: 0.1
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            grid: {
+              display: false // Remove a grade vertical
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo X
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          },
+          y: {
+            grid: {
+              display: false // Remove a grade horizontal
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo Y
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false // Remove a legenda
+          }
+        },
+        elements: {
+          line: {
+            tension: 0.4 // Deixa as linhas mais suaves
+          }
+        }
+      }
+    });
+  }
+
+  function plotarGraficoRAM(resposta) {
+
+    if (graficoRamInstance) {
+      graficoRamInstance.destroy();
+      console.log('Gráfico anterior destruído.');
+    }
+
+    console.log('iniciando plotagem do gráfico...');
+
+    // Criando estrutura para plotar gráfico - labels
+    let labelsRam = [];
+
+    // Criando estrutura para plotar gráfico - dados
+    let dadosRam = {
+      labels: labelsRam,
+      datasets: [{
+        label: '',
+        data: [],
+      }],
+
+    };
+
+    console.log('----------------------------------------------')
+    console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+    console.log(resposta)
+
+    // Inserindo valores recebidos em estrutura para plotar o gráfico
+    for (let i = 0; i < resposta.length; i++) {
+      var registro = resposta[i];
+
+      // Adiciona a data formatada no array
+      labelsRam.push(registro.semana);
+
+      // Adiciona o valor médio
+      dadosRam.datasets[0].data.push(registro.qtd_alertas);
+    }
+
+
+    console.log('----------------------------------------------')
+    console.log('O gráfico será plotado com os respectivos valores:')
+    console.log('Labels:')
+    console.log('dadosCpu:')
+    console.log(dadosRam.datasets)
+    console.log('----------------------------------------------')
+
+
+    const graficoRAM = document.getElementById('graficoRAM-box');
+
+    graficoRamInstance = new Chart(graficoRAM, {
+      type: 'bar',
+      data: {
+        labels: dadosRam.labels,
+        datasets: [{
+          label: dadosRam.datasets[0].label,
+          data: dadosRam.datasets[0].data,
+          borderColor: 'white',
+          backgroundColor: 'rgba(255, 255, 255, 0.5)',
+          fill: true,
+          pointBackgroundColor: 'white',
+          pointBorderColor: 'white',
+          pointRadius: 5,
+          tension: 0.1
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            grid: {
+              display: false // Remove a grade vertical
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo X
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          },
+          y: {
+            grid: {
+              display: false // Remove a grade horizontal
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo Y
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false // Remove a legenda
+          }
+        },
+        elements: {
+          line: {
+            tension: 0.4 // Deixa as linhas mais suaves
+          }
+        }
+      }
+    });
+  }
+
+  function plotarGraficoDISCO(resposta) {
+
+    if (graficoDiscoInstance) {
+      graficoDiscoInstance.destroy();
+      console.log('Gráfico anterior destruído.');
+    }
+
+    console.log('iniciando plotagem do gráfico...');
+
+    // Criando estrutura para plotar gráfico - labels
+    let labelsDisco = [];
+
+    // Criando estrutura para plotar gráfico - dados
+    let dadosDisco = {
+      labels: labelsDisco,
+      datasets: [{
+        label: '',
+        data: [],
+      }],
+
+    };
+
+    console.log('----------------------------------------------')
+    console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+    console.log(resposta)
+
+    // Inserindo valores recebidos em estrutura para plotar o gráfico
+    for (let i = 0; i < resposta.length; i++) {
+      var registro = resposta[i];
+
+      // Adiciona a data formatada no array
+      labelsDisco.push(registro.semana);
+
+      // Adiciona o valor médio
+      dadosDisco.datasets[0].data.push(registro.qtd_alertas);
+    }
+
+
+    console.log('----------------------------------------------')
+    console.log('O gráfico será plotado com os respectivos valores:')
+    console.log('Labels:')
+    console.log('dadosDISCO:')
+    console.log(dadosDisco.datasets)
+    console.log('----------------------------------------------')
+
+
+    const graficoDISCO = document.getElementById('graficoDISCO-box');
+
+    graficoDiscoInstance = new Chart(graficoDISCO, {
+      type: 'bar',
+      data: {
+        labels: dadosDisco.labels,
+        datasets: [{
+          label: dadosDisco.datasets[0].label,
+          data: dadosDisco.datasets[0].data,
+          borderColor: 'white',
+          backgroundColor: 'rgba(255, 255, 255, 0.5)',
+          fill: true,
+          pointBackgroundColor: 'white',
+          pointBorderColor: 'white',
+          pointRadius: 5,
+          tension: 0.1
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            grid: {
+              display: false // Remove a grade vertical
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo X
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          },
+          y: {
+            grid: {
+              display: false // Remove a grade horizontal
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo Y
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false // Remove a legenda
+          }
+        },
+        elements: {
+          line: {
+            tension: 0.4 // Deixa as linhas mais suaves
+          }
+        }
+      }
+    });
+  }
+
+  function plotarGraficoREDE(resposta) {
+
+    if (graficoRedeInstance) {
+      graficoRedeInstance.destroy();
+      console.log('Gráfico anterior destruído.');
+    }
+
+    console.log('iniciando plotagem do gráfico...');
+
+    // Criando estrutura para plotar gráfico - labels
+    let labelsRede = [];
+
+    // Criando estrutura para plotar gráfico - dados
+    let dadosRede = {
+      labels: labelsRede,
+      datasets: [{
+        label: '',
+        data: [],
+      }],
+
+    };
+
+    console.log('----------------------------------------------')
+    console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+    console.log(resposta)
+
+    // Inserindo valores recebidos em estrutura para plotar o gráfico
+    for (let i = 0; i < resposta.length; i++) {
+      var registro = resposta[i];
+
+      // Adiciona a data formatada no array
+      labelsRede.push(registro.semana);
+
+      // Adiciona o valor médio
+      dadosRede.datasets[0].data.push(registro.qtd_alertas);
+    }
+
+
+    console.log('----------------------------------------------')
+    console.log('O gráfico será plotado com os respectivos valores:')
+    console.log('Labels:')
+    console.log('dadosCpu:')
+    console.log(dadosRede.datasets)
+    console.log('----------------------------------------------')
+
+
+    const graficoREDE = document.getElementById('graficoREDE-box');
+
+    graficoRedeInstance = new Chart(graficoREDE, {
+      type: 'bar',
+      data: {
+        labels: dadosRede.labels,
+        datasets: [{
+          label: dadosRede.datasets[0].label,
+          data: dadosRede.datasets[0].data,
+          borderColor: 'white',
+          backgroundColor: 'rgba(255, 255, 255, 0.5)',
+          fill: true,
+          pointBackgroundColor: 'white',
+          pointBorderColor: 'white',
+          pointRadius: 5,
+          tension: 0.1
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            grid: {
+              display: false // Remove a grade vertical
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo X
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          },
+          y: {
+            grid: {
+              display: false // Remove a grade horizontal
+            },
+            ticks: {
+              color: 'white', // Cor dos rótulos do eixo Y
+              font: {
+                size: 16 // Tamanho da fonte das labels no eixo X
+              }
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false // Remove a legenda
+          }
+        },
+        elements: {
+          line: {
+            tension: 0.4 // Deixa as linhas mais suaves
+          }
+        }
+      }
+    });
+  }
+
+  function plotarGraficos() {
+    if(sessionStorage.ID_PLANO == 1) {
+      obterDadosGraficoCPU()
+      obterDadosGraficoRAM()
+    } else if(sessionStorage.ID_PLANO == 2) {
+      obterDadosGraficoCPU()
+      obterDadosGraficoRAM()
+      obterDadosGraficoDISCO()
+    } else {
+      obterDadosGraficoCPU()
+      obterDadosGraficoRAM()
+      obterDadosGraficoDISCO()
+      obterDadosGraficoREDE()
+    }
+  }
 </script>
 
 </html>

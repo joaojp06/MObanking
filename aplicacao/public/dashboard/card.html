@@ -1410,30 +1410,45 @@
     });
   }
 
-  function calcularRegressao(data) {
-    const n = data.length;
-    let sumX = 0, sumY = 0, sumXY = 0, sumXX = 0;
 
-    data.forEach(point => {
+
+  
+  function calcularRegressao(data) { // Definindo uma função que recebe um array de pontos de dados (data).
+    
+    const n = data.length; // Obtém o número total de pontos de dados.
+
+    let sumX = 0, sumY = 0, sumXY = 0, sumXX = 0; // Inicializa variáveis para armazenar somatórios necessários ao cálculo.
+    
+    data.forEach(point => { // Percorre por cada ponto no array data.
       listarLimite(idServidorPar)
-      sumX += point.x;
+
+      // Atualiza as somas com as coordenadas x (tempo) e y (valor) do ponto.
+      sumX += point.x; 
       sumY += point.y;
       sumXY += point.x * point.y;
       sumXX += point.x * point.x;
     });
 
+    //Inclinação da linha (coeficiente angular da regressão).
     const slope = (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
+    // Intercepto no eixo Y.
     const intercept = (sumY - slope * sumX) / n;
 
+    //Retorna um objeto contendo a inclinação e o intercepto da linha.
     return { slope, intercept };
   }
+
+
+
 
   let graficoCpuTendenciaInstance = null;
   let graficoRamTendenciaInstance = null;
 
-  // Definindo variáveis GLOBAIS (antes eram recriadas toda vez na função, agora são persistentes)
+  //Variáveis GLOBAIS 
+  //(antes eram recriadas toda vez na função, agora são persistentes)
   let labelsCpu = []; // Guarda os horários no eixo X do gráfico de CPU
   let labelsRam = []; // Guarda os horários no eixo X do gráfico de RAM
+
   let dadosCpu = {
     labels: labelsCpu, // Usa as labels globais
     datasets: [{
@@ -1441,6 +1456,7 @@
       data: [], // Inicialmente vazio, irá armazenar os valores de CPU
     }],
   };
+
   let dadosRam = {
     labels: labelsRam, // Usa as labels globais
     datasets: [{
@@ -1449,8 +1465,7 @@
     }],
   };
 
-  let safePredictedValueRam;
-  let safePredictedValueCpu;
+
 
 
   function plotarGraficoTendenciaUso(resposta) {
@@ -1462,27 +1477,6 @@
     if (graficoRamTendenciaInstance) {
       graficoRamTendenciaInstance.destroy();
     }
-
-    // // Criando estrutura para plotar gráfico - labels
-    // let labelsCpu = [];
-    // let labelsRam = [];
-
-    // // Criando estrutura para plotar gráfico - dados
-    // let dadosCpu = {
-    //   labels: labelsCpu,
-    //   datasets: [{
-    //     label: '',
-    //     data: [],
-    //   }],
-    // };
-
-    // let dadosRam = {
-    //   labels: labelsRam,
-    //   datasets: [{
-    //     label: '',
-    //     data: [],
-    //   }],
-    // };
 
     console.log('----------------------------------------------');
     console.log('Estes dados foram recebidos pela funcao "obterDadosGraficoTendenciaUso" e passados para "plotarGraficoTendenciaUso":');
@@ -1507,7 +1501,9 @@
       }
     }
 
-    // Transformar dados para a regressão linear 
+    // Transformar dados para a regressão linear
+    // Cria arrays de pontos
+    // Usa a função calcularRegressao para obter a linha de tendência.
     const scatterDataRam = dadosRam.datasets[0].data.map((valor, index) => ({ x: index, y: valor }));
     const { slope: slopeRam, intercept: interceptRam } = calcularRegressao(scatterDataRam);
     const scatterDataCpu = dadosCpu.datasets[0].data.map((valor, index) => ({ x: index, y: valor }));
@@ -1532,13 +1528,9 @@
     ultimoHorarioCPU.innerHTML = `Última atualização: ${lastTimeStringCpu}`;
     ultimoHorarioRAM.innerHTML = `Última atualização: ${lastTimeStringRam}`;
 
-
     // Adicionar 5 minutos ao último horário registrado 
-    const nextTimeCpu = new Date(lastTimeCpu.getTime() + 1 * 60000).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-    // labelsCpu.push(nextTimeCpu);
-    const nextTimeRam = new Date(lastTimeRam.getTime() + 1 * 60000).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-    // labelsRam.push(nextTimeRam);
-
+    const nextTimeCpu = new Date(lastTimeCpu.getTime() + 1 * 60000).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' }); // labelsCpu.push(nextTimeCpu);
+    const nextTimeRam = new Date(lastTimeRam.getTime() + 1 * 60000).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' }); // labelsRam.push(nextTimeRam);
     previsaoHorarioCPU.innerHTML = `Previsão para: ${nextTimeCpu}`;
     previsaoHorarioRAM.innerHTML = `Previsão para: ${nextTimeRam}`;
 
@@ -1546,6 +1538,7 @@
     // Cores dinâmicas na linha 802
     const nextXCpu = scatterDataCpu.length;
     const predictedValueCpu = Math.round(slopeCpu * nextXCpu + interceptCpu);
+    //slope = inclinação | intercpto no eixo y | array de pontos
     dadosCpu.datasets[0].data.push
 
     if (predictedValueCpu < 0) {
