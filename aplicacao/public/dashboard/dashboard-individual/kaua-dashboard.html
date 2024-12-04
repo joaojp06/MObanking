@@ -15,6 +15,7 @@
 
 <body>
   <div id="frame" class="frame-aplicacao" style="display: flex;">
+
     <nav class="menu-lateral" onmouseenter="exibirMenu()" onmouseleave="ocultarMenu()">
       <img src="../../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
 
@@ -48,7 +49,7 @@
         </li>
         <div class="submenu" onmouseenter="manterSubmenu()" onmouseleave="fecharSubmenu()">
           <li><a href="../dashboard-individual/fabio-dashboard.html">Picos de Horário</a></li>
-          <li><a href="../dashboard-individual/kaua-dashboard.html">Alertas Mensais</a></li>
+          <li><a href="../dashboard-individual/kaua-dashboard.html">Alertas mensais</li>
           <li><a href="../dashboard-individual/faria-dashboard.html">Panorama anual</a></li>
           <li><a href="../dashboard.html">Média de uso</a></li>
         </div>
@@ -64,59 +65,62 @@
         <h2>Sair</h2>
       </a>
     </nav>
-  </div>
-  <div class="father-listagem-servidores">
-    <div class="divFiltro">
-      <img src="../../imagens/iconCallendary.png" alt="">
-      <select id="selectMesServi" class="selectMesServ">
-        <option value="1">Janeiro</option>
-        <option value="2">Fevereiro</option>
-        <option value="3">Março</option>
-        <option value="4">Abril</option>
-        <option value="5">Maio</option>
-        <option value="6">Junho</option>
-        <option value="7">Julho</option>
-        <option value="8">Agosto</option>
-        <option value="9">Setembro</option>
-        <option value="10">Outubro</option>
-        <option value="11">Novembro</option>
-        <option value="12">Dezembro</option>
-      </select>
-      <button class="botaoSelecao" onclick="pesquisarServidores()">Selecionar</button>
-    </div>
-    <div id="listagemServidores" class="card-list-servers">
-      <div class="indiceServs">
-        <h2>Função</h2>
-        <h2>Apelido</h2>
-        <h2>Alertas</h2>
-        <h2>Status</h2>
-      </div>`
-    </div>
-  </div>
-  <div style="display: none" class="modal" id="modal">
-    <i onclick="fecharModal()" id="closeModal" class="fa-solid fa-x"></i>
 
-    <div class="divFiltro">
-      <img src="../../imagens/iconCallendary.png" alt="">
-      <select id="selectMes" class="selectMesServ">
-        <option value="1">Janeiro</option>
-        <option value="2">Fevereiro</option>
-        <option value="3">Março</option>
-        <option value="4">Abril</option>
-        <option value="5">Maio</option>
-        <option value="6">Junho</option>
-        <option value="7">Julho</option>
-        <option value="8">Agosto</option>
-        <option value="9">Setembro</option>
-        <option value="10">Outubro</option>
-        <option value="11">Novembro</option>
-        <option value="12">Dezembro</option>
-      </select>
-      <button class="botaoSelecao" onclick="plotarGraficos()">Selecionar</button>
-    </div>
+</div>
 
-    <div id="modalGraficos" style="display: grid;" class="modalGraficos">
-      <!-- Essa parte recebe de forma dinâmica(fkPlano) os gráficos que são exibidos em tempo real -->
+    <div class="father-listagem-servidores">
+      <div class="divFiltro">
+        <img src="../../imagens/iconCallendary.png" alt="">
+        <select id="selectMesServi" class="selectMesServ">
+          <option value="1">Janeiro</option>
+          <option value="2">Fevereiro</option>
+          <option value="3">Março</option>
+          <option value="4">Abril</option>
+          <option value="5">Maio</option>
+          <option value="6">Junho</option>
+          <option value="7">Julho</option>
+          <option value="8">Agosto</option>
+          <option value="9">Setembro</option>
+          <option value="10">Outubro</option>
+          <option value="11">Novembro</option>
+          <option value="12">Dezembro</option>
+        </select>
+        <button class="botaoSelecao" onclick="pesquisarServidores()">Selecionar</button>
+      </div>
+      <div id="listagemServidores" class="card-list-servers">
+        <div class="indiceServs">
+          <h2>Função</h2>
+          <h2>Apelido</h2>
+          <h2>Alertas</h2>
+          <h2>Status</h2>
+        </div>`
+      </div>
+    </div>
+    <div style="display: none" class="modal" id="modal">
+      <i onclick="fecharModal()" id="closeModal" class="fa-solid fa-x"></i>
+
+      <div class="divFiltro">
+        <img src="../../imagens/iconCallendary.png" alt="">
+        <select id="selectMes" class="selectMesServ">
+          <option value="1">Janeiro</option>
+          <option value="2">Fevereiro</option>
+          <option value="3">Março</option>
+          <option value="4">Abril</option>
+          <option value="5">Maio</option>
+          <option value="6">Junho</option>
+          <option value="7">Julho</option>
+          <option value="8">Agosto</option>
+          <option value="9">Setembro</option>
+          <option value="10">Outubro</option>
+          <option value="11">Novembro</option>
+          <option value="12">Dezembro</option>
+        </select>
+        <button class="botaoSelecao" onclick="plotarGraficos()">Selecionar</button>
+      </div>
+
+      <div id="modalGraficos" style="display: grid;" class="modalGraficos">
+        <!-- Essa parte recebe de forma dinâmica(fkPlano) os gráficos que são exibidos em tempo real -->
+      </div>
     </div>
   </div>
 
@@ -263,7 +267,7 @@
     <canvas id="graficoRAM-box"></canvas>
   </div>
   
-  `  
+  `
     } else if (sessionStorage.ID_PLANO == 2) {
       modalGraficos.innerHTML = `
     <div class="grafico-box">
@@ -278,7 +282,7 @@
         <h2> Uso - DISCO </h2>
         <canvas id="graficoDISCO-box"></canvas>
     </div>
-  `   
+  `
     } else {
       modalGraficos.innerHTML = `
     <div class="grafico-box">
@@ -824,10 +828,10 @@
   }
 
   function plotarGraficos() {
-    if(sessionStorage.ID_PLANO == 1) {
+    if (sessionStorage.ID_PLANO == 1) {
       obterDadosGraficoCPU()
       obterDadosGraficoRAM()
-    } else if(sessionStorage.ID_PLANO == 2) {
+    } else if (sessionStorage.ID_PLANO == 2) {
       obterDadosGraficoCPU()
       obterDadosGraficoRAM()
       obterDadosGraficoDISCO()

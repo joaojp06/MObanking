@@ -1,232 +1,171 @@
 <!DOCTYPE html>
 <html lang="ptbr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MOBANKING</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link
-      rel="shortcut icon"
-      href="../../imagens/logo.ico"
-      type="image/x-icon"
-    />
-    <link rel="stylesheet" href="../../css/estilizacao-individual/faria2.css" />
-    <link rel="stylesheet" href="../../css/reset.css" />
-    <link rel="stylesheet" href="../../css/default.css" />
-    <link rel="stylesheet" href="../../css/cardConfirmacao.css" />
-    <!-- <link rel="stylesheet" href=" link do novo css "> -->
-    <!-- scripts do Chart.js - 2022-1 -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  </head>
 
-  <body onload="obterIndicadores()">
-    <div class="frame-aplicacao" style="display: flex">
-      <nav
-        class="menu-lateral"
-        onmouseenter="exibirMenu()"
-        onmouseleave="ocultarMenu()"
-      >
-        <img
-          src="../../imagens/mobank-logo-menu-lateral.svg"
-          alt="Logo"
-          class="logo-menu"
-        />
-        <ul id="menuLateralBox">
-          <li>
-            <a href="../card.html">
-              <span class="icon-menu"><i class="fa-solid fa-server"></i></span>
-              <span class="titulo-link-menu">Máquinas</span>
-            </a>
-          </li>
-          <li>
-            <a href="../dashboard.html">
-              <span class="icon-menu"
-                ><i class="fa-solid fa-chart-simple"></i
-              ></span>
-              <span class="titulo-link-menu">Gráficos</span>
-            </a>
-          </li>
-          <li>
-            <a href="../alertas.html">
-              <span class="icon-menu"
-                ><i class="fa-solid fa-triangle-exclamation"></i
-              ></span>
-              <span class="titulo-link-menu">Alertas</span>
-            </a>
-          </li>
-          <li class="dashboard-item">
-            <a href="javascript:void(0);" onclick="toggleSubmenu()">
-              <span class="icon-menu"
-                ><i class="fa-solid fa-chart-pie"></i
-              ></span>
-              <span class="titulo-link-menu">Dashboard </span>
-              <i class="fa-solid setaMenu fa-sort-down"></i>
-            </a>
-          </li>
-          <div
-            class="submenu"
-            onmouseenter="manterSubmenu()"
-            onmouseleave="fecharSubmenu()"
-          >
-            <li>
-              <a href="dashboard-individual/maikon-dashboard.html">Maikon</a>
-            </li>
-            <li><a href="dashboard-individual/joao-dashboard.html">JP</a></li>
-            <li>
-              <a href="dashboard-individual/fabio-dashboard.html">Fabio</a>
-            </li>
-            <li><a href="dashboard-individual/kaua-dashboard.html">Kauâ</a></li>
-            <li>
-              <a href="dashboard-individual/faria-dashboard.html">Gabriel</a>
-            </li>
-          </div>
-        </ul>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MOBANKING</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="shortcut icon" href="../../imagens/logo.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="../../css/estilizacao-individual/faria2.css" />
+  <link rel="stylesheet" href="../../css/reset.css" />
+  <link rel="stylesheet" href="../../css/default.css" />
+  <link rel="stylesheet" href="../../css/cardConfirmacao.css" />
+  <!-- <link rel="stylesheet" href=" link do novo css "> -->
+  <!-- scripts do Chart.js - 2022-1 -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
 
-        <div class="name-menu">
-          <a href="../usuarioInfo.html">
-            <h2 id="nome_perfil_menu"></h2>
+<body onload="obterIndicadores()">
+  <div class="frame-aplicacao" style="display: flex">
+    <nav class="menu-lateral" onmouseenter="exibirMenu()" onmouseleave="ocultarMenu()">
+      <img src="../../imagens/mobank-logo-menu-lateral.svg" alt="Logo" class="logo-menu">
+      <ul id="menuLateralBox">
+
+        <li class="dashboard-item">
+          <a href="javascript:void(0);" onclick="toggleSubmenuServidores()">
+            <span class="icon-menu"><i class="fa-solid fa-server"></i></span>
+            <span class="titulo-link-menu">Servidores </span> <i class="fa-solid setaMenuServidores fa-sort-down"></i>
           </a>
+        </li>
+
+        <div class="submenuServidores" onmouseenter="manterSubmenu()" onmouseleave="fecharSubmenu()">
+          <li><a href="../card.html">Máquinas</a></li>
+          <li><a href="../dashboard-individual/maikon-dashboard.html">Status hardware</a></li>
+          <li><a href="../dashboard-individual/joao-dashboard.html">Previsão de Alertas</a></li>
         </div>
 
-        <a class="buttonSair-menu" href="../../index.html">
-          <h2>Sair</h2>
+
+        <li>
+          <a href="../alertas.html" href="javascript:void(0);">
+            <span class="icon-menu"><i class="fa-solid fa-triangle-exclamation"></i></span>
+            <span class="titulo-link-menu">Alertas</span>
+          </a>
+        </li>
+        <li class="dashboard-item">
+          <a href="javascript:void(0);" onclick="toggleSubmenu()">
+            <span class="icon-menu"><i class="fa-solid fa-chart-pie"></i></span>
+            <span class="titulo-link-menu">Dashboard </span> <i class="fa-solid setaMenu fa-sort-down"></i>
+          </a>
+        </li>
+        <div class="submenu" onmouseenter="manterSubmenu()" onmouseleave="fecharSubmenu()">
+          <li><a href="../dashboard-individual/fabio-dashboard.html">Picos de Horário</a></li>
+          <li><a href="../dashboard-individual/kaua-dashboard.html">Alertas Mensais</a></li>
+          <li><a href="../dashboard-individual/faria-dashboard.html">Panorama anual</a></li>
+          <li><a href="../dashboard.html">Média de uso</a></li>
+        </div>
+      </ul>
+
+      <div class="name-menu">
+        <a href="../usuarioInfo.html">
+          <h2 id="nome_perfil_menu"></h2>
         </a>
-      </nav>
-      <div class="conteudo">
-        <h1>Histórico de atividade</h1>
-        <div class="board">
-          <a href="faria-dashboard.html"
-            ><img src="../../imagens/Faria-individual-seta.svg" alt=""
-          /></a>
-          <div class="top">
-            <div class="info">
-              <h1>
-                <img
-                  src="../../imagens/Faria-Individual-icone_servidor.svg"
-                  alt=""
-                />Servidores
-              </h1>
-              <span>Mais gerou alertas: <span class="retorno" id="serv_mais_alertas"></span></span>
-              <span>Menos gerou alertas: <span class="retorno" id="serv_menos_alertas"></span></span>
-              
+      </div>
+
+      <a class="buttonSair-menu" href="../../index.html">
+        <h2>Sair</h2>
+      </a>
+    </nav>
+    <div class="conteudo">
+      <h1>Histórico de atividade</h1>
+      <div class="board">
+        <a href="faria-dashboard.html"><img src="../../imagens/Faria-individual-seta.svg" alt="" /></a>
+        <div class="top">
+          <div class="info">
+            <h1>
+              <img src="../../imagens/Faria-Individual-icone_servidor.svg" alt="" />Servidores
+            </h1>
+            <span>Mais gerou alertas: <span class="retorno" id="serv_mais_alertas"></span></span>
+            <span>Menos gerou alertas: <span class="retorno" id="serv_menos_alertas"></span></span>
+
+          </div>
+          <hr />
+          <div class="info">
+            <h1>
+              <img src="../../imagens/Faria-Individual-icone_compnentes.svg" alt="" />Componentes
+            </h1>
+            <span>Mais causou alertas: <span class="retorno" id="comp_mais_alertas"></span></span>
+            <span>Menos causou alertas: <span class="retorno" id="comp_menos_alertas"></span></span>
+
+          </div>
+        </div>
+        <hr class="line" />
+        <div class="midle">
+          <div class="title">
+            <h2>Servidores que mais geraram alertas por componente:</h2>
+          </div>
+          <div class="content">
+            <div class="componente">
+              <h2>
+                <img src="../../imagens/Faria-Individual-icone_cpu.svg" alt="" />CPU:
+              </h2>
+              <span class="retorno" id="serv_mais_alertas_cpu"></span>
             </div>
             <hr />
-            <div class="info">
-              <h1>
-                <img
-                  src="../../imagens/Faria-Individual-icone_compnentes.svg"
-                  alt=""
-                />Componentes
-              </h1>
-              <span>Mais causou alertas: <span class="retorno" id="comp_mais_alertas"></span></span>
-              <span>Menos causou alertas: <span class="retorno" id="comp_menos_alertas"></span></span>
-              
+            <div class="componente">
+              <h2>
+                <img src="../../imagens/Faria-Individual-icone_ram.svg" alt="" />RAM:
+              </h2>
+              <span class="retorno" id="serv_mais_alertas_ram"></span>
+            </div>
+            <hr />
+            <div class="componente">
+              <h2>
+                <img src="../../imagens/Faria-Individual-icone_disco.svg" alt="" />Disco:
+              </h2>
+              <span class="retorno" id="serv_mais_alertas_disco"></span>
+            </div>
+            <hr />
+            <div class="componente">
+              <h2>
+                <img src="../../imagens/Faria-Individual-icone_rede.svg" alt="" />Rede:
+              </h2>
+              <span class="retorno" id="serv_mais_alertas_rede"></span>
             </div>
           </div>
-          <hr class="line" />
-          <div class="midle">
-            <div class="title">
-              <h2>Servidores que mais geraram alertas por componente:</h2>
-            </div>
-            <div class="content">
-              <div class="componente">
-                <h2>
-                  <img
-                    src="../../imagens/Faria-Individual-icone_cpu.svg"
-                    alt=""
-                  />CPU:
-                </h2>
-                <span class="retorno" id="serv_mais_alertas_cpu"></span>
-              </div>
-              <hr />
-              <div class="componente">
-                <h2>
-                  <img
-                    src="../../imagens/Faria-Individual-icone_ram.svg"
-                    alt=""
-                  />RAM:
-                </h2>
-                <span class="retorno" id="serv_mais_alertas_ram"></span>
-              </div>
-              <hr />
-              <div class="componente">
-                <h2>
-                  <img
-                    src="../../imagens/Faria-Individual-icone_disco.svg"
-                    alt=""
-                  />Disco:
-                </h2>
-                <span class="retorno" id="serv_mais_alertas_disco"></span>
-              </div>
-              <hr />
-              <div class="componente">
-                <h2>
-                  <img
-                    src="../../imagens/Faria-Individual-icone_rede.svg"
-                    alt=""
-                  />Rede:
-                </h2>
-                <span class="retorno" id="serv_mais_alertas_rede"></span>
-              </div>
-            </div>
+        </div>
+        <hr class="line" />
+        <div class="bottom">
+          <div class="title">
+            <h2>Servidores que menos geraram alertas por componente:</h2>
           </div>
-          <hr class="line" />
-          <div class="bottom">
-            <div class="title">
-              <h2>Servidores que menos geraram alertas por componente:</h2>
+          <div class="content">
+            <div class="componente">
+              <h2>
+                <img src="../../imagens/Faria-Individual-icone_cpu.svg" alt="" />CPU:
+              </h2>
+              <span class="retorno" id="serv_menos_alertas_cpu"></span>
             </div>
-            <div class="content">
-              <div class="componente">
-                <h2>
-                  <img
-                    src="../../imagens/Faria-Individual-icone_cpu.svg"
-                    alt=""
-                  />CPU:
-                </h2>
-                <span class="retorno" id="serv_menos_alertas_cpu"></span>
-              </div>
-              <hr />
-              <div class="componente">
-                <h2>
-                  <img
-                    src="../../imagens/Faria-Individual-icone_ram.svg"
-                    alt=""
-                  />RAM:
-                </h2>
-                <span class="retorno" id="serv_menos_alertas_ram"></span>
-              </div>
-              <hr />
-              <div class="componente">
-                <h2>
-                  <img
-                    src="../../imagens/Faria-Individual-icone_disco.svg"
-                    alt=""
-                  />Disco:
-                </h2>
-                <span class="retorno" id="serv_menos_alertas_disco"></span>
-              </div>
-              <hr />
-              <div class="componente">
-                <h2>
-                  <img
-                    src="../../imagens/Faria-Individual-icone_rede.svg"
-                    alt=""
-                  />Rede:
-                </h2>
-                <span class="retorno" id="serv_menos_alertas_rede"></span>
-              </div>
+            <hr />
+            <div class="componente">
+              <h2>
+                <img src="../../imagens/Faria-Individual-icone_ram.svg" alt="" />RAM:
+              </h2>
+              <span class="retorno" id="serv_menos_alertas_ram"></span>
+            </div>
+            <hr />
+            <div class="componente">
+              <h2>
+                <img src="../../imagens/Faria-Individual-icone_disco.svg" alt="" />Disco:
+              </h2>
+              <span class="retorno" id="serv_menos_alertas_disco"></span>
+            </div>
+            <hr />
+            <div class="componente">
+              <h2>
+                <img src="../../imagens/Faria-Individual-icone_rede.svg" alt="" />Rede:
+              </h2>
+              <span class="retorno" id="serv_menos_alertas_rede"></span>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
 
 <script>
