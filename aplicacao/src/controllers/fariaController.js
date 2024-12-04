@@ -1,4 +1,5 @@
 var fariaModel = require("../models/fariaModel");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 function dadosGrafico(req, res) {
   fariaModel.dadosGrafico().then(function (resultado) {
@@ -29,7 +30,51 @@ function obterIndicadores(req, res) {
   });
 }
 
+function BobIAPerguntar(req, res) {
+    const pergunta = req.body.pergunta;
+
+    gerarResposta(pergunta).then( resposta => {
+        res.status(200).json({ resposta: resposta });
+    }).catch( erro => {
+        res.status(500).json({ status: "Erro", message: "Falha ao gerar resposta", erro: erro.message});
+    });
+
+    async function gerarResposta(perguntaIA) {
+
+        let chaveGemini = null;
+
+        if (!chaveGemini) {
+            console.error(` Tentando obter a chave do .env...`);
+            chaveGemini = process.env.CHAVE_GEMINI;
+        }
+
+        if(chaveGemini) {
+            console.log(`Chave da API do Gemini Obtida com Sucesso... ${chaveGemini}`);
+        }
+
+        // instanciando a classe GoogleGenerativeAI
+        const chatIA = new GoogleGenerativeAI(chaveGemini);
+        // obtendo o modelo de IA
+        const modeloIA = chatIA.getGenerativeModel({ model: "gemini-pro" });
+    
+        try {
+            // gerando conteúdo com base na pergunta
+            const resultado = await modeloIA.generateContent(`${perguntaIA}`);
+            const resposta = await resultado.response.text();
+            
+            console.log('Requisição na API do Gemini feita, resposta: ', resposta);
+    
+            return resposta;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+}
+
 module.exports = {
   dadosGrafico,
-  obterIndicadores
+  obterIndicadores,
+  BobIAPerguntar
 };
