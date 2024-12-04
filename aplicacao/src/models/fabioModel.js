@@ -65,9 +65,9 @@ function KPI1(inicio, fim, idEmpresa) {
     INNER JOIN servico_monitorado sm ON r.fkServidor = sm.fkServidor AND r.fkServico = sm.fkServico
     INNER JOIN servidor s ON sm.fkServidor = s.id
     WHERE r.data BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND CURDATE()
-      AND TIME(r.data) BETWEEN '12:00:00' AND '23:59:59'
+      AND TIME(r.data) BETWEEN '${inicio}:00' AND '${fim}:59'
       AND sm.fkServico = 1
-      AND s.fkEmpresa = 1
+      AND s.fkEmpresa = ${idEmpresa}
     GROUP BY DATE_FORMAT(r.data, '%Y-%m-%d')
     HAVING percentual_acima_85 >= 30
 ),
@@ -79,9 +79,9 @@ dados_filtrados AS (
     INNER JOIN servico_monitorado sm ON r.fkServidor = sm.fkServidor AND r.fkServico = sm.fkServico
     INNER JOIN servidor s ON sm.fkServidor = s.id
     WHERE r.data BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND CURDATE()
-      AND TIME(r.data) BETWEEN '12:00:00' AND '23:59:59'
+      AND TIME(r.data) BETWEEN '${inicio}:00' AND '${fim}:59'
       AND sm.fkServico = 1
-      AND s.fkEmpresa = 1
+      AND s.fkEmpresa = ${idEmpresa}
     GROUP BY DATE_FORMAT(r.data, '%W')
 )
 SELECT 
@@ -121,9 +121,9 @@ function KPI2(inicio, fim, idEmpresa) {
     INNER JOIN servico_monitorado sm ON r.fkServidor = sm.fkServidor AND r.fkServico = sm.fkServico
     INNER JOIN servidor s ON sm.fkServidor = s.id
     WHERE r.data BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND CURDATE()
-      AND TIME(r.data) BETWEEN '12:00:00' AND '23:59:59'
+      AND TIME(r.data) BETWEEN '${inicio}:00' AND '${fim}:59'
       AND sm.fkServico = 1
-      AND s.fkEmpresa = 1
+      AND s.fkEmpresa = ${idEmpresa}
     GROUP BY DATE_FORMAT(r.data, '%Y-%m-%d')
     HAVING percentual_acima_85 >= 30
 ),
@@ -135,9 +135,9 @@ dados_filtrados AS (
     INNER JOIN servico_monitorado sm ON r.fkServidor = sm.fkServidor AND r.fkServico = sm.fkServico
     INNER JOIN servidor s ON sm.fkServidor = s.id
     WHERE r.data BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND CURDATE()
-      AND TIME(r.data) BETWEEN '12:00:00' AND '23:59:59'
+      AND TIME(r.data) BETWEEN '${inicio}:00' AND '${fim}:59'
       AND sm.fkServico = 1
-      AND s.fkEmpresa = 1
+      AND s.fkEmpresa = ${idEmpresa}
     GROUP BY DATE_FORMAT(r.data, '%W')
 )
 SELECT 
